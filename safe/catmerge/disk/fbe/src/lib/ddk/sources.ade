@@ -1,0 +1,17 @@
+$sources{TARGETNAME} = "fbe_ddk";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+    "user32",
+    "simulation",
+    "kernel",
+];
+$sources{UMTYPE} = "console";
+
+$sources{SOURCES} = [
+    "fbe_platform.c",
+    "fbe_multicore_queue.c",
+    "fbe_multicore_spinlock.c",
+];
+

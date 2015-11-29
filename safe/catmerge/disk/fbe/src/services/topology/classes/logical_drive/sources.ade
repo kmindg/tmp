@@ -1,0 +1,11 @@
+$sources{INCLUDES} = [
+    "$sources{SRCDIR}\\..\\base_discovered",
+];
+
+$sources{SUBDIRS} = [
+    "src",
+    "sim",
+    "kernel",
+    "test",
+    "debug",
+];

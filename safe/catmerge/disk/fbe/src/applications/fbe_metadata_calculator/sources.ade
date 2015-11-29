@@ -1,0 +1,18 @@
+$sources{TARGETNAME} = "fbe_metadata_calculator";
+$sources{TARGETTYPE} = "EMCUTIL_PROGRAM";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{CALLING_CONVENTION} = "stdcall";
+$sources{SYSTEMLIBS} = [
+    "winmm.lib",
+    "ws2_32.lib",
+];
+
+$sources{SOURCES} = [
+    "fbe_metadata_calculator_main.c",
+];
+ 

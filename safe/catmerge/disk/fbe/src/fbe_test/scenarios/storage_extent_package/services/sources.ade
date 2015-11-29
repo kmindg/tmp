@@ -1,0 +1,23 @@
+$sources{TARGETNAME} = "fbe_test_scenarios_sep_services";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+
+$sources{SOURCES} = [
+    "ovejita_test.c",
+    "betty_lou_test.c",
+    "batman_test.c",
+    "phineas_and_ferb.c",
+    "scrappydoo_test.c",
+    "kozma_prutkov.c",
+    "danny_din.c",
+    "harry_potter_test.c",
+    "hermione_test.c",
+    "salvador_dali_test.c",
+    "ponyo_test.c",
+    "sailor_moon_test.c",
+];
+

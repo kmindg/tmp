@@ -1,0 +1,299 @@
+If you want to add new FBE API files into the list, then you need to add the .h include into
+the Doxyfile_fbe_api.dox
+
+- Document .h File:
+===================
+
+- File Header:  /*! @ file <file name with .h */
+
+Example:
+/*!**************************************************************************
+ * @file fbe_api_lun_interface.h
+ ***************************************************************************
+ *
+ * @brief
+ *  This header file defines the FBE API for the lun object.
+ * 
+ * @ingroup fbe_api_storage_extent_package_interface_class_files
+ * 
+ * @version
+ *   11/12/2009:  Created. MEV 
+ *
+ ***************************************************************************/
+>>>
+>>> After the #include the below need to go in order:
+>>>
+//----------------------------------------------------------------
+// Define the top level group for the FBE Storage Extent Package APIs
+//----------------------------------------------------------------
+/*! @defgroup fbe_api_storage_extent_package_class FBE Storage Extent Package APIs
+ *  @brief 
+ *    This is the set of definitions for FBE Storage Extent Package APIs.
+ *
+ *  @ingroup fbe_api_storage_extent_package_interface
+ */ 
+//----------------------------------------------------------------
+>>>... Put an extra space here for readability <<<<
+//----------------------------------------------------------------
+// Define the FBE API LUN Interface for the Usurper Interface. 
+// This is where all the data structures defined. 
+//----------------------------------------------------------------
+/*! @defgroup fbe_api_lun_interface_usurper_interface FBE API LUN Interface Usurper Interface
+ *  @brief 
+ *    This is the set of definitions that comprise the FBE API LUN Interface class
+ *    usurper interface.
+ *
+ *  @ingroup fbe_api_classes_usurper_interface
+ *  @{
+ */ 
+//----------------------------------------------------------------
+>>>>>
+>>>>> These are where all the "NAMED CONSTANTS (#defines):", "ENUMERATIONS:", "STRUCT", or "TYPEDEF" 
+>>>>> defined.
+>>>>>
+//-----------------------------------------------------------------------------
+//  NAMED CONSTANTS (#defines):
+//
+.... 
+//-----------------------------------------------------------------------------
+//  ENUMERATIONS:
+
+....
+//-----------------------------------------------------------------------------
+//  TYPEDEFS: 
+...
+>>>  When done with all the data structures, typedef, #define, etc, the below line
+>>>  need to be added, "/*! @} */
+>>>
+/*! @} */ /* end of group fbe_api_lun_interface_usurper_interface */
+
+
+//-----------------------------------------------------------------------------
+//  FUNCTION PROTOTYPES: 
+//
+//----------------------------------------------------------------
+// Define the group for the FBE API LUN Interface.  
+// This is where all the function prototypes for the FBE API LUN.
+//----------------------------------------------------------------
+/*! @defgroup fbe_api_lun_interface FBE API LUN Interface
+ *  @brief 
+ *    This is the set of FBE API LUN Interface. 
+ *
+ *  @details 
+ *    In order to access this library, please include fbe_api_lun_interface.h.
+ *
+ *  @ingroup fbe_api_storage_extent_package_class
+ *  @{
+ */
+//----------------------------------------------------------------
+>>>>
+>>>> Add all function prototypes here
+>>>>
+>>>> Need to add this, "/* @} */ at the last function prototype.  
+>>>>
+/*! @} */ /* end of group fbe_api_lun_interface */
+
+//----------------------------------------------------------------
+// Define the group for all FBE Storage Extent Package APIs Interface class files.  
+// This is where all the class files that belong to the FBE API Storage Extent
+// Package define. In addition, this group is displayed in the FBE Classes
+// module.  
+//
+// NOTE: This is place at the end of the file. 
+//----------------------------------------------------------------
+/*! @defgroup fbe_api_storage_extent_package_interface_class_files FBE Storage Extent Package APIs Interface Class Files 
+ *  @brief 
+ *    This is the set of files for the FBE Storage Extent Package APIs Interface.
+ * 
+ *  @ingroup fbe_api_classes
+ */
+//----------------------------------------------------------------
+
+=============================================================================
+
+- Document .c File:
+===================
+
+- File Header:  /*! @ file <file name with .c */
+
+NOTE: Two @ingroup are needed.  One is for the top level class files and the
+other is the file specific interface (.h) file. 
+
+/*!*************************************************************************
+ * @file fbe_api_lun_interface.c
+ ***************************************************************************
+ *
+ * @brief
+ *  This file contains the fbe_lun interface for the storage extent package.
+ *
+ * @ingroup fbe_api_storage_extent_package_interface_class_files
+ * @ingroup fbe_api_lun_interface
+ *
+ * @version
+ *   11/12/2009:  Created. MEV
+ *
+ ***************************************************************************/
+
+- See below on how to comment the function header, structure, etc.
+
+=============================================================================
+
+- Document the comment on the same line as the variable: /*!< Queue Element */
+
+Example: 
+  fbe_u8_t   *driver_link_name;  /*!< Pointer to the Driver Link Name */
+
+=============================================================================
+
+- Document the comment above the variable:  /*! Queue Element */
+
+Example: 
+  /*! Pointer to the Driver Link Name */
+  fbe_u8_t   *driver_link_name;
+
+=============================================================================
+
+- Document Variable:  /*! @var <variable name> */
+
+Example:
+/*!********************************************************************* 
+ * @var init_reference_count
+ *  
+ * @ingroup fbe_api_common_user_interface
+ **********************************************************************/
+fbe_u32_t    init_reference_count = 0;
+
+=============================================================================
+
+- Document the "#define":  /*! @def <definition> */
+
+Example:
+/*!********************************************************************* 
+ * @def IO_COMPLETION_IDLE_TIMER
+ *  
+ * @brief 
+ *   This represents io completion thread delay in msec
+ *
+ * @ingroup fbe_api_common_sim_interface
+ **********************************************************************/
+#define IO_COMPLETION_IDLE_TIMER 2 /* io completion thread delay in msec.*/
+
+=============================================================================
+
+- Document the "enum":  /*! @enum <name> */
+
+Example:
+/*!********************************************************************* 
+ * @enum thread_flag_t 
+ *  
+ * @brief 
+ *   This contains the enum data info for Thread flag.
+ *
+ * @ingroup fbe_api_common_user_interface
+ * @ingroup thread_flag
+ **********************************************************************/
+typedef enum thread_flag_e{
+    THREAD_RUN,  /*!< Run Thread */
+    THREAD_STOP, /*!< Stop Thread */
+    THREAD_DONE  /*!< Done Thread */
+}thread_flag_t;
+
+=============================================================================
+
+- Document the "struct":  /*! @struct <name> */
+
+Example:
+/*!********************************************************************* 
+ * @struct fbe_api_user_package_connection_info_t 
+ *  
+ * @brief 
+ *   This contains the data info for the package connection info.
+ *
+ * @ingroup fbe_api_common_user_interface
+ * @ingroup fbe_api_user_package_connection_info
+ **********************************************************************/
+typedef struct fbe_api_user_package_connection_info_s{
+	HANDLE			package_handle;               /*!< Package Handle */
+	fbe_u8_t *		driver_link_name;             /*!< Pointer to the Driver Link Name */
+	fbe_u32_t		get_event_ioctl;              /*!< Get Event IOCTL */
+	fbe_u32_t		register_for_event_ioctl;     /*!< Register Event IOCTL */
+	fbe_u32_t		unregister_from_event_ioctl;  /*!< Unregister Event IOCTL */
+	fbe_u32_t		control_ioctl;                /*!< Control IOCTL */
+	fbe_u32_t		io_ioctl;                     /*!< IO IOCTL */
+}fbe_api_user_package_connection_info_t;
+
+=============================================================================
+
+- Document the "function":  /*! @fn <function name including parameters> */
+  Note: for void parameter do not document the parameter.
+  If the return is VOID, then just leave the @return empty. 
+
+Example of the function with VOID parameter:
+/*!***************************************************************
+ * @fn fbe_api_common_init_user()
+ *****************************************************************
+ * @brief
+ *   simulation version of init
+ *
+ * @return fbe_status_t - FBE_STATUS_GENERIC_FAILURE if any issue
+ *
+ * @version
+ *  10/10/08: sharel    created
+ *
+ ****************************************************************/
+
+Example of the function with Parameter:
+/*!***************************************************************
+ * @fn fbe_api_common_send_control_packet_to_kernel_driver(
+ *       fbe_packet_t *packet)
+ *****************************************************************
+ * @brief
+ *   simulation version of sending packet
+ *
+ * @param packet - pointer to packet info
+ *
+ * @return fbe_status_t - FBE_STATUS_GENERIC_FAILURE if any issue
+ *
+ * @version
+ *  10/10/08: sharel    created
+ *
+ ****************************************************************/
+
+Example of a VOID return:
+/*!***************************************************************
+ * @fn ioctl_complete_thread_func(
+ *       void * context)
+ *****************************************************************
+ * @brief
+ *   the thread that will dispatch completion from the queue
+ *
+ * @param context - pointer to the context data
+ *
+ * @return 
+ *
+ * @version
+ *  10/05/07: sharel    created
+ *
+ ****************************************************************/
+
+=============================================================================
+
+- Document the "typedef":  /*! @typedef <typedef declaration> */
+
+Example:
+/*!********************************************************************* 
+ * @typedef void (* event_notification_function_t)(void)
+ *
+ * @ingroup fbe_api_system_interface_usurper_interface
+ **********************************************************************/
+
+=============================================================================
+
+- Document "note":  /*! @note <note info> */
+
+Example:
+ *
+ * @note
+ *  This structure must be destroyed via a call to
+ *  fbe_api_rdgen_test_context_destroy()
+

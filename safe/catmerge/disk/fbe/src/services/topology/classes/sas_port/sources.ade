@@ -1,0 +1,26 @@
+$sources{TARGETNAME} = "fbe_sas_port";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{INCLUDES} = [
+    "$sources{SRCDIR}\\..\\base_discovering",
+    "$sources{SRCDIR}\\..\\base_discovered",
+    "$sources{SRCDIR}\\..\\base_board\\interface",
+    "$sources{SRCDIR}\\..\\base_port",
+];
+$sources{SOURCES} = [
+    "fbe_sas_port_main.c",
+    "fbe_sas_port_monitor.c",
+    "fbe_sas_port_usurper.c",
+    "fbe_sas_port_executer.c",
+];
+
+$sources{SUBDIRS} = [
+    "debug",
+];

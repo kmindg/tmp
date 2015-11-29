@@ -1,0 +1,14 @@
+$sources{TARGETNAME} = "fbe_eir";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{SOURCES} = [
+    "eir_main.c",
+];
+

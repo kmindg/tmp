@@ -1,0 +1,132 @@
+/*! \page emcpal_safe_conventions SAFE Coding Conventions
+
+\section emcpal_safe_conventions SAFE Conventions for Portable Code
+
+Due to the differences between the Microsoft and GCC compilers, there are certain coding conventions
+that should be adhered to.  This section will cover those conventions which have be agreed upon and
+which will be checked using automated tools.
+
+\subsection emcpal_safe_lvalue Casting an Lvalue
+
+Move the cast to the right hand side of the equal sign:<br />
+<br /><em>Before</em><br />
+   (PUCHAR) *DestPtr = (PUCHAR) ScsiTargGetAConfigList(HOST_PORT_LIST_TYPE, NewDataSize);<br />
+<br /><em>After</em><br />
+   *DestPtr = (PUCHAR) ScsiTargGetAConfigList(HOST_PORT_LIST_TYPE, NewDataSize);<br />
+
+\subsection emcpal_safe_case Case Sensitive File Names
+Move from a world that is case-insensitive to one that is case-sensitive by changing header
+file names within \#include directives to match case used in the actual name of the file<br />
+<br /><em>Before</em><br />
+\#include \"K10defs.h\"<br />
+<br /><em>After</em><br />
+\#include \"k10defs.h\"
+
+\subsection emcpal_angle_incl Use of Angle Brackets in Include Directives
+Change any CLARiiON header include directives to use quotes instead of angle brackets<br />
+<br /><em>Before</em><br />
+\#include \<k10ntddk.h><br />
+\#include \<generics.h\><br />
+<br /><em>After</em><br />
+\#include \"k10ntddk.h\"<br />
+\#include \"generics.h\"<br />
+
+\subsection emcpal_invoke_constr Invoking Constructors
+Use <em>placement new</em> to invoke the constructor when building in the Linux environment.<br />
+<br /><em>Before</em><br />
+mLinkLock.CmiSpinLock::CmiSpinLock(); // Force constructor call <br />
+<br /><em>After</em><br />
+    // Force constructor call<br />
+\#ifdef CSX_COMPILER_TYPE_VS<br />
+    mLinkLock.CmiSpinLock::CmiSpinLock();<br />
+\#else<br />
+    new (&mLinkLock) CmiSpinLock();<br />
+\#endif<br />
+
+\subsection emcpal_inline_no_statics Use of inline Without static
+Be sure to mark your inlines as static when placing them in header files with more than one user.<br />
+<br /><em>Before</em><br />
+__inline ULONG HPORT_KEY_LSIZE_PRE_R16(ULONG KeyCount) { <br />
+
+<br /><em>After</em><br />
+static __inline ULONG HPORT_KEY_LSIZE_PRE_R16(ULONG KeyCount) { <br />
+
+\subsection emcpal_mismatch_proto Prototype Doesn't Match Definition
+The GCC toolchain will detect cases where a function prototype does not match the
+ corresponding definition and generate an error.  Given the following function:<br />
+ULONG ScsiTargConvertPortKeyList(PVOID SrcPtr, PVOID *DestPtr, ULONG SrcRev, ULONG DestRev, ULONG SrcSize)<br />
+<br /><em>Before</em><br />
+-extern ULONG ScsiTargConvertPortKeyList(PVOID, <b>PVOID</b>, ULONG, ULONG, ULONG);<br />
+<br /><em>After</em><br />
+extern ULONG ScsiTargConvertPortKeyList(PVOID, <b>PVOID *</b>, ULONG, ULONG, ULONG);<br />
+
+\subsection emcpal_endif_else Extra Tokens after \#endif and \#else
+Standard C does not allow extra tokens after \#endif or \#else directives.  <br />
+<br /><em>Before</em><br />
+\#endif  _TCD_ACCEPT_H_<br />
+<br /><em>After</em><br />
+\#endif   // _TCD_ACCEPT_H_ <br />
+
+\subsection emcpal_pvoid_convert Convert to PVOID without Explicit Cast
+It is not allowed to convert to a void pointer without an explicit cast.<br />
+<br /><em>Before</em><br />
+DiskTargAsyncIoctl(NULL,...,TrespassGetGeometryAsyncIoctlCompletion);
+<br /><em>After</em><br />
+DiskTargAsyncIoctl(NULL,...,<br>(PVOID)<br/>TrespassGetGeometryAsyncIoctlCompletion);
+
+\subsection emcpal_scope_violation Variable Scope not Extended
+Standard C doesn't allow declaring a variable in one scope and using it beyond the scope of where it was declared.<br />
+<br /><em>Before</em><br />
+for(<b>ULONG</b> i = 0; i < SP_COUNT_PER_ARRAY; i++) { }<br />
+DesiredState[i] = AAS_Transitioning; <br />
+<br /><em>After</em><br />
+<b>ULONG i;</b><br />
+for(i = 0; i < SP_COUNT_PER_ARRAY; i++) { }<br />
+DesiredState[i] = AAS_Transitioning; <br />
+
+\subsection emcpal_fwd_typedefs Cannot Forward Declare Typedefs
+Standard C does not allow forward declaration of a typedef.  If you want to use a structure before
+ its definition you must forward declare the structure itself.<br />
+<br />The following is not permitted:<br />
+typedef struct cmmClientDescriptorLinks CMM_CLIENT_DESCRIPTOR_LINKS;<br />
+You cannot use CMM_CLIENT_DESCRIPTOR_LINKS before the definition of the structure and typedef. 
+You must forward declare struct cmmClientDescriptorLinks and then use that declaration anywhere else 
+that needs to reference cmmClientDescriptorLinks before its definition.
+
+\subsection emcpal_slashes Use UNIX-style Path separators
+Replace the Windows-specific path separator character (\) with the UNIX-style separator (/), 
+
+as the Microsoft toolchain will accept either  format. 
+<br /><em>Before</em><br />
+..\
+<br /><em>After</em><br />
+../
+
+\subsection emcpal_proto_args Specification of function arguments
+Use Standard C function prototypes to specify argument lists for all functions, even those with no arguments.
+Be sure to specify VOID if no params in prototype
+<br /><em>Before</em><br />
+extern KIRQL Sim64KeGetCurrentIrql();<br />
+<br /><em>After</em><br />
+extern KIRQL Sim64KeGetCurrentIrql(<b>VOID</b>);<br />
+
+
+\subsection emcpal_literal_size Literal Size Specification
+Use ULL instead of ui64 to specify unsigned 64-bit literal values; use LL 
+instead of i64 to define signed 64-bit literal values. 
+<br /><em>Before</em><br />
+(UINT_32E)((m_addr) & 0x00000000FFFFFFFFui64)<br />
+<br /><em>After</em><br />
+(UINT_32E)((m_addr) & 0x00000000FFFFFFFFULL)<br />
+
+\subsection emcpal_globals Global Variable Declarations
+Do not declare global variables in header files<br />
+
+
+\subsection emcpal_var_inits Variables Initializations
+Use EmcpalEmpty instead of {} and/or {0} partial initialization<br />
+<br /><em>Before</em><br />
+ULONG_PTR cmmControlMemoryVaddrBottom[CMM_CONTROL_MEMORY_SGL_MAX_LENGTH] = <b>{0}</b>; <br />
+<br /><em>After</em><br />
+ULONG_PTR cmmControlMemoryVaddrBottom[CMM_CONTROL_MEMORY_SGL_MAX_LENGTH] = <b>EmcpalEmpty;</b><br />
+*/

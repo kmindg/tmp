@@ -1,0 +1,17 @@
+$sources{TARGETNAME} = "fbe_api_common_kernel_for_boot";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+];
+$sources{UMTYPE} = "console";
+$sources{TARGETLIBS} = [
+    "fbe_api_common.lib",
+    "fbe_api_physical_package_interface.lib",
+    "fbe_api_esp_interface.lib",
+];
+$sources{SOURCES} = [
+    "fbe_api_common_kernel_for_boot.c",
+];
+
+

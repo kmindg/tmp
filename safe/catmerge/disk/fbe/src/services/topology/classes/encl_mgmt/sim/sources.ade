@@ -1,0 +1,19 @@
+$sources{TARGETNAME} = "fbe_encl_mgmt_sim";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{INCLUDES} = [
+    "$sources{SRCDIR}\\..\\interface",
+    "$sources{SRCDIR}\\..\\..\\base_environment",
+    "$sources{SRCDIR}\\..\\..\\encl_mgmt",
+];
+$sources{TARGETLIBS} = [
+];
+$sources{SOURCES} = [
+    "fbe_encl_mgmt_sim_main.c",
+];

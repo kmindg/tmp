@@ -1,0 +1,15 @@
+$sources{TARGETNAME} = "fbe_test_util_common";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+
+$sources{SOURCES} = [
+    "fbe_test_common_destroy_verify.c",
+    "fbe_test_common_notify.c",
+    "fbe_test_common_object.c",
+    "fbe_test_common_reboot.c",
+];
+

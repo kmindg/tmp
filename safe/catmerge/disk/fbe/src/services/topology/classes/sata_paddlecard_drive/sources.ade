@@ -1,0 +1,26 @@
+$sources{TARGETNAME} = "fbe_sata_paddlecard_drive";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{INCLUDES} = [
+    "$sources{SRCDIR}\\..\\base_object",
+    "$sources{SRCDIR}\\..\\base_discovered",
+    "$sources{SRCDIR}\\..\\base_discovering",
+    "$sources{SRCDIR}\\..\\base_physical_drive",
+    "$sources{SRCDIR}\\..\\sas_physical_drive",
+];
+$sources{SOURCES} = [
+    "fbe_sata_paddlecard_drive_main.c",
+    "fbe_sata_paddlecard_drive_monitor.c",
+    "fbe_sata_paddlecard_drive_usurper.c",
+    "fbe_sata_paddlecard_drive_executer.c",
+    "fbe_sata_paddlecard_drive_utils.c",
+    "fbe_sata_paddlecard_drive_config.c",
+    "fbe_sata_paddlecard_drive_error_handling.c",
+];

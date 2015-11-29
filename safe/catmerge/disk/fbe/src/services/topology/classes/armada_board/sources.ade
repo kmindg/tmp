@@ -1,0 +1,20 @@
+$sources{TARGETNAME} = "fbe_armada_board";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{INCLUDES} = [
+    "$sources{SRCDIR}\\..\\base_discovering",
+    "$sources{SRCDIR}\\..\\base_discovered",
+    "$sources{SRCDIR}\\..\\base_board\\interface",
+];
+$sources{SOURCES} = [
+    "fbe_armada_board_main.c",
+    "fbe_armada_board_monitor.c",
+    "fbe_armada_board_usurper.c",
+];

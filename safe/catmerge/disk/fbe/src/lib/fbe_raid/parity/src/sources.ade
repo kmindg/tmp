@@ -1,0 +1,37 @@
+$sources{TARGETNAME} = "fbe_raid_parity_library";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{SOURCES} = [
+    "fbe_parity_generate.c",
+    "fbe_parity_geometry.c",
+    "fbe_parity_util.c",
+    "fbe_parity_small_read.c",
+    "fbe_parity_small_read_util.c",
+    "fbe_parity_read.c",
+    "fbe_parity_read_util.c",
+    "fbe_parity_468.c",
+    "fbe_parity_468_util.c",
+    "fbe_parity_mr3.c",
+    "fbe_parity_mr3_util.c",
+    "fbe_parity_rcw.c",
+    "fbe_parity_rcw_util.c",
+    "fbe_parity_degraded_read.c",
+    "fbe_parity_degraded_read_util.c",
+    "fbe_parity_rebuild.c",
+    "fbe_parity_rebuild_util.c",
+    "fbe_parity_verify.c",
+    "fbe_parity_verify_util.c",
+    "fbe_parity_zero.c",
+    "fbe_parity_journal_flush.c",
+    "fbe_parity_write_log_util.c",
+    "fbe_parity_rekey.c",
+    "fbe_parity_rekey_util.c",
+];
+

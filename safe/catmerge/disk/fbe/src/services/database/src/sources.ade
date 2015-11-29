@@ -1,0 +1,49 @@
+$sources{TARGETNAME} = "fbe_database";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+
+$sources{TARGETLIBS} = [
+];
+
+$sources{INCLUDES} = [
+    "$sources{SRCDIR}\\..\\..\\topology\\classes\\base_object",
+    "$sources{SRCDIR}\\..\\..\\topology\\classes\\base_config",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\topology\\interface",
+];
+
+$sources{SOURCES} = [
+    "fbe_database_main.c",
+    "fbe_database_common.c",
+    "fbe_database_persist_interface.c",
+    "fbe_database_registry.c",    
+    "fbe_database_config_tables.c",
+    "fbe_database_transaction.c",
+    "fbe_database_system_objects_manager.c",
+    "fbe_database_drive_connection.c",
+    "fbe_database_boot_path.c",
+    "fbe_database_cmi.c",
+    "fbe_database_ica_flags_process.c",
+    "fbe_database_config_thread.c",
+    "fbe_database_cmi_commands.c",
+    "fbe_database_metadata_interface.c",
+    "fbe_database_system_entry_utils.c",
+    "fbe_database_system_db_interface.c",
+    "fbe_database_system_db_journal.c",
+    "fbe_database_fru_descriptor_process.c",
+    "fbe_database_homewrecker_db_interface.c",
+    "fbe_database_bg_services_control.c",
+    "fbe_database_emv_process.c",
+    "fbe_database_fru_signature_process.c",
+    "fbe_database_hook.c",
+    "fbe_database_poll.c",
+    "fbe_database_encryption.c",
+    "fbe_database_util.c",
+    "fbe_database_export_lun.c",
+];

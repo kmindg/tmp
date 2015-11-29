@@ -1,0 +1,22 @@
+$sources{TARGETNAME} = "fbe_test_scenarios_sep_zeroing";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+
+$sources{SOURCES} = [
+    "squidward_test.c",
+    "scooby_dum_test.c",
+    "yabbadoo_test.c",
+    "foghorn_leghorn_test.c",
+    "henery_the_baby_chicken_hawk_test.c",
+    "barnyard_dawg_test.c",
+    "kit_cloudkicker_test.c",
+    "jingle_bell_test.c",
+    "doremi_test.c",
+    "starbuck_test.c",
+    "hiro_hamada_test.c",
+];
+

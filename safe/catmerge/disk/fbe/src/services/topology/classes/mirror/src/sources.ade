@@ -1,0 +1,24 @@
+$sources{TARGETNAME} = "fbe_mirror_object";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{INCLUDES} = [
+    "$sources{SRCDIR}\\..\\..\\base_object",
+    "$sources{SRCDIR}\\..\\..\\base_config",
+    "$sources{SRCDIR}\\..\\..\\raid_group\\interface",
+];
+
+$sources{SOURCES} = [
+    "fbe_mirror_main.c",
+    "fbe_mirror_event.c",
+    "fbe_mirror_monitor.c",
+    "fbe_mirror_usurper.c",
+    "fbe_mirror_executor.c",
+    "fbe_mirror_class.c",
+];

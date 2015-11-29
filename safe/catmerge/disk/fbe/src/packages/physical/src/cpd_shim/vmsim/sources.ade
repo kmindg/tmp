@@ -1,0 +1,15 @@
+$sources{TARGETNAME} = "fbe_cpd_shim_vmsim";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+];
+$sources{UMTYPE} = "console";
+$sources{TARGETLIBS} = [
+    "fbe_cpd_shim.lib",
+];
+$sources{SOURCES} = [
+    "fbe_cpd_shim_vmsim_main.c",
+];
+
+

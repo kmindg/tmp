@@ -1,0 +1,23 @@
+$sources{TARGETNAME} = "terminator_enclosure_eses_plugin";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{SOURCES} = [
+    "terminator_enclosure_eses_plugin_main.c",
+    "terminator_encl_eses_plugin_stat_diag_page.c",
+    "terminator_encl_eses_plugin_config_page.c",
+    "terminator_encl_eses_plugin_send_diag.c",
+    "terminator_encl_eses_plugin_emc_stat_page.c",
+    "terminator_encl_eses_plugin_addl_stat_page.c",
+    "terminator_encl_eses_plugin_buf_cmds.c",
+    "terminator_encl_eses_plugin_mode_cmds.c",
+    "terminator_encl_eses_plugin_emc_statistics_pages.c",
+];
+	
+

@@ -1,0 +1,16 @@
+$sources{SUBDIRS} = [
+    "src",
+    "sim",
+    "kernel",
+    "user",
+    "kernel_for_boot",
+];
+
+
+	
+
+
+
+
+
+

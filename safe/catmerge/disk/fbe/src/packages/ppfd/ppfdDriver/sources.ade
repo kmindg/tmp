@@ -1,0 +1,54 @@
+$sources{TARGETNAME} = "PPFD";
+$sources{TARGETTYPE} = "PAL_DRIVER";
+$sources{TARGETMODES} = [
+    "kernel",
+];
+$sources{INCLUDES} = [
+    "$sources{MASTERDIR}\\disk\\interface\\fbe",
+    "$sources{MASTERDIR}\\disk\\interface",
+    "$sources{MASTERDIR}\\disk\\fbe\\interface",
+];
+
+$sources{TARGETLIBS} = [
+    "EmcKe.lib",
+    "ktrace.lib",
+    "K10MiscUtil.lib",
+    "MemTrack.lib",
+    "fbe_ddk.lib",
+    "EmcUTIL.lib",
+    "fbe_api_common_kernel_for_boot.lib",
+    "fbe_lib_kernel.lib",
+    "fbe_logical_drive_library.lib",
+    "fbe_ktrace.lib",
+    "fbe_trace.lib",
+    "fbe_transport.lib",
+    "fbe_base_service.lib",
+    "fbe_service_manager.lib",
+    "spid.lib",
+    "specl.lib",
+    "fbe_drive_configuration.lib",
+    "fbe_memory.lib",
+    "fbe_memory_kernel.lib",
+    "fbe_transport_trace.lib",
+    "fbe_logical_drive_library.lib",
+];
+
+
+$sources{SYSTEMLIBS} = [
+  "storport.lib",
+];
+$sources{SOURCES} = [
+    "ppfdDriverEntry.c",
+    "ppfdMajorFunctions.c",
+    "ppfdKtrace.c",
+    "ppfdPhysicalPackageInterface.c",
+    "ppfdPhysicalPackageIRPDispatch.c",
+    "ppfdDiskDeviceCreate.c",
+    "ppfdRegistry.c",
+    "ppfdPanic.c",
+    "ppfdAsynchEvent.c",
+];
+
+$sources{INF_FILE} = "Ppfd.inf";
+
+$sources{CUSTOM_LINK_OPTS} = "/MAP ";

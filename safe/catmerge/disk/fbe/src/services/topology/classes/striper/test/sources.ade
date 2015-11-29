@@ -1,0 +1,14 @@
+$sources{TARGETNAME} = "fbe_striper_test_library";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{INCLUDES} = [
+    "$sources{SRCDIR}\\..\\..\\striper",
+    "$sources{SRCDIR}\\..\\..\\raid_group\\interface",
+];
+$sources{SOURCES} = [
+];

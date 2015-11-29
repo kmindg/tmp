@@ -1,0 +1,20 @@
+$sources{TARGETNAME} = "fbe_simulated_drive_user";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{SYSTEMLIBS} = [
+];
+
+$sources{SOURCES} = [
+    "simulated_drive_user_client.c",
+];
+
+$sources{INCLUDES} = [
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\terminator\\interface",
+];
+$sources{CUSTOM_DEFS} = ["/DI_AM_NATIVE_CODE"];

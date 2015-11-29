@@ -1,0 +1,14 @@
+$sources{TARGETNAME} = "fbe_file_user";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{SOURCES} = [
+    "fbe_file_user_main.c",
+];
+ 
+$sources{CUSTOM_DEFS} = ["/DI_AM_NATIVE_CODE"];

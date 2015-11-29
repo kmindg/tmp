@@ -1,0 +1,8 @@
+$sources{SUBDIRS} = [
+    "raid_library_unit_test",
+#    "parity_unit_test",
+#    "striper_unit_test",
+#    "mirror_unit_test",
+    "sep_dll",
+    "env_limits",
+];

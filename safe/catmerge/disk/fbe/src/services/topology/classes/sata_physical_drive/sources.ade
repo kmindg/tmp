@@ -1,0 +1,27 @@
+$sources{TARGETNAME} = "fbe_sata_physical_drive";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{INCLUDES} = [
+    "$sources{SRCDIR}\\..\\base_discovering",
+    "$sources{SRCDIR}\\..\\base_discovered",
+    "$sources{SRCDIR}\\..\\base_physical_drive",
+    "$sources{SRCDIR}\\..\\base_object",
+];
+$sources{SOURCES} = [
+    "fbe_sata_physical_drive_main.c",
+    "fbe_sata_physical_drive_monitor.c",
+    "fbe_sata_physical_drive_usurper.c",
+    "fbe_sata_physical_drive_executer.c",
+    "fbe_sata_physical_drive_event.c",
+    "fbe_sata_physical_drive_error_handling.c",
+    "sata_physical_drive_utils.c",
+];
+
+

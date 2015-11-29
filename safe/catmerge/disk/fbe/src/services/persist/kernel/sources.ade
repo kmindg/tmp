@@ -1,0 +1,20 @@
+$sources{TARGETNAME} = "fbe_persist_kernel";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+];
+$sources{UMTYPE} = "console";
+$sources{INCLUDES} = [
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\persist\\src",
+];
+
+$sources{TARGETLIBS} = [
+    "fbe_persist.lib",
+];
+
+$sources{SOURCES} = [
+    "fbe_persist_database_layout_kernel.c",
+];
+
+

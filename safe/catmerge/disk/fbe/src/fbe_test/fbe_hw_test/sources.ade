@@ -1,0 +1,77 @@
+$sources{TARGETNAME} = "fbe_hw_test";
+$sources{TARGETTYPE} = "EMCUTIL_PROGRAM";
+$sources{MUT_TEST} = 1;
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{CALLING_CONVENTION} = "stdcall";
+
+$sources{SYSTEMLIBS} = [
+    "winmm.lib",
+    "ws2_32.lib",
+];
+
+$sources{TARGETLIBS} = [
+    "fbe_ddk.lib",
+    "fbe_trace.lib",
+    "fbe_transport.lib",
+    "fbe_base_service.lib",
+    "fbe_service_manager.lib",
+    "fbe_lib_enclosure_data_access.lib",
+    "fbe_lib_user.lib",
+    "fbe_api_common_sim.lib",
+    "fbe_api_common_user.lib",
+    "fbe_api_transport_client.lib",
+    "fbe_api_transport_packet_interface.lib",
+    "fbe_api_sim_server_interface.lib",
+    "fbe_api_user_server_interface.lib",
+    "fbe_test_package_config.lib",
+    "fbe_simulated_drive_user.lib",
+    "terminator_drive_sas_plugin.lib",
+    "terminator_enclosure_eses_plugin.lib",
+    "terminator_drive_sata_plugin.lib",
+    "terminator_miniport_sas_plugin.lib",
+    "fbe_terminator.lib",
+    "terminator_api.lib",
+    "terminator_simulated_disk.lib",
+    "fbe_test_scenarios_physical_package.lib",
+    "fbe_test_scenarios_real_hardware.lib",
+    "fbe_test_sep_utils.lib",
+    "fbe_test_neit_utils.lib",
+    "fbe_test_configs_physical.lib",
+    "fbe_test_configs_logical.lib",
+    "fbe_logical_drive_library.lib",
+    "fbe_test_io.lib",
+    "fbe_test_scenarios_system.lib",
+    "fbe_test_scenarios_sep.lib",
+    "fbe_ktrace.lib",
+    "fbe_sector_trace.lib",
+    "XorLib.lib",
+    "fbe_xor_lib.lib",
+    "fbe_data_pattern.lib",
+    "fbe_file_user.lib",
+    "fbe_api_services.lib",
+    "fbe_test_util_common.lib",
+    "fbe_event_log.lib",
+    "fbe_event_log_sim.lib",
+    "fbe_event_log_utils.lib",
+    "fbe_api_system.lib",
+    "fbe_packet_serialize_user.lib",
+    "fbe_drive_configuration.lib",
+    "fbe_memory.lib",
+    "fbe_memory_user.lib",
+    "fbe_api_sep_interface.lib",
+    "fbe_api_sep_sim.lib",
+    "fbe_api_esp_interface.lib",
+    "fbe_api_common.lib",
+    "fbe_transport_trace.lib",
+    "fbe_private_space_layout.lib",
+    "fbe_peer_boot_utils.lib",
+    "generic_utils_lib_stdcall.lib",
+];
+
+$sources{SOURCES} = [
+    "fbe_hw_test_main.c",
+];

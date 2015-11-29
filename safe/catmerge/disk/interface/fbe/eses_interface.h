@@ -1,0 +1,25 @@
+#ifndef ESES_INTERFACE_H
+#define ESES_INTERFACE_H
+
+// Margining test mode in Power Supply Information Status Element
+typedef enum{
+    FBE_ESES_MARGINING_TEST_MODE_STATUS_TEST_RESULTS_INVALID = 0x00,
+    FBE_ESES_MARGINING_TEST_MODE_STATUS_TEST_RUNNING         = 0x01,
+    FBE_ESES_MARGINING_TEST_MODE_STATUS_TEST_SUCCESSFUL      = 0x02,
+    FBE_ESES_MARGINING_TEST_MODE_STATUS_TEST_NOT_SUPPORTED   = 0x03,
+    FBE_ESES_MARGINING_TEST_MODE_STATUS_AUTO_TEST_ENABLED    = 0x04,
+}fbe_eses_margining_test_mode_status_t;
+
+// Test Results in Power Supply Information Element
+typedef enum{
+    FBE_ESES_MARGINING_TEST_RESULTS_SUCCESS                = 0x00,
+    FBE_ESES_MARGINING_TEST_RESULTS_12V_1_OPEN             = 0x01,
+    FBE_ESES_MARGINING_TEST_RESULTS_12V_2_OPEN             = 0x02,
+    FBE_ESES_MARGINING_TEST_RESULTS_12V_1_SHORT            = 0x04,
+    FBE_ESES_MARGINING_TEST_RESULTS_12V_2_SHORT            = 0x08,
+    FBE_ESES_MARGINING_TEST_RESULTS_12V_1_SHORTED_TO_12_V2 = 0x10,
+}fbe_eses_margining_test_results_t;
+
+
+
+#endif /* ESES_INTERFACE_H */

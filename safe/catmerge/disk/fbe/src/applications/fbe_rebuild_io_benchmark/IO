@@ -1,0 +1,1 @@
+%(thread)s_LUN_8K_random_r_w:-constant -align -seq -priority 1 w 0 %(thread)s 10:-constant -align -seq -priority 1 w 0 %(thread)s 10:-constant -align -seq -priority 1 r 0 %(thread)s 10:Random read and write 1 by 2 ratio with 8K block size, %(thread)s threads on lun objects

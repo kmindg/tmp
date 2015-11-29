@@ -1,0 +1,7 @@
+$sources{SUBDIRS} = [
+    "common",
+    "logical",
+    "physical",
+    "environment_service",
+    "neit",
+];

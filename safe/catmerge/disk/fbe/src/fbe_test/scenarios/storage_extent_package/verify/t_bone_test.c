@@ -1,0 +1,51 @@
+#include "sep_tests.h"
+
+char * t_bone_short_desc = "test automatic verify of outstanding non-cached writes on surviving SP";
+char * t_bone_long_desc =
+    "\n"
+    "\n"
+    "The T-Bone scenario tests that when an SP dies while it has outstanding non-cached\n"
+    "writes, the surviving peer SP takes over and verifies only the areas that had non-cached\n"
+    "write requests outstanding when it failed.\n"
+    "\n"
+    "Dependencies:\n"
+    "    - Persistent meta-data storage and peer SP synchronization.\n"
+    "    - Dual SP environment must be supported\n"
+    "    - The raid object must support verify-before write operations and any required verify meta-data.\n"
+    "    - The raid object must support shutdown handling with writes in progress.\n"
+    "    - The stripe locking service must provide peer death notification to RAID.\n"
+    "\n"
+    "Starting Config:\n"
+    "    [PP] armada board\n"
+    "    [PP] SAS PMC port\n"
+    "    [PP] viper enclosure\n"
+    "    [PP] 5 SAS drives (PDO)\n"
+    "    [PP] 5 logical drives (LD)\n"
+    "    [SEP] 5 provision drives (PD)\n"
+    "    [SEP] 5 virtual drives (VD)\n"
+    "    [SEP] 1 raid object (RAID-5)\n"
+    "    [SEP] 3 lun objects (LU)\n"
+    "\n"
+    "STEP 1: Bring up the initial topology on SPA.\n"
+    "    - Create and verify the initial physical package config.\n"
+    "    - Create all provision drives (PD) with an I/O edge attched to a logical drive (LD).\n"
+    "    - Create all virtual drives (VD) with an I/O edge attached to a PD.\n"
+    "    - Create a raid object with I/O edges attached to all VDs.\n"
+    "    - Create each lun object with an I/O edge attached to the RAID.\n"
+    "    - Verify that all configured objects are in the READY state.\n"
+    "\n"
+    "STEP 2: Bring up the same topology on SPB.\n"
+    "\n"
+    "STEP 3: Kill SPA during non-cached write I/O\n"
+    "    - Start non-cached write I/O to all LUN objects\n"
+    "    - Kill SPA\n"
+    "    - Verify that SPB marks the chunks that have outstanding non-cached writes as \n"
+    "      'needing to be verified before write'\n"
+    "    - Verify that the RAID object verifies only the chunks that are marked as\n"
+    "      'needing to be verified before write'\n"
+    ;
+
+void t_bone_test(void)
+{
+    return;
+}

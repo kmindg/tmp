@@ -1,0 +1,8 @@
+$sources{SUBDIRS} = [
+    "src",
+    "kernel",
+    "user",
+    "debug",
+    "test",
+];
+

@@ -1,0 +1,30 @@
+$sources{TARGETNAME} = "fbe_base_physical_drive";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+
+$sources{INCLUDES} = [
+    "$sources{SRCDIR}\\..\\base_discovering",
+    "$sources{SRCDIR}\\..\\base_discovered",
+];
+
+$sources{SOURCES} = [
+    "fbe_base_physical_drive_main.c",
+    "fbe_base_physical_drive_monitor.c",
+    "fbe_base_physical_drive_error_handling.c",
+    "fbe_base_physical_drive_usurper.c",
+    "fbe_base_physical_drive_executer.c",
+    "fbe_base_physical_drive_utils.c",    
+    "fbe_base_physical_drive_class.c",
+];
+
+
+$sources{SUBDIRS} = [
+    "debug",
+];

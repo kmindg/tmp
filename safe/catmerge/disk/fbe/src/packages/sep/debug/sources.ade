@@ -1,0 +1,84 @@
+$sources{TARGETNAME} = "ppdbg";
+$sources{TARGETTYPE} = "EMCUTIL_DYNLINK";
+$sources{MUT_TEST} = 1;
+$sources{DLLTYPE} = "REGULAR";
+$sources{LINK_DEF_FILE} = "$sources{SRCDIR}\\ppcustomdbg.def";
+$sources{TARGETMODES} = [
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{DLLBASE} = "0x3AE00000";
+$sources{INCLUDES} = [
+    "$sources{SRCDIR}\\..",
+];
+$sources{CALLING_CONVENTION} = "stdcall";
+$sources{SYSTEMLIBS} = [
+    "kernel32.lib",
+    "ntdll.lib",
+    "Psapi.lib",
+    "ws2_32.lib",
+    "winmm.lib",
+];
+$sources{SOURCES} = [
+    "RCLOCAL.rc",
+    "ppcustomdbg.c",
+    "pp_ext.c",
+    "pp_topology_ext.c",
+    "pp_pmc_shim_ext.c",
+    "pp_transport_ext.c",
+    "pp_commands.c",
+    "pp_lifecycle_ext.c",
+    "DllEntryPointsEmpty.c",
+];
+
+$sources{TARGETLIBS} = [
+    "fbe_ktrace.lib",
+    "fbe_lib_user.lib",
+    "fbe_lib_lifecycle.lib",
+    "fbe_lib_lifecycle_debug.lib",
+    "fbe_transport.lib",
+    "fbe_transport_debug.lib",
+    "fbe_classes.lib",
+    "fbe_classes_debug.lib",
+    "fbe_topology.lib",
+    "fbe_scheduler.lib",
+    "fbe_physical_package.lib",
+    "fbe_ses.lib",
+    "fbe_eses.lib",
+    "fbe_cpd_shim_sim.lib",
+    "fbe_logical_drive_sim.lib",
+    "fbe_logical_drive_debug.lib",
+    "fbe_base_board_sim.lib",
+    "fbe_terminator.lib",
+    "fbe_api_common_sim.lib",
+    "fbe_base_object_debug.lib",
+    "fbe_eses_enclosure_debug_ext.lib",
+    "fbe_sas_enclosure_debug_ext.lib",
+    "fbe_base_port_debug.lib",
+    "fbe_sas_port_debug.lib",
+    "fbe_sas_pmc_port_debug.lib",
+    "fbe_fc_port_debug.lib",
+    "fbe_iscsi_port_debug.lib",
+    "fbe_pmc_shim_kernel_debug.lib",
+    "fbe_base_physical_drive_debug_ext.lib",
+    "fbe_drive_configuration.lib",
+    "fbe_memory.lib",
+    "fbe_memory_user.lib",
+    "fbe_sep_shim.lib",
+    "fbe_api_sep_interface.lib",
+    "fbe_api_esp_interface.lib",
+    "fbe_private_space_layout.lib",
+    "fbe_transport_trace.lib",
+    "generic_utils_lib_stdcall.lib",
+    "fbe_lib_enclosure_data_access.lib",
+    "fbe_api_physical_package_interface.lib",
+    "fbe_api_common.lib",
+    "fbe_peer_boot_utils.lib",
+];
+
+$sources{CUSTOM_DEFS} = [
+    "/DTRC_GEN_CONTROL",
+    "/DEXE_ENV=1",
+];

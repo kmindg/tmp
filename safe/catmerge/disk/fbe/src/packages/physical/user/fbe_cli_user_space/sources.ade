@@ -1,0 +1,28 @@
+$sources{TARGETNAME} = "fbe_cli";
+$sources{TARGETTYPE} = "EMCUTIL_PROGRAM";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{CALLING_CONVENTION} = "stdcall";
+$sources{SYSTEMLIBS} = [
+    "winmm.lib",
+    "ws2_32.lib",
+];
+$sources{TARGETLIBS} = [
+    "fbe_transport.lib",
+    "ktrace.lib",
+    "fbe_ktrace.lib",
+    "fbe_trace.lib",
+    "fbe_base_service.lib",
+    "fbe_service_manager.lib",
+    "fbe_api_common_user.lib",
+    "fbe_api_services.lib",
+    "fbe_cli_user.lib",
+    "fbe_cli_src.lib",
+];
+$sources{SOURCES} = [
+    "fbe_cli_user_space.c",
+];

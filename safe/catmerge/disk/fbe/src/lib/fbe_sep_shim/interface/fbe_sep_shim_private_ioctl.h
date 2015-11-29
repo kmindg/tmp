@@ -1,0 +1,27 @@
+#ifndef FBE_SEP_SHIM_PRIVATE_IOCTL_H
+#define FBE_SEP_SHIM_PRIVATE_IOCTL_H
+
+EMCPAL_STATUS fbe_sep_shim_eject_media_ioctl(PEMCPAL_DEVICE_OBJECT  PDeviceObject,PEMCPAL_IRP	PIrp, fbe_sep_shim_io_struct_t *io_struct);
+EMCPAL_STATUS fbe_sep_shim_load_media_ioctl(PEMCPAL_DEVICE_OBJECT  PDeviceObject,PEMCPAL_IRP	PIrp, fbe_sep_shim_io_struct_t *io_struct);
+EMCPAL_STATUS fbe_sep_shim_trespass_ownership_loss_ioctl(PEMCPAL_DEVICE_OBJECT  PDeviceObject,PEMCPAL_IRP	PIrp, fbe_sep_shim_io_struct_t *io_struct);
+EMCPAL_STATUS fbe_sep_shim_trespass_execute_ioctl(PEMCPAL_DEVICE_OBJECT  PDeviceObject,PEMCPAL_IRP	PIrp, fbe_sep_shim_io_struct_t *io_struct);
+EMCPAL_STATUS fbe_sep_shim_describe_extents_ioctl(PEMCPAL_DEVICE_OBJECT  PDeviceObject,PEMCPAL_IRP	PIrp, fbe_sep_shim_io_struct_t *io_struct);
+EMCPAL_STATUS fbe_sep_shim_register_for_change_notification_ioctl(PEMCPAL_DEVICE_OBJECT  PDeviceObject,PEMCPAL_IRP	PIrp, fbe_sep_shim_io_struct_t *io_struct);
+EMCPAL_STATUS fbe_sep_shim_set_power_saving_policy_ioctl(PEMCPAL_DEVICE_OBJECT  PDeviceObject,PEMCPAL_IRP	PIrp, fbe_sep_shim_io_struct_t *io_struct);
+EMCPAL_STATUS fbe_sep_shim_capabilities_query_ioctl(PEMCPAL_DEVICE_OBJECT  PDeviceObject,PEMCPAL_IRP	PIrp, fbe_sep_shim_io_struct_t *io_struct);
+EMCPAL_STATUS fbe_sep_shim_get_volume_state_ioctl(PEMCPAL_DEVICE_OBJECT  PDeviceObject,PEMCPAL_IRP	PIrp, fbe_sep_shim_io_struct_t *io_struct);
+EMCPAL_STATUS fbe_sep_shim_get_raid_info_ioctl(PEMCPAL_DEVICE_OBJECT  PDeviceObject,PEMCPAL_IRP	PIrp, fbe_sep_shim_io_struct_t *io_struct);
+EMCPAL_STATUS fbe_sep_shim_process_sgl_read(PEMCPAL_DEVICE_OBJECT  PDeviceObject,PEMCPAL_IRP	PIrp, fbe_sep_shim_io_struct_t *sep_shim_io_struct);
+EMCPAL_STATUS fbe_sep_shim_process_sgl_write(PEMCPAL_DEVICE_OBJECT  PDeviceObject,PEMCPAL_IRP	PIrp, fbe_sep_shim_io_struct_t *sep_shim_io_struct);
+EMCPAL_STATUS fbe_sep_shim_process_dca_op(PEMCPAL_DEVICE_OBJECT  PDeviceObject, PEMCPAL_IRP	PIrp, fbe_sep_shim_io_struct_t *sep_shim_io_struct);
+EMCPAL_STATUS fbe_sep_shim_write_buffer_ioctl(PEMCPAL_DEVICE_OBJECT  PDeviceObject,PEMCPAL_IRP	PIrp, fbe_sep_shim_io_struct_t *sep_shim_io_struct);
+EMCPAL_STATUS fbe_sep_shim_read_buffer_ioctl(PEMCPAL_DEVICE_OBJECT  PDeviceObject,PEMCPAL_IRP	PIrp, fbe_sep_shim_io_struct_t *io_struct);
+EMCPAL_STATUS fbe_sep_shim_process_zero_fill(PEMCPAL_DEVICE_OBJECT  PDeviceObject,PEMCPAL_IRP	PIrp, fbe_sep_shim_io_struct_t *sep_shim_io_struct);
+EMCPAL_STATUS fbe_sep_shim_process_asynch_io_irp(PEMCPAL_DEVICE_OBJECT  PDeviceObject,PEMCPAL_IRP	PIrp);
+EMCPAL_STATUS fbe_sep_shim_process_asynch_read_write_irp(PEMCPAL_DEVICE_OBJECT  PDeviceObject,PEMCPAL_IRP	PIrp);
+EMCPAL_STATUS fbe_sep_shim_process_modify_capacity(PEMCPAL_DEVICE_OBJECT  PDeviceObject,PEMCPAL_IRP PIrp, fbe_sep_shim_io_struct_t *io_struct);
+EMCPAL_STATUS fbe_sep_shim_process_get_volume_cache_config(PEMCPAL_DEVICE_OBJECT  PDeviceObject,PEMCPAL_IRP PIrp, fbe_sep_shim_io_struct_t *io_struct);
+EMCPAL_STATUS fbe_sep_shim_process_disk_is_writable(PEMCPAL_DEVICE_OBJECT  PDeviceObject,PEMCPAL_IRP PIrp, fbe_sep_shim_io_struct_t *io_struct);
+EMCPAL_STATUS fbe_sep_shim_send_read_pin_index(PEMCPAL_DEVICE_OBJECT PDeviceObject, PEMCPAL_IRP PIrp, fbe_sep_shim_io_struct_t *io_struct);
+
+#endif

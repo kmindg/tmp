@@ -1,0 +1,23 @@
+$sources{TARGETNAME} = "fbe_esp_sim";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+
+$sources{INCLUDES} = [
+    "$sources{MASTERDIR}\\disk\\interface\\fbe",
+    "$sources{MASTERDIR}\\disk\\fbe\\interface",
+];
+$sources{TARGETLIBS} = [
+    "fbe_api_common_sim.lib",
+    "fbe_module_mgmt_sim.lib",
+    "fbe_drive_mgmt_sim.lib",
+];
+
+$sources{SOURCES} = [
+    "esp_sim.c",
+];

@@ -1,0 +1,13 @@
+$sources{TARGETNAME} = "fbe_base_lcc";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{SOURCES} = [
+    "fbe_base_lcc_main.c",
+];
+

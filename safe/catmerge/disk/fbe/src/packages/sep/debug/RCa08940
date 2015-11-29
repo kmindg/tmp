@@ -1,0 +1,21 @@
+#line 1"D:\\views\\puhovp_fleet_fbe_commonwork_branch\\catmerge\\disk\\fbe\\src\\packages\\physical\\debug\\RCLOCAL.rc"
+#line 1
+// Custom version - can define our own strings
+//Copyright (c) 2000 - 2000 by EMC Corp
+//Module Name:  RCLocal.h
+//Abstract:     This file contains object specific defines for K10Version.rc
+//Author:       Harvey Weiner
+#line 7
+#include <winver.h>
+#line 11
+#ifndef _RC_LOCAL_
+#line 13
+#define _RC_LOCAL_
+#line 15
+#define THIS_PROGRAM    "ntmirrordbg.dll"
+#define THIS_DESCRIPTION        "NtMirror Driver Debugging Macros"
+#define K10_DLL         1
+#line 19
+#endif
+#line 21
+#include "K10Version.rc"

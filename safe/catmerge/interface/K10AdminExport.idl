@@ -1,0 +1,45 @@
+// K10Admin.idl 
+//
+
+// This file will be processed by the MIDL tool to
+// produce the type library (K10Admin.tlb) and marshalling code.
+
+import "oaidl.idl";
+import "objidl.idl";
+
+typedef char* TLD_POINTER;
+
+[
+	object,
+	uuid(1d0eb802-771b-11d1-8054-0060b01a1c6e),
+	helpstring("IK10Admin Interface"),
+	pointer_default(unique)
+]
+interface IK10Admin : IDispatch
+{
+	[id(1), helpstring("method Write")] HRESULT Write([in] long lDbField, [in] long lItemSpec, [in] long lOpCode, [in] BYTE *pIn, [in] long lBufSize, [out,retval] long *lError);
+	[id(2), helpstring("method Read")] HRESULT Read([in] long lDbField, [in] long lItemSpec, [in] long lOpCode, [in, out] BYTE **ppOut, [in, out] long *lpBufSize, [out,retval] long *lError);
+	[id(3), helpstring("method Update")] HRESULT Update([in] long lDbField, [in] long lItemSpec, [in] long lOpCode, [in] BYTE *pInOut, [in] long lBufSize, [out,retval] long *lError);
+	[id(4), helpstring("method ReadTldList")] HRESULT ReadTldList( [in] TLD_POINTER pTldParamList,	[out] TLD_POINTER *ppTldResultList, [out,retval] long *lError);
+	[id(5), helpstring("method WriteTldList")] HRESULT WriteTldList( [in] TLD_POINTER pTldList, [out,retval] long *lError);
+};
+
+[
+	uuid(2fce15b4-771b-11d1-8054-0060b01a1c6e),
+	version(1.0),
+	helpstring("K10Admin 1.0 Type Library")
+]
+library K10ADMINLib
+{
+	importlib("stdole32.tlb");
+	importlib("stdole2.tlb");
+
+	[
+		uuid(45112e52-771b-11d1-8054-0060b01a1c6e),
+		helpstring("K10Admin Class")
+	]
+	coclass K10Admin
+	{
+		[default] interface IK10Admin;
+	};
+};

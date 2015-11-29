@@ -1,0 +1,32 @@
+$sources{TARGETNAME} = "terminator_drive_sata_plugin_test";
+$sources{TARGETTYPE} = "EMCUTIL_PROGRAM";
+$sources{MUT_TEST} = 1;
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{CALLING_CONVENTION} = "stdcall";
+$sources{SYSTEMLIBS} = [
+    "winmm.lib",
+    "ws2_32.lib",
+];
+$sources{TARGETLIBS} = [
+    "fbe_lib_user.lib",
+    "fbe_transport.lib",
+    "fbe_ktrace.lib",
+    "fbe_trace.lib",
+    "fbe_base_service.lib",
+    "fbe_service_manager.lib",
+    "terminator_drive_sata_plugin.lib",
+    "fbe_file_user.lib",
+    "fbe_drive_configuration.lib",
+    "fbe_memory.lib",
+    "fbe_memory_user.lib",
+    "fbe_transport_trace.lib",
+];
+$sources{SOURCES} = [
+    "terminator_drive_sata_plugin_test_main.c",
+    "terminator_drive_sata_plugin_fis_tests.c",
+];

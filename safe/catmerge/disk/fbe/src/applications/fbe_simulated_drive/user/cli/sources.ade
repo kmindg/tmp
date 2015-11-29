@@ -1,0 +1,19 @@
+$sources{TARGETNAME} = "fbe_simulated_drive_user_cli";
+$sources{TARGETTYPE} = "EMCUTIL_PROGRAM";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{CALLING_CONVENTION} = "stdcall";
+$sources{SYSTEMLIBS} = [
+    "ws2_32.lib",
+];
+$sources{TARGETLIBS} = [
+    "simulated_drive_user.lib",
+];
+$sources{SOURCES} = [
+    "simulated_drive_user_cli.cpp",
+];

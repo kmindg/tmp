@@ -1,0 +1,18 @@
+$sources{TARGETNAME} = "fbe_traffic_trace";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+
+$sources{TARGETLIBS} = [
+];
+
+$sources{SOURCES} = [
+    "fbe_traffic_trace_main.c",
+];
+

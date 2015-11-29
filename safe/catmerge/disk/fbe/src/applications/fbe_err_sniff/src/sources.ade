@@ -1,0 +1,20 @@
+$sources{TARGETNAME} = "fbe_err_sniff_lib";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{CALLING_CONVENTION} = "stdcall";
+$sources{INCLUDES} = [
+    "$sources{MASTERDIR}\\disk\\fbe\\interface",
+    "$sources{MASTERDIR}\\disk\\interface\\fbe",
+];
+           
+$sources{SOURCES} = [
+    "fbe_err_sniff_notification_handle.c",
+    "fbe_err_sniff_file_access.c",
+    "fbe_err_sniff_call_sp_collector.c",
+];

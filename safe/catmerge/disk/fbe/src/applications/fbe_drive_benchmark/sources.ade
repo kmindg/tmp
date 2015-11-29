@@ -1,0 +1,7 @@
+$sources{TARGETMODES} = [
+    "user",
+];
+
+$sources{COPY_FILES} = [
+    "fbe_drive_benchmark.exe",
+];

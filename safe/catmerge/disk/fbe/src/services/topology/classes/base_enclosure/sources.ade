@@ -1,0 +1,33 @@
+$sources{TARGETNAME} = "fbe_base_enclosure";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{INCLUDES} = [
+    "$sources{SRCDIR}\\..\\base_discovering",
+    "$sources{SRCDIR}\\..\\base_discovered",
+    "$sources{MASTERDIR}\\disk\\interface\\fbe",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\lib\\enclosure_data_access",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\topology\\classes\\sas_enclosure",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\topology\\classes\\enclosures\\eses_enclosure",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\topology\\classes\\enclosures\\sas_viper_enclosure",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\topology\\classes\\enclosures\\sas_magnum_enclosure",
+];
+
+$sources{SOURCES} = [
+    "fbe_base_enclosure_main.c",
+    "fbe_base_enclosure_monitor.c",
+    "fbe_base_enclosure_usurper.c",
+    "fbe_base_enclosure_executer.c",
+    "fbe_base_enclosure_utils.c",
+    "fbe_base_enclosure_dbg_utils.c",
+];
+
+$sources{SUBDIRS} = [
+    "debug",
+];

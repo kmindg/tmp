@@ -1,0 +1,31 @@
+$sources{TARGETNAME} = "fbe_cli_src";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{CALLING_CONVENTION} = "stdcall";
+$sources{INCLUDES} = [
+    "$sources{MASTERDIR}\\disk\\interface\\fbe",
+    "$sources{MASTERDIR}\\disk\\fbe\\interface",
+    "$sources{MASTERDIR}\\disk\\\\fbe\\src\\packages\\physical\\src\\enclosure_protocols",
+];
+
+$sources{TARGETLIBS} = [
+    "fbe_file_user.lib",
+];
+
+$sources{SOURCES} = [
+    "fbe_cli_src_enclosure_cmds.c",
+    "fbe_cli_src_logical_drive_cmds.c",
+    "fbe_cli_src_base_object_cmds.c",
+    "fbe_cli_src_main.c",
+    "fbe_cli_src_list.c",
+    "fbe_cli_src_object_classes.c",
+    "fbe_cli_src_utils.c",
+    "fbe_cli_src_prompt.c",
+    "fbe_cli_src_trace.c",
+    "fbe_cli_src_physical_drive_cmds.c",
+];

@@ -1,0 +1,22 @@
+$sources{TARGETNAME} = "fbe_cmi_sim";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+
+$sources{TARGETLIBS} = [
+    "fbe_cmi.lib",
+];
+
+$sources{SOURCES} = [
+    "fbe_cmi_service_main_sim.c",
+    "fbe_cmi_sim_client.c",
+    "fbe_cmi_sim_server.c",
+    "fbe_cmi_sim_common.c",
+];
+
+$sources{CUSTOM_DEFS} = ["/DI_AM_NATIVE_CODE"];

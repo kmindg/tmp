@@ -1,0 +1,21 @@
+$sources{TARGETNAME} = "fbe_mirror";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+
+$sources{TARGETLIBS} = [
+    "fbe_mirror_object.lib",
+];
+             
+$sources{SUBDIRS} = [
+    "src",
+    "test",
+];
+
+

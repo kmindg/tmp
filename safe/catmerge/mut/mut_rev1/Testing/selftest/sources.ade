@@ -1,0 +1,25 @@
+$sources{TARGETNAME} = "mut_selftest";
+$sources{TARGETTYPE} = "EMCUTIL_PROGRAM";
+$sources{MUT_TEST} = 1;
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{CALLING_CONVENTION} = "stdcall";
+$sources{SYSTEMLIBS} = [
+    "winmm.lib",
+    "ws2_32.lib",
+];
+
+$sources{SOURCES} = [
+    "mut_selftest.cpp",
+    "mut_selftest_cpp.cpp",
+];
+
+# This increases the stack size for the app.
+# default is 0x100000,0x1000, (reserve,commit).
+# The reserve value change represents a 20% increase over the default.
+$sources{CUSTOM_LINK_OPTS} = "/STACK:2258291,8096";
+

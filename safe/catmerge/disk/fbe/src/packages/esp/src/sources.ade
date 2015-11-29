@@ -1,0 +1,17 @@
+$sources{TARGETNAME} = "fbe_esp";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{SOURCES} = [
+    "esp_init.c",
+    "esp_send.c",
+];
+$sources{SUBDIRS} = [
+    "registry",
+];

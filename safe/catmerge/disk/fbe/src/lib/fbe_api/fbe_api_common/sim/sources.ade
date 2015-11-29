@@ -1,0 +1,15 @@
+$sources{TARGETNAME} = "fbe_api_common_sim";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{TARGETLIBS} = [
+];
+$sources{SOURCES} = [
+    "fbe_api_common_sim.c",
+];
+

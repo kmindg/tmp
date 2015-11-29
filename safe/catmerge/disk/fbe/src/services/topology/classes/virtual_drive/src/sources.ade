@@ -1,0 +1,30 @@
+$sources{TARGETNAME} = "fbe_virtual_drive";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{INCLUDES} = [
+    "$sources{SRCDIR}\\..\\..\\base_object",
+    "$sources{SRCDIR}\\..\\..\\base_config",
+    "$sources{SRCDIR}\\..\\..\\raid_group\\interface",
+    "$sources{SRCDIR}\\..\\..\\..\\..\\..\\lib\\fbe_raid\\interface",
+    "$sources{SRCDIR}\\..\\..\\mirror\\interface",
+];
+	   
+$sources{SOURCES} = [
+    "fbe_virtual_drive_main.c",
+    "fbe_virtual_drive_monitor.c",
+    "fbe_virtual_drive_usurper.c",
+    "fbe_virtual_drive_executor.c",
+    "fbe_virtual_drive_event.c",
+    "fbe_virtual_drive_class.c",
+    "fbe_virtual_drive_swap.c",
+    "fbe_virtual_drive_copy.c",
+    "fbe_virtual_drive_metadata.c",
+    "fbe_virtual_drive_event_logging.c"
+];

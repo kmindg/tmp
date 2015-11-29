@@ -1,0 +1,3 @@
+$sources{SUBDIRS} = [
+    "esp_dll",
+];

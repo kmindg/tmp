@@ -1,0 +1,18 @@
+$sources{TARGETNAME} = "fbe_notification";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+
+$sources{TARGETLIBS} = [
+    "fbe_notification_lib.lib",
+];
+
+$sources{UMTYPE} = "console";
+$sources{SOURCES} = [
+    "fbe_notification_main.c",
+];

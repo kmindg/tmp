@@ -1,0 +1,28 @@
+$sources{TARGETNAME} = "fbe_bvd_interface_kernel";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+];
+$sources{UMTYPE} = "console";
+$sources{INCLUDES} = [
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\topology\\classes\\bvd_interface\\src",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\topology\\classes\\base_object",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\topology\\classes\\base_config",
+];
+
+$sources{TARGETLIBS} = [
+];
+#cond_add(defined($sources{SAFE_C4_INTEGRATED_BUILD}), \@{$sources{TARGETLIBS}}, 'c4blkshim.lib'); # C4_INTEGRATED
+cond_add(defined($sources{SAFE_C4_INTEGRATED_BUILD}), \@{$sources{TARGETLIBS}}, 'fbe_sep_shim_kernel.lib'); # C4_INTEGRATED
+
+cond_add(defined($sources{SAFE_C4_INTEGRATED_BUILD}), \@{$sources{SYSTEMLIBS}}, "$ENV{SAFE_RPM_ROOT}/opt/blockshim_ng/bin/ublockshim_ng.so");
+cond_add(defined($sources{SAFE_C4_INTEGRATED_BUILD}), \@{$sources{INCLUDES}}, "$ENV{SAFE_RPM_ROOT}/opt/blockshim_ng/include/blockshim_ng");
+
+$sources{SOURCES} = [
+    "fbe_bvd_interface_kernel_main.c",
+    "fbe_bvd_interface_event_handle_kernel.c",
+];
+
+cond_add(defined($sources{SAFEBUILD}), \@{$sources{INCLUDES}}, "$ENV{SAFE_RPM_ROOT}/opt/blockshim_ng/include/blockshim_ng"); # C4_INTEGRATED
+cond_add(defined($sources{SAFE_C4_INTEGRATED_BUILD}), \@{$sources{SOURCES}}, 'fbe_bvd_interface_kernel_export_lun.c'); # C4_INTEGRATED

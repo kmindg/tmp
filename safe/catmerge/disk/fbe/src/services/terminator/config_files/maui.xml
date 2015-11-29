@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<Board Board_type="FBE_BOARD_TYPE_FLEET" SN="BDX100F0001">
+	<Port Port_type="FBE_PORT_TYPE_SAS_PMC" IO_port_number="3" Portal_number="5" Backend_number="0" Sas_address="5000097A7800903F" SN="UP200F0003">
+        <Enclosure Enclosure_type="FBE_SAS_ENCLOSURE_TYPE_VIPER" Sas_address="5000097A78009071" SN="XE300F000T" UID="0000000000000001">
+            <Drive Drive_type="FBE_SAS_DRIVE_CHEETA_15K" Slot="0" Sas_address="5000097A7800A071" SN="D400FB00F"/>
+            <Drive Drive_type="FBE_SAS_DRIVE_CHEETA_15K" Slot="1" Sas_address="5000097A7800A271" SN="D500FB00B"/>
+            <Drive Drive_type="FBE_SAS_DRIVE_CHEETA_15K" Slot="2" Sas_address="5000097A7800A371" SN="D600FB00C"/>
+            <Drive Drive_type="FBE_SAS_DRIVE_CHEETA_15K" Slot="3" Sas_address="5000097A7800A471" SN="D700FB00D"/>
+            <Drive Drive_type="FBE_SAS_DRIVE_CHEETA_15K" Slot="4" Sas_address="5000097A7800A571" SN="D800FB00F"/>
+            <Drive Drive_type="FBE_SAS_DRIVE_CHEETA_15K" Slot="5" Sas_address="5000097A7800A671" SN="D900FB00B"/>
+            <Drive Drive_type="FBE_SAS_DRIVE_CHEETA_15K" Slot="6" Sas_address="5000097A7800A771" SN="DA00FB00C"/>
+            <Drive Drive_type="FBE_SAS_DRIVE_CHEETA_15K" Slot="7" Sas_address="5000097A7800A871" SN="DB00FB00D"/>
+            <Drive Drive_type="FBE_SAS_DRIVE_CHEETA_15K" Slot="8" Sas_address="5000097A7800A971" SN="DC00FB00F"/>
+            <Drive Drive_type="FBE_SAS_DRIVE_CHEETA_15K" Slot="9" Sas_address="5000097A7800AA71" SN="DD00FB00B"/>
+            <Drive Drive_type="FBE_SAS_DRIVE_CHEETA_15K" Slot="10" Sas_address="5000097A7800AB71" SN="DE00FB00C"/>
+            <Drive Drive_type="FBE_SAS_DRIVE_CHEETA_15K" Slot="11" Sas_address="5000097A7800AC71" SN="DF00FB00D"/>
+        </Enclosure> 
+    </Port>
+</Board>

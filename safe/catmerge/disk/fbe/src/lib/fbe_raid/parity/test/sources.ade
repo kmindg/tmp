@@ -1,0 +1,12 @@
+$sources{TARGETNAME} = "fbe_raid_parity_library_test";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{SOURCES} = [
+    "fbe_parity_unit_test.c",
+    "fbe_parity_test_generate.c",
+];

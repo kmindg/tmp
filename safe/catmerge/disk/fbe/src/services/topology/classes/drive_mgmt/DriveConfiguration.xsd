@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	
+	<xs:element name="pdoThresholdConfiguration" maxOccurs="1">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="driveConfigurations" maxOccurs="1">
+
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="sasDriveConfiguration" minOccurs="1">
+								<xs:complexType>
+									<xs:sequence>
+					<xs:element name="controlDefault" type="ControlDefault" minOccurs="0" maxOccurs="1"/>
+										<xs:element name="driveInformation" type="DriveInformation" minOccurs="1" maxOccurs="1"/>
+										<xs:element name="driveStatistics" type="DriveStatistics" minOccurs="1" maxOccurs="1"/>
+										<xs:element name="sasDriveExceptionCodes" type="ScsiExcpetionCodes" minOccurs="0"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>                            							
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				
+				<xs:element name="portConfigurations" maxOccurs="1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="portConfiguration" type="PortConiguration"></xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:complexType name="PortConiguration">
+		<xs:attribute>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="Fiber"></xs:enumeration>
+					<xs:enumeration value="SAS LSI"></xs:enumeration>
+					<xs:enumeration value="SAS PMC"></xs:enumeration>   						
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:sequence>
+			<xs:element name="driveStats" type="DriveStats"></xs:element>
+			<xs:element name="enclosureStats" type="DriveStats"></xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+  <xs:element name="DriveQDepth">
+    <xs:complexType>
+      <xs:attribute name="DefaultQDepth" use="required" type="unsignedInt" />
+      <xs:attribute name="SystemNormalQDepth" use="required" type="unsignedInt" />
+      <xs:attribute name="SystemReducedQDepth" use="required" type="unsignedInt" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="GlobalParameters">
+      <xs:complexType>
+        <xs:attribute name="ServiceTimeout" use="optional" type="unsignedInt" />
+        <xs:attribute name="RemapServiceTimeout" use="optional" type="unsignedInt" />
+        <xs:attribute name="EmehServiceTimeout" use="optional" type="unsignedInt" />
+      </xs:complexType>
+  </xs:element>
+  
+	<xs:complexType name="DriveStatistics">
+		<xs:sequence>
+			<xs:element name="cumulativeStats" type="DriveStats" />
+			<xs:element name="recoveredStats" type="DriveStats" />
+			<xs:element name="mediaStats" type="DriveStats" />
+			<xs:element name="hardwareStats" type="DriveStats" />
+			<xs:element name="linkStats" type="DriveStats" />
+			<xs:element name="resetStats" type="DriveStats" />
+			<xs:element name="powerCycleStats" type="DriveStats" />
+			<xs:element name="dataStats" type="DriveStats" />
+			<xs:element name="recoveryTagReduce">
+				<xs:complexType>
+					<xs:attribute name="value" type="unsignedInt"></xs:attribute>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="errorBurstWeightReduce">
+				<xs:complexType>
+					<xs:attribute name="value" type="unsignedInt"></xs:attribute>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="errorBurstDelta">
+				<xs:complexType>
+					<xs:attribute name="value" type="unsignedInt"></xs:attribute>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DriveInformation">
+		<xs:sequence>
+			<xs:element name="vendor">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:string">
+							<xs:attribute name="name" use="required">
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:enumeration value="default"/>   									
+										<xs:enumeration value="simulation"/>
+										<xs:enumeration value="hitachi"/>
+										<xs:enumeration value="seagate"/>
+										<xs:enumeration value="ibm"/>
+										<xs:enumeration value="fujitsu"/>
+										<xs:enumeration value="maxtor"/>
+										<xs:enumeration value="western digital"/>
+										<xs:enumeration value="stec"/>
+										<xs:enumeration value="samsung"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:attribute>
+							
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+      <xs:element name="partNumber">
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="xs:string">
+              <xs:attribute name="partNumber" use="required" type="xs:string" />
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>      
+			<xs:element name="productID">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:string">
+							<xs:attribute name="productId" use="required" type="xs:string" />
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="firmwareRev">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:string">
+							<xs:attribute name="revision" use="required" type="xs:string" />
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="serialNumber">
+				<xs:complexType>
+					<xs:attribute name="sNoStart" use="required" type="xs:string" />
+					<xs:attribute name="sNoEnd" use="required" type="xs:string" />
+				</xs:complexType>
+			</xs:element>
+    </xs:sequence>		
+	</xs:complexType>
+  
+  <xs:complexType name="ControlDefault">
+	<xs:attribute name="control_flag" type="unsignedLong" use="required"></xs:attribute>
+  </xs:complexType> 
+	<xs:complexType name="DriveStats">
+		<xs:attribute name="threshold" type="unsignedLong" use="required"></xs:attribute>
+		<xs:attribute name="io_interval" type="unsignedLong" use="required"></xs:attribute>
+		<xs:attribute name="weight" type="unsignedInt" use="required"></xs:attribute>
+        <xs:attribute name="reset" type="unsignedInt" use="optional"></xs:attribute>
+        <xs:attribute name="eol" type="unsignedInt" use="optional"></xs:attribute>
+        <xs:attribute name="kill" type="unsignedInt" use="optional"></xs:attribute>
+        <xs:attribute name="eol_call_home" type="unsignedInt" use="optional"></xs:attribute>
+        <xs:attribute name="kill_call_home" type="unsignedInt" use="optional"></xs:attribute>
+
+        <xs:attribute name="control_flag" type="unsignedLong" use="optional"></xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="IoStatus">
+		<xs:attribute name="status" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="ok" />
+					<xs:enumeration value="failRetry" />
+					<xs:enumeration value="failNoRetry" />
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="ErrorFlag">
+		<xs:attribute name="typeAction" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="noError" />
+					<xs:enumeration value="recoveredError" />
+					<xs:enumeration value="mediaError" />
+					<xs:enumeration value="hardwareError" />
+					<xs:enumeration value="linkError" />
+					<xs:enumeration value="dataError" />
+					<xs:enumeration value="remapped" />
+					<xs:enumeration value="notSpinning" />
+					<xs:enumeration value="proactiveCopy" />
+					<xs:enumeration value="fatal" />
+					<xs:enumeration value="unknown" />
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="ScsiExcpetionCodes">
+		<xs:sequence maxOccurs="unbounded">
+			<xs:element name="scsiExcpetionCode">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="scsiCode">
+							<xs:complexType>
+								<xs:attribute name="senseKey" type="unsignedByte" use="required"></xs:attribute>
+								<xs:attribute name="senseCodeStart" type="unsignedByte" use="required"></xs:attribute>
+								<xs:attribute name="senseCodeEnd" type="unsignedByte" use="required"></xs:attribute>
+								<xs:attribute name="senseQualStart" type="unsignedByte" use="required"></xs:attribute>
+								<xs:attribute name="senseQualEnd" type="unsignedByte" use="required"></xs:attribute>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="ioStatus" type="IoStatus" />
+						<xs:element name="errorClassify" type="ErrorFlag" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>	
+</xs:schema>

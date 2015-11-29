@@ -1,0 +1,10 @@
+$sources{SUBDIRS} = [
+    "fbeapix",
+    "ioctlx",
+    "src",
+    #"test",
+    #"test_simple_api",
+    #"test_simulator", 
+    #"test_kernel", 
+ 
+];

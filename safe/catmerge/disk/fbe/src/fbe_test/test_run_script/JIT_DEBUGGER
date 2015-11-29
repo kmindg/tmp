@@ -1,0 +1,10 @@
+#!/bin/bash
+
+GDB=/c4shares/auto/devutils/bin/gdb
+PARENT_NAME=`cat /proc/$2/status | grep Name: | awk '{print $2}'`
+LINES=55
+COLUMNS=106
+
+chrt -o 0 /usr/bin/gnome-terminal --disable-factory -t "$PARENT_NAME $1 $2" -x $GDB "$@" --eval-command "set height $LINES" --eval-command "set width $COLUMNS"
+
+# gnome-terminal -x $GDB "$@"

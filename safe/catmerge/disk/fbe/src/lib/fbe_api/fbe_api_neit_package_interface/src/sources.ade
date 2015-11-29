@@ -1,0 +1,27 @@
+$sources{TARGETNAME} = "fbe_api_neit_package_interface";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+    "kernel",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{SOURCES} = [
+    "fbe_api_rdgen_interface.c",
+    "fbe_api_logical_error_injection_interface.c",
+    "fbe_api_protocol_error_injection_interface.c",
+    "fbe_api_raw_mirror_service_interface.c",
+    "fbe_api_dest_injection_interface.c",
+];
+
+
+
+
+
+
+
+
+
+

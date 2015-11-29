@@ -1,0 +1,44 @@
+$sources{TARGETNAME} = "fbe_provision_drive";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{INCLUDES} = [
+    "$sources{SRCDIR}\\..\\..\\base_object",
+    "$sources{SRCDIR}\\..\\..\\base_config",
+    "$sources{SRCDIR}\\..\\..\\raid_group\\interface",
+    "$sources{SRCDIR}\\..\\..\\..\\..\\..\\lib\\fbe_raid\\interface",
+];
+
+$sources{SOURCES} = [
+    "fbe_provision_drive_main.c",
+    "fbe_provision_drive_monitor.c",
+    "fbe_provision_drive_usurper.c",
+    "fbe_provision_drive_executor.c",
+    "fbe_provision_drive_event.c",
+    "fbe_provision_drive_metadata.c",
+    "fbe_provision_drive_class.c",
+    "fbe_provision_drive_remap.c",
+    "fbe_provision_drive_verify.c",
+    "fbe_provision_drive_stripe_lock.c",
+    "fbe_provision_drive_bitmap.c",
+    "fbe_provision_drive_zero_utils.c",
+    "fbe_provision_drive_utils.c",
+    "fbe_provision_drive_user_zero.c",
+    "fbe_provision_drive_background_zero.c",
+    "fbe_provision_drive_zero_on_demand.c",
+    "fbe_provision_drive_event_log.c",
+    "fbe_provision_drive_trace.c",
+    "fbe_provision_drive_sniff_utils.c",
+    "fbe_provision_drive_join.c",
+    "fbe_provision_drive_download.c",
+    "fbe_provision_drive_slf.c",
+    "fbe_provision_drive_health_check.c",
+    "fbe_provision_drive_metadata_cache.c",
+    "fbe_provision_drive_unmap_bitmap.c",
+];

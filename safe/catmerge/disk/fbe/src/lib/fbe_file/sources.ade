@@ -1,0 +1,13 @@
+$sources{SUBDIRS} = [
+    "kernel",
+    "user",
+];
+
+
+	
+
+
+
+
+
+

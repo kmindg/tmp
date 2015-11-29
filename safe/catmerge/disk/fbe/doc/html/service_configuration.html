@@ -1,0 +1,167 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Configuration Service</title>
+<link rel="stylesheet" type="text/css" href="../css/all.css" />
+<link rel="stylesheet" type="text/css" href="../css/types.css" />
+<link rel="stylesheet" type="text/css" href="../css/lists.css" />
+</head>
+<body>
+<h1>Configuration Service</h1>
+<p>
+The configuration service manages the configured nature of the objects in the storage extent package.
+</p>
+<p>
+If an object is configured in SEP the configuration service is responsible for the authoritative definition
+of both the object and its edges to other objects.
+All object/edge conflicts are resolved using the configuration metadata.
+</p>
+<p>
+The configuration service maintains its metadata in three run-time tables:
+<ul>
+    <li><i>Object Table</i> &mdash; all of the configured objects.</li>
+    <li><i>Edge Table</i> &mdash; all of the edges between configured objects.</li>
+    <li><i>User Id Table</i> &mdash; mappings between user identifiers and
+    the object ids of the configured objects (e.g., a LUN WWN is mapped to its object id).</li>
+</ul>
+</p>
+<p>
+The configuration service keeps its tables coherent across SPs by adopting either an active
+or passive role in the service itself.
+The active service (on one SP) provides all of the stimulus for creating and updating the
+tables of the passive service (on the other SP).
+The active service communicates with the passive service using CMI messages sent via the
+CMI service.
+</p>
+<p>
+The active service keeps its tables persistent in the configuration database.
+It does this indirectly using the persistence service (which is responsible for maintaining
+the records of the database).
+The passive service does not access the configuration database.
+The configuration database is stored in a triple-mirror, system lun on the system drives.
+</p>
+<p>
+<img src="../png/service_configuration_02.png" />
+</p>
+<p>
+The generalized flow for creating configured objects and edges is as follows:
+<ol style="list-style-type:upper-alpha">
+    <li>On the active SP, metadata for configured objects and edges is read from the
+    configuration database and stored in run-time tables.</li>
+    <li>On the active SP, objects and edges are created based on the metadata read from
+    the configuration database.  As a part of this, CMI messages are sent
+    to the passive SP to create corresponding objects and edges.</li>
+    <li>The passive SP creates the corresponding objects and edges based on the incoming
+    CMI messages.</li>
+    <li>On the active SP, when new objects and edges are added to the system, updates are made to the
+    configuration database via the persistence service.</li>
+    <li>The persistence service makes transactional updates to the triple mirror database.</li>
+</ol>
+</p>
+<p>
+The configuration service creates all of the configured objects and edges when the package
+is itself initialized.
+The objects are created without regard to whether the underlying hardware is present,
+e.g., if the drives of a raid group are not present the raid group object is still created,
+although in this case it will not become ready for I/O.
+</p>
+<h2>System Object Initialization</h2>
+<p>
+Before the configuration database can be accessed (by the persistence service) the configuration
+service must first create the "system objects" needed to support the LUN containing the database.
+These system objects are preconfigured (hard-coded) in the configuration service itself.
+They have fixed object ids and the system drives themselves are at fixed physical locations
+(bus 0, enclosure 0, and slots 0, 1, and 2).
+</p>
+<p>
+<img src="../png/service_configuration_01.png" />
+</p>
+<h2>Configuration Service Characteristics</h2>
+<p>
+There are three primary code flows in the configuration service:
+<ul>
+    <li>Service control port &mdash; receives and processes request packets.</li>
+    <li>Peer monitor thread &mdash; receives and processes peer requests.</li>
+    <li>Disk monitor thread &mdash; receives drive related notifications and makes PVD
+        updates as appropriate.</li>
+</ul>
+</p>
+<h3>Service Control Port</h3>
+<p>
+The service control port is the entry point for receiving request packets to change,
+the configuration, e.g., to create new objects and edges, or to delete existing objects
+and edges.
+Configuration operations performed via the control port occur in the context of the sender
+of the request packet.
+In general this context will be either a job service job thread, or the peer monitor thread
+when processing CMI messages.
+</p>
+<h3>Peer Monitor Thread</h3>
+<p>
+The configuration service uses its peer monitor thread to maintain the CMI connection to its
+counterpart configuration service on the peer SP.
+On the active SP this thread is mostly idle, its role is primarily active/passive handshaking.
+On the passive side this thread receives and processes peer requests to update its run-time
+(in memory) configuration.
+</p>
+<h3>Disk Monitor Thread</h3>
+<p>
+When the configuration service is first initialized, its disk monitor thread reads
+the configuration database and creates the configured objects and edges.
+Inherent in this, it creates the system objects needed to access the database and provides the
+persistence service with the database LUN identifier.
+</p>
+<p>
+After this initialization phase completes, the disk monitor thread interacts with the physical package
+to receive and process drive change notifications.
+In particular, it monitors when new drives are inserted in the system and when existing drives
+are removed from the system.
+</p>
+<p>
+When drives are removed, the disk monitor will detach the edge between the PVD object
+and the downstream logical drive.
+The PVD object will transition to the ACTIVATE state, and I/O to the drive will be stopped.
+</p>
+<p>
+When drives are inserted one of two things can happen.  If the drive corresponds to a configured
+PVD object, then that PVD object will already exist in the package topology.
+In this case, the drive monitor will create an edge between the existing PVD object and the new
+logical drive object.  Once this edge is created the PVD object will progress through its ACTIVATE rotary
+in order to reach its READY state.
+</p>
+<p>
+Alternatively, if the inserted drive does not correspond with a configured PVD object,
+the drive monitor will create a new PVD object.
+It will also create a downstream edge between this new PVD object and the new logical drive.
+The new PVD will not have any upstream edges and will not be written into the configuration
+database.
+However, it can be used as a hot spare, or the user can configure it in a new raid group.
+</p>
+<h2>Database Service Source Files</h2>
+<p>
+<ul>
+    <li>./disk/fbe/interface/fbe_database.h</li>
+    <li>./disk/fbe/src/services/database/src/*.h</li>
+    <li>./disk/fbe/src/services/database/src/*.c</li>
+</ul>
+</p>
+<h2>Configuration Service Transactions</h2>
+<p>
+Any changes to configured objects ( creation/modification/deletion ) within the configuration service are performed within the context of a transaction. Transactions will be co-ordinated between SPs. The following rules apply to transactions within the configuration service.
+<ul>
+<li>Only one transaction can be in progress at any time</li>
+    <li>No changes to any objects are persisted until the transaction has been committed</li>
+    <li>If any errors occur within a transaction then the transaction can never be commited and must be aborted</li>
+    <li>After aborting a transaction all objects will be reverted to their state before the transaction started ( both the in-memory and persisted images )</li>
+    <li>A transaction cannot be initiated on a passive node</li>
+    <li>The active node will not complete it's transaction commit until the passive node has sucessfully finished it's commit
+    <li>An abort on the active node will cause to passive to to abort too</li?
+    <li>An error on either the active or passive node will cause both nodes to require the transaction to be aborted</li>
+</ul>
+</p>
+The configuration service will allow some requests to proceed with a transaction. Any requests that do not cause objects to be created/destroyed or modified can be processed outside the bounds of a transaction.
+
+</body>
+</html>

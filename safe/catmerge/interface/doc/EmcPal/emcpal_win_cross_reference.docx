@@ -1,0 +1,156 @@
+/*! \page emcpal_win_cross_reference Windows / EmcPAL API Cross-Reference
+
+\section WinCrossReference Cross-Reference Table
+NOTE: This table is NOT a complete list of every Emcpal API that is available. Please click on the Modules tab to view a complete list of APIs, grouped by functionality. Or click on a link below, which will take you to a page that describes the function and related functions.
+<table>
+<tr><td><b>Call</b></td><td><b>Windows</b></td><td><b>Emcpal</b></td></tr>
+<tr><td>Semaphore create</td><td>KeInitializeSemaphore</td><td>EmcpalSemaphoreCreate()</td></tr>
+<tr><td>Semaphore wait</td><td>EmcKeWaitForSingleObject</td><td>EmcpalSemaphoreWait()</td></tr>
+<tr><td>Semaphore destroy</td><td><i>None</i></td><td>EmcpalSemaphoreDestroy()</td></tr>
+<tr><td>Semaphore signal</td><td>KeReleaseSemaphore</td><td>EmcpalSemaphoreSignal()</td></tr>
+<tr><td bgcolor=gray></td><td bgcolor=gray></td><td bgcolor=gray></td></tr>
+<tr><td>Synchronization event create</td><td>KeInitializeEvent</td><td>EmcpalSyncEventCreate()</td></tr>
+<tr><td>Synchronization event destroy</td><td><i>None</i></td><td>EmcpalSyncEventDestroy()</td></tr>
+<tr><td>Synchronization event set</td><td>KeSetEvent</td><td>EmcpalSyncEventSet()</td></tr>
+<tr><td>Synchronization event clear</td><td>KeClearEvent</td><td>EmcpalSyncEventClear()</td></tr>
+<tr><td>Synchronization event wait</td><td>EmcKeWaitForSingleObject</td><td>EmcpalSyncEventWait()</td></tr>
+<tr><td bgcolor=gray></td><td bgcolor=gray></td><td bgcolor=gray></td></tr>
+<tr><td>Rendezvous event create</td><td>KeInitializeEvent</td><td>EmcpalRendezvousEventCreate()</td></tr>
+<tr><td>Rendezvous event destroy</td><td><i>None</i></td><td>EmcpalRendezvousEventDestroy()</td></tr>
+<tr><td>Rendezvous event set</td><td>KeSetEvent</td><td>EmcpalRendezvousEventSet()</td></tr>
+<tr><td>Rendezvous event clear</td><td>KeClearEvent</td><td>EmcpalRendezvousEventClear()</td></tr>
+<tr><td>Rendezvous event wait</td><td>EmcKeWaitForSingleObject</td><td>EmcpalRendezvousEventWait()</td></tr>
+<tr><td bgcolor=gray></td><td bgcolor=gray></td><td bgcolor=gray></td></tr>
+<tr><td>Wait For Multiple Objects</td><td>KeWaitForMultipleObjects</td><td><i>Will not be supported, and is being removed from the code</i></td></tr>
+<tr><td bgcolor=gray></td><td bgcolor=gray></td><td bgcolor=gray></td></tr>
+<tr><td>Mutex create</td><td>KeInitializeSemaphore</td><td>EmcpalMutexCreate()</td></tr>
+<tr><td>Mutex destroy</td><td><i>None</i></td><td>EmcpalMutexDestroy()</td></tr>
+<tr><td>Mutex lock</td><td>EmcKeWaitForSingleObject</td><td>EmcpalMutexLock()</td></tr>
+<tr><td>Mutex trylock</td><td>EmcKeWaitForSingleObject</td><td>EmcpalMutexTrylock()</td></tr>
+<tr><td>Mutex unlock</td><td>KeReleaseSemaphore</td><td>EmcpalMutexUnlock()</td></tr>
+<tr><td bgcolor=gray></td><td bgcolor=gray></td><td bgcolor=gray></td></tr>
+<tr><td>Monostable Timer Create</td><td>KeInitializeDpc, KeInitializeTimer</td><td>EmcpalMonostableTimerCreate()</td></tr>
+<tr><td>Monostable Timer Destroy</td><td><i>None</i></td><td>EmcpalMonostableTimerDestroy()</td></tr>
+<tr><td>Monostable Timer Start</td><td>KeSetTimer</td><td>EmcpalMonostableTimerStart()</td></tr>
+<tr><td>Monostable Timer Cancel</td><td>KeCancelTimer</td><td>EmcpalMonostableTimerCancel()</td></tr>
+<tr><td bgcolor=gray></td><td bgcolor=gray></td><td bgcolor=gray></td></tr>
+<tr><td>Astable Timer Create</td><td>KeInitializeDpc, KeInitializeTimer</td><td>EmcpalAstableTimerCreate()</td></tr>
+<tr><td>Astable Timer Destroy</td><td><i>None</i></td><td>EmcpalAstableTimerDestroy()</td></tr>
+<tr><td>Astable Timer Start</td><td>KeSetTimerEx</td><td>EmcpalAstableTimerStart()</td></tr>
+<tr><td>Astable Timer Cancel</td><td>KeCancelTimer</td><td>EmcpalAstableTimerCancel()</td></tr>
+<tr><td bgcolor=gray></td><td bgcolor=gray></td><td bgcolor=gray></td></tr>
+<tr><td>Thread Create</td><td>PsCreateSystemThread</td><td>EmcpalThreadCreate()</td></tr>
+<tr><td>Thread Destroy</td><td><i>None</i></td><td>EmcpalThreadDestroy()</td></tr>
+<tr><td>Thread Exit</td><td>PsTerminateSystemThread</td><td>EmcpalThreadExit()</td></tr>
+<tr><td>Thread Priority Set</td><td>KeSetPriorityThread</td><td>EmcpalThreadPrioritySet()</td></tr>
+<tr><td>Thread Affine</td><td>ZwSetInformationThread</td><td>EmcpalThreadAffine()</td></tr>
+<tr><td>Thread Sleep</td><td>KeDelayExecutionThread</td><td>EmcpalThreadSleep()</td></tr>
+<tr><td>Thread Wait</td><td>EmcKeWaitForSingleObject</td><td>EmcpalThreadWait()</td></tr>
+<tr><td>Thread GetID</td><td>KeGetCurrentThread</td><td>EmcpalThreadGetID()</td></tr>
+<tr><td>Thread Alive</td><td><i>None</i></td><td>EmcpalThreadAlive()</td></tr>
+<tr><td bgcolor=gray></td><td bgcolor=gray></td><td bgcolor=gray></td></tr>
+<tr><td>Spinlock Create</td><td>KeInitializeSpinLock</td><td>EmcpalSpinlockCreate()</td></tr>
+<tr><td>Spinlock Destroy</td><td><i>None</i></td><td>EmcpalSpinlockDestroy()</td></tr>
+<tr><td>Spinlock Lock</td><td>EmcKeAcquireSpinLock</td><td>EmcpalSpinlockLock()</td></tr>
+<tr><td>Spinlock Lock Special</td><td>EmcKeAcquireSpinLockAtDpcLevel</td><td>EmcpalSpinlockLockSpecial()</td></tr>
+<tr><td>Spinlock Unlock</td><td>EmcKeReleaseSpinLock</td><td>EmcpalSpinlockUnlock()</td></tr>
+<tr><td>Spinlock Unlock Special</td><td>KeReleaseSpinLockFromDpcLevel</td><td>EmcpalSpinlockUnlockSpecial()</td></tr>
+<tr><td>Spinlock Unlock Out of Order</td><td><i>None</i></td><td>EmcpalSpinlockUnlockOutOfOrder()</td></tr>
+<tr><td bgcolor=gray></td><td bgcolor=gray></td><td bgcolor=gray></td></tr>
+<tr><td>Initialize List</td><td>InitializeListHead</td><td>EmcpalInitializeListHead()</td></tr>
+<tr><td>Remove a list entry</td><td>RemoveEntryList</td><td>EmcpalRemoveListEntry()</td></tr>
+<tr><td>Check for empty list</td><td>IsListEmpty</td><td>EmcpalIsListEmpty()</td></tr>
+<tr><td>Remove entry from head of List</td><td>RemoveHeadList</td><td>EmcpalRemoveListHead()</td></tr>
+<tr><td>Remove entry from tail of List</td><td>RemoveTailList</td><td>EmcpalRemoveListTail()</td></tr>
+<tr><td>Insert entry to tail of List</td><td>InsertTailList</td><td>EmcpalInsertListTail()</td></tr>
+<tr><td>Insert entry to head of List</td><td>InsertHeadList</td><td>EmcpalInsertListHead()</td></tr>
+<tr><td bgcolor=gray></td><td bgcolor=gray></td><td bgcolor=gray></td></tr>
+<tr><td>Allocate Utility Memory with tags</td><td>ExAllocatePoolWithTag</td><td>EmcpalAllocateUtilityPoolWithTag()</td></tr>
+<tr><td>Free Utility Memory with tags</td><td>ExFreePoolWithTag</td><td>EmcpalFreeUtilityPoolWithTag()</td></tr>
+<tr><td>Allocate Utility Memory</td><td>ExAllocatePool</td><td>EmcpalAllocateUtilityPool()</td></tr>
+<tr><td>Free Utility Memory</td><td>ExFreePool</td><td>EmcpalFreeUtilityPool()</td></tr>
+<tr><td>Create Lookaside List</td><td>ExInitializeNPagedLookasideList</td><td>EmcpalLookasideListCreate()</td></tr>
+<tr><td>Allocate memory from Lookaside List</td><td>ExAllocateFromNPagedLookasideList</td><td>EmcpalLookasideAllocate()</td></tr>
+<tr><td>Free Memory to Lookaside List</td><td>ExFreeToNPagedLookasideList</td><td>EmcpalLookasideFree()</td></tr>
+<tr><td>Delete Lookaside List</td><td>ExDeleteNPagedLookasideList</td><td>EmcpalLookasideListDelete()</td></tr>
+<tr><td bgcolor=gray></td><td bgcolor=gray></td><td bgcolor=gray></td></tr>
+<tr><td>Device object pointer</td><td>PDEVICE_OBJECT</td><td>PEMCPAL_DEVICE_OBJECT()</td></tr>
+<tr><td>File object pointer</td><td>PFILE_OBJECT</td><td>PEMCPAL_FILE_OBJECT()</td></tr>
+<tr><td>IRP list entry</td><td>LIST_ENTRY</td><td>EMCPAL_IRP_LIST_ENTRY()</td></tr>
+<tr><td>IRP list entry pointer</td><td>PLIST_ENTRY</td><td>PEMCPAL_IRP_LIST_ENTRY()</td></tr>
+<tr><td>IRP stack location</td><td>PIO_STACK_LOCATION</td><td>PEMCPAL_IO_STACK_LOCATION()</td></tr>
+<tr><td>IRP object</td><td>IRP</td><td>EMCPAL_IRP()</td></tr>
+<tr><td>IRP object pointer</td><td>PIRP</td><td>PEMCPAL_IRP()</td></tr>
+<tr><td>IRP completion routine</td><td>IO_COMPLETION_ROUTINE</td><td>PEMCPAL_IRP_COMPLETION_ROUTINE()</td></tr>
+<tr><td>IRP cancellation routine</td><td>PDRIVER_CANCEL</td><td>PEMCPAL_IRP_CANCEL_FUNCTION()</td></tr>
+<tr><td>Device stack size requirement</td><td>DEVICE_OBJECT::StackSize</td><td>EmcpalDeviceGetIrpStackSize()\n
+EmcpalDeviceSetIrpStackSize()</td></tr>
+<tr><td>Device extension pointer</td><td>DEVICE_OBJECT::DeviceExtension</td><td>EmcpalDeviceGetExtension()</td></tr>
+<tr><td>IRP list entry</td><td>IRP::Tail.Overlay.ListEntry</td><td>PEMCPAL_IRP(irp)->EMCPAL_IRP_LIST_ENTRY_FIELD()</td></tr>
+<tr><td>IRP processing status</td><td>IRP::IoStatus.Status</td><td>EmcpalIrpGetStatus()\n
+EmcpalIrpSetStatus()</td></tr>
+<tr><td>IRP processing information</td><td>IRP::IoStatus.Information</td><td>EmcpalIrpGetInformation()\n
+EmcpalIrpSetInformation()</td></tr>
+<tr><td>IRP processing status</td><td>IRP::IoStatus.Status and IRP::IoStatus.Information</td><td>
+EmcpalIrpSetBadStatus()\n
+EmcpalIrpSetGoodStatus()</td></tr>
+<tr><td>IRP cancellation flag</td><td>IRP::Cancel</td><td>EmcpalIrpIsCancelInProgress()</td></tr>
+<tr><td>IRP pendence flag</td><td>IRP::PendingReturned</td><td>EmcpalIrpPendingReturned()</td></tr>
+<tr><td>IRP stack frame function</td><td>IO_STACK_LOCATION::MajorFunction</td><td>EmcpalIrpStackSetFunction()</td></tr>
+<tr><td></td><td>IO_STACK_LOCATION::MinorFunction</td><td>EmcpalIrpStackGetFunction()</td></tr>
+<tr><td>IRP stack frame flags</td><td>IO_STACK_LOCATION::Flags</td><td>EmcpalIrpStackGetFlags()\n
+EmcpalIrpStackSetFlags()</td></tr>
+<tr><td>IRP stack frame associated device object</td><td>IO_STACK_LOCATION::DeviceObject</td><td>EmcpalIrpStackGetCurrentDeviceObject()\n
+EmcpalIrpStackSetCurrentDeviceObject()</td></tr>
+
+<tr><td>IRP stack frame completion routine</td><td>IO_STACK_LOCATION::CompletionRoutine\n
+IO_STACK_LOCATION::Context</td>
+<td>EmcpalIrpStackGetCompletionRoutine()\n
+EmcpalIrpStackSetCompletionRoutine()</td></tr>
+
+<tr><td>IRP ioctl parameters</td><td>IO_STACK_LOCATION::Parameters.DeviceIoControl.*</td><td>EmcpalIrpDecodeIoctl()\n
+EmcpalIrpBuildLocalIoctl()</td></tr>
+<tr><td>IRP read parameters</td><td>IO_STACK_LOCATION::Parameters.Read.*</td><td>EmcpalIrpDecodeReadRequest()\n
+EmcpalIrpBuildReadRequest()</td></tr>
+<tr><td>IRP write parameters</td><td>IO_STACK_LOCATION::Parameters.Write.*</td><td>EmcpalIrpDecodeWriteRequest()\n
+EmcpalIrpBuildWriteRequest()</td></tr>
+<tr><td>IRP I/O buffer</td><td>IRP::AssociatedIrp.SystemBuffer\n
+IRP::MdlAddress\n
+IRP::UserBuffer\n
+IO_STACK_LOCATION::Type3InputBuffer</td><td>EmcpalIrpDecodeIoctl()\n
+EmcpalIrpPrepareRWBufferedIoBuffer()\n
+EmcpalIrpPrepareRWDirectIoBuffer()\n
+EmcpalIrpPrepareRWIoBuffer()\n
+EmcpalIrpRetrieveRWBufferedIoBuffer()\n
+EmcpalIrpRetrieveRWDirectIoBuffer()\n
+EmcpalIrpRetrieveRWIoBuffer()\n
+EmcpalIrpFinishIoBuffer()</td></tr>
+<tr><td>Reuse IRP object</td><td>IoReuseIrp</td><td>EmcpalIrpReuse()</td></tr>
+<tr><td>Required IRP bytecount</td><td>IoSizeOfIrp</td><td>EmcpalIrpCalculateSize()</td></tr>
+<tr><td>Allocate IRP object</td><td>IoAllocateIrp</td><td>EmcpalIrpAllocate()</td></tr>
+<tr><td>Initialize IRP object</td><td>IoInitializeIrp</td><td>EmcpalIrpInitialize()</td></tr>
+<tr><td>Free IRP object</td><td>IoFreeIrp</td><td>EmcpalIrpFree()</td></tr>
+<tr><td>Cancel IRP processing</td><td>IoCancelIrp</td><td>EmcpalIrpCancel()</td></tr>
+<tr><td>Set IRP cancellation routine</td><td>IoSetCancelRoutine</td><td>EmcpalIrpCancelRoutineSet()</td></tr>
+</td></tr><tr><td>Acquire IRP cancellation lock</td><td>IoAcquireCancelSpinLock</td><td>EmcpalIrpCancelLockAcquire()</td></tr>
+<tr><td>Release IRP cancellation lock</td><td>IoReleaseCancelSpinLock</td><td>EmcpalIrpCancelLockRelease()</td></tr>
+<tr><td>Set IRP completion routine</td><td>IoSetCompletionRoutine</td><td>EmcpalIrpSetCompletionRoutine()</td></tr>
+<tr><td>Get current IRP stack frame</td><td>IoGetCurrentIrpStackLocation</td><td>EmcpalIrpGetCurrentIrpStackLocation()</td></tr>
+<tr><td>Get next IRP stack frame</td><td>IoGetNextIrpStackLocation</td><td>EmcpalIrpGetNextIrpStackLocation()</td></tr>
+<tr><td>Get first IRP stack frame</td><td><i>None</i></td><td>EmcpalIrpGetFirstIrpStackLocation()</td></tr>
+<tr><td>Get device object associated with file object</td><td>IoGetRelatedDeviceObject</td><td>EmcpalDeviceGetRelatedDeviceObject()</td></tr>
+<tr><td>Mark IRP pending</td><td>IoMarkIrpPending</td><td>EmcpalIrpMarkPending()</td></tr>
+<tr><td>Complete IRP processing</td><td>IoCompleteRequest</td><td>EmcpalIrpCompleteRequest()</td></tr>
+<tr><td>Move to next IRP stack frame</td><td>IoSkipCurrentIrpStackLocation</td><td>EmcpalIrpSkipCurrentIrpStackLocation()</td></tr>
+<tr><td>Pass to next IRP stack frame</td><td>IoSetNextIrpStackLocation</td><td>EmcpalIrpSetNextStackLocation()</td></tr>
+<tr><td>Copy from next IRP stack frame</td><td>IoCopyCurrentIrpStackLocationToNext</td><td>EmcpalIrpCopyCurrentIrpStackLocationToNext()</td></tr>
+<tr><td>Send IRP</td><td>IoCallDriver</td><td>EmcpalIrpSend()</td></tr>
+<tr><td>Send IRP synchronously</td><td><i>None</i></td><td>EmcpalIrpSendAndPend()</td></tr>
+<tr><td bgcolor=gray></td><td bgcolor=gray></td><td bgcolor=gray></td></tr>
+<tr><td>DLL export</td><td>__declspec(dllexport)</td><td>EMCPAL_EXPORT()</td></tr>
+<tr><td>DLL import</td><td>__declspec(dllimport)</td><td>EMCPAL_IMPORT()</td></tr>
+<tr><td bgcolor=gray></td><td bgcolor=gray></td><td bgcolor=gray></td></tr>
+</table>
+
+
+*/

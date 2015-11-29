@@ -1,0 +1,17 @@
+$sources{TARGETNAME} = "fbe_logical_drive_library";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{INCLUDES} = [
+    "$sources{SRCDIR}\\..\\base_discovered",
+];
+$sources{SOURCES} = [
+    "fbe_logical_drive_library.c",
+];
+

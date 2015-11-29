@@ -1,0 +1,19 @@
+$sources{TARGETNAME} = "fbe_lib_kernel";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+];
+
+$sources{UMTYPE} = "console";
+
+$sources{TARGETLIBS} = [
+    "fbe_panic_sp_kernel.lib",
+];
+
+$sources{SOURCES} = [
+    "fbe_random_kernel_main.c",
+    "fbe_rtl_random_kernel.c",
+    "fbe_time_kernel_main.c",
+];
+

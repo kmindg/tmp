@@ -1,0 +1,37 @@
+$sources{TARGETNAME} = "fbe_cms_state_machine";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+
+$sources{INCLUDES} = [
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\cluster_memory\\interface\\cluster_tags",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\cluster_memory\\interface\\cmi",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\cluster_memory\\interface\\state_machine",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\cluster_memory\\interface\\vault",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\cluster_memory\\interface\\memory",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\cluster_memory\\interface\\common",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\cluster_memory\\interface\\driver",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\cluster_memory\\interface\\operations",
+];
+
+$sources{TARGETLIBS} = [
+   "fbe_cms_cmi.lib",
+];
+
+
+$sources{SOURCES} = [
+    "fbe_cms_environment.c",
+    "fbe_cms_state_machine_event_handle.c",
+    "fbe_cms_state_machine_main.c",
+    "fbe_cms_state_machine_queue_memory.c",
+    "fbe_cms_state_machine_cdr_interface.c",
+
+];
+
+

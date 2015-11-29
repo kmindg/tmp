@@ -1,0 +1,14 @@
+#
+# MCR Serial tests
+#
+{"project": "mcr", "framework": "MUT", "testType": ["Regress", "Validation"], "execute": "serial", "test": "-python fbe_test.py", "args": "-num_threads 3 -autotestmode -rtl 1 -t sep_test_suite -timeout 3600 -bullseye"}
+{"project": "mcr", "framework": "MUT", "testType": ["Regress", "Validation"], "execute": "serial", "test": "-python fbe_test.py", "args": "-num_threads 5 -autotestmode -rtl 1 -t fbe_cli_test_suite -timeout 3600 -bullseye"}
+
+{"project": "mcr", "framework": "MUT", "testType": ["Regress", "Validation"], "execute": "serial", "test": "fbe_raid_library_unit_test.exe", "args": ""}
+
+
+# These tests are used for mut test.
+#{"project": "mcr", "framework": "MUT", "testType": ["Regress", "Validation"], "execute": "serial", "test": "-python fbe_test.py", "args": "-t 305 -bullseye"}
+#{"project": "mcr", "framework": "MUT", "testType": ["Regress", "Validation"], "execute": "serial", "test": "-python fbe_test.py", "args": "-t 174 -bullseye"}
+#{"project": "mcr", "framework": "MUT", "testType": ["Regress", "Validation"], "execute": "serial", "test": "-python fbe_test.py", "args": "-num_threads 3 -autotestmode -rtl 1 -t 0 -timeout 3600 -bullseye"}
+#{"project": "mcr", "framework": "MUT", "testType": ["Regress", "Validation"], "execute": "serial", "test": "-python fbe_test.py", "args": "-num_threads 3 -autotestmode -rtl 1 -t 3 -timeout 3600 -bullseye"}

@@ -1,0 +1,19 @@
+$sources{TARGETNAME} = "fbe_test_scenarios_sep_special_operations";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+
+$sources{SOURCES} = [
+    "homer_test.c",
+    "biff_test.c",
+    "kipper_health_check.c",
+    "doraemon_test.c",
+    "pingu_slot_limit_test.c",
+    "sir_topham_hatt_test.c",
+    "walle_cleaner.c",
+    "sully_test.c"
+];
+

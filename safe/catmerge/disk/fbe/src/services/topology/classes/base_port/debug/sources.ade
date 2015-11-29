@@ -1,0 +1,20 @@
+$sources{TARGETNAME} = "fbe_base_port_debug";
+$sources{TARGETTYPE} = "CSX_DEBUG_EXTENSION_LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user32",
+    "user",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{SOURCES} = [
+    "fbe_base_port_debug.c",
+];
+
+$sources{INCLUDES} = [
+    "$sources{SRCDIR}\\..\\..\\base_discovering",
+    "$sources{SRCDIR}\\..\\..\\base_discovered",
+    "$sources{MASTERDIR}\\disk\\interface\\fbe",
+    "$sources{SRCDIR}\\..",
+];
+

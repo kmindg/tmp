@@ -1,0 +1,17 @@
+$sources{TARGETNAME} = "terminator_drive_sas_plugin";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{TARGETLIBS} = [
+];
+$sources{SOURCES} = [
+    "terminator_drive_sas_neit.c",
+    "terminator_drive_sas_plugin_main.c",
+    "terminator_drive_sas_write_buffer_timer.c",
+];

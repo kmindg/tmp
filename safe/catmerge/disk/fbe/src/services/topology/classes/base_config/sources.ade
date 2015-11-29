@@ -1,0 +1,30 @@
+$sources{TARGETNAME} = "fbe_base_config";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{INCLUDES} = [
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\topology\\classes\\base_object",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\topology\\interface",
+];
+               
+$sources{SUBDIRS} = [
+    "debug",
+];
+$sources{SOURCES} = [
+    "fbe_base_config_main.c",
+    "fbe_base_config_monitor.c",
+    "fbe_base_config_usurper.c",
+    "fbe_base_config_executer.c",
+    "fbe_base_config_event.c",
+    "fbe_base_config_metadata.c",
+    "fbe_base_config_power_save.c",
+    "fbe_base_config_io_quiesce.c",
+    "fbe_base_config_memory.c"
+];
+

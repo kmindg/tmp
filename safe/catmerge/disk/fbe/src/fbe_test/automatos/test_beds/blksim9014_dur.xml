@@ -1,0 +1,32 @@
+<testbedinfo doc_type="testbed" version="2.2">
+  <block_devices>
+    <block id="10.109.216.215">
+      <hosts>
+        <host id="10.245.197.24" />
+      </hosts>
+      <sp name="A">
+        <communication ipv4_address="10.109.216.215" password="clariion1992" username="clariion1992" />
+        <management>
+          <tools>
+            <tool host="10.245.197.24" ip_address="10.109.216.215" password="admin" type="navisphere" username="admin" />
+          </tools>
+        </management>
+      </sp>
+<!--   
+      <sp name="B">
+        <communication ipv4_address="10.109.216.216" password="clariion1992" username="clariion1992" />
+        <management>
+          <tools>
+            <tool host="10.245.197.24" ip_address="10.109.216.216" password="admin" type="navisphere" username="admin" />
+          </tools>
+        </management>
+      </sp>
+-->
+    </block>
+  </block_devices>
+  <hosts>
+    <host id="10.245.197.24">
+      <communication ipv4_address="10.245.197.24" password="clariion!" username="Administrator" />
+    </host>
+  </hosts>
+</testbedinfo>

@@ -1,0 +1,33 @@
+$sources{TARGETNAME} = "fbe_logical_drive";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{INCLUDES} = [
+    "$sources{SRCDIR}\\..\\base_discovered",
+];
+$sources{TARGETLIBS} = [
+    "fbe_logical_drive_library.lib",
+];
+$sources{SOURCES} = [
+    "fbe_logical_drive_read.c",
+    "fbe_logical_drive_write.c",
+    "fbe_logical_drive_verify.c",
+    "fbe_logical_drive_monitor.c",
+    "fbe_logical_drive_executor.c",
+    "fbe_logical_drive_io.c",
+    "fbe_logical_drive_trace.c",
+    "fbe_logical_drive_usurper.c",
+    "fbe_logical_drive_bitbucket.c",
+    "fbe_logical_drive_io_cmd.c",
+    "fbe_logical_drive_io_cmd_memory.c",
+    "fbe_logical_drive_map.c",
+    "fbe_logical_drive_main.c",
+    "fbe_logical_drive_write_same.c",
+];
+

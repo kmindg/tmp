@@ -1,0 +1,26 @@
+$sources{TARGETNAME} = "fbe_iscsi_port";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{INCLUDES} = [
+    "$sources{SRCDIR}\\..\\base_discovering",
+    "$sources{SRCDIR}\\..\\base_discovered",
+    "$sources{SRCDIR}\\..\\base_board\\interface",
+    "$sources{SRCDIR}\\..\\base_port",
+];
+$sources{SOURCES} = [
+    "fbe_iscsi_port_main.c",
+    "fbe_iscsi_port_monitor.c",
+    "fbe_iscsi_port_usurper.c",
+    "fbe_iscsi_port_executer.c",
+];
+
+$sources{SUBDIRS} = [
+    "debug",
+];

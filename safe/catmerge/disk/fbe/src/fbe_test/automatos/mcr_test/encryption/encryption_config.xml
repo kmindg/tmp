@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<opt doc_type="MAIN_CFG" version="1">
+   <central_base_log_path>C:\logs\</central_base_log_path>
+   <local_base_log_path>C:\logs\</local_base_log_path>
+   <test_server>localhost</test_server>
+   <test_set_file>%WORKSPACE%\mcr_test\encryption\encryption_test_set.xml</test_set_file>
+   <testbed_file>%WORKSPACE%\test_beds\MT-H1195.xml</testbed_file>
+   <tms>
+       <ip>localhost</ip>
+   </tms>
+   <test_instance_id>1</test_instance_id>
+   <execution_parameters>
+       <parameter name="STOP_ON_ERROR" value="1"></parameter>
+       <parameter name="LOGGING_LEVEL" value="INFO"></parameter>
+   </execution_parameters>
+</opt>

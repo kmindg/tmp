@@ -1,0 +1,23 @@
+$sources{TARGETNAME} = "fbe_sas_flash_drive";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{INCLUDES} = [
+    "$sources{SRCDIR}\\..\\base_discovering",
+    "$sources{SRCDIR}\\..\\base_discovered",
+    "$sources{SRCDIR}\\..\\base_physical_drive",
+    "$sources{SRCDIR}\\..\\base_object",
+    "$sources{SRCDIR}\\..\\sas_physical_drive",
+];
+$sources{SOURCES} = [
+    "fbe_sas_flash_drive_main.c",
+    "fbe_sas_flash_drive_monitor.c",
+    "fbe_sas_flash_drive_usurper.c",
+    "fbe_sas_flash_drive_executer.c",
+];

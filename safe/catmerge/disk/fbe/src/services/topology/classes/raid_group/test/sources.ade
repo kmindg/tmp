@@ -1,0 +1,14 @@
+$sources{TARGETNAME} = "fbe_raid_group_test";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{INCLUDES} = [
+    "$sources{SRCDIR}\\..\\..\\base_object",
+    "$sources{SRCDIR}\\..\\..\\base_config",
+];
+$sources{SOURCES} = [
+];

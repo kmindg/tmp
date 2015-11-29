@@ -1,0 +1,21 @@
+$sources{TARGETNAME} = "fbe_drive_mgmt_user";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{TARGETLIBS} = [
+    "ExpatParse.lib",
+    "ExpatTok.lib",
+];
+$sources{INCLUDES} = [
+    "$sources{SRCDIR}\\..",
+    "$sources{SRCDIR}\\..\\..\\base_environment",
+];
+$sources{SOURCES} = [
+    "fbe_drive_mgmt_user_main.c",
+    "fbe_drive_mgmt_xml_api.c",
+];

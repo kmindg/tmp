@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Virtual Drive</title>
+<link rel="stylesheet" type="text/css" href="../css/all.css" />
+<link rel="stylesheet" type="text/css" href="../css/lists.css" />
+</head>
+<body>
+<h1>Virtual Drive Object</h1>
+<p>
+The virtual drive object is responsible for managing on-line drive sparing.
+On-line drive sparing can occur for the following use cases:
+<ul>
+    <li>A physical drive fails or is removed.  In this case the system provides a hot spare if a suitable drive is available.
+    <li>The physical drive error thresholds rise to a level that indicates that the drive is nearing its end-of-life.
+    In this case the system may automatically replace the dying drive with a hot spare.</li>
+    <li>The user requests that a drive be proactively replaced.</li>
+    <li>A permanent spare is provided to replace a hot spare.</li>
+</ul>
+</p>
+<h2>Virtual Drive Control Path</h2>
+<p>
+The virtual drive control path performs the following operations:
+</p><p><ul>
+    <li>Hot Spare</li>
+    <li>Equalize</li>
+    <li>Proactive Copy</li>
+</ul></p>
+<h2>Virtual Drive Class Hierarchy</h2>
+<p><div id="list_classes">
+<ul>
+    <li>Base Object</li>
+    <li>Base Config Object</li>
+    <li>Raid Group Object</li>
+    <li>Mirror Object</li>
+    <li>Virtual Drive Object</li>
+</ul>
+</div></p>
+<h2>Virtual Drive Source Files</h2>
+<p><div id="list_files">
+<ul>
+    <li>./disk/interface/fbe/fbe_virtual_drive.h</li>
+    <li>./disk/fbe/src/services/topology/classes/virtual_drive/interface/*.h</li>
+    <li>./disk/fbe/src/services/topology/classes/virtual_drive/src/*.c</li>
+</ul>
+</div></p>
+<a name="nonpagedmetadata"><h2>Virtual Drive Non-paged Metadata</h2></a>
+<p>
+Because the virtual drive is derived from the raid group class, its
+<a href="../html/storage_extent_metadata.html#nonpagedmetadata">non-paged metadata</a>
+is the
+<a href="../html/object_raid.html#nonpagedmetadata">raid group's non-paged metadata</a>.
+</p>
+<a name="pagedmetadata"><h2>Virtual Drive Paged Metadata</h2></a>
+<p>
+As with the non-paged metadata the virtual drive
+<a href="../html/storage_extent_metadata.html#pagedmetadata">paged metadata</a>
+is the
+<a href="../html/object_raid.html#pagedmetadata">raid group's paged metadata</a>.
+</p>
+</body>
+</html>

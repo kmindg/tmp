@@ -1,0 +1,10 @@
+/*! \page emcpal_faq Emcpal Frequently Asked Questions
+
+\section section_name  Section Title
+
+\subsection subsection_name Subsection Title
+
+<ul>
+<li>I'm currently using a Windows call.  What is the appropriate Emcpal call I should use instead?<br /> \ref WinCrossReference 
+</ul>
+*/

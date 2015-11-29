@@ -1,0 +1,6 @@
+$sources{SUBDIRS} = [
+    "fbe_api_server_interface",
+    "fbe_api_transport_client",
+    "fbe_api_transport_server",
+    "fbe_api_transport_packet_interface",
+];

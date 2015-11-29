@@ -1,0 +1,17 @@
+$sources{TARGETNAME} = "fbe_sep";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{SOURCES} = [
+    "sep_init.c",
+];
+
+$sources{TARGETLIBS} = [
+	"fbe_scheduler_plugins.lib",
+];
+	

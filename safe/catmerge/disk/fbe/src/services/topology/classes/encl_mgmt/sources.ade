@@ -1,0 +1,32 @@
+$sources{TARGETNAME} = "fbe_encl_mgmt";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{INCLUDES} = [
+    "$sources{SRCDIR}\\..\\base_environment",
+];
+$sources{TARGETLIBS} = [
+];
+
+$sources{SOURCES} = [
+    "fbe_encl_mgmt_main.c",
+    "fbe_encl_mgmt_monitor.c",
+    "fbe_encl_mgmt_usurper.c",
+    "fbe_encl_mgmt_fup.c",
+    "fbe_encl_mgmt_resume_prom.c",
+    "fbe_encl_mgmt_utils.c",
+    "fbe_encl_mgmt_reg_utils.c"
+
+];
+
+$sources{SUBDIRS} = [
+    "debug",
+    "kernel",
+    "sim",
+];

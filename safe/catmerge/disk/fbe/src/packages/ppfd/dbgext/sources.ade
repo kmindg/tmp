@@ -1,0 +1,29 @@
+$sources{TARGETNAME} = "ppfddbg";
+$sources{TARGETTYPE} = "CSX_DEBUG_EXTENSION";
+$sources{CALLING_CONVENTION} = "stdcall";
+$sources{CUSTOM_DEFS} = ["/DUSE_CSX_DBGEXT=1"];
+
+$sources{TARGETMODES} = [
+    "user32",
+    "user",
+    "simulation",
+];
+
+$sources{INCLUDES} = [
+    "$sources{MASTERDIR}\\disk\\interface\\fbe",
+    "$sources{MASTERDIR}\\disk\\interface",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\packages\\ppfd\\ppfdDriver",
+];
+
+$sources{SOURCES} = [    
+    "ppfdcustomdbg.c",
+    "ppfd_ext.c",
+];
+
+$sources{EXPORTS} = [
+    "csx_dbg_ext_user_initialize_callback",
+    "ppfdspid",
+    "ppfddisk",
+    "ppfdbetype",
+    "ppfdhelp",
+];

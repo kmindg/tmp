@@ -1,0 +1,66 @@
+$sources{TARGETNAME} = "fbe_api_user_interface_test";
+$sources{TARGETTYPE} = "EMCUTIL_PROGRAM";
+$sources{MUT_TEST} = 1;
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{CALLING_CONVENTION} = "stdcall";
+
+$sources{SYSTEMLIBS} = [
+    "winmm.lib",
+    "ws2_32.lib",
+];
+$sources{TARGETLIBS} = [
+    "fbe_ktrace.lib",
+    "fbe_trace.lib",
+    "fbe_lib_user.lib",
+    "fbe_lib_lifecycle.lib",
+    "fbe_memory.lib",
+    "fbe_memory_user.lib",
+    "fbe_transport.lib",
+    "fbe_classes.lib",
+    "fbe_notification.lib",
+    "fbe_topology.lib",
+    "fbe_scheduler.lib",
+    "fbe_physical_package.lib",
+    "fbe_ses.lib",
+    "fbe_eses.lib",
+    "fbe_service_manager.lib",
+    "fbe_cpd_shim_sim.lib",
+    "fbe_logical_drive_sim.lib",
+    "fbe_base_service.lib",
+    "fbe_base_board_sim.lib",
+    "fbe_terminator_sim.lib",
+    "fbe_lib_enclosure_data_access.lib",
+    "generic_utils_lib_stdcall.lib",
+    "fbe_api_common_sim.lib",
+    "fbe_event_log.lib",
+    "fbe_event_log_sim.lib",
+    "fbe_drive_configuration.lib",
+    "fbe_xml_mem.lib",
+    "fbe_file_user.lib",
+    "fbe_peer_boot_utils.lib",
+];
+
+$sources{INCLUDES} = [
+    "$sources{MASTERDIR}\\disk\\interface\\fbe",
+    "$sources{MASTERDIR}\\disk\\fbe\\interface",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\lib\\enclosure_data_access",
+];
+
+$sources{SOURCES} = [
+    "fbe_api_user_interface_test_main.c",
+    "fbe_api_query_command_tests.c",
+    "fbe_api_device_handle_getter_test.c",
+    "fbe_api_control_command_tests.c",
+    "fbe_api_utility_tests.c",
+    "fbe_api_enclosure_command_tests.c",
+    "fbe_api_physical_drive_command_tests.c",
+    "fbe_api_logical_drive_command_tests.c",
+    "fbe_api_object_map_interface_tests.c",
+    "fbe_api_drive_config_service_test.c",
+];
+

@@ -1,0 +1,38 @@
+$sources{TARGETNAME} = "fbe_logical_drive_test_library";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{TARGETLIBS} = [
+    "fbe_test_io.lib",
+    "fbe_media_error_edge_tap_library.lib",
+];
+$sources{SOURCES} = [
+    "fbe_logical_drive_test_negotiate_block_size.c",
+    "fbe_logical_drive_test_map.c",
+    "fbe_logical_drive_test_monitor.c",
+    "fbe_logical_drive_test_read.c",
+    "fbe_logical_drive_test_state_machine.c",
+    "fbe_logical_drive_test_pre_read_descriptor.c",
+    "fbe_logical_drive_test_write.c",
+    "fbe_logical_drive_test_write_same.c",
+    "fbe_logical_drive_test_verify.c",
+    "fbe_logical_drive_test.c",
+    "fbe_logical_drive_test_state_object.c",
+    "fbe_logical_drive_test_alloc_mem_mock_object.c",
+    "fbe_logical_drive_test_alloc_io_cmd_mock_object.c",
+    "fbe_logical_drive_test_send_io_packet_mock_object.c",
+    "fbe_logical_drive_test_complete_packet_mock_object.c",
+    "fbe_logical_drive_test_set_condition_mock_object.c",
+    "fbe_logical_drive_test_clear_condition_mock_object.c",
+    "fbe_logical_drive_test_io.c",
+    "fbe_logical_drive_test_thread_io.c",
+    "fbe_logical_drive_test_send_packet.c",
+    "fbe_logical_drive_test_sg_element.c",
+    "fbe_logical_drive_test_io_cmd_pool.c",
+    "fbe_logical_drive_test_bitbucket.c",
+    "fbe_logical_drive_test_library.c",
+];

@@ -1,0 +1,16 @@
+$sources{TARGETNAME} = "fbe_dest_flare_api_kernel";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+];
+$sources{UMTYPE} = "console";
+
+$sources{TARGETLIBS} = [
+    "fbe_dest_flare_api.lib",
+];
+$sources{SOURCES} = [
+    "fbe_dest_flare_api_kernel.c",
+];
+
+

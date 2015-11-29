@@ -1,0 +1,23 @@
+$sources{TARGETNAME} = "terminator_encl_eses_plugin_test";
+$sources{TARGETTYPE} = "EMCUTIL_PROGRAM";
+$sources{MUT_TEST} = 1;
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{CALLING_CONVENTION} = "stdcall";
+$sources{SYSTEMLIBS} = [
+    "winmm.lib",
+    "ws2_32.lib",
+];
+$sources{TARGETLIBS} = [
+    "fbe_terminator.lib",
+    "terminator_enclosure_eses_plugin.lib",
+];
+$sources{SOURCES} = [
+    "terminator_encl_eses_plugin_test_main.c",
+    "terminator_encl_eses_plugin_sense_data_test.c",
+    "terminator_encl_eses_plugin_term_mock.c",
+];

@@ -1,0 +1,21 @@
+$sources{TARGETNAME} = "fbe_cli_unit_test";
+$sources{TARGETTYPE} = "EMCUTIL_PROGRAM";
+$sources{MUT_TEST} = 1;
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{CALLING_CONVENTION} = "stdcall";
+
+$sources{SYSTEMLIBS} = [
+    "winmm.lib",
+    "ws2_32.lib",
+];
+$sources{TARGETLIBS} = [
+    "fbe_cli_src.lib",
+];
+$sources{SOURCES} = [
+    "fbe_cli_unit_test_main.c",
+    "fbe_cli_src_tests.c",
+];

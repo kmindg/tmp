@@ -1,0 +1,39 @@
+$sources{TARGETNAME} = "fbe_event_log_test";
+$sources{TARGETTYPE} = "EMCUTIL_PROGRAM";
+$sources{MUT_TEST} = 1;
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{CALLING_CONVENTION} = "stdcall";
+$sources{SYSTEMLIBS} = [
+    "winmm.lib",
+    "ws2_32.lib",
+];
+
+$sources{TARGETLIBS} = [
+    "EmcUTIL.lib",
+    "fbe_ddk.lib",
+    "fbe_service_manager.lib",
+    "fbe_transport.lib",
+    "fbe_ktrace.lib",
+    "fbe_trace.lib",
+    "fbe_base_service.lib",
+    "fbe_event_log.lib",
+    "fbe_event_log_sim.lib",
+    "fbe_lib_user.lib",
+    "fbe_event_log_utils.lib",
+    "fbe_api_common.lib",
+    "fbe_api_physical_package_interface.lib",
+    "fbe_drive_configuration.lib",
+    "fbe_memory.lib",
+    "fbe_memory_user.lib",
+    "fbe_transport_trace.lib",
+];
+
+$sources{SOURCES} = [
+    "fbe_event_log_test_main.c",
+];
+
+

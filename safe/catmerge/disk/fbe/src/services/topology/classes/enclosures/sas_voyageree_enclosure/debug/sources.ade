@@ -1,0 +1,23 @@
+$sources{TARGETNAME} = "fbe_sas_voyager_ee_enclosure_debug_ext";
+$sources{TARGETTYPE} = "CSX_DEBUG_EXTENSION_LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user32",
+    "user",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{INCLUDES} = [
+    "$sources{SRCDIR}\\..\\..\\..\\base_discovering",
+    "$sources{SRCDIR}\\..\\..\\..\\base_discovered",
+    "$sources{SRCDIR}\\..\\..\\..\\base_enclosure",
+    "$sources{SRCDIR}\\..\\..\\..\\eses_enclosure",
+    "$sources{MASTERDIR}\\disk\\interface\\fbe",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\lib\\enclosure_data_access",
+    "$sources{SRCDIR}\\..",
+];
+           
+$sources{SOURCES} = [
+    "fbe_sas_voyager_ee_enclosure_debug_ext.c",
+];
+

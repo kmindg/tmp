@@ -1,0 +1,767 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>SEP Scenarios</title>
+<link rel="stylesheet" type="text/css" href="../css/all.css" />
+<link rel="stylesheet" type="text/css" href="../css/index.css" />
+<link rel="stylesheet" type="text/css" href="../css/lists.css" />
+</head>
+<body>
+<h1>Storage Extent Package Scenarios</h1>
+<p>
+The SEP scenarios are...
+</p>
+<a name="Infrastructure"><h2>Infrastructure Scenarios</h2></a>
+<p><div id="list_scenarios">
+<ul>
+    <a name="KozmaPrutkov"><li><b>KozmaPrutkov: </b></a>
+    <i>SEP infrastructue.</i><br>
+    This scenario tests the following:
+    <ul>
+        <li>Part 1: metadata service API.</li>
+        <li>Part 2: stripe locking API.</li>
+        <li>Part 3: memory service API.</li>
+        <li>Part 4: metadata persistence.</li>
+        <li>Part 5: stripe locking.</li>
+        <li>Part 6: memory service.</li>
+        <li>Part 6: clustered drive simulation.</li>
+    </ul></li>
+    <a name="DannyDin"><li><b>DannyDin: </b></a>
+    <i>SEP infrastructue.</i><br>
+    This scenario tests the following:
+    <ul>
+        <li>Part 1: admin interface.</li>
+        <li>Part 2: packet routing in simulation.</li>
+        <li>Part 3: CMI messaging in simulation.</li>
+        <li>Part 4: clustering object ownership.</li>
+        <li>Part 5: priorities on edges.</li>
+        <li>Part 6: I/O load indicators on edges.</li>
+        <li>Part 7: scheduler credits.</li>
+    </ul></li>
+    <a name="KilgoreTrout"><li><b>KilgoreTrout: </b></a>
+    <i>job service.</i><br>
+    This scenario tests job service operations, including:
+    <ul>
+        <li>Part 1: drive sparing.</li>
+        <li>Part 2: raid group creation.</li>
+    </ul></li>
+    <a name="Boomer"><li><b>Boomer: </b></a>
+    <i>Enable/disable the system-wide power saving attribute.</i><br>
+    This scenario tests the system-wide power savings attribute for enable/disable of hibernation of raid groups,
+    LUNS, and bound/unbound PVDs.
+    <a name="KingMidas"><li><b>KingMidas: </b></a>
+    <i>SP initialization.</i><br>
+    This scenario tests SP initialization, including:
+    <ul>
+        <li>Part 1: single SP initialization.</li>
+        <li>Part 2: dual SP initialization.</li>
+    </ul></li>
+    <a name="Smaug"><li><b>Smaug: </b></a>
+    <i>inter-SP active/passive transfer.</i><br>
+    This scenario tests the transfer of active ownership between objects on peer SPs.
+    </li>
+</ul>
+</div></p>
+<a name="LUN"><h2>LUN Scenarios</h2></a>
+<p><div id="list_scenarios">
+<ul>
+    <a name="BubbleBass"><li><b>BubbleBass: </b></a>
+    <i>unbind a LUN.</i><br>
+    This scenario tests the path through the FBE API for destroying a LUN.
+    <ul>
+        <li>Translate a valid LUN unbind FBE API request into a Job Service request</li>
+        <li>Process the LUN unbind job, successfully creating the LUN.</li>
+    </ul></li>
+    <a name="LarryTLobster"><li><b>LarryTLobster: </b></a>
+    <i>bind a LUN.</i><br>
+    This scenario tests the path through the FBE API for creating a LUN.
+    <ul>
+        <li>Translate a valid LUN create FBE API request into a Job Service request</li>
+        <li>Process the LUN create job, successfully creating the LUN.</li>
+    </ul></li>
+    <a name="MrKrabs"><li><b>MrKrabs: </b></a>
+    <i>LUN ownership transfer.</i><br>
+    This scenario tests the transfer (between SPs) of control path operations.
+    <ul>
+        <li>With a user verify in progress on SP-A, cause the LUN on SP-A to go to the failed state.
+        Pending verify requests are drained.</li>
+        <li>The corresponding LUN on SP-B restarts the user verify at the point that its peer stopped.</li>
+    </ul></li>
+    <a name="PatrickStar"><li><b>PatrickStar: </b></a>
+    <i>LUN change notification.</i><br>
+    This scenario tests the capability for entities outside of the package (e.g., cache)
+    to receive LUN change notification.
+    <ul>
+        <li>Register an external destinations for LUN change notification.</li>
+        <li>Broadcast LUN change notifications.</li>
+    </ul></li>
+    <a name="Plankton"><li><b>Plankton: </b></a>
+    <i>non-destructive bind.</i><br>
+    This scenario tests that the original data of an unbound LUN can be recovered with a non-destructive bind.
+    <ul>
+        <li>Bind a LUN and write data to it.</li>
+        <li>Unbind the LUN, then non-destructive bind another LUN over the original extent.</li>
+        <li>Validate the original data.</li>
+    </ul></li>
+    </li>
+    <a name="RubyDoo"><li><b>RubyDoo: </b></a>
+    <i> unbind a LUN during user verify.</i><br>
+    This scenario verifies the ability to unbind a LUN when a user verify is in progress. 
+    </li>
+    <a name="SandyCheeks"><li><b>SandyCheeks: </b></a>
+    <i> LUN shrink.</i><br>
+    This scenario verifies the LUN capability to shrink in size. 
+    <ul>
+        <li>Translate a valid LUN shrink FBE API request into a Job Service request</li>
+        <li>Process the LUN shrink job, successfully shrinking the LUN.</li>
+    </ul></li>
+    <a name="Squidward"><li><b>Squidward: </b></a>
+    <i>LUN zeroing.</i><br>
+    This scenario tests that prior data of an unbound LUN is zeroed when a new LUN is bound.
+    <ul>
+        <li>Bind a LUN and write data to it.</li>
+        <li>Unbind the LUN, then bind another LUN over the original extent.</li>
+        <li>Validate the original data is zeroed.</li>
+    </ul></li>
+</ul>
+</div></p>
+<a name="RAID"><h2>RAID Scenarios</h2></a>
+<p>
+As a general rule raid scenarios are performed for each of the raid protection schemes.
+</p><p><div id="list_scenarios">
+<ul>
+    <a name="Elmo"><li><b>Elmo: </b></a>
+    <i>loopback I/O test.</i><br>
+    This scenario creates all the SEP objects needed for loopback I/O (LUN, Raid group, Virtual Disk)
+    and runs I/O over their edges.
+    The VD loops the I/O back by simply returning status when it gets an I/O.
+    <ul>
+        <li>Part 2: rdgen is used to perform write/read/check I/O to raid-0 LUNS where there are no
+            faulted/degraded drives.</li>
+        <li>Part 3: adds support for 512 byte per block drives and tests both SAS (520) and SATA (512).</li>
+        <li>Part 4: adds more element sizes.</li>
+        <li>Part 5: adds shutdown handling.</li>
+    </ul></li>
+    <a name="Grover"><li><b>Grover: </b></a>
+    <i>non-degraded I/O.</i><br>
+    This scenario performs rdgen write/read/check test I/O to LUNs/RGs where there are no faulted/degraded drives.
+    <ul>
+        <li>Part 2: adds raid-0 support.</li>
+        <li>Part 3: adds more element sizes.</li>
+    </ul></li>
+    <a name="Telly"><li><b>Telly: </b></a>
+    <i>non-degraded raid-6 I/O.</i><br>
+    This scenario preforms rdgen write/read/check I/O to raid-6 luns where there are no faulted/degraded drives. 
+    </li>
+    <a name="BigBird"><li><b>BigBird: </b></a>
+    <i>raid rebuild.</i>
+    This scenario performs rdgen write/read/check I/O to raid groups with faulted drives.
+    <ul>
+        <li>Part 1: I/O to raid-5 with a faulted drive.</li>
+        <li>Part 2: rebuild without I/O.</li>
+        <li>Part 3: add rebuild logging.</li>
+        <li>Part 4: rebuild with I/O.</li>
+    </ul></li>
+    <a name="PrairieDawn"><li><b>PrairieDawn: </b></a>
+    <i>non-degraded raid 10 I/O.</i><br>
+    This scenario preforms rdgen write/read/check I/O to raid-10 luns where there are no faulted/degraded drives. 
+    </li>
+    <a name="Ernie"><li><b>Ernie: </b></a>
+    <i>raid-6 degraded I/O.</i><br>
+    This scenario preforms rdgen write/read/check I/O to raid-6 luns with drives that are faulted/rebuilding.
+    </li>
+    <a name="Rosita"><li><b>Rosita: </b></a>
+    <i>raid-10 degraded I/O.</i><br>
+    This scenario preforms rdgen write/read/check I/O to raid-10 luns with drives that are faulted/rebuilding.
+    </li>
+    <a name="HandyManny"><li><b>HandyManny: </b></a>
+    <i>zero I/O.</i><br>
+    This is an rdgen zero/read/check test; it tests both degraded and non-degraded zero I/O.
+    </li>
+    <a name="Squeeze"><li><b>Squeeze: </b></a>
+    <i>mark bad block command.</i><br>
+    This test uses the mark bad blocks command to invalidate blocks.
+    It also tests the proper handling of read errors, during both degraded and non-degraded I/O. 
+    </li>
+    <a name="Stretch"><li><b>Stretch: </b></a>
+    <i>corrupt checksum command.</i>
+    This scenario uses the corrupt data command to corrupt a checksum on a block.
+    It tests the handling of corrupt checksums during both degraded and non-degraded I/O.
+    </li>
+    <a name="Snuffy"><li><b>Snuffy: </b></a>
+    <i>non-degraded raid-3 I/O.</i><br>
+    This scenario preforms rdgen write/read/check I/O to raid-3 luns where there are no faulted/degraded drives. 
+    </li>
+    <a name="Bert"><li><b>Bert: </b></a>
+    <i>raid-3 degraded I/O.</i><br>
+    This scenario preforms rdgen write/read/check I/O to raid-10 luns where there are faulted/degraded drives. 
+    </li>
+    <a name="RaboKarabekian"><li><b>RaboKarabekian: </b></a>
+    <i>raid group creation (via the FBE API).</i><br>
+    This scenario tests raid group creation when requested via the FBE API.
+    In this scenario the job service is used to create the raid group.
+    </li>
+</ul>
+</div></p>
+<a name="RAID-IO-Error"><h2>RAID I/O Error Scenarios</h2></a>
+<p><div id="list_scenarios">
+<ul>
+    <a name="AbbyCadabby"><li><b>AbbyCadabby: </b></a>
+    <i>correctable errors.</i><br>
+    This scenario uses rderr to perform I/O where correctable errors are injected.
+    <ul>
+        <li>Part 1: runs SEP with rderr.</li>
+        <li>Part 2: injects correctable error with raid-3, raid-5 and raid-6.</li>
+        <li>Part 3: injects correctable errors with raid-10.</li>
+        <li>Part 4: adds raid error event logging.</li>
+    </ul></li>
+    <a name="CookieMonster"><li><b>CookieMonster: </b></a>
+    <i>uncorrectable errors.</i><br>
+    This scenario uses rderr to perform I/O where uncorrectable errors are injected.
+    <ul>
+        <li>Part 1: degraded and non-degraded raid-3, raid-5 and raid-6.</li>
+        <li>Part 2: degraded and non-degraded raid-10.</li>
+        <li>Part 3: adds raid error event logging.</li>
+    </ul></li>
+    <a name="Kermit"><li><b>Kermit: </b></a>
+    <i>error retries.</i><br>
+    There are certain classes of errors that need to be retried by raid.
+    This scenario will injects these errors and verifies that they are retried.
+    </li>
+</ul>
+</div></p>
+<a name="Verify"><h2>Verify Scenarios</h2></a>
+<p><div id="list_scenarios">
+<ul>
+    <a name="Clifford"><li><b>Clifford: </b></a>
+    <i>user verify.</i><br>
+    This scenario tests user initiated LUN verify.
+    <ul>
+        <li>Part 1: LUN verify on a RAID-0 LUN, no verify reporting.</li>
+        <li>Part 2: adds results reporting on a RAID-0 LUN verify.</li>
+        <li>Part 3: adds a RAID-5 LUN verify.</li>
+        <li>Part 4: adds a RAID-1 LUN verify.</li>
+        <li>Part 5: adds a RAID-3 LUN verify.</li>
+        <li>Part 6: adds a RAID-6 LUN verify.</li>
+        <li>Part 7: adds coherency error injection.</li>
+        <li>Part 8: adds CRC error injection.</li>
+    </ul></li>
+    <a name="Cleo"><li><b>Cleo: </b></a>
+    <i>partial verify.</i><br>
+    This scenario tests that verifies occur when a raid group comes back after being unavailable.
+    <ul>
+        <li>Part 1: test that partial verifies occur after a raid group shutdown with outstanding cached writes.</li>
+        <li>Part 2: adds outstanding non-cached writes.</li>
+    </ul></li>
+    <a name="Hamburger"><li><b>Hamburger: </b></a>
+    <i>verify after array failure.</i><br>
+    This scenario tests that a full verify occurs on a raid group after an array failure with outstanding
+    non-cached writes (i.e., dirty LUNs).
+    </li>
+    <a name="T-Bone"><li><b>T-Bone: </b></a>
+    <i>verify after single SP failure.</i><br>
+    This scenario tests that partial verifies occur on the peer SP after an SP dies with outstanding non-cached writes.
+    </li>
+</ul>
+</div></p>
+<a name="Hibernate"><h2>Hibernate Scenarios</h2></a>
+<p><div id="list_scenarios">
+<ul>
+    <a name="Aurora"><li><b>Aurora: </b></a>
+    <i>LUN power-save management.</i><br>
+    This scenario tests the LUN objects abillity to conform to the power-save policy set for the array.
+    </li>
+    <a name="Maggie"><li><b>Maggie: </b></a>
+    <i>transition out of hibernate due to I/O.</i><br>
+    When a hibernating LUN gets I/O, the LUN wakes up and requests the downstream object to also wake up.
+    </li>
+    <a name="Potty"><li><b>Potty: </b></a>
+    <i>LUN zeroing prevents hibernation.</i><br>
+    This scenario tests that when a LUN is zeroing, it will not hibernate.
+    Once zeroing completes the LUN will then be permitted to hibernate.
+    </li>
+    <a name="Roo"><li><b>Roo: </b></a>
+    <i>drive removed from a hibernating raid group</i><br>
+    This scenario tests that, when a drive is removed from a hibernating raid group,
+    the raid group activates and either "marks rebuild" or goes to the FAILED state.
+    </li>
+    <a name="Pooh"><li><b>Pooh: </b></a>
+    <i>rebuild in progress at time of hibernate</i><br>
+    This scenario tests that when a rebuild is in progress, a raid group will not hibernate.
+    <ul>
+        <li>When all of the upstream clients are hibernated the raid group checks
+        whether a rebuild is in progress.  If so, the raid group will not itself hibernate.</li>
+        <li>When a rebuild is completed, the raid group checks its upstream clients to determine
+        if they are hibernated.  If so, the raid goup itself will hibernate.</li>
+    </ul></li>
+    <a name="Tigger"><li><b>Tigger: </b></a>
+    <i>wake up and sniff after 24 hours of hibernation.</i><br>
+    <ul>
+        <li>After 24 hours of hibernating a raid group wakes up and performs a sniff verify.</li>
+        <li>Then, after the normal idle time, the raid group hibernates again.</li>
+    </ul></li>
+    </li>
+    <a name="Woozle"><li><b>Woozle: </b></a>
+    <i>hibernate with raid group getting I/O on peer SP.</i><br>
+    This scenario tests that when the raid group on an SP is idle but the same raid goup on the
+    peer SP is getting I/O, the raid group will not hibernate.  The raid group will only hibernate when I/O
+    has stopped on both SPs.
+    </li>
+    <a name="Rabbit"><li><b>Rabbit: </b></a>
+    <i>hibernate with rebuild and I/O on different SPs.</i><br>
+    This scenario tests that when the raid group on an SP is idle but the same raid goup on the
+    peer SP is performing a rebuild, the raid group will not hibernate.
+    The raid group will only hibernate when I/O has stopped on both SPs (including rebuild I/O).
+    </li>
+    <a name="WhoopsyDoo"><li><b>WhoopsyDoo: </b></a>
+    <i>unconfigured PVD hibernation.</i><br>
+    If an unconfigured PVD is idle, it will hibernate.
+    </li>
+    <a name="DrJekyll"><li><b>DrJekyll: </b></a>
+    <i>create raid group on hibernating PVD.</i><br>
+    If a raid group is bound on a PVD then it is brought out of hibernate prior to
+    creating the raid group.
+    </li>
+    <a name="Amber"><li><b>Amber: </b></a>
+    <i>drive swap on a hibernating pvd.</i><br>
+    This scenario tests when a hibernating pvd needs to swap in a hot spere.
+    </li>
+    <a name="Gaggy"><li><b>Gaggy: </b></a>
+    <i>multiple raid groups and hibernate.</i><br>
+    This scenario tests hibernate when there are multiple raid groups on a VD;
+    e.g., one raid group is idle while another getting I/O (then the VD does not hibernate).
+    Once both raid group are idle the VD hibernates.
+    </li>
+</ul>
+</div></p>
+<a name="Remap"><h2>Remap Scenarios</h2></a>
+<p><div id="list_scenarios">
+<ul>
+    <a name="BobTheBuilder"><li><b>BobTheBuilder: </b></a>
+    <i>I/O induced Remap.</i><br>
+    This scenario tests when an I/O request (read/write/verify/rebuild) gets a media error that
+    which in turn causes a remap.  The test verifies that the raid group schedules the remap in
+    the background.  This test includes cases for all situations where raid schedules remap
+    (e.g., background verify, degraded read, etc).
+    </li>
+    <a name="Scoop"><li><b>Scoop: </b></a>
+    <i>sniff induced remap.</i><br>
+    This scenario tests that when a sniff finds a media error, raid schedules a remap in the background.
+    </li>
+</ul>
+</div></p>
+<a name="Rebuild"><h2>Rebuild Scenarios</h2></a>
+<p><div id="list_scenarios">
+<ul>
+    <a name="Dora"><li><b>Dora: </b></a>
+    <i>RAID group health handling.</i><br>
+    When raid group drives go away, the raid group determines whether or not to leave the READY state,
+    and whether or not to begin journaling writes.
+    <ul>
+        <li>Evaluate RG viability when a downstream edge changes to not ready, ether
+        leave the READY state, or begin marking "needs rebuild"</li>
+        <li>In some cases the raid group will queue I/Os as the downstream edges go
+        temporarily to not-ready and then retry these I/Os once the drive returns to ready.</li>
+    </ul></li>
+    <a name="Diego"><li><b>Diego: </b></a>
+    <i>simple rebuild.</i><br>
+    This scenario tests that journaled writes are performed when a temporarily disabled drive comes back on-line.
+    <ul>
+        <li>A raid group drive is pulled, which causes "needs rebuild" to get marked and
+        write journaling to begin.
+        The drive is reinserted and a rebuild takes place.</li>
+    </ul></li>
+    <a name="Boots"><li><b>Boots: </b></a>
+    <i>differential rebuild.</i><br>
+    This scenario tests that journaled writes are performed when a probational drive comes back on-line.
+    <ul>
+        <li>A raid group drive is made probational, which causes write journaling to begin.
+        The drive is reinserted and a rebuild takes place.</li>
+    </ul></li>
+    <a name="Swiper"><li><b>Swiper: </b></a>
+    <i>rebuild due to bad drive signature.</i><br>
+    This scenario tests that a rebuild occurs when a raid group discovers that one of
+    its drives has been replaced.
+    <ul>
+        <li>The raid group detects that a drive signature has changed and starts a rebuild on the drive.
+    </ul></li>
+</ul>
+</div></p>
+<a name="Expand-Defrag"><h2>Expansion and Defragmentation Scenarios</h2></a>
+<p><div id="list_scenarios">
+<ul>
+    <a name="SherifWoody"><li><b>SherifWoody: </b></a>
+    <i>Basic raid group expansion, with and without I/O.</i><br>
+    This scenario tests the case when expansion is in progress and a raid group goes degraded
+    with no hot spares available.
+    </li>
+    <a name="BuzzLightyear"><li><b>BuzzLightyear: </b></a>
+    <i>Basic raid group defrag, with and without I/O.</i><br>
+    This scenario tests when a defrag operation is in progress and the raid group goes degraded
+    with no hot spares available.
+    </li>
+    <a name="Rex"><li><b>Rex: </b></a>
+    <i>Raid group expansion with LUN shrink and I/Os.</i><br>
+    This scenario tests raid group expansion with simultaneous LUN shrink and I/Os.
+    </li>
+    <a name="Hamm"><li><b>Hamm: </b></a>
+    <i>Raid group defrag with LUN shrink and I/Os.</i><br>
+    This scenario tests raid group defrag with simultaneous LUN shrink and I/Os.
+    </li>
+    <a name="SidPhillips"><li><b>SidPhillips: </b></a>
+    <i>Raid group expansion with rebuild/equalize/proactive copy.</i><br>
+    This scenario tests interactions between expansion and rebuild, equalize and proactive copy, including:
+    <ul>
+        <li>Rebuild of an expansion disk.</li>
+        <li>Rebuild of a non-expansion disk in an expanding raid group.</li>
+        <li>Equalize of an expansion disk.</li>
+        <li>Equalize of a non-expansion disk in an expanding raid group.</li>
+        <li>Proactive copy of an expansion disk.</li>
+        <li>Proactive copy of a non-expansion disk in an expanding raid group.</li>
+        <li>Expansion disk is proactive copying, and the drive dies.</li>
+        <li>Expansion disk is equalizing and the hot spare dies.</li>
+        <li>For each case involving an expansion disk, test when the expansion disk is a PSM/vault
+        drive and a non-PSM/vault drive.</li>
+    </ul></li>
+    <a name="LightningMcQueen"><li><b>LightningMcQueen: </b></a>
+    <i>Raid group defrag with rebuild/equalize/proactive copy.</i><br>
+    This scenario tests interactions between defrag and rebuild, equalize and proactive copy, including:
+    <ul>
+        <li>Rebuild of a disk in a defragging raid group.</li>
+        <li>Equalize of a disk in a defragging raid group.</li>
+        <li>Proactive copy of a disk in a defragging raid group.</li>
+    </ul></li>
+    <a name="Vader"><li><b>Vader: </b></a>
+    <i>stress 7 DVT test.</i><br>
+    Create and destroy LUs and raid groups while expanding, and defragging.
+    <a name="Magneto"><li><b>Magneto: </b></a>
+    <i>stress 7 DVT test with drive failures.</i><br>
+    Create and destroy LUs and raid groups while expanding/defragging and introducing drive failures.
+    </li>
+    <a name="Zurg"><li><b>Zurg: </b></a>
+    <i>stress 8 DVT test.</i><br>
+    Create and destroy LUs and raid groups while expanding, defragging,
+    and periodically rebooting and power cycling SPs.
+    </li>
+    <a name="Galactus"><li><b>Galactus: </b></a>
+    <i>stress 8 DVT test with drive failures.</i>
+    Create and destroy LUs and raid groups while expanding, defragging,
+    and periodically rebooting and power cycling SPs and introducing drive fail.
+    </li>
+</ul>
+</div></p>
+<a name="VD"><h2>Virtual Drive Scenarios</h2></a>
+<p><div id="list_scenarios">
+<ul>
+    <a name="ScoobyDoo"><li><b>ScoobyDoo: </b></a>
+    <i>simple functional I/O.</i><br>
+    This scenario tests the functional I/O path through the virtual drive.
+    </li>
+    <a name="ScrappyDoo"><li><b>ScrappyDoo: </b></a>
+    <i>database I/O.</i>
+    This scenario tests virtual drive support for mirrored copy of database I/O.
+    It verifies that writes are mirrored and that reads fail-over to mirrored copies.
+    </li>
+</ul>
+</div></p>
+<a name="Drive-Sparing"><h2>Drive Sparing Scenarios</h2></a>
+<p><div id="list_scenarios">
+<ul>
+    <a name="Shaggy"><li><b>Shaggy: </b></a>
+    <i>simple hot-sparing.</i><br>
+    This scenario removes a virtual drive and verifies that an appropriate hot-spare is
+    selected and hot-sparing operations are performed.  This test also verifies user I/O
+    occurring during hot-spare operations.
+    </li>
+    <a name="Dapne"><li><b>Dapne: </b></a>
+    <i>drive sparing while also performing drive zeroing.</i><br>
+    This scenario tests the concurent hot sparing and drive zeroing.
+    </li>
+    <a name="Velma"><li><b>Velma: </b></a>
+    <i>hot-sparing while performing a rebuild.</i><br>
+    This scenario tests hot sparing will a rebuild is in progress on another virtual drive
+    of the same raid group.
+    </li>
+    <a name="Freddie"><li><b>Freddie: </b></a>
+    <i>hot-spare fails.</i><br>
+    This scenario tests hot spare failure.
+    </li>
+    <a name="Scoobert"><li><b>Scoobert: </b></a>
+    <i>hot-sparing with different block sizes and different drive types.</i><br>
+    This scenario tests hot spare operations with virtual drives having different block sizes
+    and different drive types.
+    </li>
+    <a name="Tintin"><li><b>Tintin: </b></a>
+    <i>LUN unbinding while drive sparing is in progress.</i><br>
+    This scenario tests LUN unbinding while drive sparing is in progress on a drive in the raid group.</i>
+    </li>
+</ul>
+</div></p>
+<a name="Drive-Equalize"><h2>Drive Equalize Scenarios</h2></a>
+<p><div id="list_scenarios">
+<ul>
+    <a name="FlimFlam"><li><b>FlimFlam: </b></a>
+    <i>simple equalizing.</i><br>
+    This scenario tests basic equalize operations.
+    </li>
+    <a name="CreepyHeap"><li><b>CreepyHeap: </b></a>
+    <i>data validation during equalize.</i><br>
+    This scenario validates that I/O occurring during an equalize is directed to the correct drive.
+    <a name="VincentVanGoul"><li><b>VincentVanGoul: </b></a>
+    <i>equalize when hot-sparing is in progress and the original drive is re-inserted.</i><br>
+    This equalize operations when the original virtual drive is reinserted while the hot-sparing
+    operations are ongoing.
+    </li>
+    <a name="ScarePair"><li><b>ScarePair: </b></a>
+    <i>equalize fails.</i><br>
+    This scenario tests equalize I/O failures.
+    </li>
+    <a name="Bogel"><li><b>Bogel: </b></a>
+    <i>equalize in progress at time of hibernate.</i><br>
+    This scenario tests when an equalize is ongoing but upstream raid groups are idle.
+    The VD will not hibernate until the equalize finishes.
+    </li>
+</ul>
+</div></p>
+<a name="Drive-Copy"><h2>Drive Copy Scenarios</h2></a>
+<p><div id="list_scenarios">
+<ul>
+    <a name="DiabolicalDiskDemon"><li><b>DiabolicalDiskDemon: </b></a>
+    <i>simple proactive copy.</i><br>
+    This scenario verifies a proactive copy from the proactive candidate (source drive)
+    to the proactive spare (destination drive).
+    </li>
+    <a name="Miner49er"><li><b>Miner49er: </b></a>
+    <i>I/O errors while doing proactive copy.</i><br>
+    This scenario tests I/O failures while doing a proactive copy.
+    </li>
+    <a name="Chickenstein"><li><b>Chickenstein: </b></a>
+    <i>proactive candidate (source) fails while doing proactive copy.</i><br>
+    This scenario initiates a proactive copy and causes the source drive to fail during
+    the process. It verifies that hot sparing is then initiated.
+    </li>
+    <a name="TarMonster"><li><b>TarMonster: </b></a>
+    <i>proactive spare (destination) fails while doing proactive copy.</i><br>
+    This scenario tests a failure of the destination drive during a proactive copy.
+    </li>
+    <a name="Weerd"><li><b>Weerd: </b></a>
+    <i>transition out of hibernate due to proactive copy.</i>
+    This scenario tests when a proactive copy is started on a hibernating VD.
+    The VD is brought out of hibernate before starting the proactive copy.
+    </li>
+</ul>
+</div></p>
+<a name="Drive-Zeroing"><h2>Drive Zeroing Scenarios</h2></a>
+<p><div id="list_scenarios">
+<ul>
+    <a name="ScoobyDum"><li><b>ScoobyDum: </b></a>
+    <i>new drive zeroing (on a never bound drive).</i><br>
+    This test verifies background zeroing on a virtual drive (that has never been
+    bound to an LUN).  The virtual drive zeros the drive in the background, and the
+    test verifies that this zeroing occurred.
+    <a name="YabbaDoo"><li><b>YabbaDoo: </b></a>
+    <i> LU zeroing concurrent with drive zeroing.</i><br>
+    This test binds a LUN on a set of disks which have disk zeroing in progress in
+    the background.  The LU object starts LU-level zeroing in the background.
+    The test also issues user writes to the
+    virtual drive.  The test verifies that all of these zeroing operations proceed
+    with the proper priority and user data is not affected.
+    </li>
+</ul>
+</div></p>
+<a name="Sniff"><h2>Sniff Scenarios</h2></a>
+<p><div id="list_scenarios">
+<ul>
+    <a name="SkippyDoo"><li><b>SkippyDoo: </b></a>
+    <i>simple sniff verify operation on consumed extent.</i><br>
+    This test runs a sniff verify operation on a virtual drive.
+    </li>
+    <a name="DixieDoo"><li><b>DixieDoo: </b></a>
+    <i>sniff verify had bad blocks on consumed extent.</i><br>
+    This test runs a sniff verify and injects bad blocks on consumed extents.
+    It verifies that RAID is notified with required information and that the damage
+    is repaired.
+    </li>
+    <a name="HowdyDoo"><li><b>HowdyDoo: </b></a>
+    <i>sniff verify had bad blocks on non-consumed extent.</i><br>
+    This test runs a sniff verify and injects bad blocks on non-consumed extents.
+    It verifies that these blocks are remapped.
+    </li>
+</ul>
+</div></p>
+<a name="Config-DB"><h2>Configuration Scenarios</h2></a>
+<p><div id="list_scenarios">
+<ul>
+    <a name="BlueMeanie"><li><b>BlueMeanie: </b></a>
+    <i>basic storage extent creation and destruction.</i><br>
+    Create raid groups and LUNs and destroy raid groups and LUNs.
+    </li>
+    <a name="Lo-Pan"><li><b>Lo-Pan: </b></a>
+    <i>basic persistence.</i><br>
+    </li>
+    <a name="MrHyde"><li><b>MrHyde: </b></a>
+    <i>basic extent creation and destruction with drive failures.</i><br>
+    Create and destroy basic storage extents while introducing drive failures.
+    </li>
+    <a name="ProfessorMoriarty"><li><b>ProfessorMoriarty: </b></a>
+    <i>persistent database rebuild and consistency check.</i><br>
+    </li>
+    <a name="DocOck"><li><b>DocOck: </b></a>
+    <i>configuration persistence through reboots.</i><br>
+    Instantiate configured basic storage extents after array power cycles.
+    </li>
+</ul>
+</div></p>
+<a name="BVD"><h2>BVD Interface Scenarios</h2></a>
+<p><div id="list_scenarios">
+<ul>
+    <a name="Homer"><li><b>Homer: </b></a>
+    <i>get raid information.</i><br>
+    This scenario tests the ability of the BVD object to forward a FLARE_RAID_INFO request to the
+    appropriate LUN and return it to upper layers.
+    </li>
+    <a name="MrBurns"><li><b>MrBurns: </b></a>
+    <i>handling of IOCTLs from Upper Driver.</i><br>
+    This scenario tests the ability of the BVD object to collect all information needed to populate the
+    various IOCTLs issued by the upper level drivers. The IOCTLs are listed in the link.
+    </li>
+</ul>
+</div></p>
+<a name="NDU"><h2>NDU Scenarios</h2></a>
+<p><div id="list_scenarios">
+<ul>
+    <a name="Bluto"><li><b>Bluto: </b></a>
+    <i>NDU framework.</i><br>
+    </li>
+    <a name="KingBlozo"><li><b>KingBlozo: </b></a>
+    <i>user drive private space initialization.</i><br>
+    </li>
+    <a name="SweetPea"><li><b>SweetPea: </b></a>
+    <i>system drive pricate space initialization.</i><br>
+    </li>
+</ul>
+</div></p>
+</div></p>
+<a name="Homewrecker"><h2>Homewrecker Scenarios</h2></a>
+<p><div id="list_scenarios">
+<ul>
+    <a name="Rocky"><li><b>Rocky: </b></a>
+    <i>Matching configuration database drives.</i><br>
+    This scenario tests that all disks in the configuration database match and make up a set. 
+    </li>
+    <a name="Bullwinkle"><li><b>Bullwinkle: </b></a>
+    <i>Mismatching configuration database drives.</i>
+    This scenario tests that a database disk that doesn't match the configuration is marked as invalid. 
+    </li>
+    <a name="NatashaFatale"><li><b>NatashaFatale: </b></a>
+    <i>Chassis replacement (WWN seed change).</i><br>
+    This scenario tests that a replacement chassis is configured with a serial number and
+    WWN seed that matches the configuration database.
+    </li>
+</ul>
+</div></p>
+<a name="ScenarioIndex"><h2>LUN Scenario Index</h2></a>
+<p><div id="index">
+<ul>
+    <li><a href="#AbbyCadabby">AbbyCadabby</a></li>
+    <li><a href="#Amber">Amber</a></li>
+    <li><a href="#Aurora">Aurora</a></li>
+    <li><a href="#Bert">Bert</a></li>
+    <li><a href="#BigBird">BigBird</a></li>
+    <li><a href="#BlueMeanie">BlueMeanie</a></li>
+    <li><a href="#Bluto">Bluto</a>
+    <li><a href="#Bullwinkle">Bullwinkle</a></li>
+    <li><a href="#Bogel">Bogel</a></li>
+    <li><a href="#BobTheBuilder">BobTheBuilder</a></li>
+    <li><a href="#Boomer">Boomer</a></li>
+    <li><a href="#Boots">Boots</a></li>
+    <li><a href="#BubbleBass">BubbleBass</a></li>
+    <li><a href="#BuzzLightyear">BuzzLightyear</a></li>
+    <li><a href="#Chickenstein">Chickenstein</a></li>
+    <li><a href="#Cleo">Cleo</a></li>
+    <li><a href="#Clifford">Clifford</a></li>
+    <li><a href="#CookieMonster">CookieMonster</a></li>
+    <li><a href="#CreepyHeap">CreepyHeap</a></li>
+    <li><a href="#DannyDin">DannyDin</a></li>
+    <li><a href="#Dapne">Dapne</a></li>
+    <li><a href="#DiabolicalDiskDemon">DiabolicalDiskDemon</a></li>
+    <li><a href="#Diego">Diego</a></li>
+    <li><a href="#DixieDoo">DixieDoo</a></li>
+    <li><a href="#DocOck">DocOck</a></li>
+    <li><a href="#Dora">Dora</a></li>
+    <li><a href="#DrJekyll">DrJekyll</a></li>
+    <li><a href="#Elmo">Elmo</a></li>
+    <li><a href="#Ernie">Ernie</a></li>
+    <li><a href="#FlimFlam">FlimFlam</a></li>
+    <li><a href="#Freddie">Freddie</a></li>
+    <li><a href="#Gaggy">Gaggy</a></li>
+    <li><a href="#Galactus">Galactus</a></li>
+    <li><a href="#Grover">Grover</a></li>
+    <li><a href="#Hamburger">Hamburger</a></li>
+    <li><a href="#Hamm">Hamm</a></li>
+    <li><a href="#HandyManny">HandyManny</a></li>
+    <li><a href="#Homer">Homer</a></li>
+    <li><a href="#HowdyDoo">HowdyDoo</a></li>
+    <li><a href="#Kermit">Kermit</a></li>
+    <li><a href="#KilgoreTrout">KilgoreTrout</a></li>
+    <li><a href="#KingBlozo">KingBlozo</a></li>
+    <li><a href="#KingMidas">KingMidas</a></li>
+    <li><a href="#KozmaPrutkov">KozmaPrutkov</a></li>
+    <li><a href="#LarryTLobster">LarryTLobster</a></li>
+    <li><a href="#LightningMcQueen">LightningMcQueen</a>
+    <li><a href="#Lo-Pan">Lo-Pan</a></li>
+    <li><a href="#Magneto">Magneto</a></li>
+    <li><a href="#Miner49er">Miner49er</a></li>
+    <li><a href="#MrBurns">MrBurns</a></li>
+    <li><a href="#MrHyde">MrHyde</a></li>
+    <li><a href="#MrKrabs">MrKrabs</a></li>
+    <li><a href="#NatashaFatale">NatashaFatale</a></li>
+    <li><a href="#PatrickStar">PatrickStar</a></li>
+    <li><a href="#Plankton">Plankton</a></li>
+    <li><a href="#Pooh">Pooh</a></li>
+    <li><a href="#Potty">Potty</a></li>
+    <li><a href="#PrairieDawn">PrairieDawn</a></li>
+    <li><a href="#ProfessorMoriarty">ProfessorMoriarty</a></li>
+    <li><a href="#Rabbit">Rabbit</a></li>
+    <li><a href="#Rex">Rex</a></li>
+    <li><a href="#Rocky">Rocky</a></li>
+    <li><a href="#Roo">Roo</a></li>
+    <li><a href="#Rosita">Rosita</a></li>
+    <li><a href="#RubyDoo">RubyDoo</a></li>
+    <li><a href="#SandyCheeks">SandyCheeks</a></li>
+    <li><a href="#ScarePair">ScarePair</a></li>
+    <li><a href="#Scoobert">Scoobert</a></li>
+    <li><a href="#ScoobyDoo">ScoobyDoo</a></li>
+    <li><a href="#ScoobyDum">ScoobyDum</a></li>
+    <li><a href="#Scoop">Scoop</a></li>
+    <li><a href="#ScrappyDoo">ScrappyDoo</a></li>
+    <li><a href="#Shaggy">Shaggy</a></li>
+    <li><a href="#SherifWoody">SherifWoody</a></li>
+    <li><a href="#SidPhillips">SidPhillips</a>
+    <li><a href="#SkippyDoo">SkippyDoo</a></li>
+    <li><a href="#Smaug">Smaug</a></li>
+    <li><a href="#Snuffy">Snuffy</a></li>
+    <li><a href="#Squeeze">Squeeze</a></li>
+    <li><a href="#Squidward">Squidward</a></li>
+    <li><a href="#Stretch">Stretch</a></li>
+    <li><a href="#SweetPea">SweetPea</a></li>
+    <li><a href="#Swiper">Swiper</a></li>
+    <li><a href="#T-Bone">T-Bone</a></li>
+    <li><a href="#TarMonster">TarMonster</a></li>
+    <li><a href="#Telly">Telly</a></li>
+    <li><a href="#Tigger">Tigger</a></li>
+    <li><a href="#Tintin">Tintin</a></li>
+    <li><a href="#Vader">Vader</a></li>
+    <li><a href="#Velma">Velma</a></li>
+    <li><a href="#VincentVanGoul">VincentVanGoul</a></li>
+    <li><a href="#Weerd">Weerd</a></li>
+    <li><a href="#WhoopsyDoo">WhoopsyDoo</a></li>
+    <li><a href="#Woozle">Woozle</a></li>
+    <li><a href="#YabbaDoo">YabbaDoo</a></li>
+    <li><a href="#Zurg">Zurg</a></li>
+</ul>
+</div></p>
+</body>
+</html>

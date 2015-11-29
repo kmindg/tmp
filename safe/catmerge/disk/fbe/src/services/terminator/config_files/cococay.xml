@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<Board Board_type="FBE_BOARD_TYPE_FLEET" SN="BDX100F0001">
+	<Port Port_type="FBE_PORT_TYPE_SAS_PMC" IO_port_number="3" Portal_number="5" Backend_number="0" Sas_address="5000097A7800903F" SN="UP200F0003">
+        <Enclosure Enclosure_type="FBE_SAS_ENCLOSURE_TYPE_VIPER" Sas_address="5000097A78009071" SN="XE300F000T" UID="0000000000000001">
+            <Drive Drive_type="FBE_SATA_DRIVE_HITACHI_HUA" Slot="0" Sas_address="5000097A7800A071" SN="D400FB00F"/>
+            <Drive Drive_type="FBE_SATA_DRIVE_HITACHI_HUA" Slot="1" Sas_address="5000097A7800A271" SN="D500FB00B"/>
+            <Drive Drive_type="FBE_SATA_DRIVE_HITACHI_HUA" Slot="2" Sas_address="5000097A7800A371" SN="D600FB00C"/>
+            <Drive Drive_type="FBE_SATA_DRIVE_HITACHI_HUA" Slot="3" Sas_address="5000097A7800A471" SN="D700FB00D"/>
+            <Drive Drive_type="FBE_SATA_DRIVE_HITACHI_HUA" Slot="4" Sas_address="5000097A7800A571" SN="D800FB00F"/>
+            <Drive Drive_type="FBE_SATA_DRIVE_HITACHI_HUA" Slot="5" Sas_address="5000097A7800A671" SN="D900FB00B"/>
+            <Drive Drive_type="FBE_SATA_DRIVE_HITACHI_HUA" Slot="6" Sas_address="5000097A7800A771" SN="DA00FB00C"/>
+            <Drive Drive_type="FBE_SATA_DRIVE_HITACHI_HUA" Slot="7" Sas_address="5000097A7800A871" SN="DB00FB00D"/>
+            <Drive Drive_type="FBE_SATA_DRIVE_HITACHI_HUA" Slot="8" Sas_address="5000097A7800A971" SN="DC00FB00F"/>
+            <Drive Drive_type="FBE_SATA_DRIVE_HITACHI_HUA" Slot="9" Sas_address="5000097A7800AA71" SN="DD00FB00B"/>
+            <Drive Drive_type="FBE_SATA_DRIVE_HITACHI_HUA" Slot="10" Sas_address="5000097A7800AB71" SN="DE00FB00C"/>
+            <Drive Drive_type="FBE_SATA_DRIVE_HITACHI_HUA" Slot="11" Sas_address="5000097A7800AC71" SN="DF00FB00D"/>
+            <Drive Drive_type="FBE_SATA_DRIVE_HITACHI_HUA" Slot="12" Sas_address="5000097A7800AD71" SN="E000FB00B"/>
+            <Drive Drive_type="FBE_SATA_DRIVE_HITACHI_HUA" Slot="13" Sas_address="5000097A7800AE71" SN="E100FB00C"/>
+            <Drive Drive_type="FBE_SATA_DRIVE_HITACHI_HUA" Slot="14" Sas_address="5000097A7800AF71" SN="E200FB00D"/>
+        </Enclosure> 
+        <Enclosure Enclosure_type="FBE_SAS_ENCLOSURE_TYPE_VIPER" Sas_address="5000097A7F0090A1" SN="XE300D000T" UID="0000000000000002">
+            <Drive Drive_type="FBE_SATA_DRIVE_HITACHI_HUA" Slot="0" Sas_address="5000097A7F00A071" SN="D400FB10F"/>
+            <Drive Drive_type="FBE_SATA_DRIVE_HITACHI_HUA" Slot="1" Sas_address="5000097A7F00A271" SN="D500FB10B"/>
+            <Drive Drive_type="FBE_SATA_DRIVE_HITACHI_HUA" Slot="2" Sas_address="5000097A7F00A371" SN="D600FB10C"/>
+            <Drive Drive_type="FBE_SATA_DRIVE_HITACHI_HUA" Slot="3" Sas_address="5000097A7F00A471" SN="D700FB10D"/>
+            <Drive Drive_type="FBE_SATA_DRIVE_HITACHI_HUA" Slot="4" Sas_address="5000097A7F00A571" SN="D800FB10F"/>
+            <Drive Drive_type="FBE_SATA_DRIVE_HITACHI_HUA" Slot="5" Sas_address="5000097A7F00A671" SN="D900FB10B"/>
+            <Drive Drive_type="FBE_SATA_DRIVE_HITACHI_HUA" Slot="6" Sas_address="5000097A7F00A771" SN="DA00FB10C"/>
+            <Drive Drive_type="FBE_SATA_DRIVE_HITACHI_HUA" Slot="7" Sas_address="5000097A7F00A871" SN="DB00FB10D"/>
+            <Drive Drive_type="FBE_SATA_DRIVE_HITACHI_HUA" Slot="8" Sas_address="5000097A7F00A971" SN="DC00FB10F"/>
+            <Drive Drive_type="FBE_SATA_DRIVE_HITACHI_HUA" Slot="9" Sas_address="5000097A7F00AA71" SN="DD00FB10B"/>
+            <Drive Drive_type="FBE_SATA_DRIVE_HITACHI_HUA" Slot="10" Sas_address="5000097AF800AB71" SN="DE00FB10C"/>
+            <Drive Drive_type="FBE_SATA_DRIVE_HITACHI_HUA" Slot="11" Sas_address="5000097AF800AC71" SN="DF00FB10D"/>
+            <Drive Drive_type="FBE_SATA_DRIVE_HITACHI_HUA" Slot="12" Sas_address="5000097AF800AD71" SN="DD10FB10B"/>
+            <Drive Drive_type="FBE_SATA_DRIVE_HITACHI_HUA" Slot="13" Sas_address="5000097AF800AE71" SN="DE20FB10C"/>
+            <Drive Drive_type="FBE_SATA_DRIVE_HITACHI_HUA" Slot="14" Sas_address="5000097AF800AF71" SN="DF30FB10D"/>
+        </Enclosure> 
+        <Enclosure Enclosure_type="FBE_SAS_ENCLOSURE_TYPE_VIPER" Sas_address="5000097A7800B071" SN="XE300A000T" UID="0000000000000003">
+            <Drive Drive_type="FBE_SATA_DRIVE_HITACHI_HUA" Slot="2" Sas_address="5000097A7800A072" SN="D400FB20F"/>
+            <Drive Drive_type="FBE_SATA_DRIVE_HITACHI_HUA" Slot="3" Sas_address="5000097A7800A272" SN="D500FB20B"/>
+            <Drive Drive_type="FBE_SATA_DRIVE_HITACHI_HUA" Slot="4" Sas_address="5000097A7800A372" SN="D600FB20C"/>
+            <Drive Drive_type="FBE_SATA_DRIVE_HITACHI_HUA" Slot="5" Sas_address="5000097A7800A472" SN="D700FB20D"/>
+            <Drive Drive_type="FBE_SATA_DRIVE_HITACHI_HUA" Slot="6" Sas_address="5000097A7800A572" SN="D800FB20F"/>
+            <Drive Drive_type="FBE_SATA_DRIVE_HITACHI_HUA" Slot="7" Sas_address="5000097A7800A672" SN="D900FB20B"/>
+            <Drive Drive_type="FBE_SATA_DRIVE_HITACHI_HUA" Slot="8" Sas_address="5000097A7800A772" SN="DA00FB20C"/>
+            <Drive Drive_type="FBE_SATA_DRIVE_HITACHI_HUA" Slot="9" Sas_address="5000097A7800A872" SN="DB00FB20D"/>
+            <Drive Drive_type="FBE_SATA_DRIVE_HITACHI_HUA" Slot="10" Sas_address="5000097A7800A972" SN="DC00FB20F"/>
+            <Drive Drive_type="FBE_SATA_DRIVE_HITACHI_HUA" Slot="11" Sas_address="5000097A7800AA72" SN="DD00FB20B"/>
+            <Drive Drive_type="FBE_SATA_DRIVE_HITACHI_HUA" Slot="12" Sas_address="5000097A7800AB72" SN="DE00FB20C"/>
+            <Drive Drive_type="FBE_SATA_DRIVE_HITACHI_HUA" Slot="13" Sas_address="5000097A7800AC72" SN="DF00FB20D"/>
+        </Enclosure> 
+    </Port>
+</Board>

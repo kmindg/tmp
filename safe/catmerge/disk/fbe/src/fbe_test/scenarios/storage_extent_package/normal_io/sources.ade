@@ -1,0 +1,30 @@
+$sources{TARGETNAME} = "fbe_test_scenarios_sep_normal_io";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+
+$sources{SOURCES} = [
+    "elmo_test.c",
+    "zoe_test.c",
+    "grover_test.c",
+    "snuffy_test.c",
+    "telly_test.c",
+    "prairie_dawn_test.c",
+    "ultra_hd_test.c",
+    "handy_manny_test.c",
+    "squeeze_test.c",
+    "stretch_test.c",
+    "baby_bear_test.c",
+    "herry_monster_test.c",
+    "performance_test.c",
+    "king_minos_test.c",
+    "launchpad_mcquack_test.c",
+    "eye_of_vecna_test.c",
+    "meriadoc_brandybuck_test.c",
+    "super_hv.c",
+    "rick_test.c",
+];
+

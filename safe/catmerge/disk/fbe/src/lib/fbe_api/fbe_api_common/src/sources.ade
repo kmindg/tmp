@@ -1,0 +1,17 @@
+$sources{TARGETNAME} = "fbe_api_common";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{SOURCES} = [
+    "fbe_api_common.c",
+    "fbe_api_trace.c",
+    "fbe_api_utils.c",
+    "fbe_api_common_notification.c",
+    "fbe_api_common_job_service_notification.c"
+];

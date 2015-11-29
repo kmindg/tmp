@@ -1,0 +1,44 @@
+#ifndef PHYSICAL_PACKAGE_DLL_H
+#define PHYSICAL_PACKAGE_DLL_H
+
+#include "fbe/fbe_service.h"
+#include "fbe/fbe_terminator_api.h"
+
+typedef fbe_status_t (CALLBACK* physical_package_dll_init_function_t)(void);
+CSX_MOD_EXPORT fbe_status_t __cdecl physical_package_dll_init(void);
+
+typedef fbe_status_t (CALLBACK* physical_package_dll_destroy_function_t)(void);
+CSX_MOD_EXPORT fbe_status_t __cdecl physical_package_dll_destroy(void);
+
+typedef fbe_status_t (CALLBACK* physical_package_dll_get_control_entry_function_t)(fbe_service_control_entry_t * service_control_entry);
+CSX_MOD_EXPORT fbe_status_t __cdecl  physical_package_dll_get_control_entry(fbe_service_control_entry_t * service_control_entry);
+
+typedef fbe_status_t (CALLBACK* physical_package_dll_get_io_entry_function_t)(fbe_io_entry_function_t * io_entry);
+CSX_MOD_EXPORT fbe_status_t __cdecl  physical_package_dll_get_io_entry(fbe_io_entry_function_t * io_entry);
+
+typedef fbe_status_t (CALLBACK* physical_package_dll_get_specl_sfi_entry_function_t)(speclSFIEntryType * specl_sfi_entry);
+CSX_MOD_EXPORT fbe_status_t __cdecl  physical_package_dll_get_specl_sfi_entry(speclSFIEntryType * specl_sfi_entry);
+
+struct fbe_terminator_miniport_interface_port_shim_sim_pointers_s;
+
+typedef fbe_status_t (CALLBACK* physical_package_dll_set_miniport_interface_port_shim_sim_pointers_function_t)(struct fbe_terminator_miniport_interface_port_shim_sim_pointers_s * miniport_pointers);
+CSX_MOD_EXPORT fbe_status_t __cdecl  
+physical_package_dll_set_miniport_interface_port_shim_sim_pointers(struct fbe_terminator_miniport_interface_port_shim_sim_pointers_s * miniport_pointers);
+
+typedef fbe_status_t (CALLBACK* physical_package_dll_set_terminator_api_get_board_info_function_t)(fbe_terminator_api_get_board_info_function_t function);
+CSX_MOD_EXPORT fbe_status_t __cdecl  
+physical_package_dll_set_terminator_api_get_board_info(fbe_terminator_api_get_board_info_function_t function);
+
+typedef fbe_status_t (CALLBACK* physical_package_dll_set_terminator_api_get_sp_id_function_t)(fbe_terminator_api_get_sp_id_function_t function);
+CSX_MOD_EXPORT fbe_status_t __cdecl  
+physical_package_dll_set_terminator_api_get_sp_id(fbe_terminator_api_get_sp_id_function_t function);
+
+typedef fbe_status_t (CALLBACK* physical_package_dll_set_terminator_api_is_single_sp_system_function_t)(fbe_terminator_api_is_single_sp_system_function_t function);
+CSX_MOD_EXPORT fbe_status_t __cdecl
+physical_package_dll_set_terminator_api_is_single_sp(fbe_terminator_api_is_single_sp_system_function_t function);
+
+typedef fbe_status_t (CALLBACK* physical_package_dll_set_terminator_api_process_specl_sfi_mask_data_queue_function_t)(fbe_terminator_api_process_specl_sfi_mask_data_queue_function_t function);
+CSX_MOD_EXPORT fbe_status_t __cdecl
+physical_package_dll_set_terminator_api_process_specl_sfi_mask_data_queue_function(fbe_terminator_api_process_specl_sfi_mask_data_queue_function_t function);
+
+#endif /* PHYSICAL_PACKAGE_DLL_H */

@@ -1,0 +1,19 @@
+$sources{TARGETNAME} = "fbe_spare";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{SOURCES} = [
+    "fbe_spare_main.c",
+    "fbe_spare_utils.c",
+    "fbe_spare_validation.c",
+    "fbe_spare_selection.c",
+    "fbe_spare_swap.c",
+    "fbe_spare_error_response.c",
+    "fbe_update_spare_config.c",
+];

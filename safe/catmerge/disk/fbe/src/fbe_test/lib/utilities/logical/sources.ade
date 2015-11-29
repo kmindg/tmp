@@ -1,0 +1,34 @@
+$sources{TARGETNAME} = "fbe_test_sep_utils";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+
+$sources{TARGETLIBS} = [
+    "fbe_api_terminator_interface.lib",
+    "fbe_test_pp_utils.lib",
+    "fbe_api_neit_package_interface.lib",
+    "fbe_test_esp_utils.lib",
+];
+
+$sources{SOURCES} = [
+    "fbe_test_sep_utils.c",
+    "fbe_test_sep_drive_utils.c",
+    "fbe_test_sep_event.c",
+    "fbe_test_sep_hook.c",
+    "fbe_test_sep_io.c",
+    "fbe_test_sep_background_operations.c",
+    "fbe_test_sep_background_pause.c",
+    "fbe_test_sep_io_block_operations.c",
+    "fbe_test_sep_io_caterpillar.c",
+    "fbe_test_sep_io_standard.c",
+    "fbe_test_sep_rebuild_utils.c",
+    "fbe_test_sep_zeroing_utils.c",
+    "fbe_test_sep_region_io.c",
+    "fbe_test_sep_raid_group.c",
+    "fbe_test_sep_provision_drive.c",
+    "fbe_test_sep_encryption.c",
+];
+

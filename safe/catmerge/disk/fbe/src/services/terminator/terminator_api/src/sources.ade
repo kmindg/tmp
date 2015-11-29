@@ -1,0 +1,20 @@
+$sources{TARGETNAME} = "terminator_api";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+
+$sources{SOURCES} = [
+    "tapi_main.c",
+    "tapi_device_registry.c",
+    "tapi_board.c",
+    "tapi_port.c",
+    "tapi_enclosure.c",
+    "tapi_drive.c",
+    "tapi_combo.c",
+];

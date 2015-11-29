@@ -1,0 +1,18 @@
+$sources{TARGETNAME} = "fbe_physical_package";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{SOURCES} = [
+    "physical_package_init.c",
+];
+
+$sources{SUBDIRS} = [
+    "enclosure_protocols",
+    "cpd_shim",
+];

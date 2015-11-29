@@ -1,0 +1,73 @@
+REGEDIT4
+
+; Install PPFD driver
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\ppfd]
+"ImagePath"="System32\\drivers\\ppfd.sys"
+"DisplayName"="ppfd"
+"ErrorControl"=dword:00000001
+"Start"=dword:00000000
+"Type"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\ppfd\Parameters]
+"BreakOnEntry"=dword:00000000
+; Enable warning and error messages by default
+"KtraceDebugLevel"=dword:00000007
+"WindbgDebugEnable"=dword:00000001
+
+
+; The original SASPMC paramaters are for another slot, we want to use the Slic in slot 0 (38.0.x)
+; Also, add the NtMirror Alias disk devices for port 0 (128,129,130,131) so that SASPMC driver will "export" these disk devices
+; via the SCSI_GET_INQUIRY_DATA IOCTL.
+
+;
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SASPMC\Parameters\Device]
+"InstanceParameters0"="{[38.0.0]Q(BE0)I(144,256,32,S,0)N(5006016000000001,+)F(03)P(4)S(8,32,2,1,16)CA(128,255)A(129,255)A(130,255)A(131,255)K(B(0))B(520,0)M(2048)}"
+"InstanceParameters1"="{[38.0.1]Q(BE1)I(144,256,32,S,0)N(5006016000000003,+)F(0C)S(8,32,2,1,16)K(B(1))B(520,0)M(2048)}"
+"InstanceParameters2"="{[38.0.2]Q(BE2)I(144,256,32,S,0)N(5006016000000005,+)F(30)S(8,32,2,1,16)K(B(2))B(520,0)M(2048)}"
+"InstanceParameters3"="{[38.0.3]Q(BE3)I(144,256,32,S,0)N(5006016000000007,+)F(C0)S(8,32,2,1,16)K(B(3))B(520,0)M(2048)}"
+
+;
+; Change SASPMC start type to "boot"
+;
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SASPMC]
+"Start"=dword:00000000
+
+; Force NtMirror DB to be initialized and use default DD
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Ntmirror\Parameters]
+"EnableDefaultDD"="1"
+"MDBInit"="1"
+
+;
+; Change PhysicalPackage to be "boot" start type
+; and it must load from the system32\drivers folder rather than the EMC folder
+;
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\PhysicalPackage]
+"Start"=dword:00000000
+"ImagePath"="System32\\drivers\\physicalpackage.sys"
+
+
+;
+; Set LowerFilters in CriticalDeviceDatabase: physicalpackage ppfd
+;
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CriticalDeviceDatabase\scsi#otherclariionx.xx_cpd_boot128]
+"LowerFilters"=hex(7):70,68,79,73,69,63,61,6c,70,61,63,6b,61,67,65,00,70,70,66,64
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CriticalDeviceDatabase\scsi#otherclariionx.xx_cpd_boot129]
+"LowerFilters"=hex(7):70,68,79,73,69,63,61,6c,70,61,63,6b,61,67,65,00,70,70,66,64
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CriticalDeviceDatabase\scsi#otherclariionx.xx_cpd_boot130]
+"LowerFilters"=hex(7):70,68,79,73,69,63,61,6c,70,61,63,6b,61,67,65,00,70,70,66,64
+
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CriticalDeviceDatabase\scsi#otherclariionx.xx_cpd_boot131]
+"LowerFilters"=hex(7):70,68,79,73,69,63,61,6c,70,61,63,6b,61,67,65,00,70,70,66,64
+
+
+;
+; Add SAS SLIC to the criticial device database
+;
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CriticalDeviceDatabase\pci#ven_11f8&dev_8001]
+"ClassGUID"="{1E924F54-ACAE-43aa-B85A-7DF706E9615A}"
+"Service"="saspmc"
+

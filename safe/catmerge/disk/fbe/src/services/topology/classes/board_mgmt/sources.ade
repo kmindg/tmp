@@ -1,0 +1,27 @@
+$sources{TARGETNAME} = "fbe_board_mgmt";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{INCLUDES} = [
+    "$sources{SRCDIR}\\..\\base_environment",
+];
+$sources{SOURCES} = [
+    "fbe_board_mgmt_main.c",
+    "fbe_board_mgmt_monitor.c",
+    "fbe_board_mgmt_usurper.c",
+    "fbe_board_mgmt_resume_prom.c",
+    "fbe_board_mgmt_peer_boot.c",
+    "fbe_board_mgmt_fup.c",
+    "fbe_board_mgmt_utils.c",
+];
+$sources{SUBDIRS} = [
+    "debug",
+    "kernel",
+    "sim",
+];

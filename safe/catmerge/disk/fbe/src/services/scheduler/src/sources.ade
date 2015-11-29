@@ -1,0 +1,18 @@
+$sources{TARGETNAME} = "fbe_scheduler";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{SOURCES} = [
+    "fbe_scheduler_main.c",
+    "fbe_scheduler_credits.c",    
+];
+
+$sources{SUBDIRS} = [
+	"plugins",
+];

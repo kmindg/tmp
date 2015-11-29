@@ -1,0 +1,31 @@
+$sources{TARGETNAME} = "fbe_lun";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{INCLUDES} = [
+    "$sources{SRCDIR}\\..\\..\\base_object",
+    "$sources{SRCDIR}\\..\\..\\base_config",
+    "$sources{SRCDIR}\\..\\..\\raid_group\\interface",
+    "$sources{SRCDIR}\\..\\..\\..\\..\\..\\lib\\fbe_raid\\interface",    
+];
+
+$sources{SOURCES} = [
+    "fbe_lun_main.c",
+    "fbe_lun_monitor.c",
+    "fbe_lun_join.c",
+    "fbe_lun_usurper.c",
+    "fbe_lun_executor.c",
+    "fbe_lun_class.c",
+    "fbe_lun_event.c",
+    "fbe_lun_metadata.c",
+    "fbe_lun_zero.c",
+    "fbe_lun_event_log.c",
+    "fbe_lun_perf_stats.c",
+    "fbe_lun_software_errors.c",
+];

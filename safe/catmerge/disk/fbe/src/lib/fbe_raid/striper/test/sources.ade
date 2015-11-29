@@ -1,0 +1,13 @@
+$sources{TARGETNAME} = "fbe_raid_striper_library_test";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{SOURCES} = [
+    "fbe_striper_test_generate.c",
+    "fbe_striper_test_read.c",
+    "fbe_striper_test.c",
+];

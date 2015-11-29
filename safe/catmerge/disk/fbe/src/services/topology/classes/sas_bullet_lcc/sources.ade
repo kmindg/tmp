@@ -1,0 +1,15 @@
+$sources{TARGETNAME} = "fbe_sas_bullet_lcc";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{SOURCES} = [
+    "fbe_sas_bullet_lcc_main.c",
+    "fbe_sas_bullet_lcc_monitor.c",
+];
+
+

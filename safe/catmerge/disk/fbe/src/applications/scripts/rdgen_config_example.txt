@@ -1,0 +1,40 @@
+# Rdgen Config File Example
+#
+# This file is a configuration file example for use with rba_to_rdgen.py
+# rba_to_rdgen.py rbafile.ktr output_file rdgen_config.txt
+#
+#
+
+# If you want to run directly to a device, specify dca or mj interface.
+# then specify dca or mj or sgl interface.
+# To select PDO traces, use source=LUN and choose rba lun to object id mapping as below.
+# dca, RBA LUN Number=device name
+dca,0=CLARiiONdisk0
+mj,1=CLARiiONdisk1
+threads=5
+source=LUN
+
+# If you want to run directly to the object with a packet,
+# then specify a packet interface.
+# To select fbe LUN traces, use source=LUN and choose rba lun to object id mapping as below.
+# packet, RBA LUN Number=object id.
+#packet,2=0x145
+#packet,3=0x146
+#threads=5
+#source=LUN
+
+# If you want to run directly to the object with a packet,
+# then specify a packet interface.
+# To select PDO traces, use source=PDO and specify bus enclosure slot.
+# packet,Bus_Enc_Slot=PDO object id.
+#packet,0_0_10=0x1a
+#threads=5
+#source=PDO
+
+
+# This is the example of the config file that we use for rdgen_generate_records.py
+#dca,0=CLARiiONdisk0
+#mj,1=CLARiiONdisk1
+#packet,2=0x166
+#threads=5
+#source=LUN

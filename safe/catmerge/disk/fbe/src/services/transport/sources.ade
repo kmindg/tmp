@@ -1,0 +1,40 @@
+$sources{SUBDIRS} = [
+    "trace",
+    "debug",
+];
+
+
+$sources{TARGETNAME} = "fbe_transport";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+
+$sources{SOURCES} = [
+    "fbe_transport_main.c",
+    "fbe_transport_timer.c",
+    "fbe_sg_element.c",
+    "fbe_base_transport_main.c",
+    "fbe_discovery_transport_main.c",
+    "fbe_ssp_transport_main.c",
+    "fbe_stp_transport_main.c",
+    "fbe_block_transport_main.c",
+    "fbe_payload_control_operation.c",
+    "fbe_payload_discovery_operation.c",
+    "fbe_payload_cdb_operation.c",
+    "fbe_payload_block_operation.c",
+    "fbe_payload_fis_operation.c",
+    "fbe_payload_smp_operation.c",
+    "fbe_payload_metadata_operation.c",
+    "fbe_payload_stripe_lock_operation.c",
+    "fbe_payload_persistent_memory_operation.c",
+    "fbe_transport_run_queue.c",
+    "fbe_payload_ex_main.c",
+];
+
+

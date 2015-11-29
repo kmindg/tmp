@@ -1,0 +1,19 @@
+$sources{TARGETNAME} = "fbe_test_scenarios_sep_copy";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+
+$sources{SOURCES} = [
+    "diabolicaldiscdemon_test.c",
+    "bogel_test.c",
+    "robi_test.c",
+    "dooby_doo_test.c",
+    "flim_flam_test.c",
+    "scooby_doo_test.c",
+    "red_herring_test.c",
+    "vincent_van_ghoul_test.c"
+];
+

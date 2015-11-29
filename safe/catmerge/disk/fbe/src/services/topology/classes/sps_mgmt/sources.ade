@@ -1,0 +1,24 @@
+$sources{TARGETNAME} = "fbe_sps_mgmt";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{INCLUDES} = [
+    "$sources{SRCDIR}\\..\\base_environment",
+];
+$sources{SOURCES} = [
+    "fbe_sps_mgmt_main.c",
+    "fbe_sps_mgmt_monitor.c",
+    "fbe_sps_mgmt_usurper.c",
+    "fbe_sps_mgmt_fup.c",
+    "fbe_sps_mgmt_resume_prom.c",
+];
+$sources{SUBDIRS} = [
+    "debug",
+    "utils",
+];

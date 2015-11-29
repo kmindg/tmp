@@ -1,0 +1,17 @@
+$sources{TARGETNAME} = "fbe_cooling_mgmt_debug";
+$sources{TARGETTYPE} = "CSX_DEBUG_EXTENSION_LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user32",
+    "user",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{INCLUDES} = [
+    "$sources{SRCDIR}\\..\\..\\base_object",
+    "$sources{SRCDIR}\\..\\..\\base_config",
+];
+$sources{SOURCES} = [
+    "fbe_cooling_mgmt_debug.c",
+];
+

@@ -1,0 +1,44 @@
+$sources{TARGETNAME} = "fbe_api_sep_interface";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+    "kernel",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{SOURCES} = [
+    "fbe_api_sep_io_interface.c",
+    "fbe_api_database_interface.c",
+    "fbe_api_block_transport_interface.c",
+    "fbe_api_virtual_drive_interface.c",
+    "fbe_api_raid_group_interface.c",
+    "fbe_api_lun_interface.c",
+    "fbe_api_job_service_interface.c",
+    "fbe_api_provision_drive_interface.c",
+    "fbe_api_base_config_interface.c",
+    "fbe_api_cmi_interface.c",
+    "fbe_api_metadata_interface.c",
+    "fbe_api_sector_trace_interface.c",
+    "fbe_api_scheduler_interface.c",
+    "fbe_api_power_save_interface.c",
+    "fbe_api_bvd_interface.c",
+    "fbe_api_persist_interface.c",
+    "fbe_api_panic_sp_interface.c",
+    "fbe_api_cms_interface.c",
+    "fbe_api_system_bg_service_interface.c",
+    "fbe_api_perfstats_interface.c",
+    "fbe_api_system_time_threshold_interface.c",
+    "fbe_api_encryption_interface.c",
+    "fbe_api_extent_pool_interface.c",
+
+];
+
+
+
+
+
+
+
+

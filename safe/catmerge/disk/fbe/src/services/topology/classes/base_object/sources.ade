@@ -1,0 +1,20 @@
+$sources{TARGETNAME} = "fbe_base_object";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{SOURCES} = [
+    "fbe_base_object_main.c",
+    "fbe_base_object_monitor.c",
+    "fbe_base_object_usurper.c",
+    "fbe_base_object_trace.c",
+];
+
+$sources{SUBDIRS} = [
+    "debug",
+];

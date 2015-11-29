@@ -1,0 +1,7 @@
+$sources{SUBDIRS} = [
+    "src",
+    "Testing//SimpleMutTests",
+#    "Testing//selftest",
+    "Testing//exception_processing",
+#	"example_cpp",
+];

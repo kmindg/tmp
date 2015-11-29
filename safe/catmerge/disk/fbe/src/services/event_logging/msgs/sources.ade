@@ -1,0 +1,5 @@
+$sources{SUBDIRS} = [
+    "Esp",
+    "PhysicalPackage",
+    "SEP",
+];

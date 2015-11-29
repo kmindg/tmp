@@ -1,0 +1,24 @@
+$sources{TARGETNAME} = "fbe_base_port";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{INCLUDES} = [
+    "$sources{SRCDIR}\\..\\base_discovering",
+    "$sources{SRCDIR}\\..\\base_discovered",
+];
+$sources{SOURCES} = [
+    "fbe_base_port_main.c",
+    "fbe_base_port_monitor.c",
+    "fbe_base_port_usurper.c",
+    "fbe_base_port_executer.c",
+];
+
+$sources{SUBDIRS} = [
+    "debug",
+];

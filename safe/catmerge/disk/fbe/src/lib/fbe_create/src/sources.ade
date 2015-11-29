@@ -1,0 +1,42 @@
+$sources{TARGETNAME} = "fbe_create";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{SOURCES} = [
+    "fbe_create_utilities.c",
+    "fbe_lun_create.c",
+    "fbe_lun_destroy.c",
+    "fbe_raid_group_create.c",
+    "fbe_raid_group_destroy.c",
+    "fbe_set_system_power_save_info.c",
+    "fbe_update_raid_group.c",
+    "fbe_update_virtual_drive.c",
+    "fbe_update_provision_drive.c",
+    "fbe_update_provision_drive_block_size.c",
+    "fbe_provision_drive_create.c",
+    "fbe_lun_update.c",
+    "fbe_update_db_on_peer.c",
+    "fbe_destroy_provision_drive.c",
+    "fbe_reinitialize_provision_drive.c",
+    "fbe_control_system_bg_service.c",
+    "fbe_sep_ndu_commit.c",
+    "fbe_set_system_pvd_removed_time_threshold.c",
+    "fbe_drive_connect.c",
+	"fbe_update_multi_pvds_pool_id.c",
+    "fbe_set_system_encryption_info.c",
+    "fbe_update_encryption_mode.c",
+    "fbe_process_encryption_keys.c",
+    "fbe_scrub_old_user_data.c",
+    "fbe_set_system_encryption_paused.c",
+    "fbe_validate_database.c",
+    "fbe_create_extent_pool.c",
+    "fbe_create_extent_pool_lun.c",
+    "fbe_destroy_extent_pool.c",
+    "fbe_destroy_extent_pool_lun.c",
+];

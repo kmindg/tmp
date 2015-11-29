@@ -1,0 +1,18 @@
+$sources{TARGETNAME} = "fbe_drive_mgmt_kernel";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+];
+$sources{UMTYPE} = "console";
+$sources{TARGETLIBS} = [
+    "ExpatDll.lib",
+];
+$sources{INCLUDES} = [
+    "$sources{SRCDIR}\\..",
+    "$sources{SRCDIR}\\..\\..\\base_environment",
+];
+$sources{SOURCES} = [
+    "fbe_drive_mgmt_kernel_main.c",
+    "fbe_drive_mgmt_xml_api.c",
+];

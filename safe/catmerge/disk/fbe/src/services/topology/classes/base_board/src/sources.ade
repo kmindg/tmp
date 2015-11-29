@@ -1,0 +1,28 @@
+$sources{TARGETNAME} = "fbe_base_board";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{INCLUDES} = [
+    "$sources{SRCDIR}\\..\\interface",
+    "$sources{SRCDIR}\\..\\..\\base_discovering",
+    "$sources{SRCDIR}\\..\\..\\base_discovered",
+    "$sources{MASTERDIR}\\disk\\interface\\fbe",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\lib\\enclosure_data_access",
+];
+$sources{SOURCES} = [
+    "fbe_base_board_main.c",
+    "fbe_base_board_monitor.c",
+    "fbe_base_board_usurper.c",
+    "fbe_base_board_pe_read.c",
+    "fbe_base_board_pe_write.c",
+    "fbe_base_board_pe_shim.c",
+    "fbe_base_board_pe_utils.c",
+    "fbe_base_board_peer_boot.c",
+];
+

@@ -1,0 +1,11 @@
+$sources{TARGETNAME} = "fbe_file_kernel";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+];
+$sources{UMTYPE} = "console";
+$sources{SOURCES} = [
+    "fbe_file_kernel_main.c",
+];
+

@@ -1,0 +1,18 @@
+$sources{TARGETNAME} = "fbe_test_configs_logical";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+
+$sources{SOURCES} = [
+    "sep_verification_utils.c",
+    "kilgore_trout_config.c",
+    "rabo_karabekian_config.c",
+    "eliot_rosewater_config.c",
+    "billy_pilgrim_config.c",
+    "dr_jekyll_config.c",
+    "sep_standard_logical_configs.c"
+];
+	

@@ -1,0 +1,7 @@
+$sources{SUBDIRS} = [
+    "lib",
+    "services",
+    "fbe_test",
+    "packages",
+    "applications",
+];

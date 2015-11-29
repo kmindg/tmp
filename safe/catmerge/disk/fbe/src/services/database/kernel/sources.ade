@@ -1,0 +1,17 @@
+$sources{TARGETNAME} = "fbe_database_kernel";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+];
+$sources{UMTYPE} = "console";
+$sources{TARGETLIBS} = [
+    "fbe_database.lib",
+	"spid.lib"
+];
+
+$sources{SOURCES} = [
+    "sep_kernel_set_degraded_mode_in_nvram.c",
+	"sep_kernel_set_degraded_mode_reason_in_spid.c",
+	"fbe_database_poll_kernel.c",
+];

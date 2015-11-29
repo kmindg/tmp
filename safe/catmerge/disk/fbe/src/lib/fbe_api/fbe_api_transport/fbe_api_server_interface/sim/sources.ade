@@ -1,0 +1,20 @@
+$sources{TARGETNAME} = "fbe_api_sim_server_interface";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{CALLING_CONVENTION} = "stdcall";
+$sources{INCLUDES} = [
+    "$sources{MASTERDIR}\\disk\\interface\\fbe",
+    "$sources{MASTERDIR}\\disk\\fbe\\interface",
+];
+           
+$sources{SOURCES} = [
+    "fbe_api_sim_server_interface.c",
+];
+
+

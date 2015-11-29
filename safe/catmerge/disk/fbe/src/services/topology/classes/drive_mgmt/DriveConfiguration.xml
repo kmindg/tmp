@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!-- 
+     DIEH Error Thresholds 
+-->
+<fbeThresholdConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="DriveConfiguration.xsd" version="3.3.0" description="Default">
+    <driveConfigurations>
+        <!-- For configuring system queue depth. "  -->
+        <!-- Please note that the order of the attributes is important. "  -->
+        <DriveQDepth DefaultQDepth="22" SystemNormalQDepth="22" SystemReducedQDepth="5"></DriveQDepth>
+
+        <!-- Default SAS record -->
+        <sasDriveConfiguration>
+            <driveInformation>
+                <vendor name=""></vendor>
+                <partNumber partNumber=""></partNumber>
+                <firmwareRev firmwareRev=""></firmwareRev>
+                <serialNumber sNoStart="" sNoEnd=""></serialNumber>
+            </driveInformation>
+            <driveStatistics>
+                <!-- possible action attributes for the following error categories are (reset, eol, eol_call_home, kill, kill_call_home, event) -->
+                <!-- cummulativeStats : weight slightly lower than recovered bucket, since recovered bucket is by far the most tolerant bucket. -->
+                <cumulativeStats  io_interval="1080000" weight="3333"   reset="50/10"  eol="84" kill="100"> </cumulativeStats>
+                <recoveredStats   io_interval="1080000" weight="3600"   reset="50/10"  eol="84" kill="100"> 
+                    <weightChange  opcode="0x2e" change="20"> </weightChange>  <!-- write_verify-->
+                    <weightChange  opcode="0x8e" change="20"> </weightChange>  <!-- write_verify-->
+                </recoveredStats>
+                <!-- mediaStats      : weight is 5x greater than recovered bucket. -->
+                <mediaStats       io_interval="1800000" weight="18000"  reset="30/5"  eol="50" kill="100">  
+                    <weightChange  opcode="0x2e" change="20"> </weightChange> <!-- write_verify-->
+                    <weightChange  opcode="0x8e" change="20"> </weightChange> <!-- write_verify-->
+                </mediaStats>
+                <!-- hardwareStats   : weight is 2x greater than media -->
+                <hardwareStats    io_interval="1000000" weight="36000"  reset="50/10"  eol="89" kill="100"> </hardwareStats>                
+                <linkStats        io_interval="1000"    weight="13"     reset="50/10"           kill="100"> </linkStats>
+                <healthCheckStats io_interval="200000"  weight="150000"                         kill="100"> </healthCheckStats>
+                <dataStats        io_interval="1000000" weight="10000"  reset="50/10"  eol="89" kill="100"> </dataStats>  <!-- not used. never was -->
+                <errorBurstWeightReduce value="20"></errorBurstWeightReduce>  <!-- value is % -->
+                <errorBurstDelta value="100"></errorBurstDelta>               <!-- value is msec -->            
+                <rc value="true"></rc>           <!-- emeh -->
+            </driveStatistics>
+        
+            <sasDriveExceptionCodes>
+                <scsiExcpetionCode>
+                    <scsiCode senseKey="0x01" senseCodeStart="0x0C" senseCodeEnd="0x0C" senseQualStart="0x00" senseQualEnd="0xFF"> </scsiCode> <!-- 01/0c/xx -->
+                    <ioStatus status="ok"> </ioStatus>
+                    <errorClassify typeAction="mediaError"> </errorClassify>
+                </scsiExcpetionCode>
+                <scsiExcpetionCode>
+                    <scsiCode senseKey="0x04" senseCodeStart="0x00" senseCodeEnd="0xFF" senseQualStart="0x00" senseQualEnd="0xFF"></scsiCode> <!-- 04/xx/xx all other 04s initiate paco on first error-->
+                    <errorClassify typeAction="hardwareError"></errorClassify>
+                    <errorClassify typeAction="proactiveCopy"></errorClassify>
+                </scsiExcpetionCode>
+                <scsiExcpetionCode>
+                    <scsiCode senseKey="0x09" senseCodeStart="0x80" senseCodeEnd="0x80" senseQualStart="0x00" senseQualEnd="0xFF"></scsiCode> 
+                    <errorClassify typeAction="hardwareError"></errorClassify>
+                    <errorClassify typeAction="proactiveCopy"></errorClassify>
+                </scsiExcpetionCode>
+            </sasDriveExceptionCodes>             
+        </sasDriveConfiguration>
+                                                                  
+                                                                          
+        <!-- specialized SAS record for Samsung RCX 100G -->
+        <sasDriveConfiguration>
+            <driveInformation>
+                <vendor name="samsung"></vendor>   
+                <partNumber partNumber="DG118032713"></partNumber>
+                <firmwareRev firmwareRev=""></firmwareRev>
+                <serialNumber sNoStart="" sNoEnd=""></serialNumber>
+            </driveInformation>
+            <driveStatistics> 
+                <cumulativeStats  io_interval="1000000" weight="3333"   reset="50/10" eol="89" kill_call_home="100"> </cumulativeStats>                
+                <recoveredStats   io_interval="1000000" weight="3600"   reset="50/10" eol="89" kill_call_home="100"> 
+                    <weightChange  opcode="0x2e" change="20"> </weightChange> 
+                    <weightChange  opcode="0x8e" change="20"> </weightChange> 
+                </recoveredStats>
+                <!-- mediaStats      : weight is 10x greater than recovered bucket, twice more agressive than non-samsung record.   This is a mitigation against RCX overvoltage issue. -->                
+                <mediaStats       io_interval="1000000" weight="36000"  reset="50/10" eol="89" kill_call_home="100"> 
+                    <weightChange  opcode="0x2e" change="20"> </weightChange> 
+                    <weightChange  opcode="0x8e" change="20"> </weightChange> 
+                </mediaStats>
+                <hardwareStats    io_interval="1000000" weight="36000"  reset="50/10" eol="89"  kill_call_home="100"> </hardwareStats>                
+                <linkStats        io_interval="1000"    weight="13"     reset="50/10"          kill_call_home="100"> </linkStats>
+                <healthCheckStats io_interval="200000"  weight="150000"                         kill_call_home="100"> </healthCheckStats>
+                <dataStats        io_interval="1000000" weight="10000"  reset="50/10" eol="89" kill_call_home="100"> </dataStats>  
+                <errorBurstWeightReduce value="20"></errorBurstWeightReduce>
+                <errorBurstDelta value="100"></errorBurstDelta>
+                <rc value="true"></rc> 
+            </driveStatistics>
+
+            <sasDriveExceptionCodes>
+                <scsiExcpetionCode>
+                    <scsiCode senseKey="0x01" senseCodeStart="0x0C" senseCodeEnd="0x0C" senseQualStart="0x00" senseQualEnd="0xFF"> </scsiCode> <!-- 01/0c/xx -->
+                    <ioStatus status="ok"> </ioStatus>
+                    <errorClassify typeAction="mediaError"> </errorClassify>
+                </scsiExcpetionCode>
+                <scsiExcpetionCode>
+                    <scsiCode senseKey="0x04" senseCodeStart="0x44" senseCodeEnd="0x44" senseQualStart="0x00" senseQualEnd="0xFF"></scsiCode> <!-- 04/44/xx -->
+                    <errorClassify typeAction="fatal"></errorClassify>
+                </scsiExcpetionCode>
+                <scsiExcpetionCode>
+                    <scsiCode senseKey="0x04" senseCodeStart="0x00" senseCodeEnd="0xFF" senseQualStart="0x00" senseQualEnd="0xFF"></scsiCode> <!-- 04/xx/xx all other 04s initiate paco on first error-->
+                    <errorClassify typeAction="hardwareError"></errorClassify>
+                    <errorClassify typeAction="proactiveCopy"></errorClassify>
+                </scsiExcpetionCode>
+            </sasDriveExceptionCodes>  
+        </sasDriveConfiguration>
+
+        <!-- specialized SAS record for Samsung RCX 200G -->
+        <sasDriveConfiguration>
+            <driveInformation>
+                <vendor name="samsung"></vendor>   
+                <partNumber partNumber="DG118032714"></partNumber>
+                <firmwareRev firmwareRev=""></firmwareRev>
+                <serialNumber sNoStart="" sNoEnd=""></serialNumber>
+            </driveInformation>
+            <driveStatistics> 
+                <cumulativeStats  io_interval="1000000" weight="3333"   reset="50/10" eol="89" kill_call_home="100"> </cumulativeStats>                
+                <recoveredStats   io_interval="1000000" weight="3600"   reset="50/10" eol="89" kill_call_home="100"> 
+                    <weightChange  opcode="0x2e" change="20"> </weightChange> 
+                    <weightChange  opcode="0x8e" change="20"> </weightChange> 
+                </recoveredStats>
+                <!-- mediaStats      : weight is 10x greater than recovered bucket, twice more agressive than non-samsung record.   This is a mitigation against RCX overvoltage issue. -->                
+                <mediaStats       io_interval="1000000" weight="36000"  reset="50/10" eol="89" kill_call_home="100"> 
+                    <weightChange  opcode="0x2e" change="20"> </weightChange> 
+                    <weightChange  opcode="0x8e" change="20"> </weightChange> 
+                </mediaStats>
+                <hardwareStats    io_interval="1000000" weight="36000"  reset="50/10" eol="89"  kill_call_home="100"> </hardwareStats>                
+                <linkStats        io_interval="1000"    weight="13"     reset="50/10"          kill_call_home="100"> </linkStats>
+                <healthCheckStats io_interval="200000"  weight="150000"                         kill_call_home="100"> </healthCheckStats>
+                <dataStats        io_interval="1000000" weight="10000"  reset="50/10" eol="89" kill_call_home="100"> </dataStats>  
+                <errorBurstWeightReduce value="20"></errorBurstWeightReduce>
+                <errorBurstDelta value="100"></errorBurstDelta>
+                <rc value="true"></rc> 
+            </driveStatistics>
+
+            <sasDriveExceptionCodes>
+                <scsiExcpetionCode>
+                    <scsiCode senseKey="0x01" senseCodeStart="0x0C" senseCodeEnd="0x0C"  senseQualStart="0x00" senseQualEnd="0xFF"> </scsiCode>  <!-- 01/0c/xx -->
+                    <ioStatus status="ok"> </ioStatus>
+                    <errorClassify typeAction="mediaError"> </errorClassify>
+                </scsiExcpetionCode>
+                <scsiExcpetionCode>
+                    <scsiCode senseKey="0x04" senseCodeStart="0x44" senseCodeEnd="0x44" senseQualStart="0x00" senseQualEnd="0xFF"></scsiCode> <!-- 04/44/xx -->
+                    <errorClassify typeAction="fatal"></errorClassify>
+                </scsiExcpetionCode>
+                <scsiExcpetionCode>
+                    <scsiCode senseKey="0x04" senseCodeStart="0x00" senseCodeEnd="0xFF" senseQualStart="0x00" senseQualEnd="0xFF"></scsiCode> <!-- 04/xx/xx all other 04s initiate paco on first error-->
+                    <errorClassify typeAction="hardwareError"></errorClassify>
+                    <errorClassify typeAction="proactiveCopy"></errorClassify>
+                </scsiExcpetionCode>
+            </sasDriveExceptionCodes>  
+        </sasDriveConfiguration>
+
+    </driveConfigurations>
+</fbeThresholdConfiguration>

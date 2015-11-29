@@ -1,0 +1,18 @@
+$sources{TARGETNAME} = "fbe_environment_limit_sim_for_sep";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+
+$sources{SOURCES} = [
+    "fbe_environment_limit_for_sep_main.c",
+
+];
+
+$sources{TARGETLIBS} = [
+  "core_config_user_runtime.lib",
+  "spid_user_interface_stdcall.lib",
+];

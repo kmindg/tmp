@@ -1,0 +1,12 @@
+$sources{TARGETNAME} = "fbe_test_self_test";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+
+$sources{SOURCES} = [
+    "self_tests.c",
+    "log_test.c",
+];

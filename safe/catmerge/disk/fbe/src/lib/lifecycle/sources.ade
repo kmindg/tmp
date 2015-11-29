@@ -1,0 +1,24 @@
+$sources{TARGETNAME} = "fbe_lib_lifecycle";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{INCLUDES} = [
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\topology\\interface",
+];
+$sources{SOURCES} = [
+    "fbe_lifecycle_cond.c",
+    "fbe_lifecycle_getters.c",
+    "fbe_lifecycle_pending.c",
+    "fbe_lifecycle_trace.c",
+    "fbe_lifecycle_api.c",
+    "fbe_lifecycle_crank.c",
+    "fbe_lifecycle_init.c",
+    "fbe_lifecycle_state.c",
+    "fbe_lifecycle_verify.c",
+];

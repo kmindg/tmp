@@ -1,0 +1,22 @@
+$sources{TARGETNAME} = "fbe_hash_table_test";
+$sources{TARGETTYPE} = "EMCUTIL_PROGRAM";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{CALLING_CONVENTION} = "stdcall";
+
+$sources{SOURCES} = [
+    "fbe_hash_test_main.c",
+];
+
+$sources{SYSTEMLIBS} = [
+    "winmm.lib",
+    "ws2_32.lib",
+];
+
+$sources{TARGETLIBS} = [
+    "fbe_hash_table.lib",
+];
+

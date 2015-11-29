@@ -1,0 +1,15 @@
+$sources{TARGETNAME} = "fbe_raid_library_test";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{SOURCES} = [
+    "fbe_raid_group_test.c",
+    "fbe_raid_group_test_state_object.c",
+    "fbe_raid_group_test_state_machine.c",
+    "fbe_raid_group_test_sg_util.c",
+    "fbe_raid_group_test_memory.c",
+];

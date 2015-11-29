@@ -1,0 +1,18 @@
+$sources{TARGETNAME} = "fbe_persist";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{SOURCES} = [
+    "fbe_persist_database.c",
+    "fbe_persist_main.c",
+    "fbe_persist_transaction.c",
+    "fbe_persist_cmi.c",
+    "fbe_persist_debug.c",
+];
+

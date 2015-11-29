@@ -1,0 +1,15 @@
+$sources{TARGETNAME} = "fbe_api_object_map_interface";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{SOURCES} = [
+    "fbe_api_object_map.c",
+    "fbe_api_object_map_interface.c",
+];
+

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- 
+     DIEH Error Thresholds 
+-->
+<fbeThresholdConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="DriveConfiguration.xsd" version="3.0">
+    <driveConfigurations>
+        <!-- For configuring system queue depth. "  -->
+        <!-- Please note that the order of the attributes is important. "  -->
+        <DriveQDepth DefaultQDepth="22" SystemNormalQDepth="22" SystemReducedQDepth="5"></DriveQDepth>
+
+        <!-- Default SAS record -->
+        <sasDriveConfiguration>
+            <driveInformation>
+                <vendor name=""></vendor>
+                <partNumber partNumber=""></partNumber>
+                <firmwareRev firmwareRev=""></firmwareRev>
+                <serialNumber sNoStart="" sNoEnd=""></serialNumber>
+            </driveInformation>
+            <driveStatistics>
+                <!-- to get the same reset behavior as R32, change  reset="34,45,56,67,78,89"  -->
+                <!-- possible action attributes for the following error categories are (reset, eol, eol_call_home, kill, kill_call_home, event) -->
+                <!-- cummulativeStats : weight slightly lower than recovered bucket, since recovered bucket is by far the most tolerant bucket. -->
+                <cumulativeStats  io_interval="1000000" weight="3333"   reset="50" eol="89" kill="100"> </cumulativeStats>
+                <recoveredStats   io_interval="1000000" weight="3600"   reset="50" eol="89" kill="100"> 
+                    <weightChange  opcode="0x2e" change="20"> </weightChange>  <!-- write_verify-->
+                    <weightChange  opcode="0x8e" change="20"> </weightChange>  <!-- write_verify-->
+                </recoveredStats>
+                <!-- mediaStats      : weight is 5x greater than recovered bucket. -->
+                <mediaStats       io_interval="1000000" weight="18000"  reset="50" eol="89" kill="100"> 
+                    <weightChange  opcode="0x2e" change="20"> </weightChange> <!-- write_verify-->
+                    <weightChange  opcode="0x8e" change="20"> </weightChange> <!-- write_verify-->
+                </mediaStats>
+                <!-- hardwareStats   : weight is 2x greater than media -->
+                <hardwareStats    io_interval="1000000" weight="36000"  reset="50" eol="89" kill="100"> </hardwareStats>                
+                <linkStats        io_interval="1000"    weight="13"     reset="50"          kill="100"> </linkStats>
+                <healthCheckStats io_interval="100000"  weight="33000"                      kill="100"> </healthCheckStats>
+                <dataStats        io_interval="1000000" weight="10000"  reset="50" eol="89" kill="100"> </dataStats>  <!-- not used. never was -->
+                <errorBurstWeightReduce value="20"></errorBurstWeightReduce>  <!-- value is % -->
+                <errorBurstDelta value="100"></errorBurstDelta>               <!-- value is msec -->
+            </driveStatistics>
+        
+            <sasDriveExceptionCodes>
+                <scsiExcpetionCode>
+                    <scsiCode senseKey="0x01" senseCodeStart="0x0C" senseCodeEnd="0x0C" senseQualStart="0x00" senseQualEnd="0x00"> </scsiCode> <!-- 01/0c/00 -->
+                    <errorClassify typeAction="proactiveCopy"> </errorClassify>
+                </scsiExcpetionCode>
+                <scsiExcpetionCode>
+                    <scsiCode senseKey="0x01" senseCodeStart="0x0C" senseCodeEnd="0x0C" senseQualStart="0x01" senseQualEnd="0x01"> </scsiCode> <!-- 01/0c/01 -->
+                    <errorClassify typeAction="fatal"> </errorClassify>
+                </scsiExcpetionCode>
+                <scsiExcpetionCode>
+                    <scsiCode senseKey="0x01" senseCodeStart="0x0C" senseCodeEnd="0x0C" senseQualStart="0x02" senseQualEnd="0x02"> </scsiCode> 
+                    <errorClassify typeAction="proactiveCopyCallHome"> </errorClassify>
+                </scsiExcpetionCode>
+                <scsiExcpetionCode>
+                    <scsiCode senseKey="0x01" senseCodeStart="0x0C" senseCodeEnd="0x0C" senseQualStart="0x03" senseQualEnd="0x03"> </scsiCode> 
+                    <errorClassify typeAction="fatalCallHome"> </errorClassify>
+                </scsiExcpetionCode>
+
+            </sasDriveExceptionCodes> 
+        </sasDriveConfiguration>                                                          
+    </driveConfigurations>
+</fbeThresholdConfiguration>

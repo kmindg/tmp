@@ -1,0 +1,18 @@
+$sources{TARGETNAME} = "fbe_transport_trace";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{SOURCES} = [
+    "fbe_transport_trace.c",
+    "fbe_block_transport_trace.c",
+];
+
+
+
+

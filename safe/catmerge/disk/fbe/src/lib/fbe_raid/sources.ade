@@ -1,0 +1,30 @@
+$sources{TARGETNAME} = "fbe_raid_library";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+	
+$sources{TARGETLIBS} = [
+    "fbe_raid_common.lib",
+    "fbe_raid_mirror_library.lib",
+    "fbe_raid_parity_library.lib",
+    "fbe_raid_striper_library.lib",
+    "fbe_raid_raw_mirror_library.lib",
+];
+
+             
+$sources{SUBDIRS} = [
+    "raw_mirror",
+    "mirror",
+    "parity",
+    "striper",
+    "src",
+    "test",
+    "debug",
+];
+

@@ -1,0 +1,24 @@
+$sources{TARGETNAME} = "fbe_eas_lib";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{CALLING_CONVENTION} = "stdcall";
+$sources{INCLUDES} = [
+    "$sources{MASTERDIR}\\disk\\fbe\\interface",
+    "$sources{MASTERDIR}\\disk\\interface\\fbe",
+];
+           
+$sources{SOURCES} = [
+    "fbe_eas_lib_main.c",
+    "fbe_eas_lib_prompt.c",
+    "fbe_eas_lib_eas_cmds.c"
+];
+$sources{CUSTOM_DEFS} = ["/DI_AM_NATIVE_CODE"];
+$sources{TARGETLIBS} = [
+	"EmcUTIL.lib",
+];

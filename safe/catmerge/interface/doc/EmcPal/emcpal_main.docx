@@ -1,0 +1,43 @@
+/*************************************************** 
+ * This is the information that shows up on the main Doxygen page. 
+ * The dot defined below is a hierarchy of the fbe classes 
+ * As we add classes we should update the diagram below. 
+ ***************************************************/
+
+/*************************************************** 
+ * This is the information that shows up on the main Doxygen page. 
+ * The dot defined below is a hierarchy of the fbe classes 
+ * As we add classes we should update the diagram below. 
+ ***************************************************/
+
+/*! @mainpage EmcPAL Documentation
+
+ Documentation for the APIs can be found by clicking on the Modules tab.
+
+ All feedback regarding this document should
+ be sent to 
+  <A HREF="mailto:joel.young@emc.com">Joel Young</A>
+ 
+
+ <hr>
+@section start Getting Started
+
+This manual is divided in the following sections:
+
+- \subpage emcpal_introduction
+- \subpage emcpal_faq
+- \subpage emcpal_safe_conventions
+- \subpage emcpal_win_conversion
+- \subpage emcpal_win_cross_reference
+- \subpage emcpal_csx_cross_reference
+
+<hr> 
+
+@section more_info More Information
+- <a href="https://sforge.sspg.lab.emc.com/sf/go/doc17250?nav=1">Flare Portability Overview</a>
+- <a href="http://csx-home.sspg.lab.emc.com/csxdoc">CSX Manual</a>
+ 
+<hr>
+
+*/
+

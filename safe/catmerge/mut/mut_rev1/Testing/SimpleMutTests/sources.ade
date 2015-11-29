@@ -1,0 +1,21 @@
+$sources{TARGETNAME} = "SimpleMutTests";
+$sources{TARGETTYPE} = "EMCUTIL_PROGRAM";
+$sources{MUT_TEST} = 1;
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{CALLING_CONVENTION} = "stdcall";
+$sources{SYSTEMLIBS} = [
+    "winmm.lib",
+    "ws2_32.lib",
+];
+
+$sources{SOURCES} = [
+    "SimpleMutTests.cpp",
+];
+
+$sources{CUSTOM_DEFS} = ["/DI_AM_NATIVE_CODE"];

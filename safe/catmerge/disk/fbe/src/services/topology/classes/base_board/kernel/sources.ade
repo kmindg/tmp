@@ -1,0 +1,19 @@
+$sources{TARGETNAME} = "fbe_base_board_kernel";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+];
+$sources{INCLUDES} = [
+    "$sources{SRCDIR}\\..\\interface",
+    "$sources{SRCDIR}\\..\\..\\base_discovering",
+    "$sources{SRCDIR}\\..\\..\\base_discovered",
+];
+$sources{UMTYPE} = "console";
+$sources{TARGETLIBS} = [
+    "spid_static_lib.lib",
+];
+$sources{SOURCES} = [
+    "fbe_base_board_kernel_main.c",
+];
+

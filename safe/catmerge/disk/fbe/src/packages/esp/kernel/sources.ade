@@ -1,0 +1,69 @@
+$sources{TARGETNAME} = "espkg";
+$sources{TARGETTYPE} = "PAL_DRIVER";
+$sources{TARGETMODES} = [
+"kernel",
+];
+
+$sources{INCLUDES} = [
+"$sources{MASTERDIR}/../../sys-common/Block_Admin",
+"$sources{MASTERDIR}\\disk\\interface\\fbe",
+"$sources{MASTERDIR}\\disk\\fbe\\interface",
+];
+$sources{TARGETLIBS} = [
+    "fbe_ddk.lib",
+    "ktrace.lib",
+    "fbe_ktrace.lib",
+    "fbe_trace.lib",
+    "fbe_lib_lifecycle.lib",
+    "fbe_lib_kernel.lib",
+    "fbe_transport.lib",
+    "fbe_classes.lib",
+    "fbe_topology.lib",
+    "fbe_scheduler.lib",
+    "fbe_service_manager.lib",
+    "fbe_base_service.lib",
+    "fbe_environment_limit.lib",
+    "fbe_environment_limit_kernel.lib",    
+    "fbe_event_log.lib",
+    "fbe_event_log_kernel.lib",
+    "fbe_event_log_utils.lib",
+    "fbe_eir.lib",
+    "fbe_drive_configuration.lib",
+    "fbe_memory.lib",
+    "fbe_memory_kernel.lib",
+    "fbe_driver_notification.lib",
+    "fbe_event.lib",
+    "fbe_cmi_kernel.lib",
+    "fbe_drive_mgmt_kernel.lib",
+    "fbe_api_common.lib",
+    "fbe_api_sep_interface.lib",
+    "fbe_api_common_kernel.lib",
+    "fbe_esp.lib",
+    "fbe_packet_serialize_kernel.lib",
+    "fbe_registry_kernel.lib",
+    "fbe_file_kernel.lib",
+    "ExpatDll.lib",
+    "fbe_base_environment_kernel.lib",
+    "fbe_encl_mgmt_kernel.lib",
+    "fbe_module_mgmt_kernel.lib",
+    "fbe_board_mgmt_kernel.lib",
+    "generic_utils_lib_stdcall.lib",
+    "fbe_lib_enclosure_data_access.lib",
+    "fbe_sep_shim.lib",
+    "fbe_private_space_layout.lib",
+    "fbe_transport_trace.lib",
+    "HardwareAttributesLib.lib",	
+    "EmcUTIL.lib",
+    "specl.lib",
+    "fbe_peer_boot_utils.lib",
+    "fbe_lib_json.lib",
+];
+
+$sources{SOURCES} = [
+"esp_main.c",
+];
+
+$sources{CUSTOM_DEFS} = [
+"/DTRC_GEN_CONTROL",
+];
+$sources{CUSTOM_LINK_OPTS} = "/MAP ";

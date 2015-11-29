@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>RAID Group</title>
+<link rel="stylesheet" type="text/css" href="../css/all.css" />
+<link rel="stylesheet" type="text/css" href="../css/lists.css" />
+</head>
+<body>
+<h1>RAID Group Object</h1>
+<p>
+The RAID object is...
+</p><p><ul>
+    <li>Data Protection</li>
+    <li>Error Retry</li>
+    <li>Not Ready Queues</li>
+    <li>Rebuild</li>
+    <li>Remap</li>
+    <li>Verify</li>
+</ul></p>
+<h2>RAID Group Control Path</h2>
+<p>
+The LUN control path performs the following operations:
+</p><p><ul>
+    <li>Rebuild</li>
+    <li>Verify</li>
+</ul></p>
+<h2>RAID Group Class Hierarchy</h2>
+<p><div id="list_classes">
+<ul>
+    <li>Base Object</li>
+    <li>Base Config Object</li>
+    <li>Raid Group Object</li>
+</ul>
+</div></p>
+<h2>RAID Group Source Files</h2>
+<p><div id="list_files">
+<ul>
+    <li>./disk/interface/fbe/fbe_raid_group.h</li>
+    <li>./disk/fbe/src/services/topology/classes/raid_group/interface/*.h</li>
+    <li>./disk/fbe/src/services/topology/classes/raid_group/src/*.c</li>
+</ul>
+</div></p>
+<a name="nonpagedmetadata"><h2>Raid Group Non-paged Metadata</h2></a>
+<p>
+The raid group's 
+<a href="../html/storage_extent_metadata.html#nonpagedmetadata">non-paged metadata</a>
+contains the following fields:
+<ul>
+	
+	</li>
+    <li><tt>needs rebuild element[2] </tt> &mdash; information on a position 
+		that has chunks requiring rebuild. 
+		<ul><li><tt>checkpoint</tt> &mdash; lowest chunk that requires a
+				rebuild.</li>			
+			<li><tt>position</tt> &mdash; position in the array this nr 
+				element corresponds to. </li>
+		</ul>
+	</li>
+    <li><tt>verify_for_user_checkpoint</tt> &mdash; lowest chunk that requires a user requested verify.</li>
+    <li><tt>verify_for_error_checkpoint</tt> &mdash; lowest chunk that requires a verify because of I/O errors.</li>
+    <li><tt>verify_for_abort_checkpoint</tt> &mdash; lowest chunk that requires a verify because of aborted I/Os.</li>
+    <li><tt>verify_for_read_only_checkpoint</tt> &mdash; lowest chunk that requires a verify because of a read only verify.</li>
+    <li><tt>need_rebuild_on_demand[16]</tt> &mdash; drives that require rebuild logging (one bit per drive in the raid group).</li>
+    <li><tt>need_rebuild_all_drive[16]</tt> &mdash; drives that require all of the drive to be rebuilt
+                                                    (one bit per drive in the raid group).</li>
+    <li><tt>paged_metadata_metadata[32]</tt> &mdash; metadata bit sequences that cover the paged metadata.</li>
+</ul>
+</p>
+<a name="pagedmetadata"><h2>Raid Group Paged Metadata</h2></a>
+<p>
+The raid group's
+<a href="../html/storage_extent_metadata.html#pagedmetadata">paged metadata</a>
+contains the following bits:
+<ul>
+    <li><tt>verify_for_user</tt> &mdash; the corresponding user data chunk needs to be verified by user request.</li>
+    <li><tt>verify_for_error_bit</tt> &mdash; the corresponding user data chunk needs to be verified because of I/O errors.</li>
+    <li><tt>verify_for_abort</tt> &mdash; the corresponding user data chunk needs to be verified because of I/O aborts.</li>
+    <li><tt>verify_for_read_only</tt> &mdash; the corresponding user data chunk needs to be read only verified.</li>
+    <li><tt>reserved_bits[12]</tt> &mdash; unused bits, reserved for future use.</li>
+    <li><tt>need_rebuild_bits[16]</tt> &mdash; the corresponding user data chunk needs to be rebuilt
+                                               (one bit per drive in the raid group).</li>
+    <li><tt>reserved_bits[32]</tt> &mdash; unused bits, reserved for future use.</li>
+</ul>
+</p>
+</body>
+</html>

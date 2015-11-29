@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>LUN</title>
+<link rel="stylesheet" type="text/css" href="../css/all.css" />
+<link rel="stylesheet" type="text/css" href="../css/lists.css" />
+</head>
+<body>
+<h1>LUN Object</h1>
+<p>
+The LUN object is...
+</p><p><ul>
+    <li>Fast-bind Zeroing.</li>
+    <li>Non-destructive Bind</li>
+    <li>User Zeroing</li>
+    <li>LUN Shrink</li>
+    <li>LUN ownership</li>
+    <li>LUN power-save management</li>
+    <li>LUN change notification</li>
+</ul></p>
+</p>
+<h2>LUN Control Path</h2>
+<p>
+The LUN control path performs the following operations:
+</p><p><ul>
+    <li>Non-Destructive Bind</li>
+    <li>User Verify</li>
+    <li>User Zeroing</li>
+</ul></p>
+<h2>LUN Class Hierarchy</h2>
+<p><div id="list_classes">
+<ul>
+    <li>Base Object</li>
+    <li>Base Config Object</li>
+    <li>LUN Object</li>
+</ul>
+</div></p>
+<h2>LUN Source Files</h2>
+<p><div id="list_files">
+<ul>
+    <li>./disk/interface/fbe/fbe_lun.h</li>
+    <li>./disk/fbe/src/services/topology/classes/lun/interface/*.h</li>
+    <li>./disk/fbe/src/services/topology/classes/lun/src/*.c</li>
+</ul>
+</div></p>
+<a name="nonpagedmetadata"><h2>LUN Non-paged Metadata</h2></a>
+<p>
+<li><tt>io_counter</tt> &mdash; Number of non-cached io's that is outstanding.</li>
+<li><tt>lu_dirty</tt> &mdash; A flag to represent if the lun is dirty or not. False if io counter is 0.</li>
+
+</p>
+<a name="pagedmetadata"><h2>LUN Paged Metadata</h2></a>
+<p>
+<i>Currently the LUN object does not use its paged metadata.</i>
+</p>
+</body>
+</html>

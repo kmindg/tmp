@@ -1,0 +1,31 @@
+$sources{TARGETNAME} = "fbe_module_mgmt";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{INCLUDES} = [
+    "$sources{SRCDIR}\\..\\base_environment",
+];
+$sources{SOURCES} = [
+    "fbe_module_mgmt_main.c",
+    "fbe_module_mgmt_monitor.c",
+    "fbe_module_mgmt_usurper.c",
+    "fbe_module_mgmt_util.c",
+    "fbe_module_mgmt_reg_io_util.c",
+    "fbe_module_mgmt_reg_util.c",
+    "fbe_module_mgmt_string_util.c",
+    "fbe_module_mgmt_resume_prom.c",
+    "fbe_module_mgmt_fup.c",
+    "fbe_module_mgmt_port_affinity.c",
+    "fbe_module_mgmt_mapping.c",
+];
+$sources{SUBDIRS} = [
+    "debug",
+    "kernel",
+    "sim",
+];

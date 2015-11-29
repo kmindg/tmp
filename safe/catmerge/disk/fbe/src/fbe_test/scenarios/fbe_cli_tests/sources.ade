@@ -1,0 +1,38 @@
+$sources{TARGETNAME} = "fbe_test_scenarios_fbe_cli_tests";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{CALLING_CONVENTION} = "stdcall";
+
+$sources{SYSTEMLIBS} = [
+];
+$sources{TARGETLIBS} = [
+];
+$sources{SOURCES} = [
+    "fbe_cli_tests.c",
+    "fbe_cli_ldo_test.c",
+    "fbe_cli_pdo_test.c",
+    "fbe_cli_base_test.c",
+    "fbe_cli_rdt_test.c",
+    "fbe_cli_rderr_test.c",
+    "fbe_cli_rginfo_test.c",
+    "fbe_cli_stinfo_test.c",
+    "fbe_cli_test_utils.c",
+    "fbe_cli_test_output_handler.c",
+    "fbe_cli_test_config_loader.c",
+    "fbe_cli_luninfo_test.c",
+    "fbe_cli_odt_test.c",
+    "fbe_cli_sfpinfo_test.c",
+    "fbe_cli_getwwn_test.c",
+    "fbe_cli_db_transaction_test.c",
+    "fbe_cli_forcerpread_test.c",
+    "fbe_cli_get_prom_info_test.c",
+    "fbe_cli_bgo_test.c",
+    "fbe_cli_sepls_test.c",
+    "fbe_cli_ddt_test.c",
+    "fbe_cli_system_dump_test.c",
+    "fbe_cli_mminfo_test.c",
+];

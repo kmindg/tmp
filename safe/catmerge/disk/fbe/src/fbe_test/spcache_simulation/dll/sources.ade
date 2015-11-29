@@ -1,0 +1,37 @@
+$sources{SUBDIRS} = [
+    "../library",
+];
+
+
+$sources{TARGETNAME} = "titan_fbe_test";
+$sources{TARGETTYPE} = "EMCUTIL_DYNLINK";
+$sources{DLLTYPE} = "REGULAR";
+$sources{UMTYPE} = "windows";
+$sources{CALLING_CONVENTION} = "stdcall";
+$sources{CUSTOM_DEFS} = ["/DTITAN_FBE_TEST"];
+$sources{TARGETMODES} = [
+    "simulation",
+];
+
+$sources{SYSTEMLIBS} = [
+];
+
+$sources{TARGETLIBS} = [
+    "spcache_simulation.lib",
+    "fbe_drive_configuration.lib",
+    "fbe_api_sep_interface.lib",
+    "fbe_api_esp_interface.lib",
+    "fbe_transport_trace.lib",
+    "fbe_packet_serialize_user.lib",
+    "ktrace.lib",
+    "fbe_ktrace.lib",
+    "fbe_api_common.lib",
+];
+
+
+$sources{SOURCES} = [
+    "fbe_simulation_api.c",
+    "fbe_simulation_Call_Driver.c",
+    "DllEntryPointsEmpty.c",
+];
+

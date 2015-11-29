@@ -1,0 +1,20 @@
+$sources{TARGETNAME} = "fbe_base_environment_debug_ext";
+$sources{TARGETTYPE} = "CSX_DEBUG_EXTENSION_LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user32",
+    "user",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{INCLUDES} = [
+      "$sources{MASTERDIR}\\disk\\interface\\fbe",
+      "$sources{SRCDIR}\\..\\..\\base_environment",
+   
+];
+            
+           
+$sources{SOURCES} = [
+        "../fbe_base_environment_debug.c",
+];
+

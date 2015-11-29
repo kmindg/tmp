@@ -1,0 +1,16 @@
+$sources{TARGETNAME} = "fbe_neit_api";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+
+$sources{SOURCES} = [
+    "fbe_neit_api.c",
+];
+
+
+

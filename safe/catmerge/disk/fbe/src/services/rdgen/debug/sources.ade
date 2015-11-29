@@ -1,0 +1,15 @@
+$sources{TARGETNAME} = "fbe_rdgen_debug";
+$sources{TARGETTYPE} = "CSX_DEBUG_EXTENSION_LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user32",
+    "user",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+
+
+$sources{SOURCES} = [
+    "fbe_rdgen_debug.c",
+];
+

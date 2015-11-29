@@ -1,0 +1,119 @@
+/*! \page emcpal_win_conversion Converting a Windows Driver into an EmcPAL Driver
+
+\section emcpal_entrypoints Driver entry points to initialize with the EmcPAL
+
+In the CLARiiON kernel environment, the PAL and CSX are both packaged as NT kernel Drivers and export APIs that can be used by other drivers 
+to write portable software.  Other drivers can access the PAL and CSX APIs by linking against the drivers at compile time.  In addition 
+to linking properly, before using the PAL and/or CSX, a driver must register itself with the PAL and CSX at run time.  This allows the 
+PAL/CSX to maintain useful state information on behalf of each driver, including a list of resources that have been created by a given 
+driver.  The easiest way to register with the PAL and CSX is by linking with the PAL Driver Shell library.  The PAL Driver Shell 
+library is a simple skeleton wrapper library that does all the necessary PAL and CSX initialization for a driver and then calls an entry-point 
+defined by the driver.  The PAL Driver Shell requires that the user define the EmcpalDriverEntry() entry-point in their driver that will 
+be called when the driver is loaded.  The Driver Shell works in both user space and kernel space.  In NT kernel space, the PAL driver shell 
+library defines a DriverEntry routine that does all the necessary initialization to register with the PAL and CSX before calling the 
+user-provided EmcpalDriverEntry() routine.  On all other platforms, including Windows user space, the PAL driver shell library packages your 
+code as a CSX module, and uses the CSX module start entry-point to call the user-defined EmcpalDriverEntry routine.\n\n
+
+Any driver that requires access to the PAL and CSX must link against the appropriate libraries and register itself at runtime.  The recommended 
+way to make the PAL available to a typical CLARiiON NT driver is to use the PAL Driver Shell.  The first step to using the PAL driver shell is 
+to change the Sources.mak file for your driver so it uses a TARGETTYPE of CSX_MODULE and CSX_MODULE_TYPE of PAL. Using this TARGETTYPE ensures 
+that your driver is properly linked against the appropriate PAL, PAL Driver Shell and CSX libraries in both user and kernel mode.  It also 
+specifies the necessary flags to make your module link properly in user and kernel mode.  Next you'll need to change your DriverEntry routine 
+to EmcpalDriverEntry.  EmcpalDriverEntry takes a PAL driver object as a parameter, which is the object that must be passed to any PAL driver APIs.
+If your driver isn't completely converted to use the PAL, you may need access to the NT PDRIVER_OBJECT and Unicode registry path for your driver.
+  As a temporary convenience to ease the transition to the PAL, these NT objects can be accessed using the EmcpalDriverGetNativeDriverObject() 
+and EmcpalDriverGetNativeRegistryPath() APIs.  If your driver wants to specify an unload routine to be called when the driver is unloaded, it 
+should register the unload routine with the PAL using the EmcpalDriverSetUnloadCallback() API.\n\n
+
+The example below shows the changes to ASIDC to make it build as a PAL-enabled driver in kernel mode only.  The SOURCES.mak file was modified 
+to specify a TARGETTYPE of CSX_MODULE and a CSX_MODULE_TYPE of PAL.  This ensures that the driver is linked against the PAL, PAL Driver Shell 
+and CSX infrastructure.  It also ensures that the driver is linked against any libraries used by the PAL driver shell in the kernel (EmcKe.lib
+ and ktrace.lib) and specifies the necessary linker flags.\n\n
+
+The example also shows the changes to asidc_entry.c to make ASIDC work with the PAL driver shell.  The DriverEntry() routine is replaced by
+ EmcpalDriverEntry().  The native NT driver object and registry path are retrieved using EmcpalDriverGetNativeDriverObject() and 
+EmcpalDriverGetNativeRegistryPath().  An unload routine is specified using EmcpalDriverSetUnloadCallback().  One thing not shown 
+here is that the AsidcUnload routine was modified to return an NTSTATUS value.  In NT, driver unload routines cannot fail but the 
+CSX module cleanup infrastructure allows modules to return a bad status to indicate that they are not ready to unload.  This functionality 
+is unlikely to be used in the near future so for now the CLARiiON drivers can return STATUS_SUCCESS from their unload routines.\n\n
+
+<hr>
+\section example1 Example from src/flare/catmerge/tools/asi/asidc/SOURCES.ade
+\code 
+Example from src/flare/catmerge/tools/asi/asidc/SOURCES.ade
+sources{SUBDIRS} = [
+    "asidcdbg",
+];
+$sources{TARGETNAME} = "asidc";
+$sources{TARGETTYPE} = "DRIVER";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+];
+$sources{TARGETLIBS} = [
+    "EmcKe.lib",
+    "ktrace.lib",
+    "specl.lib",
+    "EmcPAL.lib",
+    "EmcPAL_DriverShell.lib",
+    @{$sources{CSX_LIBS}->{$sources{TARGETDIR}}},
+];
+$sources{SYSTEMLIBS} = [
+    "storport.lib",
+    "$sources{HAL_LIB}",
+];
+	
+if($sources{FLEET_FAMILY_ENVIRON}) {
+push(@{$sources{SYSTEMLIBS}},
+    "storport.lib",
+);
+}
+    
+$sources{SOURCES} = [
+    "asidc_messages.mc",
+    "asidc_entry.c",
+... <snip> ...
+    "asidc_dbo_crc32_local.c",
+    "asidc.rc",
+];
+
+... <snip> ...
+\endcode
+<hr>
+\section example2 Example from src/flare/catmerge/tools/asi/asidc/asidc_entry.c
+\code
+Example from src/flare/catmerge/tools/asi/asidc/asidc_entry.c
+...<snip>...
+ 
+NTSTATUS EmcpalDriverEntry  (
+   IN PEMCPAL_DRIVER pPalDriverObject
+   )
+{
+    NTSTATUS                      Status;
+    CCHAR                         DeviceNameBuffer[256];
+    STRING                        DeviceNameString;
+    UNICODE_STRING                UnicodeDeviceName;
+    DEVICE_OBJECT                *pPortDeviceObject;
+    ULONG                         PortNumber            = 0;
+    ULONG                         DeviceCount           = 0;
+    FILE_OBJECT                  *pFileObject;
+    UCHAR                         OutputBuffer[60];
+    ULONG                         PartitionIndex;
+    ASIDC_INIT_DATA               AsidcInitData, *pAsidcInitData;
+    PDRIVER_OBJECT                pDriverObject;
+    PUNICODE_STRING               pRegistryPath         = {0};
+        
+    IRQL_APC();
+ 
+    pDriverObject = EmcpalDriverGetNativeDriverObject(pPalDriverObject);
+    pRegistryPath = EmcpalDriverGetNativeRegistryPath(pPalDriverObject);
+ 
+... <snip> ...
+ 
+    EmcpalDriverSetUnloadCallback(pPalDriverObject, AsidcUnload);
+ 
+... <snip> ...
+\endcode
+
+
+*/

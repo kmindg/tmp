@@ -1,0 +1,30 @@
+$sources{TARGETNAME} = "terminator_drive_sas_plugin_test";
+$sources{TARGETTYPE} = "EMCUTIL_PROGRAM";
+$sources{MUT_TEST} = 1;
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{CALLING_CONVENTION} = "stdcall";
+$sources{SYSTEMLIBS} = [
+    "winmm.lib",
+    "ws2_32.lib",
+];
+$sources{TARGETLIBS} = [
+    "fbe_lib_trace.lib",
+    "terminator_drive_sas_plugin.lib",
+    "fbe_file_user.lib",
+    "fbe_transport.lib",
+    "fbe_drive_configuration.lib",
+    "fbe_memory.lib",
+    "fbe_memory_user.lib",
+    "fbe_transport_trace.lib",
+];
+$sources{SOURCES} = [
+    "terminator_drive_sas_plugin_test_main.c",
+    "terminator_drive_sas_plugin_inquiry_tests.c",
+    "terminator_drive_sas_error_injection_tests.c",
+];

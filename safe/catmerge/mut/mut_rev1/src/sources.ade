@@ -1,0 +1,45 @@
+$sources{TARGETNAME} = "mut_testing";
+$sources{TARGETTYPE} = "EMCUTIL_DYNLINK";
+$sources{DLLTYPE} = "REGULAR";
+$sources{UMTYPE} = "console";
+$sources{CALLING_CONVENTION} = "stdcall";
+$sources{PAL_REQUIRED} = "1";
+
+$sources{TARGETMODES} = [
+    "user",
+    "user32",
+    "simulation",
+];
+
+$sources{TARGETLIBS} = [
+    "CrashHelper.lib",
+	"ktrace.lib",
+	"usimctrl_shmem.lib",
+    "EmcUTIL.lib",
+];
+
+$sources{SOURCES} = [
+    "mut_control.cpp",
+    "mut_log.cpp",
+    "mut_sdk.cpp",
+    "mut_assert.cpp",
+#    "mut_abort_policy.cpp",
+    "mut_config_manager.cpp",
+    "mut_cpp.cpp",
+    "mut_csx.c",
+    "mut_testsuite.cpp",
+    "mut_test_control.cpp",
+    "mut_options.cpp",
+    "mut_log_options.cpp",
+    "mut_test_entry.cpp",
+    "mut_thread_test_runner.cpp",
+    "mut_process_test_runner.cpp",
+    "mut_test_listener.cpp",
+    "mut_status_forwarder_runner.cpp",
+];
+
+$sources{CUSTOM_DEFS} = [
+    "/DMUT_DLL_EXPORT",
+    "/DI_AM_NATIVE_CODE"
+];
+

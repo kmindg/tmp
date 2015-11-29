@@ -1,0 +1,4 @@
+$sources{SUBDIRS} = [
+    "sim",
+    "user",
+];

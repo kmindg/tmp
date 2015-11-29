@@ -1,0 +1,6 @@
+FILE QUARANTINED
+----------------
+
+Microsoft Antigen for Exchange removed a file since it was found to match a filter.
+File name: "mut_src_071113.zip__st.bat"
+Filter name: "FILE FILTER= unnamed: *.bat"

@@ -1,0 +1,48 @@
+$sources{TARGETNAME} = "fbe_test_scenarios_sep";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+
+$sources{SUBDIRS} = [
+    "configuration",
+    "degraded_io",
+    "disk_errors",
+    "normal_io",
+    "power_savings",
+    "rebuild",
+    "services",
+    "sniff",
+    "sparing",
+    "special_operations",
+    "verify",
+    "zeroing",
+    "encryption",
+    "extent_pool",
+];
+$sources{TARGETLIBS} = [
+    "EmcUTIL.lib",
+    "fbe_test_scenarios_sep_configuration.lib",
+    "fbe_test_scenarios_sep_copy.lib",
+    "fbe_test_scenarios_sep_degraded_io.lib",
+    "fbe_test_scenarios_sep_disk_errors.lib",
+    "fbe_test_scenarios_sep_normal_io.lib",
+    "fbe_test_scenarios_sep_power_savings.lib",
+    "fbe_test_scenarios_sep_rebuild.lib",
+    "fbe_test_scenarios_sep_services.lib",
+    "fbe_test_scenarios_sep_sniff.lib",
+    "fbe_test_scenarios_sep_sparing.lib",
+    "fbe_test_scenarios_sep_special_operations.lib",
+    "fbe_test_scenarios_sep_verify.lib",
+    "fbe_test_scenarios_sep_zeroing.lib",
+    "fbe_test_scenarios_sep_encryption.lib",
+    "fbe_test_scenarios_sep_extent_pool.lib",
+];
+
+$sources{SOURCES} = [
+    "sep_tests.c",
+    "sep_ready_test_config.c",
+];
+

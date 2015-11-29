@@ -1,0 +1,27 @@
+$sources{TARGETNAME} = "fbe_test_configs_physical";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+
+$sources{SOURCES} = [
+    "elmo_physical_config.c",
+    "simple_config.c",
+    "maui_config.c",
+    "naxos_config.c",
+    "lapa_rios_config.c",
+    "los_vilos_config.c",
+    "pp_verification_utils.c",
+    "shaggy_physical_config.c",
+    "chautauqua_config.c",
+    "cococay_config.c",
+    "los_vilos_sata_config.c",
+    "zeroing_physical_config.c",
+    "bluemeanie_physical_config.c",
+    "yancey_config.c",
+    "mixed_encl_config.c",
+    "job_control_physical_config.c",
+];
+         

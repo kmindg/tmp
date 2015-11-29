@@ -1,0 +1,6 @@
+$sources{SUBDIRS} = [
+    "src",
+    "user",
+    "kernel",
+    "sim_for_sep",
+];

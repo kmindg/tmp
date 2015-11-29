@@ -1,0 +1,11 @@
+$sources{SUBDIRS} = [
+    "terminator_api",
+    "protocol_plugins",
+    "src",
+    "sim",
+   "kernel",
+    "test",
+    "xml_config",
+#    "debug",
+];
+

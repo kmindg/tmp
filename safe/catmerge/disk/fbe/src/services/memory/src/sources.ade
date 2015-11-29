@@ -1,0 +1,21 @@
+$sources{TARGETNAME} = "fbe_memory";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+
+$sources{TARGETLIBS} = [
+    "fbe_memory_util.lib",
+];
+
+$sources{SOURCES} = [
+    "fbe_memory_main.c",
+    "fbe_memory_transport.c",
+    "fbe_memory_dps.c",
+    "fbe_memory_persistence.c",
+];

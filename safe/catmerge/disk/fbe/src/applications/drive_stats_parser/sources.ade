@@ -1,0 +1,12 @@
+$sources{TARGETNAME} = "fbe_drive_stats_parser";
+$sources{TARGETTYPE} = "PROGRAM";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+];
+$sources{UMTYPE} = "console";
+$sources{SOURCES} = [
+    "drive_stats_dump.cpp",
+];
+
+$sources{CUSTOM_DEFS} = ["/DI_AM_NONNATIVE_CODE"];

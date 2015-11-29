@@ -1,0 +1,5 @@
+$sources{CUSTOM_DEFS} = ["/DMUT_REV2"];
+$sources{SUBDIRS} = [
+    "src",
+	"Testing//SimpleMutTest",
+];

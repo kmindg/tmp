@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>ESP Scenarios</title>
+<link rel="stylesheet" type="text/css" href="../css/all.css" />
+<link rel="stylesheet" type="text/css" href="../css/lists.css" />
+<link rel="stylesheet" type="text/css" href="../css/index.css" />
+</head>
+<body>
+<h1>Environment Services Package Scenarios</h1>
+<p>
+The ESP scenarios are...
+</p>
+<a name="Flare-rework"><h2>Flare Re-work Scenarios</h2></a>
+<p><div id="list_scenarios">
+<ul>
+    <a name="BobTheDinosaur"><li><b>BobTheDinosaur: </b></a>
+    <i>flexport interface to Physical Package.</i><br>
+    </li>
+    <a name="Catbert"><li><b>Catbert: </b></a>
+    <i>enclosure firmware download using the FBE API interface.</i><br>
+    </li>
+    <a name="Dilbert"><li><b>Dilbert: </b></a>
+    <i>event logging infrastructure for Flare.</i>
+    </li>
+    <a name="Dogbert"><li><b>Dogbert: </b></a>
+    <i>asynchronous notification for physical component state changes.</i><br>
+    This test the ability to register for enclosure state changes and to handle them in ESP.
+    </li>
+    <a name="Orko"><li><b>Orko: </b></a>
+    <i>handling of physical component state changes.</i><br>
+    </li>
+    <a name="PenrodRooch"><li><b>PenrodRooch: </b></a>
+    <i>removal of all unused modules from Flare.</i><br>
+    </li>
+    <a name="Ratbert"><li><b>Ratbert: </b></a>
+    <i>removal of all diplex interface to FBE API and EDAL calls.</i><br>
+    </li>
+    <a name="Spiderman"><li><b>Spiderman: </b></a>
+    <i>Environment Service package framework.</i>
+    This test validates that all the required ESP services are started and that the FBE API is
+    initialized correctly.
+    </li>
+    <a name="Wimpy"><li><b>Wimpy: </b></a>
+    <i>external client (e.g. BIOS, POST, Flex Ports), read/write access to persistent storage area.</i><br>
+    This test validates the ability to read and write the persistent storage area for external clients;
+    e.g., NDU to store BIOS and POST Firmware Image.
+    </li>
+    <a name="edward_and_bella"><li><b>edward_and_bella: </b></a>
+    <i>Single SP power supply firmware upgrade.</i><br>
+    This test tests Single SP power supply firmware upgrade state transition and queuing logic.
+    </li>
+    <a name="curious_george"><li><b>curious_george: </b></a>
+    <i>Power supply firmware upgrade status reporting.</i><br>
+    This test verifies the initiation of power supply firmware upgrade when the power supply is added and 
+    the upgrade status reporting in various scenarios.
+    </li>
+    <a name="vavoom"><li><b>vavoom: </b></a>
+    <i>Single SP enclosure firmware upgrade.</i><br>
+    This test tests Single SP enclsoure firmware upgrade state transition and queuing logic.
+    </li>
+    <a name="poindexter"><li><b>poindexter: </b></a>
+    <i>LCC firmware upgrade status reporting.</i><br>
+    This test verifies the initiation of LCC firmware upgrade when the LCC is added and 
+    the upgrade status reporting in various scenarios.
+    </li>
+    <a name="edward_the_scissorhands"><li><b>edward_the_scissorhands: </b></a>
+    <i>LCC firmware upgrade status reporting.</i><br>
+    This test verifies firmware upgrade abort and resume.
+    </li>
+    <a name="grandma_wolf"><li><b>grandma_wolf: </b></a>
+    <i>Firmware upgrade error handling.</i><br>
+    This test verifies firmware upgrade error handling.
+    </li>
+    <a name="marcus"><li><b>marcus: </b></a>
+    <i>XPE and DPE handling.</i><br>
+    This test verifies the XPE and DPE attributes.
+    </li>
+    <a name="tintin"><li><b>tintin: </b></a>
+    <i>Multiple devices firmware upgrade coordination and prioritization.</i><br>
+    This test tests multiple devices firmware upgrade coordination and prioritization.
+    </li>
+    <a name="siren"><li><b>siren: </b></a>
+    <i>Verify the initialization of processor enclosure PS mode.</i><br>
+    This test verifies the initialization of processor enclosure PS mode.
+    </li>
+    <a name="grandma_robot"><li><b>grandma_robot </b></a>
+    <i>Single SP Fan firmware upgrade.</i><br>
+    This test tests Single SP Fan firmware upgrade state transition and queuing logic.
+    </li>
+    <a name="tarzan"><li><b>tarzan </b></a>
+    <i>The voyager enclosure removal and addition.</i><br>
+    This test tests the voyager enclosure removal and addition.
+    </li>
+	</li>
+    <a name="dumbo"><li><b>dumbo </b></a>
+    <i>The Ancho 12G enclosure LCC firmware upgrade.</i><br>
+    This test tests Ancho 12G DAE LCC firmware upgrade state transition and queuing logic.
+    </li>
+	<a name="johnny_tractor"><li><b>johnny_tractor </b></a>
+    <i>The Cayenne 12G enclosure LCC and PS firmware upgrade.</i><br>
+    This test tests Cayenne 12G enclosure LCC and PS firmware upgrade state transition and queuing logic.
+    </li>
+	<a name="allie_gator"><li><b>allie_gator </b></a>
+    <i>The Naga 12G enclosure LCC and PS firmware upgrade.</i><br>
+    This test tests Naga 12G enclosure LCC and PS firmware upgrade state transition and queuing logic.
+    </li>
+	<a name="corey_combine"><li><b>corey_combine </b></a>
+    <i>The Tabasco 12G enclosure LCC firmware upgrade.</i><br>
+    This test tests Tabasco 12G DAE LCC firmware upgrade state transition and queuing logic.
+    </li>
+	<a name="wall_e"><li><b>wall_e </b></a>
+    <i>The Oberon DPE SP firmware upgrade.</i><br>
+    This test tests Oberon DPE SP firmware upgrade state transition and queuing logic.
+    </li>
+	<a name="peter_rabbit"><li><b>peter_rabbit </b></a>
+    <i>The Hyperion DPE Base Module firmware upgrade.</i><br>
+    This test tests Hyperion DPE Base Module firmware upgrade state transition and queuing logic.
+    </li>
+</ul>
+</div></p>
+<a name="Admin"><h2>Admin Interface Scenarios</h2></a>
+<p><div id="list_scenarios">
+<ul>
+    <a name="HaroldHamGravy"><li><b>HaroldHamGravy: </b></a>
+    <i>framework support for interface to Navi.</i><br>
+    </li>
+    <a name="SeaHag"><li><b>SeaHag: </b></a>
+    <i>returning configuration information to Navi.</i><br>
+    </li>
+    <a name="EugeneTheJeep"><li><b>EugeneTheJeep: </b></a>
+    <i>issuing configuration set commands from Navi (e.g. create a RG).</i><br>
+    </li>
+    <a name="BarnacleBill"><li><b>BarnacleBill: </b></a>
+    <i>issuing configuration change commands from Navi (e.g. modify a RG attribute).</i><br>
+    </li>
+</ul>
+<a name="ScenarioIndex"><h2>LUN Scenario Index</h2></a>
+<p><div id="index">
+<ul>
+    <li><a href="#BobTheDinosaur">BobTheDinosaur</a></li>
+    <li><a href="#Catbert">Catbert</a></li>
+    <li><a href="#Dilbert">Dilbert</a></li>
+    <li><a href="#Dogbert">Dogbert</a></li>
+    <li><a href="#Orko">Orko</a></li>
+    <li><a href="#PenrodRooch">PenrodRooch</a></li>
+    <li><a href="#Ratbert">Ratbert</a></li>
+    <li><a href="#Spiderman">Spiderman</a></li>
+    <li><a href="#Wimpy">Wimpy</a></li>
+    <li><a href="#Wimpy">Wimpy</a></li>
+    <li><a href="#edward_and_bella">edward_and_bella</a></li>
+    <li><a href="#curious_george">curious_george</a></li>
+    <li><a href="#vavoom">vavoom</a></li>
+    <li><a href="#poindexter">poindexter</a></li>
+    <li><a href="#edward_the_scissorhands">edward_the_scissorhands</a></li>
+    <li><a href="#grandma_wolf">grandma_wolf</a></li>
+    <li><a href="#marcus">marcus</a></li>
+    <li><a href="#tintin">tintin</a></li>
+    <li><a href="#siren">siren</a></li>
+    <li><a href="#grandma_robot">grandma_robot</a></li>
+    <li><a href="#tarzan">grandma_robot</a></li>
+	<li><a href="#dumbo">dumbo</a></li>
+	<li><a href="#johnny_tractor">johnny_tractor</a></li>
+	<li><a href="#allie_gator">allie_gator</a></li>
+	<li><a href="#corey_combine">corey_combine</a></li>
+	<li><a href="#wall_e">wall_e</a></li>
+	<li><a href="#peter_rabbit">peter_rabbit</a></li>
+</ul>
+</div></p>
+</body>
+</html>

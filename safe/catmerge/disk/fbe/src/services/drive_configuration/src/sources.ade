@@ -1,0 +1,17 @@
+$sources{TARGETNAME} = "fbe_drive_configuration";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+
+$sources{SOURCES} = [
+    "fbe_drive_configuration_service_main.c",
+    "fbe_drive_configuration_service_util.c",
+    "fbe_drive_configuration_service_download.c",
+    "fbe_drive_configuration_service_parameters.c",
+];

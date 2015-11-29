@@ -1,0 +1,44 @@
+$sources{TARGETNAME} = "fbe_raid_group";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{INCLUDES} = [
+    "$sources{SRCDIR}\\..\\..\\base_object",
+    "$sources{SRCDIR}\\..\\..\\base_config",
+    "$sources{SRCDIR}\\..\\..\\..\\..\\..\\lib\\fbe_raid\\interface",
+    "$sources{SRCDIR}\\..\\..\\virtual_drive\\interface",
+    "$sources{SRCDIR}\\..\\..\\mirror\\interface",
+];
+$sources{SOURCES} = [
+    "fbe_raid_group_main.c",
+    "fbe_raid_group_event.c",
+    "fbe_raid_group_executor.c",
+    "fbe_raid_group_usurper.c",
+    "fbe_raid_group_monitor.c",
+    "fbe_raid_group_class.c",
+    "fbe_raid_group_needs_rebuild.c",
+    "fbe_raid_group_rebuild.c",
+    "fbe_raid_group_bitmap.c",
+    "fbe_raid_group_metadata.c",
+    "fbe_raid_group_io_quiesce.c",
+    "fbe_raid_verify.c",
+    "fbe_raid_group_logging.c",
+    "fbe_raid_group_metadata_memory.c",
+    "fbe_raid_group_eval_rl.c",
+    "fbe_raid_group_clear_rl.c",
+    "fbe_raid_group_eval_mark_nr.c",
+    "fbe_raid_group_join.c",
+    "fbe_raid_group_utils.c",
+    "fbe_raid_group_journal_verify.c",
+    "fbe_raid_group_journal_rebuild.c",
+    "fbe_raid_group_change_config.c",
+    "fbe_raid_group_encryption.c",
+    "fbe_raid_group_reconstruct_paged.c",
+    "fbe_raid_group_emeh.c",
+];

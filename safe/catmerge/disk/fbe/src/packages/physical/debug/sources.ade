@@ -1,0 +1,234 @@
+$sources{TARGETNAME} = "ppdbg";
+$sources{TARGETTYPE} = "CSX_DEBUG_EXTENSION";
+
+$sources{CALLING_CONVENTION} = "stdcall";
+
+$sources{CUSTOM_DEFS} = [
+    "/DUSE_CSX_DBGEXT=1"
+];
+
+$sources{TARGETMODES} = [
+    "user",
+    "user32",
+    "simulation"
+];
+
+$sources{INCLUDES} = [
+    "$sources{SRCDIR}\\..",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\topology\\interface",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\topology\\classes\\base_object",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\topology\\classes\\base_discovered",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\topology\\classes\\base_discovering",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\topology\\classes\\base_board\\interface",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\topology\\classes\\drive_mgmt",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\topology\\classes\\base_environment",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\database\\interface",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\lib\\fbe_sep_shim\\interface",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\terminator\\interface",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\database\\debug",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\drive_configuration\\src",
+    "$sources{MASTERDIR}\\services\\cmm\\interface",
+    "$sources{MASTERDIR}\\services\\MemMgr",
+
+];
+
+$sources{SOURCES} = [
+    "ppcustomdbg.c",
+    "pp_ext.c",
+    "pp_topology_ext.c",
+    "pp_pmc_shim_ext.c",
+    "pp_transport_ext.c",
+    "pp_commands.c",
+    "pp_lifecycle_ext.c",
+    "raid_library_ext.c",
+    "rdgen_ext.c",
+    "logical_error_injection_ext.c",
+    "fbe_debug_ext.c",
+    "pp_enclosure_commands.c",
+    "esp_commands.c",
+    "fbe_board_ext.c",
+    "memory_dps_service_ext.c",
+    "fbe_terminator_commands.c",
+    "sepls.c",
+    "job_service.c",
+    "ext_kdtrace.c",
+    "ext_redirect.c",
+    "database_service.c",
+    "bvd_irps.c",
+    "os_device_info.c",
+    "scheduler.c",
+    "protocol_error_injection.c",
+    "raw_mirror.c",
+    "fbe_simulated_drive_debug.c",
+    "nonpaged_metadata_ext.c",
+    "cmi_service_ext.c",
+    "pp_drive_commands.c",
+    "fbe_ordered_object_list.c",
+    "fbe_dest_commands.c",
+    "pp_drive_mgmt_config_ext.c",
+    "pp_drive_configuration_service_ext.c",
+    "sys_dump_ext.c",
+    "rgio.c",
+    "rginfo.c",
+    #"ext_membroker.c",
+];
+
+$sources{TARGETLIBS} = [
+    "fbe_raid_library_debug.lib",
+    "fbe_rdgen_debug.lib",
+    "fbe_logical_error_injection_debug.lib",
+    "fbe_protocol_error_injection_debug.lib",
+    "fbe_raid_group_debug.lib",
+    "fbe_base_config_debug.lib",
+    "fbe_lib_lifecycle_debug.lib",
+    "fbe_transport_debug.lib",
+    "fbe_classes_debug.lib",
+    "fbe_logical_drive_debug.lib",
+    "fbe_virtual_drive_debug.lib",
+    "fbe_provision_drive_debug.lib",
+    "fbe_lun_debug.lib",
+    "fbe_extent_pool_debug.lib",
+    "fbe_base_object_debug.lib",
+    "fbe_sas_viper_enclosure_debug_ext.lib",
+    "fbe_sas_magnum_enclosure_debug_ext.lib",
+    "fbe_sas_citadel_enclosure_debug_ext.lib",
+    "fbe_sas_bunker_enclosure_debug_ext.lib",
+    "fbe_sas_derringer_enclosure_debug_ext.lib",
+    "fbe_sas_tabasco_enclosure_debug_ext.lib",
+    "fbe_sas_voyager_icm_enclosure_debug_ext.lib",
+    "fbe_sas_voyager_ee_enclosure_debug_ext.lib",
+    "fbe_sas_viking_iosxp_enclosure_debug_ext.lib",
+    "fbe_sas_viking_drvsxp_enclosure_debug_ext.lib",
+    "fbe_sas_cayenne_iosxp_enclosure_debug_ext.lib",
+    "fbe_sas_cayenne_drvsxp_enclosure_debug_ext.lib",
+    "fbe_sas_naga_iosxp_enclosure_debug_ext.lib",
+    "fbe_sas_naga_drvsxp_enclosure_debug_ext.lib",
+    "fbe_sas_fallback_enclosure_debug_ext.lib",
+    "fbe_sas_boxwood_enclosure_debug_ext.lib",
+    "fbe_sas_knot_enclosure_debug_ext.lib",    
+    "fbe_sas_ancho_enclosure_debug_ext.lib",
+    "fbe_sas_pinecone_enclosure_debug_ext.lib",
+    "fbe_sas_steeljaw_enclosure_debug_ext.lib",
+    "fbe_sas_ramhorn_enclosure_debug_ext.lib",
+    "fbe_sas_calypso_enclosure_debug_ext.lib",
+    "fbe_sas_rhea_enclosure_debug_ext.lib",
+    "fbe_sas_miranda_enclosure_debug_ext.lib",
+    "fbe_eses_enclosure_debug_ext.lib",
+    "fbe_sas_enclosure_debug_ext.lib",
+    "fbe_base_enclosure_debug_ext.lib",
+    "fbe_base_environment_debug_ext.lib",
+    "fbe_base_port_debug.lib",
+    "fbe_sas_port_debug.lib",
+    "fbe_fc_port_debug.lib",
+    "fbe_iscsi_port_debug.lib",
+    "fbe_sas_pmc_port_debug.lib",
+    "fbe_pmc_shim_kernel_debug.lib",
+    "fbe_base_physical_drive_debug_ext.lib",
+    "fbe_lib_user.lib",
+    "fbe_encl_mgmt_debug_ext.lib",
+    "fbe_sps_mgmt_utils.lib", 
+    "fbe_sps_mgmt_debug.lib",
+    "fbe_drive_mgmt_debug.lib",
+    "fbe_drive_configuration_service_debug.lib",
+    "fbe_modules_mgmt_debug.lib",
+    "fbe_ps_mgmt_debug_ext.lib",
+    "generic_utils_lib_stdcall.lib",
+    "fbe_board_mgmt_debug.lib",
+    "fbe_cooling_mgmt_debug.lib",
+    "fbe_memory_dps_debug.lib",
+    "fbe_job_service_debug.lib",
+    "fbe_sep_shim_debug.lib",
+    "fbe_terminator.lib",
+    "fbe_terminator_debug.lib",
+    "fbe_topology_debug.lib",
+    "jfwcommon.lib",
+    "fbe_database_debug.lib",
+    "fbe_metadata_debug.lib",
+    "fbe_private_space_layout.lib",
+    "fbe_transport_trace.lib",
+    "fbe_lib_enclosure_data_access_debug.lib",
+    "ktrace.lib",
+    "fbe_ktrace.lib",
+    "fbe_scheduler_debug.lib",
+    "fbe_raw_mirror_debug.lib",
+    "fbe_cmi_debug.lib",
+    "fbe_peer_boot_utils.lib",
+    "cmm_fdb.lib",
+    "membroker_fdb.lib",
+];
+
+$sources{EXPORTS} = [qw(
+    csx_dbg_ext_user_initialize_callback
+    ktrace
+    ktail
+    kselect
+    ktstats
+    ppver
+    set_module_name_sep
+    set_module_name_espkg
+    set_module_name_physical_package
+    set_module_name_vmsim_physical_package
+    clear_module_name
+    userspace_module_name
+    di
+    pptopver
+    dev_info
+    pptopls
+    pphelp
+    pp_display_packet
+    pp_display_packet_queue
+    pptopdisplayobjects
+    rgio 
+    rginfo
+    pp_display_mp_shim_table
+    pp_display_mp_shim_port_info
+    pp_display_port_obj_dev_table
+    ppeseselemgrp
+    ppenclprvdata
+    ppobjrotary
+    show_fbe_driver_info
+    pppdo
+    pplifecyclestates
+    ppencledal
+    raid_siots
+    raid_iots
+    raid_fruts
+    raid_print_sg_list
+    raid_print_sg_list_sectors
+    redirect
+    rdgen_display
+    logical_error_injection
+    ppenclstat
+    spsstat
+    ppboardprvdata
+    fupstat
+    dps
+    job_service
+    tdr_encl_port_info
+    sepls
+    database_service
+    database_dump
+    lun_user_data
+    lun_max_number
+    bvd_irps
+    scheduler
+    protocol_error_injection
+    raw_mirror
+    disable_active_queue_display
+    enable_active_queue_display
+    sim_drive_server
+    baseconfig_nonpage
+    cmi_info
+    dest
+    dmo
+    dcs
+    sepdumpconfig
+    cmm
+    cmm_client
+    cmm_pool
+    cmm_find_addr
+    membroker
+    membroker_client_info
+    system_bg_service_flag
+)];
+

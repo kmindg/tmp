@@ -1,0 +1,28 @@
+$sources{TARGETNAME} = "fbe_raid_mirror_library";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+	   
+$sources{SOURCES} = [
+    "fbe_mirror_generate.c",
+    "fbe_mirror_geometry.c",
+    "fbe_mirror_util.c",
+    "fbe_mirror_read.c",
+    "fbe_mirror_read_util.c",
+    "fbe_mirror_write.c",
+    "fbe_mirror_write_util.c",
+    "fbe_mirror_rebuild.c",
+    "fbe_mirror_rebuild_util.c",
+    "fbe_mirror_verify.c",
+    "fbe_mirror_verify_util.c",
+    "fbe_mirror_zero.c",
+    "fbe_mirror_read_optimization.c",
+    "fbe_mirror_rekey.c",
+    "fbe_mirror_rekey_util.c",
+];

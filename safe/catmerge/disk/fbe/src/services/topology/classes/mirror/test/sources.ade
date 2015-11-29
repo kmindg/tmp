@@ -1,0 +1,15 @@
+$sources{TARGETNAME} = "fbe_mirror_object_test_library";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{INCLUDES} = [
+    "$sources{SRCDIR}\\..\\mirror\\interface",
+    "$sources{SRCDIR}\\..\\..\\raid_group\\interface",
+];
+
+$sources{SOURCES} = [
+];

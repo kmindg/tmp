@@ -1,0 +1,36 @@
+$sources{SUBDIRS} = [
+    "../dll",
+];
+
+
+$sources{TARGETNAME} = "martin_test";
+$sources{TARGETTYPE} = "EMCUTIL_PROGRAM";
+$sources{MUT_TEST} = 1;
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{CALLING_CONVENTION} = "stdcall";
+
+$sources{SYSTEMLIBS} = [
+    "winmm.lib",
+    "ws2_32.lib",
+];
+
+$sources{TARGETLIBS} = [
+    "titan_fbe_test.lib",
+#    "fbe_drive_configuration.lib",
+#    "fbe_api_sep_interface.lib",
+#    "fbe_api_esp_interface.lib",
+#    "fbe_transport_trace.lib",
+#    "fbe_packet_serialize_user.lib",
+#    "fbe_api_physical_package_interface.lib",
+#    "ktrace.lib",
+#    "fbe_ktrace.lib",
+#    "fbe_api_common.lib",
+];
+
+$sources{SOURCES} = [
+    "mock_dramcache_test_main.c",
+];

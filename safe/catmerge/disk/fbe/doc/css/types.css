@@ -1,0 +1,22 @@
+#type_struct table {
+    background-color: transparent;
+    border-collapse: collapse;
+}
+
+#type_struct caption {
+    font-size: 10pt;
+    font-weight: bold;
+    color: #0000cc;
+    text-align: center;
+    border: 1pt #000000 solid;
+    vertical-align: middle;
+    padding: 3px 9px 3px 9px;
+}
+
+#type_struct td {
+    font-size: 10pt;
+    font-weight: normal;
+    border: 1pt #000000 solid;
+    vertical-align: middle;
+    padding: 3px 9px 3px 9px;
+}

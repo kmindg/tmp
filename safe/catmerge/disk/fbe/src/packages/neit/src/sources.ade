@@ -1,0 +1,15 @@
+$sources{TARGETNAME} = "fbe_new_neit_package";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{TARGETLIBS} = [
+];
+$sources{SOURCES} = [
+    "neit_package_init.c",
+];
+

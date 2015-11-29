@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Job Service</title>
+<link rel="stylesheet" type="text/css" href="../css/all.css" />
+<link rel="stylesheet" type="text/css" href="../css/types.css" />
+</head>
+<body>
+<h1>Job Service</h1>
+<p>
+The job service performs operations that must be coordinated across multiple objects in a package.
+Currently the job service is used only in the storage extent package.
+In the storage extent package the operations performed by the job services are:
+<ul>
+    <li>Drive sparing.</li>
+    <li>Raid group create and delete.</li>
+    <li>LUN create and delete.</li>
+</ul>
+</p>
+<p>
+To create a job, a client of the job service sends it a job request.
+These job requests are queued and the job queues are drained by a single job thread.
+The job thread runs jobs serially, one at a time, in a prioritized order.
+</p>
+<p>
+The serialization of jobs is an important property of the job service.
+Because of this, the actions to perform a job do not need to protect
+against a concurrently running job.
+</p>
+<p>
+Serialization is enforced across SPs using an active/passive designation.
+When both SPs are up, only one SP will have an active job service running jobs.
+The queues of the passive job service will be synchronized with the queues of the active job service,
+but the passive job service will not run jobs.
+</p>
+<p>
+There are two job queues, the recovery queue and the create queue.
+These queues prioritize recovery operations ahead of create operations.
+Jobs in the recovery queue are fully drained before any jobs in the create queue are processed.
+The jobs in each queue are drained in FIFO order.
+</p>
+<h2>Job Flow</h2>
+<p>
+The general flow of a job is depicted in the following diagram.
+</p>
+<p>
+<img src="../png/service_job.png" />
+</p>
+<p>
+The major steps of this flow are as follows:
+<p><div id="logic_flow">
+<ol type=A>
+    <li>A client creates a job-request packet and sends it to the job service's control port.
+    </li>
+    <li>The job service allocates a job-control queue element,
+    populates this with the job parameters from the request packet,
+    and pushes it onto the appropriate queue.
+    </li>
+    <li>After queueing the element, the job service completes the job-request packet.
+    Note that the completion of the request packet does not return job status,
+    it only indicates whether the job was placed on a job queue.
+    </li>
+    <li>While still in the client's calling context,
+    the job service releases the job-semaphore to wake-up the job thread.
+    </li>
+    <li>The job thread examines the job queues and, in priority order,
+    selects a job-control-element to process.
+    </li>
+    <li>
+    The job-control-element is placed in a control operation in a job-control-packet;
+    then the job thread drops into a loop that invokes the action functions that perform the job.
+    </li>
+    <li>
+    The job loop determines the next action function to call,
+    and it calls the corresponding action function using a static table of action function pointers.
+    It passes the job-control-packet as a parameter to the action function.
+    </li>
+    <li>
+    After calling the action function the job thread waits for the job-control-packet
+    to be completed by the action function.
+    When the job-control-packet completes the job thread semaphore is released and the job loop continues.
+    The job loop iterates calling action functions until the job completes.
+    </li>
+</ol>
+</div></p>
+</p>
+<h2>Job Action Functions</h2>
+<p>
+The job service implements a framework for running jobs,
+but the actual work of a job is performed by a set of action functions.
+There is a different set of action functions for each type of job.
+The mapping of a job type to the corresponding action functions is made through a static table of function pointers.
+This table contains the following pointers:
+</p>
+<p><div id="type_struct">
+<table>
+    <caption>Job Action Functions</caption>
+    <tr><td>validation_p()</td>
+        <td>Validate that the job can be performed.</td>
+    </tr>
+    <tr><td>selection_p()</td>
+        <td>Select the objects needed for the job.</td>
+    </tr>
+    <tr><td>update_in_memory_p()</td>
+        <td>Make any in-memory changes needed for the job.</td>
+    </tr>
+    <tr><td>persist_in_db_p()</td>
+        <td>Make any in database changes needed for the job.</td>
+    </tr>
+    <tr><td>rollback_p()</td>
+        <td>Rollback all changes, only called on an error or cancel.</td>
+    </tr>
+    <tr><td>commit_p()</td>
+        <td>Commit the job changes.</td>
+    </tr>
+</table>
+</div></p>
+<p>
+In the job loop the first four action functions (validation, selection, update-in-memory and persist-in-db)
+are called in sequence -- as long as each returns an "ok" status.
+Status is returned by setting the status of the control operation
+in the job-control-packet and completing the packet.
+</p>
+<p>
+If all of the first four functions return "ok", the commit function is called.
+If any of these functions return an error status, the rollback function is called.
+The commit and rollback are mutually exclusive, only one will be called.
+</p>
+<p>
+The return status of the the commit/rollback is not evaluated by the job service.
+After either of these functions completes, the job is finished and it is released.
+The job service framework does not notify the client when a job completes.
+It is the responsibility of the rollback/commit functions to notify the client if such notification is required.
+</p>
+</body>
+</html>

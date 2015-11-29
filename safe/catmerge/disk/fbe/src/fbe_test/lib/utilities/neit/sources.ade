@@ -1,0 +1,12 @@
+$sources{TARGETNAME} = "fbe_test_neit_utils";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+
+$sources{SOURCES} = [
+    "fbe_test_neit_utils.c",
+];
+

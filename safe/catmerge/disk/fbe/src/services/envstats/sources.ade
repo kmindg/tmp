@@ -1,0 +1,22 @@
+$sources{TARGETNAME} = "fbe_envstats";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} =    "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+
+$sources{UMTYPE} = "console";
+
+$sources{SOURCES} = [
+   "fbe_envstats.c",
+   "specl_envstats.c",
+];
+
+$sources{CUSTOM_DEFS} = [
+  "/DEXPORT_SIMULATION_DRIVER_SYMBOLS",
+];
+$sources{PERFSTATS_MODULE} = 1;
+$sources{PERFSTATS_NO_DUMMY_LIB} = 1;

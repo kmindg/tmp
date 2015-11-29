@@ -1,0 +1,6 @@
+#include <winver.h>
+
+#include "EspMessages.rc"
+
+#include "RCLocal.h"
+#include "K10Version.rc"

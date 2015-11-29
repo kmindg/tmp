@@ -1,0 +1,10 @@
+$sources{TARGETNAME} = "interface";
+$sources{TARGETTYPE} = "INTERFACE";
+$sources{TARGETMODES} = [
+    "generated",
+];
+$sources{SOURCES} = [
+    "PhysicalPackageMessages.mc",
+    "EspMessages.mc",
+    "SEPMessages.mc",
+];

@@ -1,0 +1,9 @@
+$sources{SUBDIRS} = [
+    "msgs",
+    "src",
+    "user",
+    "kernel",
+    "sim",
+    "utils",
+    "test",
+];

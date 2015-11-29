@@ -1,0 +1,40 @@
+$sources{TARGETNAME} = "fbe_raid_common";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{TARGETLIBS} = [
+    "fbe_logical_drive_library.lib",
+];
+$sources{SOURCES} = [
+    "fbe_raid_geometry.c",
+    "fbe_raid_state.c",
+    "fbe_raid_iots.c",
+    "fbe_raid_iots_states.c",
+    "fbe_raid_siots.c",
+    "fbe_raid_siots_states.c",
+    "fbe_raid_fruts.c",
+    "fbe_raid_fru_info.c",
+    "fbe_raid_check_sector.c",
+    "fbe_raid_generate.c",
+    "fbe_raid_memory.c",
+    "fbe_raid_memory_api.c",
+    "fbe_raid_memory_mock.c",
+    "fbe_raid_memory_track.c",
+    "fbe_raid_sg_util.c",
+    "fbe_raid_util.c",
+    "fbe_raid_library.c",
+    "fbe_raid_trace.c",
+    "fbe_raid_xor.c",
+    "fbe_raid_record_errors.c",
+    "fbe_raid_csum_util.c",
+    "fbe_raid_common.c",
+    "fbe_raid_cond_trace.c",
+    "fbe_raid_check_zeroed.c",
+    "fbe_raid_perf_stats.c",
+];

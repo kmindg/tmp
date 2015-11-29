@@ -1,0 +1,19 @@
+include "SOURCES.mak"
+
+# TARGETNAME = fbe_event
+# TARGETTYPE = LIBRARY
+# DLLTYPE = REGULAR
+# TARGETMODES = kernel user
+# UMTYPE = console
+# SOURCES = \
+# 	fbe_event_main.c \
+# 	fbe_event_service.c
+
+$(TARGETNAME).lib :
+	@echo $@
+	@echo TARGETNAME = $(TARGETNAME)
+	@echo TARGETTYPE = $(TARGETTYPE)
+    @echo DLLTYPE = $(DLLTYPE)
+    @echo TARGETMODES = $(TARGETMODES)
+    @echo UMTYPE = $(UMTYPE)
+    @echo SOURCES = $(SOURCES)

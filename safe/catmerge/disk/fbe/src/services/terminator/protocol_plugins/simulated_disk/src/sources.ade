@@ -1,0 +1,21 @@
+$sources{TARGETNAME} = "terminator_simulated_disk";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+    "user32",
+    "simulation",
+    "kernel",
+];
+$sources{UMTYPE} = "console";
+
+$sources{SOURCES} = [
+    "terminator_simulated_disk_main.c",
+    "terminator_simulated_disk_memory.c",
+    "terminator_simulated_disk_local_file.c",
+    "terminator_simulated_disk_remote_file_simple.c",
+];
+
+$sources{SUBDIRS} = [
+    "rmt_file_simple_svr",
+];

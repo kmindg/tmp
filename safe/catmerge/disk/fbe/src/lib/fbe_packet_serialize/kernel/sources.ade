@@ -1,0 +1,12 @@
+$sources{TARGETNAME} = "fbe_packet_serialize_kernel";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+];
+$sources{UMTYPE} = "console";
+$sources{SOURCES} = [
+    "fbe_packet_serialize_kernel.c",
+];
+
+

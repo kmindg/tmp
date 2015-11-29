@@ -1,0 +1,14 @@
+$sources{TARGETNAME} = "fbe_dest";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{SOURCES} = [
+    "fbe_dest_init.c",
+    "fbe_dest_timer.c",
+];
+

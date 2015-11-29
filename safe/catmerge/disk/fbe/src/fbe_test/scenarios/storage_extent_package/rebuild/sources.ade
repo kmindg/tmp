@@ -1,0 +1,26 @@
+$sources{TARGETNAME} = "fbe_test_scenarios_sep_rebuild";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+
+$sources{SOURCES} = [
+    "dora_test.c",
+    "tico_test.c",
+    "banio_test.c",
+    "diego_test.c",
+    "boots_test.c",
+    "swiper_test.c",
+    "bender_test.c",
+    "flexo_test.c",
+    "zoidberg_test.c",
+    "kishkashta.c",
+    "marina_test.c",
+    "doodle_test.c",
+    "captain_planet_test.c",
+    "splinter_test.c",
+    "shredder_test.c",
+];
+

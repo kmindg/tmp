@@ -1,0 +1,24 @@
+$sources{TARGETNAME} = "fbe_test_scenarios_sep_power_savings";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+
+$sources{SOURCES} = [
+    "amber_test.c",
+    "aurora_test.c",
+    "boomer.c",
+    "dr_jekyll_test.c",
+    "eeyore_test.c",
+    "gaggy.c",
+    "pooh_test.c",
+    "rabbit_test.c",
+    "weerd_test.c",
+    "whoopsy_doo_test.c",
+    "woozle_test.c",
+    "yeti_test.c",
+    "boomer_4_new_drive.c"
+];
+

@@ -1,0 +1,21 @@
+$sources{TARGETNAME} = "fbe_test_scenarios_sep_encryption";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+
+$sources{SOURCES} = [
+    "kalia.c",
+    "ichabod_crane_test.c",
+    "headless_horseman_test.c",
+    "sleepy_hollow_test.c",
+    "katrina_test.c",
+    "mike_the_knight_scrubbing.c",
+    "sesame_open_test.c",
+    "evie_test.c",
+    "nearly_headless_nick_test.c",
+    "minion_test.c",
+];
+

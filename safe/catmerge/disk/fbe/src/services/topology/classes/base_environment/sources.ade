@@ -1,0 +1,32 @@
+$sources{TARGETNAME} = "fbe_base_environment";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{INCLUDES} = [
+    "$sources{SRCDIR}\\..\\base_object",
+    "$sources{MASTERDIR}\\disk\\fbe\\interface",
+];
+$sources{SOURCES} = [
+    "fbe_base_environment_main.c",
+    "fbe_base_environment_monitor.c",
+    "fbe_base_environment_usurper.c",
+    "fbe_base_environment_fup.c",
+    "fbe_base_environment_debug.c",
+    "fbe_base_environment_resume_prom.c",
+    "fbe_base_environment_executer.c",
+];
+
+$sources{SUBDIRS} = [
+    "debug",
+    "kernel",
+    "sim",
+];
+
+$sources{TARGETLIBS} = [
+];

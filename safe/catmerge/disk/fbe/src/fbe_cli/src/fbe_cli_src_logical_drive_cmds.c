@@ -1,0 +1,1 @@
+//Obsolete. New version is located in .catmerge/disk/fbe/src/applications/fbe_cli/src/fbe_cli_lib_logical_drive_cmds.c

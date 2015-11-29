@@ -1,0 +1,19 @@
+$sources{TARGETNAME} = "fbe_cpd_shim_kernel";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+];
+$sources{UMTYPE} = "console";
+
+$sources{TARGETLIBS} = [
+    "spid.lib",
+    "specl.lib",
+];
+
+$sources{SUBDIRS} = [
+    "debug",
+];
+$sources{SOURCES} = [
+    "fbe_cpd_shim_kernel_main.c",
+];

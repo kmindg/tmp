@@ -1,0 +1,22 @@
+$sources{TARGETNAME} = "Microsoft_exception_processing";
+$sources{TARGETTYPE} = "EMCUTIL_PROGRAM";
+$sources{MUT_TEST} = 1;
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+    "simulation",
+];
+
+$sources{UMTYPE} = "console";
+$sources{CALLING_CONVENTION} = "stdcall";
+$sources{SYSTEMLIBS} = [
+    "winmm.lib",
+    "ws2_32.lib",
+];
+
+$sources{TARGETLIBS} = [
+];
+
+$sources{SOURCES} = [
+    "exception_processing.cpp",
+];

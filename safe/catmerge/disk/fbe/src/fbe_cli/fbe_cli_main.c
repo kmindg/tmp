@@ -1,0 +1,1 @@
+//Obsolete. New version is located in .catmerge/disk/fbe/src/applications/fbe_cli/fbe_cli_main.c

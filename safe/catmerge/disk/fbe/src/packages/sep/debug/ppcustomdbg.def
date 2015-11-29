@@ -1,0 +1,20 @@
+LIBRARY ppdbg
+
+EXPORTS
+	WinDbgExtensionDllInit
+	CheckVersion
+	ExtensionApiVersion
+    ppver
+    ppsetkernelmode
+    ppsetusermode
+    pptopver
+    pptopls
+    pphelp
+    pp_display_packet
+    pp_display_packet_queue
+    pptopdisplayobjects
+    pp_display_mp_shim_port_info
+    pp_display_port_obj_dev_table
+    ppeseselemgrp
+    ppobjrotary
+    pplifecyclestates

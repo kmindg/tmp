@@ -1,0 +1,14 @@
+$sources{TARGETNAME} = "fbe_test_scenarios_real_hardware";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+
+$sources{SOURCES} = [
+    "real_hardware.c",
+    "physical_package_config_verify_hw.c",
+    "larry_t_lobster_hw_test.c",
+];
+

@@ -1,0 +1,18 @@
+$sources{TARGETNAME} = "RaidCalcCli";
+$sources{TARGETTYPE} = "PROGRAM";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+    "user32",
+];
+$sources{UMTYPE} = "console";
+$sources{TARGETLIBS} = [
+    "RaidCalcDll.lib",
+];
+$sources{SOURCES} = [
+    "stdafx.cpp",
+    "RaidCalcCli.cpp",
+    "RaidCalcCli_I.cpp",
+];
+
+$sources{CUSTOM_DEFS} = ["/DI_AM_NONNATIVE_CODE"];

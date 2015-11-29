@@ -1,0 +1,30 @@
+$sources{SUBDIRS} = [
+];
+
+$sources{TARGETNAME} = "fbe_ioctl_object_interface_cli";
+$sources{TARGETTYPE} = "EMCUTIL_PROGRAM";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+];
+
+$sources{UMTYPE} = "console";
+$sources{CALLING_CONVENTION} = "stdcall";
+$sources{SYSTEMLIBS} = [
+    "winmm.lib",
+    "ws2_32.lib",
+];
+
+$sources{TARGETLIBS} = [
+    "EmcUTIL.lib",
+];
+
+$sources{SOURCES} = [
+	"ioctlx.cpp",
+	"../src/ioctl_arg_class.cpp",
+	"../src/file_util_class.cpp",
+    "../src/object.cpp",
+    "../src/ioctl_util.cpp",
+    "../src/ioctl_class.cpp",
+    "../src/ioctl_dramCache_class.cpp",
+];

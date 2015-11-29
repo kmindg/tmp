@@ -1,0 +1,77 @@
+$sources{TARGETNAME} = "fbe_sp_sim";
+$sources{TARGETTYPE} = "EMCUTIL_PROGRAM";
+$sources{MUT_TEST} = 1;
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+
+$sources{CALLING_CONVENTION} = "stdcall";
+
+$sources{SUBDIRS} = [
+    "../../../../../Security/KeyManager/kms_dll",
+];
+
+$sources{SYSTEMLIBS} = [
+    "winmm.lib",
+    "ws2_32.lib",
+];
+$sources{TARGETLIBS} = [
+    "fbe_lib_user.lib",
+    "fbe_test_io.lib",
+    "fbe_media_error_edge_tap_library.lib",
+    "fbe_terminator.lib",
+    "terminator_api.lib",
+    "terminator_drive_sas_plugin.lib",
+    "terminator_enclosure_eses_plugin.lib",
+    "terminator_drive_sata_plugin.lib",
+    "terminator_miniport_sas_plugin.lib",
+    "terminator_simulated_disk.lib",
+    "fbe_simulated_drive_user.lib",
+    "EmcUTIL.lib",
+    "fbe_ddk.lib",
+    "fbe_api_common_sim.lib",
+    "fbe_api_common_user.lib",
+    "fbe_api_services.lib",
+    "fbe_api_sep_interface.lib",
+    "fbe_transport.lib",
+    "fbe_lib_enclosure_data_access.lib",
+    "fbe_ktrace.lib",
+    "fbe_trace.lib",
+    "fbe_base_service.lib",
+    "fbe_service_manager.lib",
+    "fbe_api_transport_server.lib",
+    "fbe_api_transport_client.lib",
+    "fbe_api_transport_packet_interface.lib",
+    "fbe_test_package_config.lib",
+    "XorLib.lib",
+    "fbe_xor_lib.lib",
+    "fbe_file_user.lib",
+    "simulation_log.lib",
+    "CrashHelper.lib",
+    "fbe_packet_serialize_user.lib",
+    "fbe_drive_configuration.lib",
+    "fbe_memory.lib",
+    "fbe_memory_user.lib",
+    "fbe_event_log.lib",
+    "fbe_event_log_sim.lib",
+    "fbe_event_log_utils.lib",    
+    "fbe_api_physical_package_interface.lib",
+    "fbe_api_esp_interface.lib",
+    "fbe_api_common.lib",
+    "fbe_transport_trace.lib",
+    "fbe_trace_buffer.lib",
+    "fbe_private_space_layout.lib",
+    "fbe_api_neit_package_interface.lib",
+    "fbe_registry_sim.lib",
+    "fbe_peer_boot_utils.lib",
+    "generic_utils_lib_stdcall.lib",
+];
+
+$sources{SOURCES} = [
+    "fbe_sp_sim_main.c",
+    "fbe_sp_sim_config.c",
+
+];
+$sources{CUSTOM_DEFS} = ["/DI_AM_NATIVE_CODE"];

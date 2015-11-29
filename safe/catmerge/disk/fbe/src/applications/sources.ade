@@ -1,0 +1,17 @@
+$sources{SUBDIRS} = [
+    "admin_api_verify",
+    "bad_blocks",
+    "fbe_api_object_interface",
+    "fbe_cli",
+    "fbe_eas",
+    "fbe_err_sniff",
+    "fbe_metadata_calculator",
+    "fbe_notification_analyzer",
+    "fbe_psl_info",
+    "fbe_raid_calc",
+    "fbe_simulated_drive",
+    "scripts",
+    "fbe_drive_benchmark",
+    "drive_stats_dump",
+];
+

@@ -1,0 +1,33 @@
+$sources{TARGETNAME} = "fbe_terminator";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{SOURCES} = [
+    "fbe_terminator_common.c",
+    "fbe_terminator_main.c",
+    "fbe_terminator.c",
+    "fbe_terminator_miniport_api.c",
+    "fbe_terminator_base.c",
+    "fbe_terminator_board.c",
+    "fbe_terminator_port.c",
+    "fbe_terminator_enclosure.c",
+    "fbe_terminator_login_data.c",
+    "fbe_terminator_virtual_phy.c",
+    "fbe_terminator_drive.c",
+    "fbe_terminator_sas_port.c",
+    "fbe_terminator_device_registry.c",
+    "fbe_terminator_sata_drive.c",
+    "fbe_terminator_enum_conversions.c",
+    "fbe_terminator_class_management.c",
+    "fbe_terminator_device_classes.c",
+    "fbe_terminator_fc_port.c",
+    "fbe_terminator_fc_enclosure.c",
+    "fbe_terminator_fc_drive.c",
+    "fbe_terminator_persistent_memory.c",
+];

@@ -1,0 +1,23 @@
+$sources{TARGETNAME} = "fbe_api_physical_package_interface";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+    "kernel",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{SOURCES} = [
+    "fbe_api_discovery_interface.c",
+    "fbe_api_physical_drive_interface.c",
+    "fbe_api_enclosure_interface.c",
+    "fbe_api_port_interface.c",
+    "fbe_api_drive_configuration_service_interface.c",
+    "fbe_api_board_interface.c",
+    "fbe_api_power_supply_interface.c",
+    "fbe_api_cooling_interface.c",
+    "fbe_api_resume_prom_interface.c",
+    "fbe_api_sps_interface.c",
+];
+

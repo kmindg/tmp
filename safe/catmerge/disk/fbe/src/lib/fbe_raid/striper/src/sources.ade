@@ -1,0 +1,25 @@
+$sources{TARGETNAME} = "fbe_raid_striper_library";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{SOURCES} = [
+    "fbe_striper_geometry.c",
+    "fbe_striper_generate.c",
+    "fbe_striper_util.c",
+    "fbe_striper_read.c",
+    "fbe_striper_read_util.c",
+    "fbe_striper_write.c",
+    "fbe_striper_write_util.c",
+    "fbe_striper_verify.c",
+    "fbe_striper_verify_util.c",
+    "fbe_striper_zero.c",
+];
+
+	
+

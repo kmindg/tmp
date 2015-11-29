@@ -1,0 +1,33 @@
+$sources{TARGETNAME} = "fbe_sas_physical_drive";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+
+$sources{TARGETLIBS} = [
+    "fbe_traffic_trace.lib",
+];
+$sources{INCLUDES} = [
+    "$sources{SRCDIR}\\..\\base_discovering",
+    "$sources{SRCDIR}\\..\\base_discovered",
+    "$sources{SRCDIR}\\..\\base_physical_drive",
+    "$sources{SRCDIR}\\..\\base_object",
+];
+$sources{SOURCES} = [
+    "fbe_sas_physical_drive_main.c",
+    "fbe_sas_physical_drive_monitor.c",
+    "fbe_sas_physical_drive_usurper.c",
+    "fbe_sas_physical_drive_executer.c",
+    "fbe_sas_physical_drive_cdb_operation.c",
+    "fbe_sas_physical_drive_error_handling.c",
+    "fbe_sas_physical_drive_perf_stats.c",
+    "fbe_sas_physical_drive_utils.c",
+    "fbe_sas_physical_drive_diag.c",
+    "fbe_sas_physical_drive_config.c",
+];
+

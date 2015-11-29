@@ -1,0 +1,25 @@
+$sources{TARGETNAME} = "terminator_miniport_sas_plugin_test";
+$sources{TARGETTYPE} = "EMCUTIL_PROGRAM";
+$sources{MUT_TEST} = 1;
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{CALLING_CONVENTION} = "stdcall";
+$sources{SYSTEMLIBS} = [
+    "winmm.lib",
+    "ws2_32.lib",
+];
+$sources{TARGETLIBS} = [
+    "terminator_miniport_sas_plugin.lib",
+    "fbe_ktrace.lib",
+    "fbe_trace.lib",
+    "fbe_api_common.lib",
+];
+
+$sources{SOURCES} = [
+    "terminator_miniport_sas_plugin_test_main.c",
+    "terminator_miniport_sas_plugin_device_table_tests.c",
+];

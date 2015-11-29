@@ -1,0 +1,18 @@
+$sources{TARGETNAME} = "fbe_cmi_kernel";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+];
+$sources{UMTYPE} = "console";
+
+$sources{TARGETLIBS} = [
+    "fbe_cmi.lib",
+];
+
+$sources{SOURCES} = [
+    "fbe_cmi_service_main_kernel.c",
+    "fbe_cmi_kernel_message_pool.c",
+    "fbe_cmi_service_kernel_io.c",
+];
+

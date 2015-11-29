@@ -1,0 +1,25 @@
+$sources{TARGETNAME} = "fbe_test_scenarios_sep_degraded_io";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+
+$sources{SOURCES} = [
+    "bert_test.c",
+    "big_bird_test.c",
+    "oscar_test.c",
+    "ernie_test.c",
+    "rosita_test.c",
+    "chitti_test.c",
+    "fozzie_test.c",
+    "edgar_the_bug_test.c",
+    "gimli_test.c",
+	"smelly_cat_test.c",
+    "lurker_test.c",
+    "frank_the_pug_test.c",
+    "daffy_duck_test.c",
+    "vulture_test.c",
+];
+

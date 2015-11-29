@@ -1,0 +1,36 @@
+$sources{TARGETNAME} = "fbe_drive_mgmt";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{INCLUDES} = [
+    "$sources{SRCDIR}\\..\\base_environment",
+];
+
+$sources{SOURCES} = [
+    "fbe_drive_mgmt_main.c",
+    "fbe_drive_mgmt_monitor.c",
+    "fbe_drive_mgmt_usurper.c",
+    "fbe_drive_mgmt_utils.c",
+    "fbe_drive_mgmt_fuel_gauge.c",
+    "fbe_drive_mgmt_drive_log.c",
+    "fbe_drive_mgmt_dieh_xml.c",
+    "fbe_drive_mgmt_dieh.c",
+];
+
+$sources{SUBDIRS} = [
+    "debug",
+    "kernel",
+    "user",
+    "sim",	
+];
+
+$sources{COPY_FILES} = [
+    "DriveConfiguration.xml",
+    "DriveConfiguration_non-paco-r.xml",
+];

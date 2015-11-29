@@ -1,0 +1,32 @@
+$sources{TARGETNAME} = "fbe_sas_pmc_port";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+
+# $sources{TARGETLIBS} = [
+#     "fbe_cpd_shim_kernel.lib",
+# ];
+
+$sources{INCLUDES} = [
+    "$sources{SRCDIR}\\..\\base_discovered",
+    "$sources{SRCDIR}\\..\\base_discovering",
+    "$sources{SRCDIR}\\..\\base_port",
+    "$sources{SRCDIR}\\..\\sas_port",
+];
+$sources{SOURCES} = [
+    "fbe_sas_pmc_port_main.c",
+    "fbe_sas_pmc_port_monitor.c",
+    "fbe_sas_pmc_port_usurper.c",
+    "fbe_sas_pmc_port_executer.c",
+];
+
+$sources{SUBDIRS} = [
+    "debug",
+];
+

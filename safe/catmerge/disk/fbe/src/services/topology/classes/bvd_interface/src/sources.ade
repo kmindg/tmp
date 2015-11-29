@@ -1,0 +1,25 @@
+$sources{TARGETNAME} = "fbe_bvd_interface";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{INCLUDES} = [
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\topology\\classes\\base_object",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\topology\\classes\\base_config",
+];
+
+$sources{TARGETLIBS} = [
+];
+
+$sources{SOURCES} = [
+    "fbe_bvd_interface_main.c",
+    "fbe_bvd_interface_usurper.c",
+    "fbe_bvd_interface_executer.c",
+    "fbe_bvd_interface_monitor.c",
+];
+

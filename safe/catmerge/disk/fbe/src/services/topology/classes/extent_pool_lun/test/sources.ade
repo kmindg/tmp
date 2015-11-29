@@ -1,0 +1,30 @@
+$sources{TARGETNAME} = "fbe_extent_pool_lun_unit_test";
+$sources{TARGETTYPE} = "EMCUTIL_PROGRAM";
+$sources{MUT_TEST} = 1;
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{CALLING_CONVENTION} = "stdcall";
+$sources{SYSTEMLIBS} = [
+    "winmm.lib",
+    "ws2_32.lib",
+];
+
+$sources{TARGETLIBS} = [
+    "fbe_lib_user.lib",
+    "fbe_extent_pool_lun.lib",
+];
+
+$sources{INCLUDES} = [
+    "$sources{SRCDIR}\\..\\..\\base_object",
+    "$sources{SRCDIR}\\..\\..\\base_config",
+];
+
+$sources{SOURCES} = [
+    "fbe_extent_pool_lun_test_main.c",
+    "fbe_extent_pool_lun_class_tests.c",
+];

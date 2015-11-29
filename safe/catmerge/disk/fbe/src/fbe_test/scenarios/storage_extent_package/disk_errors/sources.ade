@@ -1,0 +1,33 @@
+$sources{TARGETNAME} = "fbe_test_scenarios_sep_disk_errors";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+
+$sources{SOURCES} = [
+    "abby_cadabby_test.c",
+    "cookie_monster_test.c",
+    "kermit_test.c",
+    "bob_the_builder_test.c",
+    "turner_test.c",
+    "dusty_test.c",
+    "mumford_the_magician_test.c",
+    "guy_smiley_test.c",
+    "lefty_test.c",
+    "agent_jay_test.c",
+    "agent_kay_test.c",
+    "pippin_test.c",    
+    "strider_test.c",
+    "rescue_rangers_test.c",
+    "baymax_test.c",
+    "parinacota.c",
+    "percy_test.c",
+];
+
+$sources{COPY_FILES} = [
+    "percy_test_dieh1.xml",
+    "percy_test_dieh2.xml",
+    "percy_test_dieh3.xml",
+];

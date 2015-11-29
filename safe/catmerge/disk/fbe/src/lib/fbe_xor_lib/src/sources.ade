@@ -1,0 +1,36 @@
+$sources{TARGETNAME} = "fbe_xor_lib";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+
+$sources{SOURCES} = [
+    "fbe_xor_library.c",
+    "fbe_xor_epu_tracing.c",
+    "fbe_xor_error_region.c",
+    "fbe_xor_trace.c",
+    "fbe_xor_util.c",
+    "fbe_xor_check_sector.c",
+    "fbe_xor_sector_trace.c",
+    "fbe_xor_sector_history.c",
+    "fbe_xor_interface_mirror.c",
+    "fbe_xor_interface_parity.c",
+    "fbe_xor_interface_striper.c",
+    "fbe_xor_interface.c",
+    "fbe_xor_mirror.c",
+    "fbe_xor_raid5_eval_parity.c",
+    "fbe_xor_raid6_eval_parity_unit.c",
+    "fbe_xor_raid6_util.c",
+    "fbe_xor_raid6_reconstruct_1.c",
+    "fbe_xor_raid6_reconstruct_2.c",
+    "fbe_xor_raid6_reconstruct_parity.c",
+    "fbe_xor_raid6_special_case.c",
+    "fbe_xor_raid6_syndrome_verify.c",
+    "xor_csum_a64.Y",
+    "xor_raid6_csum_a64.Y",
+];
+

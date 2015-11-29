@@ -1,0 +1,50 @@
+$sources{TARGETNAME} = "fbe_xor_unit_test";
+$sources{TARGETTYPE} = "EMCUTIL_PROGRAM";
+$sources{MUT_TEST} = 1;
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+
+$sources{CALLING_CONVENTION} = "stdcall";
+
+
+$sources{SYSTEMLIBS} = [
+    "winmm.lib",
+    "ws2_32.lib",
+];
+$sources{TARGETLIBS} = [
+    "EmcUTIL.lib",
+    "fbe_ddk.lib",
+    "fbe_lib_user.lib",
+    "ktrace.lib",
+    "fbe_ktrace.lib",
+    "fbe_trace.lib",
+    "fbe_sector_trace.lib",
+    "fbe_transport.lib",
+    "fbe_service_manager.lib",
+    "fbe_base_service.lib",
+    "XorLib.lib",
+    "fbe_xor_lib.lib",
+    "fbe_data_pattern.lib",
+    "fbe_memory.lib",
+    "fbe_memory_user.lib",
+    "fbe_transport_trace.lib",
+    "fbe_registry_sim.lib",
+    "fbe_file_user.lib",
+];
+
+$sources{INCLUDES} = [
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\lib\\fbe_xor_lib\\src",
+];
+
+$sources{SOURCES} = [
+    "fbe_xor_test_main.c",
+    "fbe_xor_test_parity.c",
+    "fbe_xor_test_checksum.c",
+    "fbe_xor_test_move.c",
+    "fbe_xor_test_stamps.c",
+];
+
+

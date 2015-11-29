@@ -1,0 +1,215 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Metadata Service</title>
+<link rel="stylesheet" type="text/css" href="../css/all.css" />
+<link rel="stylesheet" type="text/css" href="../css/types.css" />
+</head>
+<body>
+<a name="storageextentmetadata"><h1>Storage Extent Metadata</h1></a>
+<p>
+Storage extent metadata is used by the back-end software to describe the nature of a storage extent.
+Specifically, this metadata is used to:
+<ul>
+    <li>Describe the extent's configured characteristics.</li>
+    <li>Describe the extent's temporal state in relation to control operations.</li>
+    <li>Frame a storage extent on a user drive.</li>
+</ul>
+The back-end software objects that have this metadata are:
+Lun objects, Raid objects, Virtual Drive objects and Provision Drive objects.
+</p>
+<p>
+There are four categories of storage extent metadata:
+<ul>
+    <li><a href="#configurationdata">Configuration Data</a></li>
+    <li><a href="#nonpagedmetadata">Non-paged Metadata</a></li>
+    <li><a href="#extentsignatures">Extent Signatures</a></li>
+    <li><a href="#pagedmetadata">Paged Metadata</a></li>
+</ul>
+</p>
+<p>
+Configuration data and non-paged metadata are stored in system luns on the system drives.
+</p>
+<p>
+Extent signatures and paged metadata are stored in conjunction with the user data on
+<a href="#userdrivemetadata">user drives</a>.
+<p>
+Configuration data is managed by the <a href="../html/service_configuration.html">configuration service</a>.
+</p>
+<p>
+Paged and Non-paged metadata is managed by the <a href="../html/service_metadata.html">metadata service</a>.
+</p>
+<a name="configurationdata"><h2>Configuration Data</h2></a>
+<p>
+Configuration data is used to create storage extent objects and to establish the edges between them.
+It is the authoritative definition of the storage extents known on the system.
+</p>
+<p>
+The configuration service keeps a run-time version of the configuration data in memory.
+It keeps this coherent between SPs and also with its lun on the system drives.
+</p>
+<p>
+When the configuration service creates an object, it provides the object with its configuration data.
+The object uses this data to verify the <a href="#extentsignatures">extent signatures</a> found on the drive.
+</p>
+<a name="nonpagedmetadata"><h2>Non-paged Metadata</h2></a>
+<p>
+Every instance of a configured storage extent has a block of non-paged metadata.
+This block contains dynamic control data that can be accessed at run-time in the normal I/O data path.
+Changes in non-paged metadata are managed by the metadata service and are coherent across SPs.
+</p>
+<p>
+During run-time, non-paged metadata resides in vaulted cache memory.
+A copy of the run-time metadata is also stored on the system drives in a dedicated system lun.
+The metadata service periodically updates the persistent copy on the system drives as a background operation.
+During a normal shutdown the metadata service will sync the run-time metadata
+with the persistent metadata prior to the shutdown.
+After a system abort, the vaulted run-time metadata is used to recover run-time updates
+to the metadata prior to the abort.
+</p>
+<p>
+The content of a non-paged metadata block varies according to the type of storage extent object.
+This content is described in the following object descriptions.
+<ul>
+    <li><a href="../html/object_lun.html#nonpagedmetadata">LUN Object Non-paged Metadata</a></li>
+    <li><a href="../html/object_raid.html#nonpagedmetadata">Raid Object Non-paged Metadata</a></li>
+    <li><a href="../html/object_virtual_drive.html#nonpagedmetadata">Virtual Drive Object Non-paged Metadata</a></li>
+    <li><a href="../html/object_provision_drive.html#nonpagedmetadata">Provision Drive Object Non-paged Metadata</a></li>
+</ul>
+</p>
+<a name="extentsignatures"><h2>Extent Signatures</h2></a>
+<p>
+Extent Signatures are static signature blocks, created when a storage extent is first configured on a drive.
+Signatures are used to validate that a storage extent found on a drive matches the data in the configuration database.
+</p>
+Signatures are written to the last chunk of the extent.
+There are two copies of the signature in the signature chunk.
+It is divided into two halves and the signature is written at the beginning of each half.
+The remainder of each half is reserved space, and is currently unused.
+</p>
+<img src="../png/storage_extent_metadata_02.png" />
+<p>
+A signature contains the following:
+<ul>
+    <li><i>Class Id</i> &mdash; the leaf class Id of the object associated with the extent, i.e., its object type.</li>
+    <li><i>Object Id</i> &mdash; the configured object id of the object associated with the extent.</li>
+    <li><i>Generation Number</i> &mdash; the generation number of the object id.</li>
+    <li><i>WWN or Serial Number</i> &mdash; for lun and raid objects the world wide name of the extent,
+    for Virtual and Provision Drive objects the serial number of the physical drive.</li>
+</ul>
+</p>
+<p>
+Once a signature chunk is written to a drive, it remains unchanged on the drive
+over the life of its corresponding storage extent.
+</p>
+<p>
+The storage extent object creates and reads its signature blocks directly.
+</p>
+<a name="pagedmetadata"><h2>Paged Metadata</h2></a>
+<p>
+Paged Metadata describes the temporal state of the user data in a storage extent.
+Each chunk of user data has a corresponding bit sequence in the paged metadata.
+The meaning of the bits in a chunk's sequence vary according to the type of extent object.
+For example, the provision drive paged metadata has a bit that indicates whether a chunk
+needs to be zeroed and another bit that indicates whether the chunk has been consumed by a LUN.
+Whereas, the Raid Group object has groups of bits within the chunk sequence that apply to each
+of the drives in the raid group.
+</p>
+<p>
+The meanings of the bits are described in the following object descriptions.
+<ul>
+    <li><a href="../html/object_lun.html#pagedmetadata">LUN Object Paged Metadata</a></li>
+    <li><a href="../html/object_raid.html#pagedmetadata">Raid Object Paged Metadata</a></li>
+    <li><a href="../html/object_virtual_drive.html#pagedmetadata">Virtual Drive Object Paged Metadata</a></li>
+    <li><a href="../html/object_provision_drive.html#pagedmetadata">Provision Drive Object Paged Metadata</a></li>
+</ul>
+</p>
+<img src="../png/storage_extent_metadata_03.png" />
+<p>
+Paged metadata is stored on the drive as part of the storage extent.
+It is paged into memory on an as-needed basis.
+The storage extent object reads and writes its paged metadata by using the metadata service.
+The metadata service maintains a cache of active metadata pages and
+provides coherency between the cached pages on both SPs, as well as with the pages on the drive itself.
+</p>
+<p>
+Paged metadata is used for control operations that are performed in the background.
+These include:
+<ul>
+    <li>Raid Group Verify.</li>
+    <li>Raid Group Rebuild.</li>
+    <li>Virtual Drive Copy.</li>
+    <li>Provision Drive zeroing.</li>
+</ul>
+</p>
+<p>
+Because of the latencies resulting from keeping paged metadata coherent,
+typical I/O flows do not read or write paged metadata.
+Whether or not an I/O is affected by paged metadata is determined by checkpoints.
+These checkpoints are maintained in non-paged metadata.
+</p>
+<p>
+For example, when performing rebuilds, the raid group object maintains a checkpoint
+of the lowest chunk in the extent that requires a rebuild.
+If incoming I/Os fall below the checkpoint then the paged metadata is not consulted.
+If incoming I/Os are above the checkpoint then the paged metadata is read,
+and if need be, the chunk is rebuilt prior to servicing the I/O.
+In the typical case, where the raid group object is not performing a rebuild,
+all of the I/Os fall below the checkpoint and the paged metadata is not referenced.
+</p>
+<a name="userdrivemetadata"><h2>User-drive Metadata</h2></a>
+<p>
+The data stored in a storage extent on a user drive (both user data and metadata)
+is allocated and aligned in units of "chunks".
+The size of a chunk is fixed relative to all of the extents on a drive, and it is roughly a megabyte in size.
+The metadata chunks are position at the end of the storage extent on the drive,
+with the extent signature as the last chunk.
+</p>
+<p>
+<img src="../png/storage_extent_metadata_01.png" />
+</p>
+<a name="driveextentnesting"><h3>User-drive Storage Extent Nesting</h3></a>
+Because the metadata on the drives is stored adjacent to its associated storage extent,
+it is nested on the drives (as are the storage extents themselves).
+For example, a virtual drive extent is nested in the storage extent exported by the provision drive.
+The raid group extents on a drive are nested in the storage extent exported by the virtual drive.
+The lun extents in a raid group are nested in the storage extent exported by the raid group.
+</p>
+<p>
+<img src="../png/storage_extent_metadata_04.png" />
+</p>
+<a name="drivemetadataprotection"><h3>User-drive Metadata Protection</h3></a>
+<p>
+The metadata stored on the drives has its own protection characteristics.
+These vary depending on both the type of metadata and also the type of storage extent.
+</p>
+<p>
+Extent signatures are protected by writing two copies of the signature in the signature chunk.
+Corruption in one of the signatures is handled when signatures are verified.
+During verification both copies are compared to the corresponding configuration data.
+When a single corrupt signature is found, it is rebuilt from the configuration data.
+If during verification both copies do not match the configuration data the storage extent object
+will enter the failed state.
+</p>
+<p>
+The paged metadata of the provision drive is protected by storing two copies of the metadata within the extent.
+If the data in one chunk becomes corrupt (e.g., because of a media error) it is rebuilt from the second copy.
+</p>
+<p>
+The paged metadata for the virtual drive and for raid objects is protected by the raid protection scheme of the storage extent.
+</p>
+<p>
+The virtual drive in normal operations does not use its paged metadata.
+However, during sparing operations the virtual drive becomes a raid-1 mirror.
+As a consequence, its paged metadata is protected in the same manner as a raid-1 mirror.
+</p>
+<p>
+Because the paged metadata of a raid object is protected using the protection scheme of the raid group,
+there is a need for a small amount of additional metadata to cover the paged metadata itself.
+This "metadata for the metadata" is located in the object's non-paged metadata.
+It contains the same bit sequences as does the paged metadata.
+</p>
+</body>
+</html>

@@ -1,0 +1,14 @@
+$sources{SUBDIRS} = [
+    "state_machine",
+    "cmi",
+    "common",
+    "driver",
+    "vault",
+    "memory",
+    "cluster_tags",
+    "operations",
+];
+
+
+
+

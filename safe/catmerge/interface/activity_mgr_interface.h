@@ -1,0 +1,192 @@
+#ifndef ACTIVITY_MGR_INTERFACE_H
+#define ACTIVITY_MGR_INTERFACE_H
+
+// File: activity_mgr_interface.h      Component:  Background Activity Manager
+
+//-----------------------------------------------------------------------------
+// Copyright (C) EMC Corporation 2009 - 2010
+// All rights reserved.
+// Licensed material -- property of EMC Corporation
+//
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+//
+//  MODULE ABSTRACT:
+//
+//      This header file defines the interface exported by the Background 
+//      Activity Manager subsystem. This is the interface clients use to communicate 
+//      with the Background Activity Manager. 
+//
+//      The Background Activity Manager is responsible for throttling I/O 
+//      requests as needed to provide customers with a more predictable
+//      environment relative to host I/Os and to promote fairness of
+//      background I/O jobs.
+//
+//      For details on the Background Activity Manager, see the documentation in the
+//      following eRoom:
+//
+//    http://opseroom01.corp.emc.com/eRoom/SPOmidrangesysdiv/EMCSPOMidFlreBacEnd/0_188ded
+//
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+//  INCLUDES OF REQUIRED HEADER FILES:
+
+#if defined(__cplusplus) || defined(c_plusplus)		// For clients written in C++
+extern "C" {
+#endif
+
+#include "generic_types.h"
+#include "csx_ext.h"
+
+
+//-----------------------------------------------------------------------------
+//  NAMED CONSTANTS (#defines): N/A
+//
+
+
+//-----------------------------------------------------------------------------
+//  ENUMERATIONS:
+//
+
+//  Activity Manager return status
+//  ACTIVITY_MGR_TODO: to be populated further as code is developed
+typedef enum
+{
+    ACTIVITY_MGR_STATUS_SUCCESS                    = 0,
+    ACTIVITY_MGR_STATUS_ERROR_INVALID_JOB_TYPE     = 1,
+    ACTIVITY_MGR_STATUS_ERROR_MEMORY_ALLOCATION    = 2,
+    ACTIVITY_MGR_STATUS_ERROR_INVALID_JOB_PRIORITY = 3,
+    ACTIVITY_MGR_STATUS_ERROR_GENERIC              = 4
+
+} activity_mgr_status_e;
+
+
+//  Activity Manager client job priorities are defined below. 
+// 
+//  The ASAP priority means that the background job's I/O should be treated as Host I/O. 
+//  The System priority translates to a dynamic rate based on Host I/O activity, Background I/O activity, and 
+//  CPU utilization; it is the default priority.
+typedef enum
+{
+    ACTIVITY_MGR_JOB_PRIORITY_ASAP   = 50001,
+    ACTIVITY_MGR_JOB_PRIORITY_SYSTEM = 50002
+
+} activity_mgr_job_priority_e;
+
+
+//  Activity Manager Job types
+//  ACTIVITY_MGR_TODO: to be updated as new client job types are added
+typedef enum 
+{
+    ACTIVITY_MGR_JOB_ID_RAID         		= 1,
+    ACTIVITY_MGR_JOB_ID_MIN           		= ACTIVITY_MGR_JOB_ID_RAID,
+    ACTIVITY_MGR_JOB_ID_MIGRATION     = 2,
+    ACTIVITY_MGR_JOB_ID_AGGREGATE     = 3,
+    ACTIVITY_MGR_JOB_ID_SAN_COPY	 	    = 4,
+    ACTIVITY_MGR_JOB_ID_CLONES		        = 5,
+    ACTIVITY_MGR_JOB_ID_DEDUP		        = 6,
+    ACTIVITY_MGR_JOB_ID_COMPRESSION	        = 7,
+    ACTIVITY_MGR_JOB_ID_AT			        = 8,
+    ACTIVITY_MGR_JOB_ID_MLU		            = 9,
+    ACTIVITY_MGR_JOB_ID_TEST_DRIVER   	    = 10,
+    ACTIVITY_MGR_JOB_ID_MAX           = ACTIVITY_MGR_JOB_ID_TEST_DRIVER
+
+} activity_mgr_job_type_e;
+
+
+//-----------------------------------------------------------------------------
+//  TYPEDEFS: 
+//
+
+//  Activity Manager job block used to define a job.
+//  It is populated by both the Activity Manager and client.
+struct activity_mgr_job_block_s;
+
+//  Job I/O tag
+typedef UINT_32 activity_mgr_job_io_tag_t;
+
+//  Used to help throttle a job
+typedef UINT_8 activity_mgr_credit_scale_t;
+
+
+//  Client API for Activity Manager to use.
+//  A client supplies its API when it schedules a job; it is provided via the job block.
+typedef struct activity_mgr_client_api_s
+{
+    //  Background Activity Manager invokes the following client function initially when a job is scheduled
+    //  and when it determines that a client job's I/O rate should be scaled up or down
+    void (*credits_available_for_job)
+    (
+        struct activity_mgr_job_block_s*          job_block_p,			//  Context for the job instance
+        activity_mgr_credit_scale_t        job_rate_scale,      //  A scale of 0 - 100
+                                                                //  100 = ASAP (i.e. no delay between I/Os
+                                                                //  ...
+                                                                //  1   = Slowest possible progress
+                                                                //  0   = Pause the job
+                                                                //  Each client will implement a scale-to-rate translation matrix.
+        activity_mgr_job_io_tag_t          job_io_tag           //  I/O Tag generated by the Activity Manager for this job. 
+                                                                //  The client sets the I/O tag in each I/O request it generates 
+                                                                //  for this job. It is used downstream in the I/O stack.
+    );
+        
+} activity_mgr_client_api_t;
+
+
+//  Activity Manager job block allocated by the initiator of a job, i.e. a client.
+//  It is populated by both the client and the Activity Manager.
+typedef struct activity_mgr_job_block_s
+{
+    activity_mgr_client_api_t       client_api;                     //  Used by Activity Manager to communicate with client
+    activity_mgr_job_type_e         job_type;                       //  Type of job as defined above
+    char							activity_mgr_private_space[128];//  Used by Activity Manager for job house-keeping
+    char                            client_private_space[128];      //  Used by Client to store any job-specific info
+                                                                    //      e.g. scale
+} activity_mgr_job_block_t;
+
+
+//-----------------------------------------------------------------------------
+//  FUNCTION PROTOTYPES:
+//
+
+
+//  Clients invoke the following Activity Manager library function to schedule a job.
+//	The job block will be updated by both the client and the Activity Manager with
+//	data relative to the job.  This function will invoke the client-supplied "credits available for job"
+//  callback before returning.
+activity_mgr_status_e CSX_MOD_EXPORT  activity_mgr_sched_a_job_and_update_job_block
+(
+    activity_mgr_job_block_t*           io_job_block_p,         //  Context         
+    UINT_32                             in_user_job_priority    //  Priority of this job as configured by the customer
+);
+
+//  Clients invoke the following Activity Manager library function when it wants to modify 
+//  any of the scheduling parameters.
+//  For example, if the customer modifies the priority or through some internal algorithm 
+//  the priority is changed, a client uses this interface to communicate the change to 
+//  the Activity Manager.
+//  This can be used any time during the life of the job.
+activity_mgr_status_e CSX_MOD_EXPORT activity_mgr_change_scheduling_parameters
+(
+    activity_mgr_job_block_t*          io_job_block_p,          //  Context
+    UINT_32                            in_user_job_priority     //  Priority of this job as configured by the customer
+
+);
+
+//  Clients invoke the following Activity Manager library function to unschedule a scheduled job
+activity_mgr_status_e CSX_MOD_EXPORT  activity_mgr_unschedule_a_job
+(
+    activity_mgr_job_block_t*          io_job_block_p           //  Context
+);
+
+//  Front-end (FE) drivers can invoke the following Activity Manager library function to acquire 
+//  an IO Tag for use in Host I/O IRPs
+activity_mgr_job_io_tag_t  CSX_MOD_EXPORT activity_mgr_get_host_io_tag(void);
+
+
+#if defined(__cplusplus) || defined(c_plusplus)
+};
+#endif
+
+#endif  // ACTIVITY_MGR_INTERFACE_H

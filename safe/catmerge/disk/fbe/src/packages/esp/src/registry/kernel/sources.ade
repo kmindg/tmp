@@ -1,0 +1,14 @@
+$sources{TARGETNAME} = "fbe_registry_kernel";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+];
+$sources{TARGETLIBS} = [
+    "EmcUTIL.lib",
+];
+$sources{UMTYPE} = "console";
+
+$sources{SOURCES} = [
+    "fbe_registry_kernel.c",
+];

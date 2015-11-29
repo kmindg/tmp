@@ -1,0 +1,15 @@
+#index h1 {
+    font-size: 16pt;
+    font-style: oblique;
+    color: #0000cc;
+    background: #efefef;
+}
+
+#index h2, h3, h4 {
+    font-size: 14pt;
+    color: #0000cc;
+}
+
+#index ul {
+    list-style-type: none
+}

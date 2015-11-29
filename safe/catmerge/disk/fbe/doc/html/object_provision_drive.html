@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Provision Drive</title>
+<link rel="stylesheet" type="text/css" href="../css/all.css" />
+<link rel="stylesheet" type="text/css" href="../css/lists.css" />
+</head>
+<body>
+<h1>Provision Drive Object</h1>
+<p>
+The provision drive object is responsible for grooming a drive.
+This includes the initial zeroing of the drive as well as verifying the drive.
+These operations can occur while the drive is on-line; i.e., configured with raid groups that have bound luns and receiving user I/O.
+</p><p>
+A provision drive may or may not exist in the configuration data base.
+</p>
+<h2>Provision Drive Control Path</h2>
+<p>
+The virtual drive control path performs the following operations:
+</p><p><ul>
+    <li>Drive Zeroing</li>
+    <li>Sniff Verify</li>
+</ul></p>
+<h2>Provision Drive Class Hierarchy</h2>
+<p><div id="list_classes">
+<ul>
+    <li>Base Object</li>
+    <li>Base Config Object</li>
+    <li>Provision Drive Object</li>
+</ul>
+</div></p>
+<h2>Provision Drive Source Files</h2>
+<p><div id="list_files">
+<ul>
+    <li>./disk/interface/fbe/fbe_provision_drive.h</li>
+    <li>./disk/fbe/src/services/topology/classes/provision_drive/interface/*.h</li>
+    <li>./disk/fbe/src/services/topology/classes/provision_drive/src/*.c</li>
+</ul>
+</div></p>
+<a name="nonpagedmetadata"><h2>Provision Drive Non-paged Metadata</h2></a>
+<p>
+The provision drive 
+<a href="../html/storage_extent_metadata.html#nonpagedmetadata">non-paged metadata</a>
+contains the following fields:
+<ul>
+    <li><tt>background_zero_checkpoint</tt> &mdash; lowest lba that requires background zeroing.</li>
+    <li><tt>sniff_verify_enable</tt> &mdash; enable/disable sniff verify.</li>
+    <li><tt>sniff_verify_checkpoint</tt> &mdash; lowest lba that requires sniff verify.</li>
+    <li><tt>sniff_verify_report</tt> &mdash; sniff verify statistics.</li>
+</ul>
+</p>
+<a name="pagedmetadata"><h2>Provision Drive Paged Metadata</h2></a>
+<p>
+The provision drive
+<a href="../html/storage_extent_metadata.html#pagedmetadata">paged metadata</a>
+contains the following bits:
+<ul>
+    <li><tt>need_zero_bit</tt> &mdash; the corresponding user data chunk needs to be zeroed.</li>
+    <li><tt>consumed_user_data_bit</tt> &mdash; the corresponding user data chunk contains valid user data.</li>
+    <li><tt>reserved_bits[14]</tt> &mdash; unused bits, reserved for future use.</li>
+</ul>
+</p>
+</body>
+</html>

@@ -1,0 +1,46 @@
+$sources{TARGETNAME} = "bvd_interface_test";
+$sources{TARGETTYPE} = "EMCUTIL_PROGRAM";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{CALLING_CONVENTION} = "stdcall";
+$sources{SYSTEMLIBS} = [
+    "winmm.lib",
+    "ws2_32.lib",
+];
+$sources{TARGETLIBS} = [
+    "fbe_lib_user.lib",
+    "fbe_api_common_user.lib",
+    "fbe_api_services.lib",
+    "fbe_api_common_sim.lib",
+    "fbe_api_transport_client.lib",
+    "fbe_api_transport_packet_interface.lib",
+    "fbe_api_sep_interface.lib",
+    "fbe_transport.lib",
+    "ktrace.lib",
+    "fbe_ktrace.lib",
+    "fbe_trace.lib",
+    "fbe_base_service.lib",
+    "fbe_service_manager.lib",
+    "bvd_interface_test.lib",
+    "fbe_packet_serialize_user.lib",
+    "fbe_drive_configuration.lib",
+    "fbe_api_physical_package_interface.lib",
+    "fbe_api_esp_interface.lib",
+    "fbe_api_common.lib",
+    "fbe_transport_trace.lib",
+    "fbe_memory.lib",
+    "fbe_memory_user.lib",
+];
+
+
+
+
+$sources{SOURCES} = [
+    "bvd_interface_test_main.c",
+];
+

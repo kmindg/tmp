@@ -1,0 +1,12 @@
+$sources{TARGETNAME} = "fbe_test_pp_utils";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{SOURCES} = [
+    "fbe_test_pp_utils.c",
+    "scoobert_physical_config.c",
+];
+

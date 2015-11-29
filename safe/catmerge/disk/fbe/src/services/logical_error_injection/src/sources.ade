@@ -1,0 +1,25 @@
+$sources{TARGETNAME} = "fbe_logical_error_injection";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{INCLUDES} = [
+    "$sources{SRCDIR}\\..\\..\\..\\services\\topology\\interface",
+    "$sources{SRCDIR}\\..\\..\\..\\services\\topology\\classes\\raid_group\\interface",
+    "$sources{SRCDIR}\\..\\..\\..\\lib\\fbe_raid\\interface",
+];
+$sources{SOURCES} = [
+    "fbe_logical_error_injection_main.c",
+    "fbe_logical_error_injection_object.c",
+    "fbe_logical_error_injection_record_mgmt.c",
+    "fbe_logical_error_injection_tables.c",
+    "fbe_logical_error_injection_record_validate.c",
+    "fbe_logical_error_injection_control.c",
+    "fbe_logical_error_injection_block_operations.c",
+    "fbe_logical_error_injection_delay_io.c",
+];

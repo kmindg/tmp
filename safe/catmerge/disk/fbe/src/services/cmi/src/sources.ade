@@ -1,0 +1,19 @@
+$sources{TARGETNAME} = "fbe_cmi";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{SOURCES} = [
+    "fbe_cmi_service_main.c",
+    "fbe_cmi_service_handshake.c",
+    "fbe_cmi_service_io.c",
+    "fbe_cmi_service_io_cancel_thread.c",
+    "fbe_cmi_service_panic.c",
+];
+
+

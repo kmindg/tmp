@@ -1,0 +1,23 @@
+$sources{TARGETNAME} = "fbe_cms_memory_simulation";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{INCLUDES} = [
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\cluster_memory\\interface\\cluster_tags",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\cluster_memory\\interface\\cmi",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\cluster_memory\\interface\\state_machine",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\cluster_memory\\interface\\vault",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\cluster_memory\\interface\\memory",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\cluster_memory\\interface\\common",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\cluster_memory\\interface\\driver",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\cluster_memory\\interface\\operations",
+    "$sources{MASTERDIR}\\disk\\interface\\fbe",
+];
+$sources{UMTYPE} = "console";
+$sources{SOURCES} = [
+    "fbe_cms_memory_simulation.c",
+];

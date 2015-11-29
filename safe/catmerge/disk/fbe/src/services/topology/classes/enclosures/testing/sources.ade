@@ -1,0 +1,24 @@
+$sources{TARGETNAME} = "fbe_enclosure_test";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{INCLUDES} = [
+    "$sources{MASTERDIR}\\disk\\interface\\fbe",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\lib\\enclosure_data_access",
+    "$sources{SRCDIR}\\..\\eses_enclosure",
+    "$sources{SRCDIR}\\..\\sas_viper_enclosure",
+    "$sources{SRCDIR}\\..\\..\\sas_enclosure",
+    "$sources{SRCDIR}\\..\\..\\base_enclosure",
+    "$sources{SRCDIR}\\..\\..\\base_discovering",
+    "$sources{SRCDIR}\\..\\..\\base_discovered",
+];
+
+$sources{SOURCES} = [
+    "fbe_enclosure_test.c",
+    "fbe_sas_viper_enclosure_test_main.c",
+    "fbe_all_enclosure_functions_test.c",
+];

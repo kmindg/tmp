@@ -1,0 +1,11 @@
+$sources{SUBDIRS} = [
+    "physical",
+    "ppfd",
+    "neit",
+    "sep",
+    "esp",
+#    "logical",
+    "neit_flare",
+];
+
+

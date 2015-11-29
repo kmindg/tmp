@@ -1,0 +1,88 @@
+/*! \page emcpal_introduction Emcpal Overview
+
+
+\section emcpal_intro Introduction
+The purpose of this document is to describe how to write portable code targeting both the Windows and
+Linux environments using a combination of coding conventions and the Emcpal abstrations.
+
+
+\subsection emcpal_audience Intended Audience
+The intended audience of this document is all of the engineering groups which create and maintain embedded array
+software on the Windows or Linux platforms
+
+
+\subsection emcpal_references References
+ 
+<a href="https://sforge.sspg.lab.emc.com/sf/go/doc17250?nav=1">Flare Portability Overview</a>
+
+<a href="http://csx-home.sspg.lab.emc.com/csx/doc/csx2/latest/index.html">CSX Users Guide</a>
+
+<a href="https://sforge.sspg.lab.emc.com/sf/go/projects.morpheus/docman.root.engineering.product_area_subteam_work_area.flare_convergence">Morpheus Flare Convergence on TeamForge</a>
+
+<a href="http://opseroom01.corp.emc.com/eRoom/SPOmidrangesysdiv/MidRangeASE/0_1964a1">CX/SAFE Code Cleanup Phase 0</a>
+
+\subsection emcpal_terminology Terminology                                                                                                                                             
+ - CSX
+	Common Software Execution Environment.  Developed by SSPG team to allow code to execute in foreign environments.  Example implementations include Celerra CBFS code running on CLARiiON Windows and Avamar's dedup engine running in Celerra Dart.
+ - EMC PAL
+	Platform Abstraction Layer.  Facilitates the porting of the Flare code base technology from CLARiiON to C4LX/Linux products.
+ - Flare portability
+	Umbrella term covering the EMC PAL and CSX work needed to get Windows-based flare and layered drivers running on Linux.  
+
+\section emcpal_overview Overview - What is it?                                                                                                                                          
+
+\subsection emcpal_purpose Purpose and Background
+The EMC Platform Abstraction Layer (EmcPAL) is a Flare module that facilitates the porting of the code 
+base from the Windows-based CLARiiON product set to a Linux-based product set.
+
+The EmcPAL is actually not meant to be a generic OS abstraction layer.  It was written with the realization 
+that Flare was traditionally a Windows application.  As such the purpose of the EmcPAL is to provide an interface 
+that allows applications that are used to making Windows OS calls to run on top of other OSes.  Since Windows OS
+calls don't support an inheritance model, the EmcPAL calls provide a way of implementing an abstraction of the Windows
+kernel interfaces.  This allows a fairly direct substituion of Emcpal functions for Windows functions, but also allows
+CSX implementations of the EmcPAL calls for building in a Linux environment.
+ 
+Why not just change the code base to use CSX (or Linux) directly? 
+Because we need to support VNX and VNX2/Morpheus development, in parallel, from a single code base. 
+This allows Morpheus development to leverage the testing capabilities that VNX has traditionally supported.
+ 
+
+\subsection emcpal_driver_model Driver-like model is less platform-dependent
+One of the lessons we learned through the various exercises from 2002 to the present to make the Flare 
+data path run in all sorts of places (originally to Linux kernel space, then to every combination of 
+Windows/FreeBSD/Linux/Dart user and kernel spaces over CSX) was that there is great value to having a 
+code packaging model that can be used identically with identical semantics in all of these places.
+
+The model that was settled on through direct experience was a driver-like code packaging model with 
+a defined set of entry points (load, start, quiesce, unload - which can be devolved to load, 
+unload if needed) with every driver receiving an configurable set of arguments at load time.
+
+This model is supportable everywhere in all the kernels we care about, the same in user space 
+processes/containers, and is even supportable in the EMC-owned "flat" kernels like Dart and 
+Symm/K which have no concept of dynamically loaded code. 
+
+In environments like the NT kernel this model is really just a thin skin over the NT driver model. 
+In other environments it is sometimes a similar thin skin; in other cases we have to synthesize the 
+model to get the identical semantics.
+
+The advantage of this single consistent model is once you adopt it and get used to it, you don't 
+have to worry about code "startup & lifecycle" management being different from environment to environment, 
+introduce special cases for specific platforms, etc.
+
+In a specific case - like a kernel mode DLL, whose semantics are not universally available (for example 
+there is no direct equivalent in the Linux kernel), as long as the there is no technical barrier that 
+keeps the "driver-like" packaging from working, then this model will apply.  We currently don't know of 
+any such barrier in any of the environments that we are or will be using.
+
+In fact, the model that CSX is using is the same model that Flare FBE is using.  The Physical Package is a 
+driver, but that implementation is just a way for it to get loaded into memory and initialized. This 
+method is also portable to other platforms. This is also 
+why CLARiiON wrote the PPFD (Physical Package Filter Driver) that is used for their boot path.  It 
+is a real NT driver and exports a real NT interface and "links" to the Physical Package via an IOCTL at load time.
+
+\subsection emcpal_user_space EmcPAL and EmcUTIL
+The original EmcPAL APIs were configured for two use cases - Windows kernel and Linux/C4LX. 
+The EmcUTIL APIs also support a third use case - Windows user - which allows these APIs to be applied more broadly across the code base.
+Eventually, any EmcUTIL API that duplicates EmcPAL API functionality will be mechanically combined into a single API so that only one flavor is used across the code base.
+
+*/

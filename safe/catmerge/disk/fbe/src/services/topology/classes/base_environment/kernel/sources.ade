@@ -1,0 +1,14 @@
+$sources{TARGETNAME} = "fbe_base_environment_kernel";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+];
+$sources{INCLUDES} = [
+    "$sources{SRCDIR}\\..\\interface",
+    "$sources{SRCDIR}\\..\\..\\base_environment",
+];
+$sources{UMTYPE} = "console";
+$sources{SOURCES} = [
+    "fbe_base_environment_kernel_main.c",
+];

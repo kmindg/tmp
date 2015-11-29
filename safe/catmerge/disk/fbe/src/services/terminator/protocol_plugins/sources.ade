@@ -1,0 +1,7 @@
+$sources{SUBDIRS} = [
+    "simulated_disk",
+    "drive_sas",
+    "enclosure_eses",
+    "drive_sata",
+    "miniport_sas",
+];

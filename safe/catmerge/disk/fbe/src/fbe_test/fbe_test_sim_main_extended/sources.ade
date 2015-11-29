@@ -1,0 +1,16 @@
+$sources{TARGETNAME} = "fbe_test_extended";
+$sources{TARGETTYPE} = "EMCUTIL_PROGRAM";
+$sources{MUT_TEST} = 1;
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{CALLING_CONVENTION} = "stdcall";
+$sources{TARGETLIBS} = [
+    "fbe_test_library.lib", 
+];
+$sources{SOURCES} = [
+    "fbe_test_sim_main_extended.c",
+];
+

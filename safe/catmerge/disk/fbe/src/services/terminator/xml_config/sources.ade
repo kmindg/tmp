@@ -1,0 +1,25 @@
+$sources{TARGETNAME} = "fbe_terminator_user";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "simulation"
+];
+$sources{UMTYPE} = "console";
+
+$sources{TARGETLIBS_USER} = [
+    "fbe_file_user.lib",
+];
+
+$sources{TARGETLIBS_SIMULATION} = [
+    "fbe_file_user.lib",
+];
+
+$sources{TARGETLIBS_KERNEL} = [
+    "fbe_file_kernel.lib",
+];
+
+$sources{SOURCES} = [
+    "fbe_terminator_config_file_api.c",
+];

@@ -1,0 +1,18 @@
+$sources{TARGETNAME} = "fbe_private_space_layout";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{INCLUDES} = [
+    "$sources{SRCDIR}\\..\\..\\..\\services\\topology\\classes\\provision_drive\\interface",
+    "$sources{SRCDIR}\\..\\..\\..\\services\\topology\\classes\\base_config",
+    "$sources{SRCDIR}\\..\\..\\..\\services\\topology\\interface",
+];
+$sources{UMTYPE} = "console";
+$sources{SOURCES} = [
+    "fbe_private_space_layout.c",
+];

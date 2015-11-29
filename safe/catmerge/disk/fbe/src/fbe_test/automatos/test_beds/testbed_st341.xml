@@ -1,0 +1,48 @@
+<testbedinfo doc_type="testbed" version="2.2">
+  <block_devices>
+    <block id="10.245.189.61">
+      <hosts>
+        <host id="10.245.189.60" />
+      </hosts>
+      <sp name="A">
+        <communication ipv4_address="10.245.189.61" password="clariion1992" username="clariion1992" />
+        <management>
+          <tools>
+            <tool host="10.245.189.60" ip_address="10.245.189.61" password="admin" type="navisphere" username="admin" />
+          </tools>
+        </management>
+      </sp>
+      <sp name="B">
+        <communication ipv4_address="10.245.189.62" password="clariion1992" username="clariion1992" />
+        <management>
+          <tools>
+            <tool host="10.245.189.60" ip_address="10.245.189.62" password="admin" type="navisphere" username="admin" />
+          </tools>
+        </management>
+      </sp>
+    </block>
+  </block_devices>
+  <hosts>
+    <host id="10.245.189.60">
+      <communication ipv4_address="10.245.189.60" password="Clariion!" username="Administrator" />
+    </host>
+  </hosts>
+  <switches>
+        <switch model="wti" id="1" type="power">
+            <communication username=""
+                           password=""
+                           type="telnet"
+                           port="23"
+                           ipv4_address="10.245.189.100"
+            />
+            <ports>
+                <port id="B5" array_id="1" attached_type="SP" attached_id="A" group="DPEA"/>
+                <port id="A1" array_id="1" attached_type="SP" attached_id="B" group="DPEB"/>
+            </ports>
+        </switch>
+  </switches>
+  <identities>
+    <identity name="ax_metadata_id" value="6219" />
+    <identity name="ax_id" value="7612" />
+  </identities>
+</testbedinfo>

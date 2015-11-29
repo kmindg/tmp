@@ -1,0 +1,22 @@
+/*! \page emcpal_csx_cross_reference Windows / CSX API Cross-Reference
+
+\section CsxCrossReference Cross-Reference Table
+
+This page is NOT a complete cross-reference. It highlights a few cases where the Windows<->CSX API translation may not be obvious. See the online <a href="http://csx-home.sspg.lab.emc.com/csxdoc">CSX Manual</a> for CSX API documentation.
+
+<table>
+<tr><td><b>Call</b></td><td><b>Windows</b></td><td><b>CSX</b></td></tr>
+<tr><td>create a byte-counted text string with formatting</td><td>RtlStringCbPrintfA</td><td>csx_p_snprintf</td></tr>
+<tr><td>create a byte-counted text string with formatting along with va_list-typed argument list</td><td>RtlStringCbVPrintfA</td><td>csx_p_vsnprintf</td></tr>
+<tr><td>concatenate two character-counted strings</td><td>RtlStringCchCatA</td><td>csx_p_strncat</td></tr>
+<tr><td>Copy a character-counted string</td><td>RtlStringCchCopyA</td><td>csx_p_strncpy</td></tr>
+<tr><td>determine the length of a supplied string</td><td>RtlStringCchLengthA</td><td>csx_p_strlen</td></tr>
+<tr><td>create a character-counted text string with formatting</td><td>RtlStringCchPrintfA</td><td>csx_p_snprintf</td></tr>
+<tr><td>create a character-counted text string with formatting with va_list-types argument</td><td>RtlStringCchVPrintfA</td><td>csx_p_vsnprintf</td></tr>
+<tr><td>Write formatted data to a string</td><td>_snprintf</td><td>csx_p_snprintf</td></tr>
+<tr><td>Compare strings</td><td>_stricmp</td><td>csx_p_stricmp</td></tr>
+<tr><td bgcolor=gray></td><td bgcolor=gray></td><td bgcolor=gray></td></tr>
+</table>
+
+
+*/

@@ -1,0 +1,16 @@
+$sources{TARGETNAME} = "fbe_logical_drive_debug";
+$sources{TARGETTYPE} = "CSX_DEBUG_EXTENSION_LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user32",
+    "user",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+
+
+$sources{SOURCES} = [
+    "fbe_logical_drive_debug.c",
+    "fbe_logical_drive_sepls_debug.c",
+];
+

@@ -1,0 +1,12 @@
+$sources{TARGETNAME} = "fbe_test_scenarios_system";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+
+$sources{SOURCES} = [
+    "system_tests.c",
+    "fbe_simulator_load_test.c",
+];

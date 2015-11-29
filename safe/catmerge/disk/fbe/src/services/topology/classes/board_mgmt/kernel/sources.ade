@@ -1,0 +1,15 @@
+$sources{TARGETNAME} = "fbe_board_mgmt_kernel";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+];
+$sources{INCLUDES} = [
+    "$sources{SRCDIR}\\..\\interface",
+	"$sources{SRCDIR}\\..\\..\\base_environment",
+    "$sources{SRCDIR}\\..\\..\\board_mgmt",
+];
+$sources{UMTYPE} = "console";
+$sources{SOURCES} = [
+    "fbe_board_mgmt_kernel_main.c",
+];

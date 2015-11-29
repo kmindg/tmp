@@ -1,0 +1,14 @@
+$sources{TARGETNAME} = "fbe_memory_user";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+
+
+$sources{SOURCES} = [
+    "fbe_memory_persistence_user.c",
+];

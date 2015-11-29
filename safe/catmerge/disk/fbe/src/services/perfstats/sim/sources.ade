@@ -1,0 +1,27 @@
+$sources{TARGETNAME} = "fbe_perfstats_sim";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{SOURCES} = [
+    "fbe_perfstats_service_main_sim.c",
+];
+
+$sources{TARGETLIBS} = [
+    "fbe_perfstats.lib",
+];
+
+$sources{CUSTOM_DEFS} = [
+  "/DI_AM_NATIVE_CODE",
+  "/DEXPORT_SIMULATION_DRIVER_SYMBOLS",
+];
+$sources{PERFSTATS_MODULE} = 1;
+$sources{PERFSTATS_NO_DUMMY_LIB} = 1;
+
+if ($sources{DDKBUILDENV} eq "chk") {
+    push(@{$sources{CUSTOM_DEFS}}, "/DDEBUG_ALL");
+}

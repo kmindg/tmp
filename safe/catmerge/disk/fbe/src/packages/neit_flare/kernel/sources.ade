@@ -1,0 +1,37 @@
+$sources{TARGETNAME} = "NeitPackage";
+$sources{TARGETTYPE} = "PAL_DRIVER";
+$sources{TARGETMODES} = [
+    "kernel",
+];
+
+$sources{TARGETLIBS} = [
+    "fbe_ddk.lib",
+    "EmcUTIL.lib",
+    "ktrace.lib",
+    "fbe_ktrace.lib",
+    "fbe_trace.lib",
+    "fbe_base_service.lib",
+    "fbe_service_manager.lib",
+    "fbe_api_common_kernel.lib",
+    "fbe_dest.lib",
+    "fbe_neit_package.lib",
+    "fbe_lib_kernel.lib",
+    "fbe_api_object_map_interface.lib",
+    "fbe_drive_configuration.lib",
+    "fbe_memory.lib",
+    "fbe_memory_kernel.lib",
+    "fbe_event_log.lib",
+    "fbe_event_log_kernel.lib",
+    "fbe_event_log_utils.lib",    
+    "fbe_api_common.lib",
+    "fbe_transport_trace.lib",
+];
+
+$sources{SOURCES} = [
+    "neit_package_main.c",
+];
+
+$sources{CUSTOM_DEFS} = [
+    "/DTRC_GEN_CONTROL",
+];
+

@@ -1,0 +1,15 @@
+$sources{TARGETNAME} = "fbe_raid_mirror_library_test";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+
+$sources{SOURCES} = [
+    "fbe_mirror_test.c",
+    "fbe_mirror_test_generate.c",
+    "fbe_mirror_test_read.c",
+    "fbe_mirror_test_write.c",
+];

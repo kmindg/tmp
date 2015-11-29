@@ -1,0 +1,19 @@
+$sources{TARGETNAME} = "fbe_metadata";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{SOURCES} = [
+    "fbe_metadata_main.c",
+    "fbe_metadata_stripe_lock.c",
+    "fbe_metadata_nonpaged.c",
+    "fbe_metadata_cmi.c",
+    "fbe_metadata_paged.c",
+    "fbe_metadata_cancel_thread.c",
+    "fbe_metadata_ext_pool_lock.c",
+];

@@ -1,0 +1,25 @@
+$sources{TARGETNAME} = "fbe_extent_pool_debug";
+$sources{TARGETTYPE} = "CSX_DEBUG_EXTENSION_LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user32",
+    "user",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+
+$sources{INCLUDES} = [
+    "$sources{SRCDIR}\\..",
+    "$sources{SRCDIR}\\disk\\interface\\fbe",
+    "$sources{SRCDIR}\\..\\..\\base_object",
+    "$sources{SRCDIR}\\..\\..\\base_config",
+    "$sources{SRCDIR}\\..\\..\\raid_group\\interface",
+    "$sources{SRCDIR}\\..\\..\\mirror\\interface",
+];
+
+$sources{SOURCES} = [
+    "fbe_extent_pool_debug.c",
+];
+
+$sources{TARGETLIBS} = [
+];

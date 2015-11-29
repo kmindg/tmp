@@ -1,0 +1,14 @@
+$sources{TARGETNAME} = "fbe_packet_serialize_user";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{SOURCES} = [
+    "fbe_packet_serialize_user.c",
+];
+
+

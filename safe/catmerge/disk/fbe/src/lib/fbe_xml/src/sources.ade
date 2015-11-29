@@ -1,0 +1,14 @@
+$sources{TARGETNAME} = "fbe_xml";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+];
+$sources{UMTYPE} = "console";
+$sources{SOURCES} = [
+    "fbe_xml_field.c",
+    "fbe_xml_process.c",
+    "fbe_ctype.c",
+];

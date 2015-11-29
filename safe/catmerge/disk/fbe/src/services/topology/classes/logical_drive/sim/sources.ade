@@ -1,0 +1,13 @@
+$sources{TARGETNAME} = "fbe_logical_drive_sim";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{SOURCES} = [
+    "fbe_logical_drive_sim.c",
+];
+

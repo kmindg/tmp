@@ -1,0 +1,40 @@
+$sources{TARGETNAME} = "fbe_classes_debug";
+$sources{TARGETTYPE} = "CSX_DEBUG_EXTENSION_LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user32",
+    "user",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+
+$sources{INCLUDES} = [
+    "$sources{MASTERDIR}\\disk\\interface\\fbe",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\lib\\enclosure_data_access",
+    "$sources{SRCDIR}\\..\\base_discovered",
+    "$sources{SRCDIR}\\..\\base_discovering",
+    "$sources{SRCDIR}\\..\\base_board\\interface",
+    "$sources{SRCDIR}\\..\\fleet_board",
+    "$sources{SRCDIR}\\..\\magnum_board",
+    "$sources{SRCDIR}\\..\\armada_board",
+    "$sources{SRCDIR}\\..\\base_port",
+    "$sources{SRCDIR}\\..\\sas_port",
+    "$sources{SRCDIR}\\..\\sas_pmc_port",
+    "$sources{SRCDIR}\\..\\base_enclosure",
+    "$sources{SRCDIR}\\..\\sas_enclosure",
+    "$sources{SRCDIR}\\..\\enclosures\\eses_enclosure",
+    "$sources{SRCDIR}\\..\\enclosures\\sas_bullet_enclosure",
+    "$sources{SRCDIR}\\..\\enclosures\\sas_viper_enclosure",    
+    "$sources{SRCDIR}\\..\\enclosures\\sas_ancho_enclosure",
+    "$sources{SRCDIR}\\..\\base_physical_drive",
+    "$sources{SRCDIR}\\..\\sas_physical_drive",
+    "$sources{SRCDIR}\\..\\sata_physical_drive",
+    "$sources{SRCDIR}\\..\\logical_drive\\interface",
+    "$sources{SRCDIR}\\..\\virtual_drive\\interface",
+    "$sources{SRCDIR}\\..\\provision_drive\\interface",
+];
+
+$sources{SOURCES} = [
+    "classes_debug.c",
+];
+

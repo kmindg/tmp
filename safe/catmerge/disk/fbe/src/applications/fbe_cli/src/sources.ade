@@ -1,0 +1,95 @@
+$sources{TARGETNAME} = "fbe_cli_lib";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{CALLING_CONVENTION} = "stdcall";
+$sources{INCLUDES} = [
+    "$sources{MASTERDIR}\\disk\\fbe\\interface",
+    "$sources{MASTERDIR}\\disk\\interface\\fbe",
+    "$sources{MASTERDIR}\\Security\\KeyManager\\interface",
+];
+           
+$sources{SOURCES} = [
+    "fbe_cli_lib_enclosure_cmds.c",
+    "fbe_cli_lib_virtual_drive_cmds.c",
+    "fbe_cli_lib_lurg_cmds.c",
+    "fbe_cli_lib_rdgen_service_cmds.c",
+    "fbe_cli_lib_base_object_cmds.c",
+    "fbe_cli_lib_main.c",
+    "fbe_cli_lib_list.c",
+    "fbe_cli_lib_object_classes.c",
+    "fbe_cli_lib_utils.c",
+    "fbe_cli_lib_prompt.c",
+    "fbe_cli_lib_trace.c",
+    "fbe_cli_lib_physical_drive_cmds.c",
+    "fbe_cli_lib_neit.c",    
+    "fbe_cli_lib_rdt_cmds.c",
+    "fbe_cli_lib_rderr_cmds.c",
+    "fbe_cli_lib_rginfo_cmds.c",
+    "fbe_cli_lib_sps_object_cmds.c",
+    "fbe_cli_lib_sector_trace_info_cmds.c",
+    "fbe_cli_lib_bvd.c",
+    "fbe_cli_lib_board_cmds.c",
+    "fbe_cli_lib_scheduler_cmds.c",
+    "fbe_cli_lib_firmware_cmds.c",
+    "fbe_cli_lib_event_log_cmds.c",
+    "fbe_cli_lib_cmi_cmds.c",
+    "fbe_cli_lib_collectall_cmd.c",
+    "fbe_cli_lib_services_cmds.c",
+    "fbe_cli_lib_persist_cmd.c",
+    "fbe_cli_lib_trace_limits.c",
+    "fbe_cli_lib_provision_drive_cmds.c",
+    "fbe_cli_lib_panic_sp.c",
+    "fbe_cli_lib_module_mgmt_cmds.c",
+    "fbe_cli_lib_energy_stats_cmds.c",
+    "fbe_cli_lib_disk_info_cmd.c",
+    "fbe_cli_lib_ps_mgmt_cmds.c",
+    "fbe_cli_lib_enclosure_mgmt_cmds.c",
+    "fbe_cli_lib_drive_mgmt_cmds.c",
+    "fbe_cli_lib_green_cmds.c",
+    "fbe_cli_lib_ddt_cmds.c",
+    "fbe_cli_lib_dps_stats_cmds.c",
+    "fbe_cli_lib_luninfo_cmds.c",
+    "fbe_cli_lib_cooling_mgmt_cmds.c",
+    "fbe_cli_lib_odt.c",
+    "fbe_cli_lib_database.c",
+    "fbe_cli_lib_sfp_info_cmds.c",
+    "fbe_cli_lib_get_wwn_cmds.c",
+    "fbe_cli_lib_resume_prom_cmds.c",
+    "fbe_cli_lib_sp_cmds.c",
+    "fbe_cli_lib_sepls_cmd.c",
+    "fbe_cli_lib_bus_cmd.c",
+    "fbe_cli_lib_drive_config_cmds.c",
+    "fbe_cli_lib_dest.c",
+    "fbe_cli_lib_dest_xml.c",
+    "fbe_cli_lib_expat.c",
+    "fbe_cli_lib_metadata_cmds.c",
+    "fbe_cli_lib_copy_cmds.c",
+    "fbe_cli_lib_perf_stats_cmds.c",
+    "fbe_cli_lib_wldt_cmds.c",
+    "fbe_cli_lib_system_backup_restore_cmds.c",
+    "fbe_cli_lib_signature_cmds.c",
+    "fbe_cli_lib_board_mgmt_cmds.c",
+    "fbe_cli_lib_npinfo_cmds.c",
+    "fbe_cli_lib_paged_utils.c",
+    "fbe_cli_lib_get_faults_cmds.c",
+    "fbe_cli_lib_mminfo_cmds.c",
+    "fbe_cli_field_utils.c",
+    "fbe_cli_lib_encryption_cmds.c",
+    "fbe_cli_lib_emeh_cmds.c",
+    "fbe_cli_lib_ext_pool_cmds.c",
+    "fbe_cli_lib_wisd_cmds.c",
+    "fbe_cli_lib_replace_chassis_cmds.c",
+];
+$sources{CUSTOM_DEFS} = ["/DI_AM_NATIVE_CODE"];
+$sources{TARGETLIBS} = [
+	"EmcUTIL.lib",
+];
+cond_add(defined($sources{SAFE_C4_INTEGRATED_BUILD}), \@{$sources{SOURCES}}, 'fbe_cli_becheck.c'); # C4_INTEGRATED
+cond_add(defined($sources{SAFE_C4_INTEGRATED_BUILD}), \@{$sources{SOURCES}}, 'fbe_cli_lib_c4_mirror.c'); # C4_INTEGRATED
+

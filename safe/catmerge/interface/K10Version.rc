@@ -1,0 +1,70 @@
+// Custom version - can define our own strings
+//Copyright (c) 1999 - 2000 by EMC Corp
+//Module Name: 	K10Version.RC
+//Abstract: 	This file contains the standard version data for K10 binaries
+//Author: 		Harvey Weiner
+
+#include "K10VersionExport.h"
+
+#ifdef RC_INVOKED
+
+#if DBG
+# define VER_DBG VS_FF_DEBUG
+#else
+#define VER_DBG 1
+#endif
+
+#ifdef K10_DRIVER
+# define K10_FILETYPE		VFT_DRV
+# define K10_FILESUBTYPE	VFT2_DRV_SYSTEM
+#elif defined K10_DLL
+# define K10_FILETYPE		VFT_DLL
+# define K10_FILESUBTYPE	0
+#elif defined K10_DLL_WITHCOM
+# define K10_FILETYPE		VFT_DLL
+# define K10_FILESUBTYPE	0
+#else
+# define K10_FILETYPE		VFT_APP
+# define K10_FILESUBTYPE	0
+#endif
+
+// FILEVERSION & PRODUCTVERSION should agree with their string
+// equivalents below.  The OS DOES NOT enforce this.
+
+VS_VERSION_INFO	VERSIONINFO
+	FILEVERSION 1,2,0,0 
+	PRODUCTVERSION K10_BUILD_TYPE,K10_BUILD_MAJOR,K10_BUILD_MINOR,00
+	FILEFLAGSMASK	VS_FFI_FILEFLAGSMASK 
+	FILEFLAGS	VER_DBG 
+	FILEOS	 	VOS_NT 
+	FILETYPE	K10_FILETYPE
+	FILESUBTYPE	K10_FILESUBTYPE
+BEGIN
+	BLOCK "StringFileInfo"
+	BEGIN
+		BLOCK	"040904B0"
+		BEGIN
+			VALUE "InternalName",	THIS_PROGRAM
+			VALUE "OriginalFileName",	THIS_PROGRAM
+			VALUE "FileDescription", THIS_DESCRIPTION
+			VALUE "FileVersion", "1.2" 
+			VALUE "ProductVersion", K10_BUILD_STRING 
+			VALUE "ProductName", "K10" 
+			VALUE "CompanyName", "EMC"
+			VALUE "LegalCopyright",	"Copyright(c) 2000 by EMC"
+#ifdef	K10_DLL_WITHCOM
+			VALUE "OLESelfRegister", "\0"
+#endif
+		END
+	END
+
+	BLOCK "VarFileInfo"
+	BEGIN
+		VALUE "Translation",	0x0409, 0x04B0
+	END
+END
+
+ 
+#endif
+
+

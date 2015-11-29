@@ -1,0 +1,4 @@
+$sources{SUBDIRS} = [
+    "neit_dll",
+    "fbe_api_neit_interface_test",
+];

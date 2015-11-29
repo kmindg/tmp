@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE testbedinfo>
+
+<testbedinfo doc_type="testbed">
+
+    <hosts>
+        <host id="1">
+            <communication ipv4_address="10.244.4.135" username="c4dev" password="c4dev!"/>
+        </host>
+    </hosts>
+
+    <unified_devices>
+        <unified id="1">
+            <communication ipv4_address="10.245.80.137" username="root" password="c4proto!"/>
+            <sp name="A">
+                <communication ipv4_address="10.245.80.137" ipv6_address ="" username="root" password="c4proto!" type="ssh"/>
+            </sp>
+            <sp name="B">
+                <communication ipv4_address="10.245.80.138" ipv6_address ="" username="root" password="c4proto!" type="ssh"/>
+            </sp>
+            <management>
+                <host id="1"/>
+                <tools>
+                    <tool type="uemcli" ip_address="10.245.80.141" priority="1" username="admin" password="Password123!" service_password="Password123!" unified = "1"/>
+                </tools>
+            </management>
+            <hosts>
+                <host id="1"/>
+            </hosts>            
+        </unified>
+    </unified_devices>
+
+</testbedinfo>

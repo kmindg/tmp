@@ -1,0 +1,34 @@
+<testbedinfo doc_type="testbed" version="2.2">
+  <block_devices>
+    <block id="10.245.191.98">
+      <hosts>
+        <host id="10.245.191.97" />
+      </hosts>
+      <sp name="A">
+        <communication ipv4_address="10.245.191.98" password="clariion1992" username="clariion1992" />
+        <management>
+          <tools>
+            <tool host="10.245.191.97" ip_address="10.245.191.98" password="admin" type="navisphere" username="admin" />
+          </tools>
+        </management>
+      </sp>
+      <sp name="B">
+        <communication ipv4_address="10.245.191.99" password="clariion1992" username="clariion1992" />
+        <management>
+          <tools>
+            <tool host="10.245.191.97" ip_address="10.245.191.99" password="admin" type="navisphere" username="admin" />
+          </tools>
+        </management>
+      </sp>
+    </block>
+  </block_devices>
+  <hosts>
+    <host id="10.245.191.97">
+      <communication ipv4_address="10.245.191.97" password="clariion!" username="Administrator" />
+    </host>
+  </hosts>
+  <identities>
+    <identity name="ax_metadata_id" value="6219" />
+    <identity name="ax_id" value="7612" />
+  </identities>
+</testbedinfo>

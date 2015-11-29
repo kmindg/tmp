@@ -1,0 +1,17 @@
+$sources{TARGETNAME} = "fbe_event_log_utils";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{SOURCES} = [
+     "fbe_event_log_utils.c",
+     "fbe_event_log_esp_msgs.c",
+     "fbe_event_log_physical_package_msgs.c",
+     "fbe_event_log_sep_msgs.c",
+];
+

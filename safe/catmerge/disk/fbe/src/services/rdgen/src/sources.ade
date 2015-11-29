@@ -1,0 +1,44 @@
+$sources{TARGETNAME} = "fbe_rdgen";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+
+$sources{TARGETLIBS} = [
+    "fbe_data_pattern.lib",
+    "fbe_logical_drive_library.lib",
+];
+
+$sources{INCLUDES} = [
+    "$sources{SRCDIR}\\..\\..\\memory\\interface",
+];
+
+$sources{SOURCES} = [
+    "fbe_rdgen_main.c",
+    "fbe_rdgen_object.c",
+    "fbe_rdgen_request.c",
+    "fbe_rdgen_read.c",
+    "fbe_rdgen_write.c",
+    "fbe_rdgen_verify.c",
+    "fbe_rdgen_zero.c",
+    "fbe_rdgen_read_only.c",
+    "fbe_rdgen_read_buffer.c",
+    "fbe_rdgen_write_only.c",
+    "fbe_rdgen_verify_only.c",
+    "fbe_rdgen_write_read_compare.c",
+    "fbe_rdgen_read_compare.c",
+    "fbe_rdgen_thread.c",
+    "fbe_rdgen_sg.c",
+    "fbe_rdgen_ts.c",
+    "fbe_rdgen_cmi.c",
+    "fbe_rdgen_peer.c",
+    "fbe_rdgen_memory.c",
+    "fbe_rdgen_cmi_perf.c",
+    "fbe_rdgen_dca_rw.c",
+    "fbe_rdgen_playback.c",
+];

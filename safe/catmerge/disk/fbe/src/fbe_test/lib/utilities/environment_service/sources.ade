@@ -1,0 +1,19 @@
+$sources{TARGETNAME} = "fbe_test_esp_utils";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+
+$sources{TARGETLIBS} = [
+    "fbe_base_environment.lib",
+    "fbe_registry_sim.lib",
+    "fbe_api_physical_package_interface.lib",
+];
+
+$sources{SOURCES} = [
+    "fbe_test_esp_utils.c",
+	"fbe_test_esp_fup_manifest.c",
+];
+

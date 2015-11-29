@@ -1,0 +1,18 @@
+$sources{TARGETNAME} = "fbe_lib_user";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{SYSTEMLIBS} = [
+];
+$sources{TARGETLIBS} = [
+    "fbe_panic_sp_user.lib",
+];
+$sources{SOURCES} = [
+    "fbe_random_user_main.c",
+    "fbe_time_user_main.c",
+];

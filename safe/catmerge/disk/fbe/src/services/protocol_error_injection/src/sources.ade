@@ -1,0 +1,14 @@
+$sources{TARGETNAME} = "fbe_protocol_error_injection";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{SOURCES} = [
+    "fbe_protocol_error_injection_main.c",
+    "fbe_protocol_error_injection_package_control.c",
+];

@@ -1,0 +1,9 @@
+$sources{SUBDIRS} = [
+];
+
+#if ($sources{SAFEBUILD} eq "y") {
+#	push(@{$sources{SUBDIRS}},"mut_rev2");
+#}
+#else{
+	push(@{$sources{SUBDIRS}},"mut_rev1");
+#}

@@ -1,0 +1,27 @@
+body {
+    margin: 10pt 20pt 10pt 20pt;
+    text-align: left;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 11pt;
+    font-weight: normal;
+}
+
+h1, h2, h3, h4 {
+    color: #0000cc;
+    text-align: left;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-weight: normal;
+}
+h1 { font-size: 18pt; }
+h2 { font-size: 16pt; }
+h3 { font-size: 14pt; }
+h4 { font-size: 12pt; }
+
+a { text-decoration: none; }
+a:link { color: #f0c; }
+a:visited { color: #93c; }
+a:hover { text-decoration: underline; }
+
+img {
+    border: 2pt blue solid;
+}

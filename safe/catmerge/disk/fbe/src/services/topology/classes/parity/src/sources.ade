@@ -1,0 +1,26 @@
+$sources{TARGETNAME} = "fbe_parity";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{INCLUDES} = [
+    "$sources{SRCDIR}\\..\\..\\base_object",
+    "$sources{SRCDIR}\\..\\..\\base_config",
+    "$sources{SRCDIR}\\..\\..\\raid_group\\interface",
+];
+$sources{SOURCES} = [
+    "fbe_parity_main.c",
+    "fbe_parity_event.c",
+    "fbe_parity_executor.c",
+    "fbe_parity_usurper.c",
+    "fbe_parity_monitor.c",
+    "fbe_parity_needs_rebuild.c",
+    "fbe_parity_class.c",
+];
+	
+

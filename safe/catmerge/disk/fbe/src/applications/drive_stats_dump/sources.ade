@@ -1,0 +1,16 @@
+$sources{TARGETNAME} = "fbe_drive_stats_dump";
+$sources{TARGETTYPE} = "PROGRAM";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{SOURCES} = [
+    "drive_stats_dump.cpp",
+];
+
+$sources{COPY_FILES} = [
+    "fbe_concat_drive_stats.pl",
+];
+$sources{CUSTOM_DEFS} = ["/DI_AM_NONNATIVE_CODE"];

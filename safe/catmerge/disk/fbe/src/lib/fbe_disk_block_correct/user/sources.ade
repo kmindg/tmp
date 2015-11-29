@@ -1,0 +1,12 @@
+$sources{TARGETNAME} = "fbe_disk_block_correct_user";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+    "simulation",
+];
+
+$sources{UMTYPE} = "console";
+$sources{SOURCES} = [
+    "fbe_disk_block_correct_user.c",
+];

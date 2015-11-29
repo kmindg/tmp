@@ -1,0 +1,7 @@
+$sources{SUBDIRS} = [
+    "ppfdDriver",
+    "dbgext",
+];
+	
+	
+

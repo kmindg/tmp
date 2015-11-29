@@ -1,0 +1,29 @@
+$sources{TARGETNAME} = "fbe_api_terminator_interface";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+    "kernel",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{SOURCES} = [
+    "fbe_api_terminator_main.c",
+    "fbe_api_terminator_board.c",
+    "fbe_api_terminator_port.c",
+    "fbe_api_terminator_enclosure.c",
+    "fbe_api_terminator_drive.c",
+    "fbe_api_terminator_device.c",
+    "fbe_api_terminator_persistent_memory.c",
+];
+
+
+
+
+
+
+
+
+
+

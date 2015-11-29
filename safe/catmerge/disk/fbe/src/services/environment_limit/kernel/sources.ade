@@ -1,0 +1,21 @@
+$sources{TARGETNAME} = "fbe_environment_limit_kernel";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+];
+$sources{UMTYPE} = "console";
+
+$sources{TARGETLIBS} = [
+    "K10EVENTLOGLIB.lib",
+];
+
+$sources{SOURCES} = [
+    "fbe_environment_limit_kernel_main.c",
+];
+
+$sources{TARGETLIBS} = [
+    "core_config_runtime.lib",
+    "spid.lib",
+    "EmcUTIL.lib"
+];

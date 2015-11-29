@@ -1,0 +1,20 @@
+$sources{TARGETNAME} = "fbe_pmc_shim_kernel_debug";
+$sources{TARGETTYPE} = "CSX_DEBUG_EXTENSION_LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{SOURCES} = [
+    "fbe_pmc_shim_kernel_debug.c",
+];
+
+$sources{INCLUDES} = [
+    "$sources{MASTERDIR}\\disk\\interface\\fbe",
+    "$sources{SRCDIR}\\..",
+    "$sources{SRCDIR}\\..\\..\\interface",
+];
+
+

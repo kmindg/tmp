@@ -1,0 +1,19 @@
+$sources{TARGETNAME} = "fbe_base_board_user";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{INCLUDES} = [
+    "$sources{SRCDIR}\\..\\interface",
+    "$sources{SRCDIR}\\..\\..\\base_discovering",
+    "$sources{SRCDIR}\\..\\..\\base_discovered",
+];
+$sources{SOURCES} = [
+    "fbe_base_board_user_main.c",
+];
+
+

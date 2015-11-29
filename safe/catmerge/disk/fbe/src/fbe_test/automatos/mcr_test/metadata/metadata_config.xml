@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<opt doc_type="MAIN_CFG" version="1"> 
+   <central_base_log_path>c:\logs\</central_base_log_path>
+   <local_base_log_path>c:\logs\</local_base_log_path>
+   <test_server>localhost</test_server>
+   <test_set_file>d:\views\wkspace\dev5\safe\catmerge\disk\fbe\src\fbe_test\automatos\mcr_test\promotion\user_copy\user_copy_test_set.xml</test_set_file>
+   <test_bed_file>d:\views\wkspace\dev5\safe\catmerge\disk\fbe\src\fbe_test\automatos\mcr_test\promotion\testbed_st327.xml</test_bed_file>
+   <tms> <ip>localhost</ip></tms>
+   
+   <test_instance_id>124</test_instance_id>
+   <execution_parameters>
+     <parameter name="STOP_ON_ERROR" value="1"></parameter>
+     <parameter name="LOGGING_LEVEL" value="INFO"></parameter>
+   </execution_parameters>
+   
+</opt>

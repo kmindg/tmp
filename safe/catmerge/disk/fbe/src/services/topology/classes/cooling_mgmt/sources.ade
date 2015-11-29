@@ -1,0 +1,24 @@
+$sources{TARGETNAME} = "fbe_cooling_mgmt";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{INCLUDES} = [
+    "$sources{SRCDIR}\\..\\base_environment",
+];
+$sources{SOURCES} = [
+    "fbe_cooling_mgmt_main.c",
+    "fbe_cooling_mgmt_monitor.c",
+    "fbe_cooling_mgmt_usurper.c",
+    "fbe_cooling_mgmt_resume_prom.c",
+    "fbe_cooling_mgmt_fup.c",
+    "fbe_cooling_mgmt_util.c"
+];
+$sources{SUBDIRS} = [
+    "debug",
+];

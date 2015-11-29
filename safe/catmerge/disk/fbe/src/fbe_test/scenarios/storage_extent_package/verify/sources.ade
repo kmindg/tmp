@@ -1,0 +1,21 @@
+$sources{TARGETNAME} = "fbe_test_scenarios_sep_verify";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+
+$sources{SOURCES} = [
+    "clifford_test.c",
+    "clifford_dualsp_test.c",
+    "cleo_test.c",
+    "hamburger_test.c",
+    "t_bone_test.c",
+    "ugly_duckling_test.c",
+    "frodo_baggins_test.c",
+    "bilbo_baggins_test.c",
+    "samwise_gamgee_test.c",
+    "doctor_girlfriend_test.c",
+];
+

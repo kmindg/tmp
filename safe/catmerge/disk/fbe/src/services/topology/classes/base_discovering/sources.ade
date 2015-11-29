@@ -1,0 +1,19 @@
+$sources{TARGETNAME} = "fbe_base_discovering";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{INCLUDES} = [
+    "$sources{SRCDIR}\\..\\base_discovered",
+];
+$sources{SOURCES} = [
+    "fbe_base_discovering_main.c",
+    "fbe_base_discovering_monitor.c",
+    "fbe_base_discovering_usurper.c",
+    "fbe_base_discovering_executer.c",
+];

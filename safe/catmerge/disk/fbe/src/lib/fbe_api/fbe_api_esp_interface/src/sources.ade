@@ -1,0 +1,30 @@
+$sources{TARGETNAME} = "fbe_api_esp_interface";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+    "kernel",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{SOURCES} = [
+    "fbe_api_esp_sps_mgmt_interface.c",
+    "fbe_api_esp_encl_mgmt_interface.c",
+    "fbe_api_esp_drive_mgmt_interface.c",
+    "fbe_api_esp_module_mgmt_interface.c",
+    "fbe_api_esp_ps_mgmt_interface.c",
+    "fbe_api_esp_eir_interface.c",
+    "fbe_api_esp_common_interface.c",
+    "fbe_api_esp_board_mgmt_interface.c",
+    "fbe_api_esp_cooling_mgmt_interface.c",
+];
+	
+
+
+
+
+
+
+
+

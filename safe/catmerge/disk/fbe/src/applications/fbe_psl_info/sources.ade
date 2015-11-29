@@ -1,0 +1,23 @@
+$sources{TARGETNAME} = "fbe_psl_info";
+$sources{TARGETTYPE} = "EMCUTIL_PROGRAM";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{CALLING_CONVENTION} = "stdcall";
+$sources{SYSTEMLIBS} = [];
+
+$sources{TARGETLIBS} = [
+    "fbe_private_space_layout.lib"
+];
+
+$sources{COPY_FILES} = [
+    "fbe_psl_validate.pl",
+    "fbe_psl_show.pl",
+];
+$sources{SOURCES} = [
+    "fbe_psl_info_main.c",
+];
+ 

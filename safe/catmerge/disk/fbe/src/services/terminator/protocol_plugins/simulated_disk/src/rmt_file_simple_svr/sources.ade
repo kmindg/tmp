@@ -1,0 +1,18 @@
+$sources{TARGETNAME} = "rmt_file_simple_svr";
+$sources{TARGETTYPE} = "EMCUTIL_PROGRAM";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+];
+
+$sources{UMTYPE} = "console";
+$sources{CALLING_CONVENTION} = "stdcall";
+$sources{SYSTEMLIBS} = [
+    "ws2_32.lib",
+];
+$sources{TARGETLIBS} = [
+    "EmcUTIL.lib",
+];
+$sources{SOURCES} = [
+    "rmt_file_simple_svr_main.c",
+];

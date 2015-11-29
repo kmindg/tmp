@@ -1,0 +1,16 @@
+$sources{TARGETNAME} = "terminator_miniport_sas_plugin";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{TARGETLIBS} = [
+
+];
+$sources{SOURCES} = [
+    "fbe_terminator_miniport_sas_device_table.c",
+];

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<opt doc_type="TC_CFG" version="1">
+   <test_set name="MCR Disk Zeroing">
+        <general_test_case_parameters>
+            <param name="driveState" value="unused"></param> 
+            <param name="isVaultDrive" value="0"></param>
+            <param name="timeBetweenZeroingStatusChecks" value="60"></param>
+            <param name="is_zeroed" value="undef"></param>
+ 		    <!--parameter name="BuildXml_id" value="05.331.000.1.023" override="1" type="text" / -->
+        </general_test_case_parameters>
+
+	<identities>
+  		<identity name="utms_domain" value="USD" /> 
+  		<identity name="utms_project" value="ROCKIES" /> 
+  		<identity name="utms_team_name" value="Platform EFT" /> 
+  		<identity name="utms_cycle_id" value="114018" /> 
+  		<identity name="utms_user_email" value="socheavy.heng@emc.com" /> 
+  		<identity name="utms_address" value="utmswebserver01:8082" /> 
+  	</identities>
+
+		
+<!-- ENABLE HOOK FOR COLLECT TRACES IN FAILURE CASE -->
+
+	<hooks>
+	    <hook>
+            <location>Automatos::Hook::Triage::Vnx::Rdgen</location>
+        </hook>
+		<hook>
+			<location>Automatos::Hook::Triage::Vnx::SpCollect</location>
+		</hook>
+		<hook>
+			<location>Automatos::Hook::Triage::Vnx::Ktrace</location>
+				<parameters>
+					<parameter name="log_scope" value="test_case"></parameter>
+					<parameter name="clean_old_logs" value="1"></parameter>
+					<parameter name="only_transfer_on_failure" value="1"></parameter>
+				</parameters>
+		</hook>      
+	</hooks>
+
+<!-- BACKGROUND ZEROING TEST CASES -->
+<!-- Comment: LUN is bound to a Raid Group in which all drives are already zeroed, check zeroing on each drive --> 
+        <test_case name="MCR Zeroing">
+             <location>mcr_test::zeroing::zeroing</location>
+             <order>10</order>
+             <parameters>
+                <param name="clean_config" value="1"></param>
+                <param name="test_level" value="1"></param>
+             </parameters>
+             <identities>
+                <identity name="ax_id" value="969375" /> 
+             </identities>
+        </test_case>
+    </test_set>
+</opt>

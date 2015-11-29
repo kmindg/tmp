@@ -1,0 +1,11 @@
+$sources{TARGETNAME} = "fbe_rdgen_test_library";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{SOURCES} = [
+    "fbe_rdgen_unit_test.c",
+];

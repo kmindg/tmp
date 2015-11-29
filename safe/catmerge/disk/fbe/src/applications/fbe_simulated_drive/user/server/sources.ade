@@ -1,0 +1,31 @@
+$sources{TARGETNAME} = "fbe_simulated_drive_user_server";
+$sources{TARGETTYPE} = "EMCUTIL_PROGRAM";
+$sources{PAL_REQUIRED} = 1;
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{CALLING_CONVENTION} = "stdcall";
+$sources{SYSTEMLIBS} = [
+    "ws2_32.lib",
+];
+$sources{TARGETLIBS} = [
+    "EmcUTIL.lib",
+    "ktrace.lib",
+    "fbe_ktrace.lib",
+    "terminator_simulated_disk.lib",
+    "fbe_ddk.lib",
+];
+
+$sources{SOURCES} = [
+    "fbe_sim_drive_server.c",
+];
+
+$sources{INCLUDES} = [
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\terminator\\interface",
+];
+
+$sources{CUSTOM_DEFS} = ["/DI_AM_NATIVE_CODE"];

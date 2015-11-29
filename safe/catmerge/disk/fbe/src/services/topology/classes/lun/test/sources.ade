@@ -1,0 +1,28 @@
+$sources{TARGETNAME} = "fbe_lun_unit_test";
+$sources{TARGETTYPE} = "EMCUTIL_PROGRAM";
+$sources{MUT_TEST} = 1;
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{CALLING_CONVENTION} = "stdcall";
+$sources{SYSTEMLIBS} = [
+    "winmm.lib",
+    "ws2_32.lib",
+];
+
+$sources{TARGETLIBS} = [
+    "fbe_lib_user.lib",
+    "fbe_lun.lib",
+];
+
+$sources{INCLUDES} = [
+    "$sources{SRCDIR}\\..\\..\\base_object",
+    "$sources{SRCDIR}\\..\\..\\base_config",
+];
+
+$sources{SOURCES} = [
+    "fbe_lun_test_main.c",
+    "fbe_lun_class_tests.c",
+];

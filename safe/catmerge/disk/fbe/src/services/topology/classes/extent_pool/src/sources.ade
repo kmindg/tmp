@@ -1,0 +1,26 @@
+$sources{TARGETNAME} = "fbe_extent_pool";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{INCLUDES} = [
+    "$sources{SRCDIR}\\..\\..\\base_object",
+    "$sources{SRCDIR}\\..\\..\\base_config",
+    "$sources{SRCDIR}\\..\\..\\raid_group\\interface",
+    "$sources{SRCDIR}\\..\\..\\..\\..\\..\\lib\\fbe_raid\\interface",
+];
+
+$sources{SOURCES} = [
+    "fbe_extent_pool_main.c",
+    "fbe_extent_pool_monitor.c",
+    "fbe_extent_pool_usurper.c",
+    "fbe_extent_pool_executor.c",
+    "fbe_extent_pool_event.c",
+    "fbe_extent_pool_class.c",
+    "fbe_extent_pool_map_table.c",
+];

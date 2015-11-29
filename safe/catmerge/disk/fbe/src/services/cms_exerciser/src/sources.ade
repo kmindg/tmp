@@ -1,0 +1,17 @@
+$sources{TARGETNAME} = "fbe_cms_exerciser";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+
+$sources{SOURCES} = [
+    "fbe_cms_exerciser_main.c",
+    "fbe_cms_exerciser_common.c",
+    "fbe_cms_exerciser_interface_test.c",
+];
+

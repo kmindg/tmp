@@ -1,0 +1,21 @@
+$sources{TARGETMODES} = ['simulation'];
+
+$sources{SUBDIRS} = [
+    "src",
+    "lib",
+    "scenarios",
+    "fbe_sim",
+    "fbe_sp_sim",
+    "fbe_sp_server",
+    "fbe_hw_test",
+    "fbe_test_sim_main",
+    "fbe_test_sim_main_extended",
+    "../packages",
+];
+
+$sources{COPY_FILES} = [
+    "$sources{SRCDIR}\\test_run_script\\fbe_test.py",
+    "$sources{SRCDIR}\\test_run_script\\fbe_test_envsetup.sh",
+	"$sources{SRCDIR}\\test_run_script\\fbe_test_jit_debugger.sh",
+	"$sources{SRCDIR}\\test_run_script\\JIT_DEBUGGER",
+];

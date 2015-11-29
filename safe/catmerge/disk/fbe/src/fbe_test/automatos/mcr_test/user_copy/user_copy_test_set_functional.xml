@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<opt doc_type="TC_CFG" version="1">
+   <test_set name="MCR User Copy">
+        <general_test_case_parameters>
+            <param name="driveState" value="unused"></param> 
+            <param name="isVaultDrive" value="0"></param>
+            <param name="timeBetweenZeroingStatusChecks" value="60"></param>
+            <param name="is_zeroed" value="undef"></param>
+ 		    <!--parameter name="BuildXml_id" value="05.331.000.1.023" override="1" type="text" / -->
+        </general_test_case_parameters>
+
+	<identities>
+  		<identity name="utms_domain" value="USD" /> 
+  		<identity name="utms_project" value="ROCKIES" /> 
+  		<identity name="utms_team_name" value="Platform EFT" /> 
+  		<identity name="utms_cycle_id" value="114015" /> 
+  		<identity name="utms_user_email" value="robert.foley@emc.com" /> 
+  		<identity name="utms_address" value="utmswebserver01:8082" /> 
+  	</identities>
+
+		
+<!-- ENABLE HOOK FOR COLLECT TRACES IN FAILURE CASE -->
+
+	<hooks>
+	    <hook>
+            <location>Automatos::Hook::Triage::Vnx::Rdgen</location>
+        </hook>
+		<hook>
+			<location>Automatos::Hook::Triage::Vnx::SpCollect</location>
+		</hook>
+		<hook>
+			<location>Automatos::Hook::Triage::Vnx::Ktrace</location>
+				<parameters>
+					<parameter name="log_scope" value="test_case"></parameter>
+					<parameter name="clean_old_logs" value="1"></parameter>
+					<parameter name="only_transfer_on_failure" value="1"></parameter>
+				</parameters>
+		</hook>      
+	</hooks>
+
+<!--User Copy TEST CASES -->
+        <test_case name="User Copy Test Cases">
+             <location>mcr_test::user_copy::user_copy</location>
+             <order>10</order>
+             <parameters>
+                <param name="test_level" value="1"></param>
+                <param name="disk_count" value="5"></param>
+                <param name="raid_type" value="r5"></param>
+                <param name="clean_config" value="1"></param>
+		        <param name="is_zeroed" value="0"></param>
+             </parameters>
+             <identities>
+                <identity name="ax_id" value="981415" /> 
+             </identities>
+        </test_case>
+        
+
+    
+    </test_set>
+</opt>

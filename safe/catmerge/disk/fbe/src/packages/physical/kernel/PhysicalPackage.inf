@@ -1,0 +1,277 @@
+; =============================================================
+;   EMC - CLARiiON INF File
+;==============================================================
+; Version    : 2.0
+; Copyright  : © 2009
+;
+; Application/Driver:
+;       PhysicalPackage
+;
+; Description:
+;       This INF file setups the appropriate registry entries 
+;       and copies any/all files to the necessary directory
+;
+;
+;   ~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~
+;   ~
+;   ~   To convert INF from a legacy install to a PnP install, perform the follow:
+;   ~    
+;   ~   1. Modify the Install sections
+;   ~       a. For 32-bit drivers, use the 
+;   ~           [DriverInstall] section.
+;   ~       b. For 64-bit drivers, use the 
+;   ~           [DriverInstallXP64.NTamd64] section.
+;   ~
+;   ~       Remove / Comment-out the following three lines:
+;   ~               AddReg=LegacyServiceAddReg
+;   ~               AddReg=CustomAddReg
+;   ~               AddReg=EventLogAddReg
+;   ~
+;   ~   2. Modify the Services sections
+;   ~       a. For 32-bit drivers, use the 
+;   ~           [DriverInstall.Services] section.
+;   ~       b. For 64-bit drivers, use the 
+;   ~           [DriverInstallXP64.NTAMD64.Services] section.
+;   ~
+;   ~       Un-Commentout the following two lines:
+;   ~           ;AddService = smbus,%SPSVCINST_ASSOCSERVICE%, DriverService, DriverServiceEventLog
+;   ~           ;DelService = smbus,0x00000204
+;   ~
+;   ~       Comment-out the following line:
+;   ~           AddService =,%SPSVCINST_ASSOCSERVICE%,
+;   ~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~
+;
+; Author/History:
+; Deepak Maikhuri 	- 08/03/09 - created
+;		             
+;==============================================================
+[Version] 
+Signature = $Windows NT$
+Class=ClariionDevices
+ClassGUID={1E924F54-ACAE-43aa-B85A-7DF706E9615A}
+Provider=%EMC_CLARiiON% 
+CatalogFile= physicalpackage.cat
+DriverVer=09/15/2010,2.0.0.4
+
+[ClassInstall32]
+AddReg=class.AddReg.x86
+
+[class.AddReg.x86]
+HKR,,,,%ClassName%
+HKR,,SilentInstall,,1
+HKR,,Icon,,-9
+
+[Manufacturer] 
+; Lists all the companies with hardware described in the file
+%EMC_CLARiiON%=device_model,NTamd64
+
+;======================
+; Source Files Sections
+;======================
+
+[SourceDisksNames]
+; diskid = disk-description[,[tag-or-cab-file],[unused,path][,flags]]
+1=%DRIVER_LOCATION_ON_DISK%,,,          ; ie: Windows XP CD-ROM
+
+[SourceDisksFiles]
+; filename_on_source = diskID[, [subdir][, size]]
+PhysicalPackage.sys=1
+PhysicalPackage.pdb=1
+
+[DestinationDirs]
+DriverCopyFiles=12
+
+;===============
+; Model Sections
+;===============
+; One Model Section for each individual Manufacturer listed. 
+
+[device_model]
+%DRIVER_INSTALL%=DriverInstall, %COMPATIBLE_ID%
+
+[device_model.NTamd64]
+%DRIVER_INSTALL%=DriverInstallXP64, %COMPATIBLE_ID%
+
+
+; Section for registry settings for this driver
+[DefaultReg]
+AddReg=LegacyServiceAddReg
+AddReg=CustomAddReg
+AddReg=EventLogAddReg
+
+;=================
+; Install Sections
+;=================
+; One install section for each unique Model section
+
+[DriverInstall]
+CopyFiles=DriverCopyFiles
+AddReg=LegacyServiceAddReg
+AddReg=CustomAddReg
+AddReg=EventLogAddReg
+
+[DriverInstallXP64.NTamd64]
+CopyFiles=DriverCopyFiles
+AddReg=LegacyServiceAddReg
+AddReg=CustomAddReg
+AddReg=EventLogAddReg
+
+[DriverCopyFiles]
+; See below for Possible Flags.
+; Format: Destination.Source.Temporary.Flags
+%DRIVER_NAME%,,,COPYFLG_NO_VERSION_DIALOG
+%PDB_NAME%,,,COPYFLG_NO_VERSION_DIALOG
+
+[Uninstall]
+DelReg=CustomDelReg
+DelReg=LegacyServiceDelReg
+DelReg=EventLogDelReg
+DelFiles=DriverCopyFiles
+
+;=======================
+; Registry Modifications
+;=======================
+
+[DriverInstall.Services]
+;AddService = PhysicalPackage,%SPSVCINST_ASSOCSERVICE%, DriverService, DriverServiceEventLog
+;DelService = PhysicalPackage,0x00000204
+AddService =,%SPSVCINST_ASSOCSERVICE%,
+
+[DriverInstallXP64.NTAMD64.Services]
+;AddService = PhysicalPackage,%SPSVCINST_ASSOCSERVICE%, DriverService, DriverServiceEventLog
+;DelService = PhysicalPackage,0x00000204
+AddService =,%SPSVCINST_ASSOCSERVICE%,
+
+[DriverService]
+ServiceType     = %SERVICE_KERNEL_DRIVER%
+StartType       = %SERVICE_BOOT_START%
+ErrorControl    = %SERVICE_ERROR_NORMAL%
+DisplayName     = %DISPLAY_NAME%
+LoadOrderGroup  = %GROUP%
+Dependencies    = +K10Spid, +K10Saspmc
+ServiceBinary   = %12%\%DRIVER_NAME%
+AddReg          = CustomAddReg
+
+[LegacyServiceAddReg]
+HKLM,"SYSTEM\CurrentControlSet\Services\PhysicalPackage",Type,           %FLG_ADDREG_TYPE_DWORD%,    %SERVICE_KERNEL_DRIVER%
+HKLM,"SYSTEM\CurrentControlSet\Services\PhysicalPackage",Start,          %FLG_ADDREG_TYPE_DWORD%,    %SERVICE_BOOT_START%
+HKLM,"SYSTEM\CurrentControlSet\Services\PhysicalPackage",ErrorControl,   %FLG_ADDREG_TYPE_DWORD%,    %SERVICE_ERROR_NORMAL%
+HKLM,"SYSTEM\CurrentControlSet\Services\PhysicalPackage",DisplayName,    %FLG_ADDREG_TYPE_SZ%,       %DISPLAY_NAME%
+HKLM,"SYSTEM\CurrentControlSet\Services\PhysicalPackage",Group,          %FLG_ADDREG_TYPE_SZ%,       %GROUP%
+HKLM,"SYSTEM\CurrentControlSet\Services\PhysicalPackage",Tag,            %FLG_ADDREG_TYPE_DWORD%,    0x1
+HKLM,"SYSTEM\CurrentControlSet\Services\PhysicalPackage",ImagePath,      %FLG_ADDREG_TYPE_SZ%,       %BOOT_DIR%\%DRIVER_NAME%
+HKLM,"SYSTEM\CurrentControlSet\Services\PhysicalPackage",DependOnGroup,  %FLG_ADDREG_TYPE_MULTI_SZ%, "K10Spid","K10Saspmc"
+
+[CustomAddReg]
+HKLM,"SYSTEM\CurrentControlSet\Control\GroupOrderList",%GROUP%,             %FLG_ADDREG_BINVALUETYPE%,  01,00,00,00,01,00,00,00
+
+[LegacyServiceDelReg]
+HKLM,"SYSTEM\CurrentControlSet\Services\PhysicalPackage"
+
+[CustomDelReg]
+HKLM,"SYSTEM\CurrentControlSet\Control\GroupOrderList",%GROUP%
+
+[DriverServiceEventLog]
+AddReg      = EventLogAddReg
+
+[EventLogAddReg]
+HKLM,"SYSTEM\CurrentControlSet\Services\Eventlog\System\PhysicalPackage",EventMessageFile,   %FLG_ADDREG_TYPE_EXPAND_SZ%,"%K10DrvExpandDir%\%MSGBIN%\PhysicalPackageMessages.dll"
+HKLM,"SYSTEM\CurrentControlSet\Services\Eventlog\System\PhysicalPackage",TypesSupported,     %FLG_ADDREG_TYPE_DWORD%,7
+
+[EventLogDelReg]
+HKLM,"SYSTEM\CurrentControlSet\Services\Eventlog\System\PhysicalPackage"
+
+[Strings] 
+
+;  *******Localizable Strings******* 
+EMC_CLARiiON            = "EMC Corporation (CLARiiON Division)"
+DRIVER_LOCATION_ON_DISK = "CLARiiON Package(Zip) Files"
+ClassName               = "CLARiiON Devices"
+VENDOR                  = "EMC"
+MSGBIN                  = "msgbin"
+DRIVERS                 = "drivers"
+BOOT_DIR                = "system32\drivers"
+K10DrvExpandDir         = "C:\EMC\Base\%BASE_REVISION%"
+
+;;; Driver Specific Entires
+COMPATIBLE_ID           = "PhysicalPackage"
+DRIVER_NAME             = "PhysicalPackage.sys"
+PDB_NAME                = "PhysicalPackage.pdb"
+DRIVER_INSTALL          = "EMC (CLARiiON) Physical Package Driver"
+DISPLAY_NAME            = "PHYSICAL PACKAGE"
+GROUP                   = "K10PhysicalPackage"
+
+;  *******Non Localizable Strings******* 
+
+SERVICE_BOOT_START      = 0x0 
+SERVICE_SYSTEM_START    = 0x1 
+SERVICE_AUTO_START      = 0x2 
+SERVICE_DEMAND_START    = 0x3 
+SERVICE_DISABLED        = 0x4 
+
+SERVICE_KERNEL_DRIVER   = 0x1 
+SERVICE_ERROR_IGNORE    = 0x0 
+SERVICE_ERROR_NORMAL    = 0x1 
+SERVICE_ERROR_SEVERE    = 0x2 
+SERVICE_ERROR_CRITICAL  = 0x3 
+
+; Registry 'Value' Types
+FLG_ADDREG_BINVALUETYPE     = 0x00000001
+FLG_ADDREG_NOCLOBBER        = 0x00000002
+FLG_ADDREG_DELVAL           = 0x00000004
+FLG_ADDREG_APPEND           = 0x00000008 
+FLG_ADDREG_KEYONLY          = 0x00000010
+FLG_ADDREG_OVERWRITEONLY    = 0x00000020 
+FLG_ADDREG_64BITKEY         = 0x00001000
+FLG_ADDREG_KEYONLY_COMMON   = 0x00002000
+FLG_ADDREG_32BITKEY         = 0x00004000
+FLG_ADDREG_TYPE_SZ          = 0x00000000
+FLG_ADDREG_TYPE_MULTI_SZ    = 0x00010000
+FLG_ADDREG_TYPE_EXPAND_SZ   = 0x00020000 
+FLG_ADDREG_TYPE_DWORD       = 0x00010001
+FLG_ADDREG_TYPE_NONE        = 0x00020001
+
+; AddService Flags
+SPSVCINST_ASSOCSERVICE              = 0x00000002
+SPSVCINST_DELETEEVENTLOGENTRY       = 0x00000004
+SPSVCINST_NOCLOBBER_DISPLAYNAME     = 0x00000008
+SPSVCINST_NOCLOBBER_DESCRIPTION     = 0x00000100 
+SPSVCINST_NOCLOBBER_STARTTYPE       = 0x00000010
+SPSVCINST_NOCLOBBER_ERRORCONTROL    = 0x00000020
+SPSVCINST_NOCLOBBER_LOADORDERGROUP  = 0x00000040
+SPSVCINST_NOCLOBBER_DEPENDENCIES    = 0x00000080
+SPSVCINST_STOPSERVICE               = 0x00000200
+SPSVCINST_TAGTOFRONT                = 0x00000001
+
+; Possible Flags:
+; COPYFLG_REPLACEONLY - Copy the source file to the destination directory only if the file is already present in the destination directory. 
+; COPYFLG_NODECOMP - Copy the source file to the destination directory without decompressing the source file if it is compressed
+; COPYFLG_FORCE_FILE_IN_USE - Force file-in-use behavior: do not copy over an existing file of the same name if it is currently open. Instead, copy the given source file with a temporary name so that it can be renamed and used when the next reboot occurs. 
+; COPYFLG_NO_OVERWRITE - Do not replace an existing file in the destination directory with a source file of the same name. This flag cannot be combined with any other flags. 
+; COPYFLG_REPLACE_BOOT_FILE - This file is required by the system loader. The system will prompt the user to reboot the system. 
+; COPYFLG_NOPRUNE - Do not delete this operation as a result of optimization. 
+; COPYFLG_NO_VERSION_DIALOG - Do not write over a file in the destination directory with the source file if the existing file is newer than the source file. 
+; COPYFLG_NOVERSIONCHECK - Ignore file versions and write over existing files in the destination directory. This flag and the next two are mutually exclusive. This flag is irrelevant to digitally signed INF files. 
+; COPYFLG_OVERWRITE_OLDER_ONLY - Copy the source file to the destination directory only if the file on the destination will be superseded by a newer version. This flag is irrelevant to digitally signed INF files
+; COPYFLG_WARN_IF_SKIP - Send a warning if the user elects to not copy a file. This flag and the next are mutually exclusive, and both are irrelevant to INF files that are digitally signed. 
+; COPYFLG_NOSKIP - Do not allow the user to skip copying a file. This flag is implied if the driver package is signed. 
+
+; ErrorControl:
+; 0x00 - If this driver can't be loaded or started ignore the problem and display no error
+; 0x01 - If the driver fails produce a warning but let bootup continue 
+; 0x02 - Panic. If the current config is last known good continue, if not switch to last known good 
+; 0x03 - Record the current startup as a failure. If this is last known good run diagnostic, if not switch to last known good and reboot 
+
+; Start:
+; 0x00 - Boot The kernel loaded will load this driver first as its needed to use the boot volume device 
+; 0x01 - System This is loaded by the I/O subsystem 
+; 0x02 - Autoload The service is always loaded and run 
+; 0x03 - Manual This service does not start automatically and must be manually started by the user 
+; 0x04 - Disabled The service is disabled and should not be started 
+
+; Type:
+; 0x01 - Kernel-mode device driver
+; 0x02 - Kernel-mode device driver that implements the file system 
+; 0x04 - Information used by the Network Adapter 
+; 0x10 - A Win32 service that should be run as a stand-alone process 
+; 0x20 - A Win32 service that can share address space with other services of the same type 

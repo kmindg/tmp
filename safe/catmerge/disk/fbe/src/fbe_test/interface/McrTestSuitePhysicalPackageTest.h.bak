@@ -1,0 +1,27 @@
+#ifndef MCR_TEST_SUITE_PHYSICAL_PACKAGE_TEST_H
+#define MCR_TEST_SUITE_PHYSICAL_PACKAGE_TEST_H
+
+#include "mut_testsuite.h"
+#include "cabstracttest.h"
+
+
+class McrTestSuitePhysicalPackageTest: 
+    public  Mut_testsuite
+{
+	public:
+
+    McrTestSuitePhysicalPackageTest(const char* name, void (*startFun)() , void (*tearFun)() );
+
+    virtual ~McrTestSuitePhysicalPackageTest();
+    
+    void execute(); 
+
+	void addTestObj(CAbstractTest * pTestToAdd, const char* testName);
+private:
+	void init();
+    void populate();
+
+};
+	
+#endif//end FBE_TEST_SUITE_PHYSICAL_PACKAGE_TEST_H
+

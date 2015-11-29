@@ -1,0 +1,50 @@
+<testbedinfo doc_type="testbed" version="2.2">
+  <block_devices>
+    <block id="10.245.192.54">
+      <hosts>
+        <host id="10.245.192.53" />
+      </hosts>
+      <sp name="A">
+        <communication ipv4_address="10.245.192.54" password="clariion1992" username="clariion1992" />
+        <management>
+          <tools>
+            <tool host="10.245.192.53" ip_address="10.245.192.54" password="admin" type="navisphere" username="admin" />
+          </tools>
+        </management>
+      </sp>
+      <sp name="B">
+        <communication ipv4_address="10.245.192.55" password="clariion1992" username="clariion1992" />
+        <management>
+          <tools>
+            <tool host="10.245.192.53" ip_address="10.245.192.55" password="admin" type="navisphere" username="admin" />
+          </tools>
+        </management>
+      </sp>
+    </block>
+  </block_devices>
+  <hosts>
+    <host id="10.245.192.53">
+      <communication ipv4_address="10.245.192.53" password="clariion!" username="Administrator" />
+    </host>
+  </hosts>
+  <switches>
+        <switch model="wti" id="1" type="power">
+            <communication username="super"
+                           password="super"
+                           type="telnet"
+                           port="23"
+                           ipv4_address="10.245.192.108"
+            />
+            <ports>
+                <port id="A2" array_id="1" attached_type="SP" attached_id="A" group="DPEA"/>
+                <port id="A1" array_id="1" attached_type="SP" attached_id="B" group="DPEB"/>
+                <port id="A4" array_id="1" attached_type="SP" attached_id="A" group="DAE1A"/>
+                <port id="A3" array_id="1" attached_type="SP" attached_id="B" group="DAE1B"/>
+            </ports>
+        </switch>
+  </switches>
+  <identities>
+    <identity name="ax_metadata_id" value="6219" />
+    <identity name="ax_id" value="7612" />
+  </identities>
+</testbedinfo>

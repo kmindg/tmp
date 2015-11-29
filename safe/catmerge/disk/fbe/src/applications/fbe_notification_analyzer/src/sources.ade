@@ -1,0 +1,19 @@
+$sources{TARGETNAME} = "fbe_notification_analyzer_lib";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{CALLING_CONVENTION} = "stdcall";
+$sources{INCLUDES} = [
+    "$sources{MASTERDIR}\\disk\\fbe\\interface",
+    "$sources{MASTERDIR}\\disk\\interface\\fbe",
+];
+           
+$sources{SOURCES} = [
+    "fbe_notification_analyzer_notification_handle.c",
+    "fbe_notification_analyzer_file_access.c",
+];

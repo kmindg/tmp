@@ -1,0 +1,18 @@
+
+$sources{TARGETMODES} = [
+    "user",
+];
+
+$sources{COPY_FILES} = [
+    "rbafilter.py",
+    "rbadef.py",
+    "rbasplit.py",
+    "rbarecord.py",
+    "rbafile.py",
+    "pdoutils.py",
+    "rbautils.py",
+    "rbautils.py",
+    "rba_to_rdgen.py",
+    "gst.py",
+    "calc_csum.py",
+];

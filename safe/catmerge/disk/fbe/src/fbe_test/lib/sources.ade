@@ -1,0 +1,6 @@
+$sources{SUBDIRS} = [
+    "package_config",
+    "configurations",
+    "utilities",
+];
+

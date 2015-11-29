@@ -1,0 +1,62 @@
+$sources{TARGETNAME} = "fbe_lib_enclosure_data_access";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{INCLUDES} = [
+    "$sources{MASTERDIR}\\disk\\interface\\fbe",
+    "$sources{MASTERDIR}\\disk\\fbe\\interface",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\topology\\interface",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\topology\\classes\\base_enclosure",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\topology\\classes\\base_discovering",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\topology\\classes\\base_discovered",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\topology\\classes\\sas_enclosure",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\topology\\classes\\enclosures\\sas_viper_enclosure",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\topology\\classes\\enclosures\\sas_magnum_enclosure",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\topology\\classes\\enclosures\\sas_citadel_enclosure",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\topology\\classes\\enclosures\\sas_bunker_enclosure",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\topology\\classes\\enclosures\\sas_derringer_enclosure",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\topology\\classes\\enclosures\\sas_voyagericm_enclosure",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\topology\\classes\\enclosures\\sas_voyageree_enclosure",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\topology\\classes\\enclosures\\sas_viking_iosxp_enclosure",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\topology\\classes\\enclosures\\sas_viking_drvsxp_enclosure",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\topology\\classes\\enclosures\\sas_cayenne_iosxp_enclosure",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\topology\\classes\\enclosures\\sas_cayenne_drvsxp_enclosure",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\topology\\classes\\enclosures\\sas_naga_iosxp_enclosure",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\topology\\classes\\enclosures\\sas_naga_drvsxp_enclosure",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\topology\\classes\\enclosures\\sas_fallback_enclosure",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\topology\\classes\\enclosures\\sas_boxwood_enclosure",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\topology\\classes\\enclosures\\sas_knot_enclosure",    
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\topology\\classes\\enclosures\\sas_ancho_enclosure",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\topology\\classes\\enclosures\\sas_pinecone_enclosure",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\topology\\classes\\enclosures\\sas_steeljaw_enclosure",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\topology\\classes\\enclosures\\sas_ramhorn_enclosure",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\topology\\classes\\enclosures\\sas_rhea_enclosure",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\topology\\classes\\enclosures\\sas_miranda_enclosure",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\topology\\classes\\enclosures\\sas_calypso_enclosure",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\services\\topology\\classes\\enclosures\\sas_tabasco_enclosure",
+];
+	
+
+$sources{SOURCES} = [
+    "fbe_enclosure_data_access.c",
+    "fbe_enclosure_data_access_set.c",
+    "fbe_enclosure_data_access_print.c",
+    "edal_base_enclosure_data_get.c",
+    "edal_base_enclosure_data_set.c",
+    "edal_sas_enclosure_data_get.c",
+    "edal_sas_enclosure_data_set.c",
+    "edal_eses_enclosure_data_get.c",
+    "edal_eses_enclosure_data_set.c",
+    "edal_processor_enclosure_data_get.c",
+    "edal_processor_enclosure_data_set.c",
+];
+
+$sources{SUBDIRS} = [
+    "debug",
+];

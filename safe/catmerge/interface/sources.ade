@@ -1,0 +1,46 @@
+$sources{TARGETNAME} = "interface";
+$sources{TARGETTYPE} = "INTERFACE";
+$sources{TARGETMODES} = [
+    "generated",
+];
+$sources{INCLUDES} = [
+	"$sources{MASTERDIR}/../../sys-common/Block_Admin",	
+];
+$sources{SOURCES} = [
+    "K10MiscUtilMessages.mc",
+    "K10NvRamDrvMessages.mc",
+    "K10NvRamLibMessages.mc",
+    "K10DistributedLockServiceMessages.mc",
+    "k10distributedlockutilitiesmessages.mc",
+    "K10MpsMessages.mc",
+    "K10PersistentStorageManagerMessages.mc",
+    "K10KernelMsg.mc",
+    "k10usermsg.mc",
+    "K10IoMarshalMessages.mc",
+    "K10TMOSMessages.mc",
+    "WorkerThreadManagerMessages.mc",
+    "K10KernelDatabaseManagerMessages.mc",
+    "K10ErrorMessages.mc",
+    "K10iSCSIZonesMessages.mc",
+    "K10FEDiskMessages.mc",
+    "K10RPSplitterMessages.mc",
+    "K10TransportManagerMessages.mc",
+    "K10MluMessages.mc",
+    "K10MLUAutoTieringMessages.mc",
+    "K10PolicyEngineAutoTieringMessages.mc",
+    "K10TDLAutoTieringMessages.mc",
+    "K10MluCompressMessages.mc",
+    "K10DeduplicationDirectorMessages.mc",
+    "K10MluDeduplicationMessages.mc",
+    "AutoMigratorMessages.mc",
+    "K10MluSnapshotMessages.mc",
+    "TestControlMessages.mc",
+    "K10MluUDIMessages.mc",
+    "K10MluReplicationMessages.mc",
+    "K10TDXMessages.mc",
+    "K10LMTDXMessages.mc",
+];
+
+cond_add(defined($sources{SAFEBUILD}), \@{$sources{SOURCES}}, 'LXFMessages.mc'); # SAFE
+
+$sources{CSX_PREREQ_DIR} = "..\\csx\\csx_prereqs\\csx_sr_prereqs";

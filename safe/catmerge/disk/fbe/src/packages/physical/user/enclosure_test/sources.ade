@@ -1,0 +1,64 @@
+$sources{TARGETNAME} = "fbe_enclosure_test_main";
+$sources{TARGETTYPE} = "EMCUTIL_PROGRAM";
+$sources{MUT_TEST} = 1;
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{CALLING_CONVENTION} = "stdcall";
+$sources{SYSTEMLIBS} = [
+    "winmm.lib",
+    "ws2_32.lib",
+];
+$sources{TARGETLIBS} = [
+    "fbe_ktrace.lib",
+    "fbe_trace.lib",
+    "fbe_lib_user.lib",
+    "fbe_lib_lifecycle.lib",
+    "fbe_memory.lib",
+    "fbe_memory_user.lib",
+    "fbe_transport.lib",
+    "fbe_classes.lib",
+    "fbe_enclosure_test.lib",
+    "fbe_sas_viper_enclosure.lib",
+    "fbe_sas_magnum_enclosure.lib",
+    "fbe_sas_citadel_enclosure.lib",
+    "fbe_sas_bunker_enclosure.lib",
+    "fbe_sas_derringer_enclosure.lib",
+    "fbe_sas_tabasco_enclosure.lib",
+    "fbe_sas_voyagericm_enclosure.lib",
+    "fbe_sas_voyageree_enclosure.lib",
+    "fbe_sas_viking_iosxp_enclosure.lib",
+    "fbe_sas_viking_drvsxp_enclosure.lib",
+    "fbe_sas_naga_iosxp_enclosure.lib",
+    "fbe_sas_naga_drvsxp_enclosure.lib",
+    "fbe_notification.lib",
+    "fbe_topology.lib",
+    "fbe_scheduler.lib",
+    "fbe_physical_package.lib",
+    "fbe_ses.lib",
+    "fbe_eses.lib",
+    "fbe_service_manager.lib",
+    "fbe_cpd_shim_sim.lib",
+    "fbe_logical_drive_sim.lib",
+    "fbe_base_service.lib",
+    "fbe_base_board_sim.lib",
+    "fbe_terminator_sim.lib",
+    "fbe_lib_enclosure_data_access.lib",
+    "generic_utils_lib_stdcall.lib",
+    "fbe_event_log.lib",
+    "fbe_event_log_sim.lib",
+    "fbe_drive_configuration.lib",
+    "fbe_api_common_sim.lib",
+    "fbe_xml_mem.lib",
+    "fbe_event.lib",
+    "fbe_file_user.lib",
+    "fbe_peer_boot_utils.lib",
+];
+
+$sources{SOURCES} = [
+    "fbe_enclosure_test_main.c",
+];
+

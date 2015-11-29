@@ -1,0 +1,16 @@
+$sources{TARGETNAME} = "fbe_test_scenarios_sep_sniff";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+
+$sources{SOURCES} = [
+    "dixie_doo_test.c",
+    "howdy_doo_test.c",
+    "skippy_doo_test.c",
+    "scoop_test.c",
+    "daphne_test.c"
+];
+

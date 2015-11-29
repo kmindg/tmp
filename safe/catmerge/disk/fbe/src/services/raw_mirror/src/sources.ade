@@ -1,0 +1,27 @@
+$sources{TARGETNAME} = "fbe_raw_mirror";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+
+$sources{TARGETLIBS} = [
+    "fbe_create.lib",
+    "fbe_spare.lib",
+    "fbe_job.lib",
+    "fbe_job_test_library.lib",
+    "fbe_raid_mirror_library.lib",
+    "fbe_raid_raw_mirror_library.lib",
+    "fbe_api_physical_package_interface.lib",
+    "fbe_api_common.lib",
+];
+
+$sources{SOURCES} = [
+    "fbe_raw_mirror_service_main.c",
+    "fbe_raw_mirror_service_thread.c",
+    "fbe_raw_mirror_service_sg.c"
+];

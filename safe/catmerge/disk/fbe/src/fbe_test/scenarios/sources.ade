@@ -1,0 +1,9 @@
+$sources{SUBDIRS} = [
+    "physical_package",
+    "storage_extent_package",
+    "environment_service_package",
+    "system_scenarios",
+    "fbe_cli_tests",
+    "real_hardware",
+    "self_test",
+];

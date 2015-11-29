@@ -1,0 +1,18 @@
+$sources{TARGETNAME} = "fbe_base_environment_sim";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{INCLUDES} = [
+    "$sources{SRCDIR}\\..\\interface",
+    "$sources{SRCDIR}\\..\\..\\base_environment",
+];
+$sources{TARGETLIBS} = [
+];
+$sources{SOURCES} = [
+    "fbe_base_environment_sim_main.c",
+];

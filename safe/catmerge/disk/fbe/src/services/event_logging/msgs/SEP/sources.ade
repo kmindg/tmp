@@ -1,0 +1,11 @@
+$sources{TARGETNAME} = "SepMessages";
+$sources{TARGETTYPE} = "DYNLINK";
+$sources{DLLTYPE} = "RESOURCE";
+$sources{TARGETMODES} = [
+    "user32",
+];
+$sources{UMTYPE} = "windows";
+$sources{SOURCES} = [
+    "SepMessagesRec.rc",
+    "SepMessages.c",
+];

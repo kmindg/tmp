@@ -1,0 +1,36 @@
+$sources{TARGETNAME} = "fbe_scheduler_test";
+$sources{TARGETTYPE} = "EMCUTIL_PROGRAM";
+$sources{MUT_TEST} = 1;
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{CALLING_CONVENTION} = "stdcall";
+$sources{SYSTEMLIBS} = [
+    "winmm.lib",
+    "ws2_32.lib",
+];
+$sources{TARGETLIBS} = [
+    "fbe_lib_lifecycle.lib",
+    "fbe_scheduler.lib",
+    "fbe_service_manager.lib",
+    "fbe_transport.lib",
+    "fbe_topology.lib",
+    "fbe_base_object.lib",
+    "fbe_ktrace.lib",
+    "fbe_trace.lib",
+    "fbe_lib_user.lib",
+    "fbe_base_service.lib",
+    "fbe_drive_configuration.lib",
+    "fbe_memory.lib",
+    "fbe_memory_user.lib",
+    "fbe_transport_trace.lib",
+];
+
+$sources{SOURCES} = [
+    "fbe_scheduler_test_main.c",
+];
+
+

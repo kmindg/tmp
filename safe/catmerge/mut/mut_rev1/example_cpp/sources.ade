@@ -1,0 +1,20 @@
+$sources{TARGETNAME} = "mut_example_cpp";
+$sources{TARGETTYPE} = "EMCUTIL_PROGRAM";
+$sources{MUT_TEST} = 1;
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "user",
+];
+$sources{UMTYPE} = "console";
+#$sources{CALLING_CONVENTION} = "stdcall";
+$sources{SYSTEMLIBS} = [
+    "winmm.lib",
+ #   "ws2_32.lib",
+];
+$sources{TARGETLIBS} = [
+];
+
+$sources{SOURCES} = [
+    "mut_cpp_example.cpp"
+];
+

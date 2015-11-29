@@ -1,0 +1,12 @@
+#ifndef FBE_PMC_SHIM_PRIVATE_H
+#define FBE_PMC_SHIM_PRIVATE_H
+
+typedef enum pmc_shim_port_state_e {
+	PMC_SHIM_PORT_STATE_INVALID,
+	PMC_SHIM_PORT_STATE_UNINITIALIZED,
+	PMC_SHIM_PORT_STATE_INITIALIZED,
+
+	PMC_SHIM_PORT_STATE_LAST
+}pmc_shim_port_state_t;
+
+#endif /*FBE_PMC_SHIM_PRIVATE_H */

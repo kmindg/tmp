@@ -1,0 +1,15 @@
+$sources{TARGETNAME} = "fbe_logical_package";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+
+$sources{SOURCES} = [
+    "fbe_logical_package_init.c",
+];
+
+

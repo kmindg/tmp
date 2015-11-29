@@ -1,0 +1,32 @@
+$sources{TARGETNAME} = "mut_testing_rev2";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{PAL_REQUIRED} = "1";
+$sources{UMTYPE} = "console";
+$sources{CALLING_CONVENTION} = "stdcall";
+$sources{TARGETMODES} = [
+	"user",
+    "user32",
+    "simulation",
+];
+
+$sources{TARGETLIBS} = [
+	"CrashHelper.lib",
+	"usimctrl_shmem.lib",
+];
+
+$sources{CUSTOM_DEFS} = ["/DMUT_REV2", "/DI_AM_NATIVE_CODE"];
+
+$sources{SOURCES} = [
+    "mut_control.cpp",
+    "mut_log.cpp",
+    "mut_assert.cpp",
+    "mut_config_manager.cpp",
+    "mut_cpp.cpp",
+    "defaultsuite.cpp",
+    "mut_test_control.cpp",
+    "mut_options.cpp",
+    "mut_thread_test_runner.cpp",
+	"mut_exception_processing.cpp",
+    "Program_Option.cpp",
+];

@@ -1,0 +1,13 @@
+$sources{SUBDIRS} = [
+    "src",
+    "kernel",
+    "sim",
+    "debug",
+];
+
+	
+
+
+
+
+	

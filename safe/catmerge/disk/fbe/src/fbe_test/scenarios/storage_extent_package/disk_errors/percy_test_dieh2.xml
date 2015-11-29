@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--                                         
+----   This File tests a malformed configuration file.     
+-->
+<fbeThresholdConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="DriveConfiguration.xsd" version="3.0">
+	<driveConfigurations>
+		<sasDriveConfiguration>
+            <!-- control_flag action bits:                                            -->
+            <!--    FBE_STATS_CNTRL_FLAG_EOL                    0x1                   -->
+            <!--    FBE_STATS_CNTRL_FLAG_EOL_CALL_HOME          0x2                   -->
+            <!--    FBE_STATS_CNTRL_FLAG_DRIVE_KILL             0x4                   -->
+            <!--    FBE_STATS_CNTRL_FLAG_DRIVE_KILL_CALL_HOME   0x8                   -->
+            <controlDefault control_flag="0x5"></controlDefault>   <!-- control_flag = eol|kill -->
+			<driveInformation>
+				<vendor name="samsung"></vendor>
+				<partNumber partNumber=""></partNumber>
+				<firmwareRev firmwareRev=""></firmwareRev>
+				<serialNumber sNoStart="" sNoEnd=""></serialNumber>                
+			</driveInformation>
+			<driveStatistics>
+				<cumulativeStats threshold="90" io_interval="1000000" weight="1000" control_flag="0x5"></cumulativeStats>
+				<recoveredStats threshold="90" io_interval="1000000" weight="10000" control_flag="0x9"></recoveredStats>
+				<mediaStats threshold="90" io_interval="1000000" weight="100000" control_flag="0x9"></mediaStats>
+				<hardwareStats threshold="90" io_interval="1000000" weight="100000" control_flag="0x9"></hardwareStats>
+				<linkStats threshold="101" io_interval="100" weight="2" control_flag="0x9"></linkStats>
+				<resetStats threshold="90" io_interval="1000000" weight="200000"></resetStats>
+				<powerCycleStats threshold="0" io_interval="1000000" weight="0"></powerCycleStats>
+				<dataStats threshold="90" io_interval="1000000" weight="50000" control_flag="0x9"></dataStats>
+				<recoveryTagReduce value="30"></recoveryTagReduce>
+				<errorBurstWeightReduce value="20"></errorBurstWeightReduce>
+				<errorBurstDelta value="100"></errorBurstDelta>
+			</driveStatistics>
+<!--		</sasDriveConfiguration>            END TAG REMOVED -->
+	</driveConfigurations>
+</fbeThresholdConfiguration>

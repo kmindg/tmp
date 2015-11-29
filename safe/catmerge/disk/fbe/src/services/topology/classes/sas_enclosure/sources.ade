@@ -1,0 +1,30 @@
+$sources{TARGETNAME} = "fbe_sas_enclosure";
+$sources{TARGETTYPE} = "LIBRARY";
+$sources{DLLTYPE} = "REGULAR";
+$sources{TARGETMODES} = [
+    "kernel",
+    "user",
+    "user32",
+    "simulation",
+];
+$sources{UMTYPE} = "console";
+$sources{INCLUDES} = [
+    "$sources{SRCDIR}\\..\\base_discovering",
+    "$sources{SRCDIR}\\..\\base_discovered",
+    "$sources{SRCDIR}\\..\\base_enclosure",
+    "$sources{MASTERDIR}\\disk\\interface\\fbe",
+    "$sources{MASTERDIR}\\disk\\fbe\\src\\lib\\enclosure_data_access",
+];
+
+$sources{SOURCES} = [
+    "fbe_sas_enclosure_main.c",
+    "fbe_sas_enclosure_monitor.c",
+    "fbe_sas_enclosure_executer.c",
+    "fbe_sas_enclosure_usurper.c",
+    "fbe_sas_enclosure_utils.c",
+    "fbe_sas_enclosure_dbg_utils.c",
+];
+
+$sources{SUBDIRS} = [
+    "debug",
+];
