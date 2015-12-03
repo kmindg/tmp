@@ -36,6 +36,8 @@ static fbe_bool_t fbe_provision_drive_unmap_bitmap_user_enabled = FBE_TRUE;
  ******************************************************************************/
 typedef enum fbe_provision_drive_unmap_bitmap_constants_e
 {
+    /* This is for a drive up to 2 TB */
+    FBE_PROVISION_DRIVE_UNMAP_BITMAP_SIZE_IN_BYTES = 1024,
 #if defined(UMODE_ENV) || defined(SIMMODE_ENV)
     FBE_PROVISION_DRIVE_UNMAP_BITMAP_MB_PER_BIT = 8,
 #else
@@ -172,44 +174,6 @@ fbe_provision_drive_unmap_bitmap_evaluate_metadata(fbe_provision_drive_paged_met
  ******************************************************************************/
 
 /*!****************************************************************************
- * @fn fbe_provision_drive_unmap_bitmap_get_size()
- ******************************************************************************
- * @brief
- *  This function get the bitmap size
- *
- * @param provision_drive_p    - pointer to the provision drive.  
- * @param bit_map_size_p       - pointer to the unmap bit map size 
- * @return fbe_status_t        - status of the operation.
- *
- * @author
- *  11/10/2015 - Created. Geng.Han
- *
- ******************************************************************************/
-fbe_status_t
-fbe_provision_drive_unmap_bitmap_get_size(fbe_provision_drive_t *  provision_drive_p, fbe_u32_t* bit_map_size_p)
-{
-    fbe_u32_t         number_of_bytes;
-    fbe_lba_t         exported_capacity;
-    fbe_chunk_count_t total_chunks; 
-
-    /* get the exported capacity of provision drive object. */
-    fbe_base_config_get_capacity((fbe_base_config_t*)provision_drive_p, &exported_capacity);
-    total_chunks = (fbe_chunk_count_t)(exported_capacity / FBE_PROVISION_DRIVE_CHUNK_SIZE);
-
-    number_of_bytes = (total_chunks / FBE_PROVISION_DRIVE_UNMAP_BITMAP_CHUNKS_PER_BIT + 7) / 8;
-
-    // align the size to sizeof(fbe_u64_t)
-    number_of_bytes = ((number_of_bytes + sizeof(fbe_u64_t) - 1) / sizeof(fbe_u64_t)) * sizeof(fbe_u64_t);
-    
-    *bit_map_size_p = number_of_bytes;
-
-    return FBE_STATUS_OK;
-}
-/******************************************************************************
- * end fbe_provision_drive_unmap_bitmap_get_size()
- ******************************************************************************/
-
-/*!****************************************************************************
  * @fn fbe_provision_drive_unmap_bitmap_init()
  ******************************************************************************
  * @brief
@@ -227,14 +191,10 @@ fbe_status_t
 fbe_provision_drive_unmap_bitmap_init(fbe_provision_drive_t *  provision_drive_p)
 {
     fbe_lba_t zero_checkpoint = 0;
-    fbe_u32_t bitmap_size;
-
 
     if (!fbe_provision_drive_unmap_bitmap_user_enabled) {
         return FBE_STATUS_OK;
     }
-
-    fbe_provision_drive_unmap_bitmap_get_size(provision_drive_p, &bitmap_size);
 
     fbe_provision_drive_lock(provision_drive_p);
     if (provision_drive_p->unmap_bitmap.is_initialized) {
@@ -242,14 +202,13 @@ fbe_provision_drive_unmap_bitmap_init(fbe_provision_drive_t *  provision_drive_p
         return FBE_STATUS_OK;
     }
 
-    provision_drive_p->unmap_bitmap.bitmap = (fbe_u8_t *)fbe_memory_allocate_required(bitmap_size);
+    provision_drive_p->unmap_bitmap.bitmap = (fbe_u8_t *)fbe_allocate_nonpaged_pool_with_tag(FBE_PROVISION_DRIVE_UNMAP_BITMAP_SIZE_IN_BYTES, 'dvpf');
     if (provision_drive_p->unmap_bitmap.bitmap == NULL) {
         fbe_provision_drive_unlock(provision_drive_p);
         return FBE_STATUS_GENERIC_FAILURE;
     }
 
-
-    fbe_zero_memory(provision_drive_p->unmap_bitmap.bitmap, bitmap_size);
+    fbe_zero_memory(provision_drive_p->unmap_bitmap.bitmap, FBE_PROVISION_DRIVE_UNMAP_BITMAP_SIZE_IN_BYTES);
     provision_drive_p->unmap_bitmap.is_initialized = FBE_TRUE;
     /* Get the curent zero checkpoint. */
     fbe_provision_drive_metadata_get_background_zero_checkpoint(provision_drive_p, &zero_checkpoint);
@@ -281,7 +240,7 @@ fbe_status_t
 fbe_provision_drive_unmap_bitmap_destroy(fbe_provision_drive_t * provision_drive_p)
 {
     if (provision_drive_p->unmap_bitmap.bitmap) {
-        fbe_memory_release_required(provision_drive_p->unmap_bitmap.bitmap);
+        fbe_release_nonpaged_pool_with_tag(provision_drive_p->unmap_bitmap.bitmap, 'dvpf');
         provision_drive_p->unmap_bitmap.bitmap = NULL;
     }
 
@@ -580,7 +539,6 @@ fbe_provision_drive_unmap_bitmap_invalidate(fbe_provision_drive_t * provision_dr
                                             fbe_block_count_t block_count)
 {
     fbe_u32_t start_bit_offset, end_bit_offset, i;
-    fbe_u32_t bitmap_size;
 
     if (!fbe_provision_drive_is_unmap_supported(provision_drive_p)) {
         return FBE_STATUS_OK;
@@ -590,10 +548,8 @@ fbe_provision_drive_unmap_bitmap_invalidate(fbe_provision_drive_t * provision_dr
         return FBE_STATUS_OK;
     }
 
-    fbe_provision_drive_unmap_bitmap_get_size(provision_drive_p, &bitmap_size);
-
     if (lba == FBE_LBA_INVALID) {
-        fbe_zero_memory(provision_drive_p->unmap_bitmap.bitmap, bitmap_size);
+        fbe_zero_memory(provision_drive_p->unmap_bitmap.bitmap, FBE_PROVISION_DRIVE_UNMAP_BITMAP_SIZE_IN_BYTES);
         return FBE_STATUS_OK;
     }
 
@@ -637,9 +593,6 @@ fbe_provision_drive_unmap_bitmap_check_nonpaged(fbe_provision_drive_t * provisio
 {
     fbe_status_t status;
     fbe_lba_t zero_checkpoint;
-    fbe_u32_t bitmap_size;
-
-    fbe_provision_drive_unmap_bitmap_get_size(provision_drive_p, &bitmap_size);
 
     /* Get the curent zero checkpoint. */
     status = fbe_provision_drive_metadata_get_background_zero_checkpoint(provision_drive_p, &zero_checkpoint);
@@ -668,7 +621,7 @@ fbe_provision_drive_unmap_bitmap_check_nonpaged(fbe_provision_drive_t * provisio
         fbe_base_object_trace((fbe_base_object_t *)provision_drive_p, 
                               FBE_TRACE_LEVEL_INFO, FBE_TRACE_MESSAGE_ID_INFO,
                               "%s: enabled. checkpoint: 0x%llx\n", __FUNCTION__, zero_checkpoint);
-        fbe_zero_memory(provision_drive_p->unmap_bitmap.bitmap, bitmap_size);
+        fbe_zero_memory(provision_drive_p->unmap_bitmap.bitmap, FBE_PROVISION_DRIVE_UNMAP_BITMAP_SIZE_IN_BYTES);
         provision_drive_p->unmap_bitmap.is_enabled = FBE_TRUE;
     }
 

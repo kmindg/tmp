@@ -86,9 +86,11 @@ typedef enum _IDM_IOCTL_INDEX
     IDM_DELETE_DB_FILE,
     IDM_READ_DB_FILE,
     IDM_SET_DEBUG_LEVEL,
-    IDM_DH_UPDATE_MEDIA_ERROR_LIMITS
+    IDM_DH_UPDATE_MEDIA_ERROR_LIMITS,
+    IDM_RELEASE_IDS
 } IDM_IOCTL_INDEX;
 
+#define IDM_DELETE_LIST_SIZE                    10
 
 #define IOCTL_IDM_SET                           IDM_BUILD_IOCTL( IDM_SET )
 
@@ -117,6 +119,8 @@ typedef enum _IDM_IOCTL_INDEX
 #define IOCTL_SET_DEBUG_LEVEL                   IDM_BUILD_IOCTL( IDM_SET_DEBUG_LEVEL )
 
 #define IOCTL_IDM_DH_UPDATE_MEDIA_ERROR_LIMITS IDM_BUILD_IOCTL( IDM_DH_UPDATE_MEDIA_ERROR_LIMITS )
+
+#define IOCTL_IDM_RELEASE_IDS                    IDM_BUILD_IOCTL( IDM_RELEASE_IDS )
 
 typedef enum IdmStatus
 {
@@ -292,7 +296,6 @@ typedef struct IdmGetTableStruct
 
 } IDMGETTABLE, *PIDMGETTABLE;
 
-
 //
 //  use in idm_release function
 //
@@ -305,6 +308,20 @@ typedef struct IdmReleaseIdStruct
     IDMSTATUS                                   status;
 
 } IDMRELEASEID, *PIDMRELEASEID;
+
+
+//
+//  use in idm_release multiple WWNs function
+//
+typedef struct IdmReleaseIdsStruct 
+{
+    K10_WWID                                    wwid[IDM_DELETE_LIST_SIZE];
+
+    ULONG					NumberWWNsToRelease;
+
+    IDMSTATUS                                   status;
+
+} IDMRELEASEIDS, *PIDMRELEASEIDS;
 
 
 //

@@ -502,6 +502,7 @@ public:
     HRESULT AssignID(K10_LU_ID wwnId, csx_u64_t &lunId, IDMRANGE range = IDM_LOW);
     HRESULT SetID(K10_LU_ID wwnId, DWORD lunId);
     HRESULT ReleaseID(K10_LU_ID wwnId);
+    HRESULT ReleaseIDs(K10_LU_ID *wwnId, ULONG NumberWWNsToRelease);
     DWORD LookUpByWWN(K10_LU_ID wwnId);
     HRESULT GetWWNTable(csx_uchar_t **ppIdmTable, long *lpBufSize);
     HRESULT DeleteTable();

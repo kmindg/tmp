@@ -2327,7 +2327,6 @@ fbe_status_t fbe_provision_drive_unmap_bitmap_callback_entry(fbe_metadata_paged_
 fbe_bool_t fbe_provision_drive_unmap_bitmap_is_lba_range_mapped(fbe_provision_drive_t * provision_drive_p, 
                                                                 fbe_lba_t lba, fbe_block_count_t block_count);
 
-fbe_status_t fbe_provision_drive_unmap_bitmap_get_size(fbe_provision_drive_t *  provision_drive_p, fbe_u32_t* bit_map_size_p);
 
 fbe_bool_t fbe_provision_drive_is_location_valid(fbe_provision_drive_t *provision_drive_p);
 

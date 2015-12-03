@@ -8895,6 +8895,26 @@ The VVOL %2 is being migrated to another pool. Wait for migration to complete be
 .
 
 ;// --------------------------------------------------
+;// Introduced In: PSI9
+;//
+;// Usage: Return to Unisphere and Logged in Event log
+;//
+;// Severity: Error
+;//
+;// Symptom of Problem: soft limit on NAS protocol endpoints reached
+;//
+;// Generated value should be: 0xE16F831C
+;//
+MessageId    = 0x831C
+Severity     = Error
+Facility     = MLUUDI
+SymbolicName = MLU_VVOL_ERROR_MAX_NAS_PE_COUNT_EXCEEDED
+Language     = English
+Unable to create NAS protocol endpoint because the maximum number of NAS protocol endpoints is already reached.
+Could not create NAS protocol endpoint %2 because there are already %3 NAS protocol endpoints created on the array.
+.
+
+;// --------------------------------------------------
 ;// Introduced In: PSI10
 ;//
 ;// Usage: Logged in ktraces only
@@ -8903,9 +8923,9 @@ The VVOL %2 is being migrated to another pool. Wait for migration to complete be
 ;//
 ;// Symptom of Problem: UFS LowerDeck VU cannot be determined.
 ;//
-;// Generated value should be: 0xE16F831C
+;// Generated value should be: 0xE16F831D
 ;//
-MessageId    = 0x831C
+MessageId    = 0x831D
 Severity     = Error
 Facility     = MLUUDI
 SymbolicName = MLU_UFSMGR_ERROR_COULD_NOT_FIND_BASE
