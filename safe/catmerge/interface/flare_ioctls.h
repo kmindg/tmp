@@ -688,4 +688,27 @@ struct IoctlCacheUnpinInfo {
     ULONG                      spare[2];
 };
 
+
+//
+// SCN recipients from MLU Driver.
+//
+typedef enum  {
+    STATE_CHANGE_NOTIFICATION_RECIPIENT_MIDDLE_REDIRECTOR = 0,            
+    STATE_CHANGE_NOTIFICATION_RECIPIENT_DVL = 1,  
+    STATE_CHANGE_NOTIFICATION_RECIPIENT_MAX,           
+}STATE_CHANGE_NOTIFICATION_RECIPIENT;
+
+
+
+// Used in conjunction with IOCTL_ACKNOWLEDGE_STATE_CHANGE_NOTIFICATION
+// dvlSizeInSectors is the new size of the volume in sectors
+// startTime is the time when this confirmation was sent
+// scnRecipient is the driver which is acknowledging the SCN
+typedef struct _ACKNOWLEDGE_SCN_INFO
+{
+    ULONGLONG dvlSizeInSectors;
+    EMCUTIL_SYSTEM_TIME startTime;
+    STATE_CHANGE_NOTIFICATION_RECIPIENT scnRecipient;
+} ACKNOWLEDGE_SCN_INFO, *PACKNOWLEDGE_SCN_INFO;
+
 #endif /* !defined (FLARE_IOCTLS_H) */

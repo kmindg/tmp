@@ -4911,9 +4911,11 @@ static fbe_status_t fbe_module_mgmt_handle_sfp_state_change(fbe_module_mgmt_t *m
                 fbe_base_object_trace((fbe_base_object_t *)module_mgmt,
                                   FBE_TRACE_LEVEL_INFO,
                                   FBE_TRACE_MESSAGE_ID_INFO,
-                                  "%s UNSUPP SFP Is UNC CNA forcing SFP data back to previous information.\n",
+                                  "%s UNSUPP SFP Is UNC CNA forcing SFP data back to inserted.\n",
                                   __FUNCTION__);
-                fbe_copy_memory(new_sfp_info, old_sfp_info, sizeof(new_sfp_info));
+                
+                new_sfp_info->condition_additional_info = FBE_PORT_SFP_SUBCONDITION_NONE;
+                new_sfp_info->condition_type = FBE_PORT_SFP_CONDITION_INSERTED;
                 return FBE_STATUS_OK; 
             }
         }

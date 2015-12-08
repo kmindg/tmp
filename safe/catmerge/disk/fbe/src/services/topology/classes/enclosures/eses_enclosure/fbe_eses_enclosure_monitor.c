@@ -1546,12 +1546,15 @@ fbe_eses_enclosure_slot_update_bypass_attr(fbe_eses_enclosure_t * eses_enclosure
                             "slot: %d, phy enabled, current edge attr 0x%x, will clear 0x%x.\n",
                             slot_num, 
                             curr_discovery_path_attrs, 
-                            FBE_DISCOVERY_PATH_ATTR_NOT_PRESENT|FBE_DISCOVERY_PATH_ATTR_BYPASSED_PERSIST);
+                            (FBE_DISCOVERY_PATH_ATTR_BYPASSED_NONPERSIST | 
+                             FBE_DISCOVERY_PATH_ATTR_BYPASSED_PERSIST |
+                             FBE_DISCOVERY_PATH_ATTR_BYPASSED_UNRECOV));
 
             fbe_base_discovering_clear_path_attr((fbe_base_discovering_t *) eses_enclosure, 
                                             slot_index, 
-                                            (FBE_DISCOVERY_PATH_ATTR_BYPASSED_NONPERSIST |
-                                            FBE_DISCOVERY_PATH_ATTR_BYPASSED_PERSIST)); 
+                                            (FBE_DISCOVERY_PATH_ATTR_BYPASSED_NONPERSIST | 
+                                             FBE_DISCOVERY_PATH_ATTR_BYPASSED_PERSIST |
+                                             FBE_DISCOVERY_PATH_ATTR_BYPASSED_UNRECOV)); 
         }
     }
     else 

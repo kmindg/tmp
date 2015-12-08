@@ -13,7 +13,7 @@
 #define K10_EFDC_ADMIN_EXPORT_H
 
 #include "k10defs.h"
-
+#include "K10CommonExport.h"
 
 #define K10_EFD_CACHE_ADMIN_LIB_NAME		"K10EFDCacheAdmin"
 #define EFDC_DEVICE_NAME_CHAR      "\\\\.\\FctDrvr"

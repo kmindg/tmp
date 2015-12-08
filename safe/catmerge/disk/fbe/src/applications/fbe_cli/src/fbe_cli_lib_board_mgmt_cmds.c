@@ -577,6 +577,7 @@ static void fbe_cli_print_ssd_status()
                     fbe_cli_printf("  Self test passed      :  %d\n", ssdInfo.ssdSelfTestPassed);
                     fbe_cli_printf("  Remaining spare blks  :  %d\n", ssdInfo.remainingSpareBlkCount);
                     fbe_cli_printf("  Percent Life Used     :  %d\n", ssdInfo.ssdLifeUsed);
+                    fbe_cli_printf("  Temperature (Celsius) :  %d\n", ssdInfo.ssdTemperature);
                     fbe_cli_printf("  SerialNumber          :  %s\n", ssdInfo.ssdSerialNumber);
                     fbe_cli_printf("  PartNumber            :  %s\n", ssdInfo.ssdPartNumber);
                     fbe_cli_printf("  AssemblyName          :  %s\n", ssdInfo.ssdAssemblyName);

@@ -54,6 +54,7 @@
 #include "fbe/fbe_random.h"
 #include "fbe/fbe_api_block_transport_interface.h"
 #include "fbe/fbe_data_pattern.h"
+#include "fbe/fbe_api_enclosure_interface.h"
 
 static fbe_cli_lustat_cmd_line_opt_t lustat_cmd_line;
 static fbe_bool_t fbe_cli_unbind_warn_user(void);
@@ -2153,18 +2154,14 @@ fbe_status_t  fbe_cli_convert_diskname_to_bed(fbe_u8_t disk_name_a[], fbe_job_se
     **    VARIABLE DECLARATIONS    **
     *********************************/
     fbe_status_t status = FBE_STATUS_OK;
-    fbe_device_physical_location_t location;
     fbe_u32_t  bus = FBE_PORT_NUMBER_INVALID;
     fbe_u32_t  encl = FBE_ENCLOSURE_NUMBER_INVALID;
     fbe_u32_t  disk = FBE_SLOT_NUMBER_INVALID;
+    fbe_object_id_t pdo_object_id = FBE_OBJECT_ID_INVALID;
     fbe_u32_t  scanned = 0;
     fbe_u8_t   *first_ocr;
     fbe_u8_t   *second_ocr;
     fbe_u8_t   *third_ocr;
-    fbe_u32_t  beBusCount = 0;
-    fbe_u32_t  enclCount = 0;
-    fbe_u32_t  slotCount = 0;
-
 
     /*****************
     **    BEGIN    **
@@ -2235,53 +2232,13 @@ fbe_status_t  fbe_cli_convert_diskname_to_bed(fbe_u8_t disk_name_a[], fbe_job_se
         return FBE_STATUS_NO_DEVICE;
     }
 
-    /* get max number of bus */
-    status = fbe_api_esp_get_max_be_bus_count(&beBusCount);
+    /* Validate that the drive exist.
+     */
+    status = fbe_api_get_physical_drive_object_id_by_location(bus, encl, disk, &pdo_object_id);
     if (status != FBE_STATUS_OK)
     {
-        fbe_cli_printf("Failed to get max BE bus count- status=0x%x.\n", status);
+        fbe_cli_printf("Failed to get PDO object id for %d_%d_%d - status: %d\n", bus, encl, disk, status);
         return status;
-    }
-
-    /* Check if bus is out of range */
-    if (bus >= beBusCount)
-    {
-        fbe_cli_printf("\nUnsupport bus (%d).  Total bus count=%d\n", bus, beBusCount);
-        return FBE_STATUS_NO_DEVICE;        
-    }
-
-    /* get the total enclosure */
-    status = fbe_api_esp_encl_mgmt_get_total_encl_count(&enclCount);
-    if(status != FBE_STATUS_OK)
-    {
-        fbe_cli_printf("\nFailed to get enclosure count!!!\n");
-        return status;
-    }
-    
-    /* Check if the enclosure is out of range. */
-    if (encl >= enclCount)
-    {
-        fbe_cli_printf("\nUnsupport Enclosure (%d).  Total encl count=%d\n", encl, enclCount);
-        return FBE_STATUS_NO_DEVICE;        
-    }
-
-    /* set bus and enclousre location*/    
-    location.bus = bus;
-    location.enclosure = encl;
-
-    /* get slot count based on bus and enclosure */
-    status = fbe_api_esp_encl_mgmt_get_drive_slot_count(&location, &slotCount);
-    if (status != FBE_STATUS_OK) 
-    {
-        fbe_cli_printf("\nFailed to get slot count for %d_%d!!!\n", location.bus, location.enclosure);
-        return status;
-    }
-
-    /* Check if the disk is out of range */
-    if(disk >= slotCount)
-    {
-        fbe_cli_error("Disk value exceed number of slot supported in an enclosure (%d_%d)\n",location.bus,location.enclosure);
-        return FBE_STATUS_NO_DEVICE;
     }
 
     /* assign the bus, enclosure, and disk to physical location */
@@ -2324,8 +2281,7 @@ fbe_status_t  fbe_cli_convert_encl_to_be(fbe_u8_t disk_name_a[], fbe_job_service
     fbe_u32_t  scanned = 0;
     fbe_u8_t   *first_ocr;
     fbe_u8_t   *second_ocr;
-    fbe_u32_t  beBusCount = 0;
-    fbe_u32_t  enclCount = 0;
+    fbe_object_id_t encl_object_id = FBE_OBJECT_ID_INVALID;
 
     /*****************
     **    BEGIN    **
@@ -2371,34 +2327,13 @@ fbe_status_t  fbe_cli_convert_encl_to_be(fbe_u8_t disk_name_a[], fbe_job_service
         return FBE_STATUS_INVALID;
     }
 
-    /* get max number of bus */
-    status = fbe_api_esp_get_max_be_bus_count(&beBusCount);
+    /* Validate that the enclosure exists.
+     */
+    status = fbe_api_get_enclosure_object_id_by_location(bus, encl, &encl_object_id);
     if (status != FBE_STATUS_OK)
     {
-        fbe_cli_printf("Failed to get max BE bus count- status=0x%x.\n", status);
+        fbe_cli_printf("Failed to enclosure object id for %d_%d - status %d\n", bus, encl, status);
         return status;
-    }
-
-    /* Check if bus is out of range */
-    if (bus >= beBusCount)
-    {
-        fbe_cli_printf("\nUnsupport bus (%d).  Total bus count=%d\n", bus, beBusCount);
-        return FBE_STATUS_NO_DEVICE;        
-    }
-
-    /* get the total enclosure */
-    status = fbe_api_esp_encl_mgmt_get_total_encl_count(&enclCount);
-    if(status != FBE_STATUS_OK)
-    {
-        fbe_cli_printf("\nFailed to get enclosure count!!!\n");
-        return status;
-    }
-
-    /* Check if the enclosure is out of range. */
-    if (encl >= enclCount)
-    {
-        fbe_cli_printf("\nUnsupport Enclosure (%d).  Total bus count=%d\n", encl, enclCount);
-        return FBE_STATUS_NO_DEVICE;        
     }
 
     phys_location->bus = bus;

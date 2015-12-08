@@ -79,7 +79,7 @@
 #include "k10defs.h"
 #include "wtypes.h"
 #include "csx_ext.h" // required for CSX_MOD_IMPORT and CSX_MOD_EXPORT
-
+#include  "K10CommonExport.h"
 //-----------------------------------------------------------------------DEFINES
 
 #ifdef _WIN32_WINNT

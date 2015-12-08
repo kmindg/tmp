@@ -32,6 +32,8 @@
 #include "k10defs.h"	
 #endif
 
+#include "K10CommonExport.h"
+
 //------------------------------------------------------------------------DEFINES
 
 // Error code

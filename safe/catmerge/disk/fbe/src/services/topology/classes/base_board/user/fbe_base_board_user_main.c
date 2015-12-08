@@ -153,6 +153,12 @@ fbe_status_t fbe_base_board_get_ssd_life_used(fbe_base_board_t *base_board, fbe_
     return FBE_STATUS_OK;
 }
 
+fbe_status_t fbe_base_board_get_ssd_temperature(fbe_base_board_t *base_board, fbe_u32_t *pSsdTemperature)
+{
+    *pSsdTemperature = 30;
+    return FBE_STATUS_OK;
+}
+
 fbe_status_t fbe_base_board_get_ssd_count(fbe_base_board_t *base_board, fbe_u32_t *ssd_count)
 {
     *ssd_count = 1;
@@ -183,4 +189,12 @@ fbe_status_t fbe_base_board_get_ssd_firmware_revision(fbe_base_board_t *base_boa
     return FBE_STATUS_OK;
 }
 
+
+fbe_status_t fbe_base_board_logSsdTemperatureToPmp(fbe_base_board_t *base_board, 
+                                                   fbe_base_board_ssdTempLogType ssdTempLogType,
+                                                   fbe_u32_t ssdTemperature)
+{
+    // NO OP
+    return FBE_STATUS_OK;
+}
 

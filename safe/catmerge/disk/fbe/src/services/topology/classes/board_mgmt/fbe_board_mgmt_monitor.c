@@ -2366,6 +2366,7 @@ fbe_board_mgmt_processSuitcaseStatus(fbe_board_mgmt_t *board_mgmt,
     fbe_bool_t                              suitcaseStatusChange = FALSE;
     fbe_u8_t                                deviceStr[FBE_DEVICE_STRING_LENGTH];
     fbe_bool_t                              shutdownSuitcase = FALSE;
+    fbe_bool_t                              logSsdTemperature = FALSE;
 
     // Get the new Suitcase info (only valid from Board Object)
     getSuitcaseInfo.associatedSp = pLocation->sp;
@@ -2449,6 +2450,10 @@ fbe_board_mgmt_processSuitcaseStatus(fbe_board_mgmt_t *board_mgmt,
                         &deviceStr[0],
                         "Suitcase");
             shutdownSuitcase = TRUE;
+            if (board_mgmt->base_environment.spid == pLocation->sp)
+            {
+                logSsdTemperature = TRUE; 
+            }
         }
         else if ((board_mgmt->suitcase_info[pLocation->sp][pLocation->slot].shutdownWarning == FBE_MGMT_STATUS_TRUE) &&
                 (getSuitcaseInfo.shutdownWarning == FBE_MGMT_STATUS_FALSE))
@@ -2482,6 +2487,10 @@ fbe_board_mgmt_processSuitcaseStatus(fbe_board_mgmt_t *board_mgmt,
                                 "%s %s", 
                                 &deviceStr[0],
                                 "ambientOverTemp");
+            if (board_mgmt->base_environment.spid == pLocation->sp)
+            {
+                logSsdTemperature = TRUE; 
+            }
         }
         else if ((board_mgmt->suitcase_info[pLocation->sp][pLocation->slot].ambientOvertempFault == FBE_MGMT_STATUS_TRUE) &&
                 (getSuitcaseInfo.ambientOvertempFault == FBE_MGMT_STATUS_FALSE))
@@ -2500,6 +2509,10 @@ fbe_board_mgmt_processSuitcaseStatus(fbe_board_mgmt_t *board_mgmt,
         board_mgmt->suitcase_info[pLocation->sp][pLocation->slot].ambientOvertempWarning)
     {
         suitcaseStatusChange = TRUE;
+        if (board_mgmt->base_environment.spid == pLocation->sp)
+        {
+            logSsdTemperature = TRUE; 
+        }
         fbe_base_object_trace((fbe_base_object_t *)board_mgmt, 
                               FBE_TRACE_LEVEL_INFO,
                               FBE_TRACE_MESSAGE_ID_INFO,
@@ -2577,6 +2590,20 @@ fbe_board_mgmt_processSuitcaseStatus(fbe_board_mgmt_t *board_mgmt,
     }
     
     fbe_board_mgmt_calculateSuitcaseStateInfo(board_mgmt, pLocation->sp, pLocation->slot);
+
+    // Trace SSD Temperature if Shutdown or OverTemp detected
+    if (logSsdTemperature)
+    {
+        fbe_base_object_trace((fbe_base_object_t *)board_mgmt, 
+                              FBE_TRACE_LEVEL_INFO,
+                              FBE_TRACE_MESSAGE_ID_INFO,
+                              "%s, LocalSsdTemp %d, shutdown %d, OT Warn %d, Fail %d\n",
+                              __FUNCTION__, 
+                              board_mgmt->ssdInfo[board_mgmt->base_environment.spid].ssdTemperature,
+                              getSuitcaseInfo.shutdownWarning,
+                              getSuitcaseInfo.ambientOvertempWarning,
+                              getSuitcaseInfo.ambientOvertempFault);
+    }
 
     // send Suitcase event notification if necessary
     if (suitcaseStatusChange)

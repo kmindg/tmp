@@ -122,7 +122,7 @@ static const fbe_base_physical_drive_fault_bit_translation_t     fbe_fault_bit_t
     { FBE_BASE_PHYSICAL_DRIVE_DEATH_REASON_DATA_THRESHOLD_EXCEEDED,                   true,      false,        false, },   
     { FBE_BASE_PHYSICAL_DRIVE_DEATH_REASON_FATAL_ERROR,                               true,      false,        false, },   
     { FBE_BASE_PHYSICAL_DRIVE_DEATH_REASON_ACTIVATE_TIMER_EXPIRED,                    false,     true,         true,  },   
-    { FBE_BASE_PHYSICAL_DRIVE_DEATH_REASON_ENCLOSURE_OBJECT_FAILED,                   true,      false,        true,  },   
+    { FBE_BASE_PHYSICAL_DRIVE_DEATH_REASON_ENCLOSURE_OBJECT_FAILED,                   false,     true,         true,  },   
     { FBE_BASE_PHYSICAL_DRIVE_DEATH_REASON_INVALID_CAPACITY,                          true,      false,        false, },   
     { FBE_BASE_PHYSICAL_DRIVE_DEATH_REASON_FAILED_TO_SPIN_DOWN,                       true,      false,        false, },   
     { FBE_BASE_PHYSICAL_DRIVE_DEATH_REASON_CRC_MULTI_BIT,                             true,      false,        false, },   

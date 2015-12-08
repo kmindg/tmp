@@ -731,6 +731,7 @@ typedef struct fbe_board_mgmt_ssd_info_s
     fbe_u32_t              remainingSpareBlkCount;
     fbe_u32_t              ssdLifeUsed;
     fbe_bool_t             ssdSelfTestPassed;
+    fbe_u32_t              ssdTemperature;
     /* Resume related info */
     fbe_char_t             ssdSerialNumber      [FBE_SSD_SERIAL_NUMBER_SIZE + 1];
     fbe_char_t             ssdPartNumber        [FBE_SSD_PART_NUMBER_SIZE +1];

@@ -76,6 +76,7 @@
 #include "k10defs.h"		// K10_MAX_LIBDEF_DBID, etc.
 #include "csx_ext.h"
 #endif
+#include "K10CommonExport.h"
 
 #ifndef K10_DISK_DRIVER_ADMIN_H
 #include "k10diskdriveradmin.h"

@@ -20,6 +20,10 @@
 
 #include "fbe_cli_lib_get_faults_cmds.h"
 #include "generic_utils_lib.h"
+#include "fbe_board_mgmt_utils.h"
+
+static fbe_bool_t fbe_cli_print_esp_dimm_faults(void);
+static fbe_bool_t fbe_cli_print_esp_ssd_faults(void);
 
 /*!*****************************************************************************
  * @fn fbe_cli_cmd_get_faults ()
@@ -206,6 +210,12 @@ static fbe_bool_t fbe_cli_print_esp_sp_faults(void)
         fbe_cli_printf("SP: %s\n", fault_string);
     }
 
+    // DIMM Faults
+    fbe_cli_print_esp_dimm_faults();
+
+    // SSD Faults
+    fbe_cli_print_esp_ssd_faults();
+
     /* SP Resume Prom Faults */
     fbe_zero_memory(fault_string, FAULT_STRING_LENGTH);
     fault = FBE_FALSE;
@@ -365,12 +375,38 @@ static fbe_bool_t fbe_cli_print_esp_suitcase_faults(void)
                 {
                 case FBE_SUITCASE_SUBSTATE_HW_ERR_MON_FAULT:
                     fault = FBE_TRUE;
-                    fbe_cli_cat_fault_string(fault_string, "Tap12VMissing", FAULT_STRING_LENGTH);
+                    fbe_cli_cat_fault_string(fault_string, "HwErrMonFault", FAULT_STRING_LENGTH);
                     break;
                 case FBE_SUITCASE_SUBSTATE_BIST_FAILURE:
                     fault = FBE_TRUE;
                     fbe_cli_cat_fault_string(fault_string, "BistFailure", FAULT_STRING_LENGTH);
                     break;
+                case FBE_SUITCASE_SUBSTATE_FLT_STATUS_REG_FAULT:
+                    fault = FBE_TRUE;
+                    fbe_cli_cat_fault_string(fault_string, "FltStatusRegFault", FAULT_STRING_LENGTH);
+                    break;
+                case FBE_SUITCASE_SUBSTATE_ENV_INTF_FAILURE:
+                    fault = FBE_TRUE;
+                    fbe_cli_cat_fault_string(fault_string, "EnvIntfFailure", FAULT_STRING_LENGTH);
+                    break;
+                case FBE_SUITCASE_SUBSTATE_RP_READ_FAILURE:
+                    fault = FBE_TRUE;
+                    fbe_cli_cat_fault_string(fault_string, "ResPromReadFlt", FAULT_STRING_LENGTH);
+                    break;
+/* These are already checked in SP Fault function, so disable to prevent duplicates
+                case FBE_SUITCASE_SUBSTATE_LOW_BATTERY:
+                    fault = FBE_TRUE;
+                    fbe_cli_cat_fault_string(fault_string, "LowBatteryFlt", FAULT_STRING_LENGTH);
+                    break;
+                case FBE_SUITCASE_SUBSTATE_INTERNAL_CABLE_CROSSED:
+                    fault = FBE_TRUE;
+                    fbe_cli_cat_fault_string(fault_string, "InternalCableCrossed", FAULT_STRING_LENGTH);
+                    break;
+                case FBE_SUITCASE_SUBSTATE_INTERNAL_CABLE_MISSING:
+                    fault = FBE_TRUE;
+                    fbe_cli_cat_fault_string(fault_string, "InternalCableMissing", FAULT_STRING_LENGTH);
+                    break;
+ */
                 default:
                     break;
                 }
@@ -1571,6 +1607,11 @@ static fbe_bool_t fbe_cli_print_esp_ps_faults(fbe_device_physical_location_t *pL
                 fault = FBE_TRUE;
                 fbe_cli_cat_fault_string(fault_string, "FaultReg Fault", FBE_MGMT_STATUS_TRUE);
             }
+            if(psInfo.psInfo.psSupported != FBE_MGMT_STATUS_TRUE)
+            {
+                fault = FBE_TRUE;
+                fbe_cli_cat_fault_string(fault_string, "PsUnsupported", FAULT_STRING_LENGTH);
+            }
 
             if(psInfo.psInfo.generalFault == FBE_MGMT_STATUS_UNKNOWN)
             {
@@ -1808,3 +1849,203 @@ static void fbe_cli_cat_fault_string(char *fault_string, char *fault_reason, fbe
 
     return;
 }
+
+
+/*!*****************************************************************************
+ * @fn fbe_cli_print_esp_dimm_faults ()
+ *******************************************************************************
+ * @brief
+ *  print all DIMM faults on an array.
+ *
+ * @param :
+ *   None
+ *
+ * @return:
+ *   fbe_bool_t - if any faults detected
+ *
+ * @author
+ *   11/10/2015     Joe Perry - Created.
+ *
+ ******************************************************************************/
+static fbe_bool_t fbe_cli_print_esp_dimm_faults(void)
+{
+    fbe_status_t                        status = FBE_STATUS_OK;
+    fbe_esp_board_mgmt_dimm_info_t      dimmInfo = {0};
+    fbe_device_physical_location_t      location = {0};
+    fbe_u32_t                           count; // total DIMM count in enclosure
+    fbe_u32_t                           i;
+    fbe_esp_board_mgmt_board_info_t     boardInfo = {0};
+    SP_ID                               sp = SP_INVALID;
+    fbe_u32_t                           spCount = 0;
+
+    status = fbe_api_esp_board_mgmt_getBoardInfo(&boardInfo);
+
+    if (status != FBE_STATUS_OK)
+    {
+        fbe_cli_printf("Failed to get boardInfo, status:%d\n", status);
+        return FBE_STATUS_FAILED;
+    }
+
+    if(boardInfo.isSingleSpSystem)
+    {
+        spCount = SP_COUNT_SINGLE;
+    }
+    else
+    {
+        spCount = SP_ID_MAX;
+    }
+
+    status = fbe_api_esp_board_mgmt_getDimmCount(&count);
+    if (status != FBE_STATUS_OK)
+    {
+        fbe_cli_printf("Failed to get DIMM count, status:%d\n", status);
+    }
+    else
+    {
+        for (sp = SP_A; sp < spCount; sp ++) 
+        {
+            for (i = 0; i < count/spCount; i++) 
+            {
+                location.sp = sp;
+                location.slot = i;
+                status = fbe_api_esp_board_mgmt_getDimmInfo(&location, &dimmInfo);
+            
+                if (status != FBE_STATUS_OK)
+                {
+                    fbe_cli_printf("Failed to get %s DIMM %d information, status:%d\n", sp == SP_A ? "SPA" : "SPB", i, status);
+                    continue;
+                }
+
+                switch (dimmInfo.state)
+                {
+                case FBE_DIMM_STATE_OK:
+                case FBE_DIMM_STATE_EMPTY:
+                    // these are OK states, so no fault
+                    break;
+                case FBE_DIMM_STATE_FAULTED:
+                    fbe_cli_printf("%s DIMM%d - %s\n",
+                                   ((sp == SP_A) ? "SPA" : "SPB"),
+                                   i,
+                                   fbe_board_mgmt_decode_dimm_subState(dimmInfo.subState));
+                    break;
+                case FBE_DIMM_STATE_NEED_TO_REMOVE:
+                case FBE_DIMM_STATE_MISSING:
+                case FBE_DIMM_STATE_DEGRADED:
+                case FBE_DIMM_STATE_UNKNOWN:
+                    fbe_cli_printf("%s DIMM%d - %s\n",
+                                   ((sp == SP_A) ? "SPA" : "SPB"),
+                                   i,
+                                   fbe_board_mgmt_decode_dimm_state(dimmInfo.state));
+                    break;
+                default:
+                    fbe_cli_printf("%s DIMM%d - NOT DEFINED\n",
+                                   ((sp == SP_A) ? "SPA" : "SPB"),
+                                   i);
+                    break;
+                }
+            }
+        }
+    }
+
+    return FBE_STATUS_OK;
+
+}   // end of fbe_cli_print_esp_dimm_faults
+
+
+/*!*****************************************************************************
+ * @fn fbe_cli_print_esp_ssd_faults ()
+ *******************************************************************************
+ * @brief
+ *  print all SSD faults on an array.
+ *
+ * @param :
+ *   None
+ *
+ * @return:
+ *   fbe_bool_t - if any faults detected
+ *
+ * @author
+ *   11/10/2015     Joe Perry - Created.
+ *
+ ******************************************************************************/
+static fbe_bool_t fbe_cli_print_esp_ssd_faults(void)
+{
+    fbe_status_t                        status = FBE_STATUS_OK;
+    fbe_esp_board_mgmt_ssd_info_t       ssdInfo = {0};
+    fbe_device_physical_location_t      location = {0};
+    fbe_u32_t                           count; // total SSD count in enclosure
+    fbe_u32_t                           i;
+    fbe_esp_board_mgmt_board_info_t     boardInfo = {0};
+    SP_ID                               sp = SP_INVALID;
+    fbe_u32_t                           spCount = 0;
+
+    status = fbe_api_esp_board_mgmt_getBoardInfo(&boardInfo);
+
+    if (status != FBE_STATUS_OK)
+    {
+        fbe_cli_printf("Failed to get boardInfo, status:%d\n", status);
+        return FBE_STATUS_FAILED;
+    }
+
+    if(boardInfo.isSingleSpSystem)
+    {
+        spCount = SP_COUNT_SINGLE;
+    }
+    else
+    {
+        spCount = SP_ID_MAX;
+    }
+
+    status = fbe_api_esp_board_mgmt_getSSDCount(&count);
+    if (status != FBE_STATUS_OK)
+    {
+        fbe_cli_printf("Failed to get SSD count, status:%d\n", status);
+    }
+    else
+    {
+        for (sp = SP_A; sp < spCount; sp ++) 
+        {
+            for (i = 0; i < count/spCount; i++) 
+            {
+                location.sp = sp;
+                location.slot = i;
+                status = fbe_api_esp_board_mgmt_getSSDInfo(&location, &ssdInfo);
+            
+                if (status != FBE_STATUS_OK)
+                {
+                    fbe_cli_printf("Failed to get %s SSD %d information, status:%d\n", sp == SP_A ? "SPA" : "SPB", i, status);
+                    continue;
+                }
+
+                switch (ssdInfo.ssdState)
+                {
+                case FBE_SSD_STATE_OK:
+                    // these are OK states, so no fault
+                    break;
+                case FBE_SSD_STATE_FAULTED:
+                    fbe_cli_printf("%s SSD%d - %s\n",
+                                   ((sp == SP_A) ? "SPA" : "SPB"),
+                                   i,
+                                   fbe_board_mgmt_decode_ssd_subState(ssdInfo.ssdSubState));
+                    break;
+                case FBE_SSD_STATE_DEGRADED:
+                case FBE_SSD_STATE_NOT_PRESENT:
+                case FBE_SSD_STATE_UNKNOWN:
+                    fbe_cli_printf("%s SSD%d - %s\n",
+                                   ((sp == SP_A) ? "SPA" : "SPB"),
+                                   i,
+                                   fbe_board_mgmt_decode_ssd_state(ssdInfo.ssdState));
+                    break;
+                default:
+                    fbe_cli_printf("%s SSD%d - NOT DEFINED\n",
+                                   ((sp == SP_A) ? "SPA" : "SPB"),
+                                   i);
+                    break;
+                }
+            }
+        }
+    }
+
+    return FBE_STATUS_OK;
+
+}   // end of fbe_cli_print_esp_ssd_faults

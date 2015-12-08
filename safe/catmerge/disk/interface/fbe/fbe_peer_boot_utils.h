@@ -342,6 +342,7 @@ fbe_u8_t * fbe_board_mgmt_utils_get_suFruMessage(fbe_subfru_replacements_t subFr
 const char *fbe_pbl_decodeFru(fbe_peer_boot_fru_t  fru);
 fbe_u64_t fbe_pbl_mapFbeDeviceType(fbe_peer_boot_fru_t  fru);
 fbe_bool_t fbe_pbl_BootPeerSuccessful(fbe_peer_boot_states_t bootState);
+fbe_bool_t fbe_pbl_BootPeerUnknown(fbe_peer_boot_states_t      bootState);
 const char* fbe_pbl_decodeBootState(fbe_peer_boot_states_t bootState);
 fbe_peer_boot_states_t fbe_pbl_getPeerBootState(SPECL_FAULT_REGISTER_STATUS  *fltRegStatus);
 fbe_u32_t fbe_pbl_getPeerBootTimeout(SPECL_FAULT_REGISTER_STATUS  *fltRegStatus);

@@ -2093,6 +2093,41 @@ fbe_status_t fbe_raid_group_get_send_to_downsteam_request(fbe_raid_group_t *raid
  **********************************************************/
 
 /*!****************************************************************************
+ *          fbe_raid_group_send_to_downstream_completion_break_context()
+ ******************************************************************************
+ * @brief
+ *   This function is the completion function for sending a usurper it simply
+ *   breaks the stack context by queue the request to the transport queue and
+ *   returns status (thus returning and clearing the call stack).
+ * 
+ * @param packet_p   - pointer to a control packet from the scheduler
+ * @param context    - completion context, which is a pointer to the raid
+ *                        group object
+ * 
+ * @return  fbe_status_t  
+ *
+ * @author
+ *  11/18/2015  Ron Proulx  - Created
+ *
+ ******************************************************************************/
+fbe_status_t fbe_raid_group_send_to_downstream_completion_break_context(fbe_packet_t *packet_p,
+                                                                        fbe_packet_completion_context_t context_p)
+
+{
+    /* Complete from transport to break stack.
+     */
+    FBE_UNREFERENCED_PARAMETER(context_p);
+    fbe_transport_run_queue_push_packet(packet_p, FBE_TRANSPORT_RQ_METHOD_SAME_CORE);
+
+    /* Return pending so that the next callback is completed from the transport thread.
+     */
+    return FBE_STATUS_MORE_PROCESSING_REQUIRED; 
+} 
+/**************************************************************
+ * end fbe_raid_group_send_to_downstream_completion_break_context()
+ **************************************************************/
+
+/*!****************************************************************************
  *          fbe_raid_group_send_to_downstream_position_completion()
  ******************************************************************************
  * @brief
@@ -2232,6 +2267,9 @@ fbe_status_t fbe_raid_group_send_to_downstream_position_completion(fbe_packet_t 
         send_to_downstream_p->position_in_progress = position;
         fbe_transport_set_completion_function(packet_p, 
                                               fbe_raid_group_send_to_downstream_position_completion, 
+                                              raid_group_p);
+        fbe_transport_set_completion_function(packet_p, 
+                                              fbe_raid_group_send_to_downstream_completion_break_context, 
                                               raid_group_p);
         fbe_transport_set_completion_function(packet_p, 
                                               send_to_downstream_p->request_completion, 

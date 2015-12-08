@@ -291,6 +291,8 @@ static fbe_status_t fbe_encl_mgmt_process_ssc_status(fbe_encl_mgmt_t *pEnclMgmt,
                                                      fbe_device_physical_location_t *pLocation);
 static fbe_bool_t fbe_encl_mgmt_validEnclPsTypes(fbe_encl_mgmt_t *pEnclMgmt, fbe_encl_info_t *pEnclInfo);
 
+static fbe_bool_t fbe_encl_mgmt_fail_drives_in_encl(fbe_encl_mgmt_t *pEnclMgmt, fbe_encl_info_t *pEnclInfo);
+
 /*--- lifecycle callback functions -----------------------------------------------------*/
 
 
@@ -1449,6 +1451,7 @@ static fbe_status_t fbe_encl_mgmt_handle_encl_fail_state(fbe_encl_mgmt_t *encl_m
     fbe_encl_info_t                 * pEnclInfo = NULL;
     fbe_encl_info_t                 * pOldEnclInfo = NULL;
     fbe_enclosure_fault_t             enclosure_fault_info = {0};
+    fbe_encl_fault_led_reason_t       enclFaultLedReason = 0;
 
     objectId = update_object_msg->object_id;
 
@@ -1512,6 +1515,8 @@ static fbe_status_t fbe_encl_mgmt_handle_encl_fail_state(fbe_encl_mgmt_t *encl_m
     }
     else if (enclosure_fault_info.faultSymptom == FBE_ENCL_FLTSYMPT_EXCEEDS_MAX_LIMITS)
     {
+        enclFaultLedReason = FBE_ENCL_FAULT_LED_EXCEEDED_MAX;
+
         fbe_spinlock_lock(&pEnclInfo->encl_info_lock);
         pEnclInfo->enclState = FBE_ESP_ENCL_STATE_FAILED;
         pEnclInfo->enclFaultSymptom = FBE_ESP_ENCL_FAULT_SYM_EXCEEDED_MAX;
@@ -1519,7 +1524,22 @@ static fbe_status_t fbe_encl_mgmt_handle_encl_fail_state(fbe_encl_mgmt_t *encl_m
         fbe_base_object_trace((fbe_base_object_t *)encl_mgmt, 
                               FBE_TRACE_LEVEL_INFO,
                               FBE_TRACE_MESSAGE_ID_INFO,
-                              "Encl(%d_%d), failed encl detected setting enclosure fault symptom to EXCEED_MAX.\n",
+                              "Encl(%d_%d), failed encl, setting enclFaultSymptom to EXCEEDED_MAX.\n",
+                              pEnclInfo->location.bus, 
+                              pEnclInfo->location.enclosure); 
+    }
+    else if (enclosure_fault_info.faultSymptom == FBE_ENCL_FLTSYMPT_UNSUPPORTED_ENCLOSURE)
+    {
+        enclFaultLedReason = FBE_ENCL_FAULT_LED_NOT_SUPPORTED_FLT;
+
+        fbe_spinlock_lock(&pEnclInfo->encl_info_lock);
+        pEnclInfo->enclState = FBE_ESP_ENCL_STATE_FAILED;
+        pEnclInfo->enclFaultSymptom = FBE_ESP_ENCL_FAULT_SYM_UNSUPPORTED;
+        fbe_spinlock_unlock(&pEnclInfo->encl_info_lock); 
+        fbe_base_object_trace((fbe_base_object_t *)encl_mgmt, 
+                              FBE_TRACE_LEVEL_INFO,
+                              FBE_TRACE_MESSAGE_ID_INFO,
+                              "Encl(%d_%d), failed encl, setting enclFaultSymptom to UNSUPPORTED_ENCL.\n",
                               pEnclInfo->location.bus, 
                               pEnclInfo->location.enclosure); 
     }
@@ -1527,10 +1547,18 @@ static fbe_status_t fbe_encl_mgmt_handle_encl_fail_state(fbe_encl_mgmt_t *encl_m
     else if ((pOldEnclInfo->enclState != FBE_ESP_ENCL_STATE_FAILED) ||
                   (pOldEnclInfo->enclFaultSymptom == FBE_ESP_ENCL_FAULT_SYM_NO_FAULT))
     {
+        enclFaultLedReason = FBE_ENCL_FAULT_LED_ENCL_LIFECYCLE_FAIL;
+
         fbe_spinlock_lock(&pEnclInfo->encl_info_lock);
         pEnclInfo->enclState = FBE_ESP_ENCL_STATE_FAILED;
         pEnclInfo->enclFaultSymptom = FBE_ESP_ENCL_FAULT_SYM_LIFECYCLE_STATE_FAIL;
         fbe_spinlock_unlock(&pEnclInfo->encl_info_lock);   
+        fbe_base_object_trace((fbe_base_object_t *)encl_mgmt, 
+                              FBE_TRACE_LEVEL_INFO,
+                              FBE_TRACE_MESSAGE_ID_INFO,
+                              "Encl(%d_%d), failed encl, setting enclFaultSymptom to LIFECYCLE_STATE_FAIL.\n",
+                              pEnclInfo->location.bus, 
+                              pEnclInfo->location.enclosure); 
     }
 
     /* Trace and Log event. */
@@ -1549,8 +1577,8 @@ static fbe_status_t fbe_encl_mgmt_handle_encl_fail_state(fbe_encl_mgmt_t *encl_m
     }    
 
     status = fbe_encl_mgmt_update_encl_fault_led(encl_mgmt, 
-                                                     &pEnclInfo->location, 
-                                                     FBE_ENCL_FAULT_LED_ENCL_LIFECYCLE_FAIL);
+                                                 &pEnclInfo->location, 
+                                                 enclFaultLedReason);
     if(status != FBE_STATUS_OK)
     {
         fbe_base_object_trace((fbe_base_object_t *)encl_mgmt, 
@@ -3043,6 +3071,7 @@ fbe_encl_mgmt_new_encl_check_other_fault(fbe_encl_mgmt_t * pEnclMgmt,
     fbe_object_id_t                                 boardObjectId;
     fbe_board_mgmt_platform_info_t                  current_platform_info;
     fbe_esp_encl_type_t                             enclType = FBE_ESP_ENCL_TYPE_INVALID;
+    fbe_base_enclosure_fail_encl_cmd_t              failCmd = {0};
 
     status = fbe_api_get_object_type(objectId, &objectType, FBE_PACKAGE_ID_PHYSICAL);
     if (status != FBE_STATUS_OK)
@@ -3151,22 +3180,46 @@ fbe_encl_mgmt_new_encl_check_other_fault(fbe_encl_mgmt_t * pEnclMgmt,
     // verify enclosure type
     if (!fbe_encl_mgmt_isEnclosureSupported(pEnclMgmt, &current_platform_info.hw_platform_info, enclType))
     {
-        enclFaultSymptom = FBE_ESP_ENCL_FAULT_SYM_UNSUPPORTED;
         fbe_base_object_trace((fbe_base_object_t *)pEnclMgmt, 
                               FBE_TRACE_LEVEL_WARNING,
                               FBE_TRACE_MESSAGE_ID_FUNCTION_FAILED,
-                              "Encl(%d_%d), enclType %d NOT SUPPORTED by platform %d.\n",
-                              pEnclInfo->location.bus, pEnclInfo->location.enclosure, 
-                              enclType, current_platform_info.hw_platform_info.platformType);
+                              "Encl(%d_%d), enclType %s(%d) NOT SUPPORTED by platform %d.\n",
+                              pEnclInfo->location.bus, 
+                              pEnclInfo->location.enclosure, 
+                              fbe_encl_mgmt_get_encl_type_string(enclType),
+                              enclType, 
+                              current_platform_info.hw_platform_info.platformType);
+
         status = fbe_event_log_write(ESP_ERROR_ENCL_TYPE_NOT_SUPPORTED,
                                      NULL, 0,
                                      "%s %s", 
                                      &deviceStr[0],
                                      fbe_encl_mgmt_get_encl_type_string(enclType));
-        fbe_spinlock_lock(&pEnclInfo->encl_info_lock);
-        pEnclInfo->enclState = FBE_ESP_ENCL_STATE_FAILED;
-        pEnclInfo->enclFaultSymptom = enclFaultSymptom;
-        fbe_spinlock_unlock(&pEnclInfo->encl_info_lock);
+        
+        fbe_base_object_trace((fbe_base_object_t *)pEnclMgmt, 
+                                      FBE_TRACE_LEVEL_INFO,
+                                      FBE_TRACE_MESSAGE_ID_INFO,
+                                      "Unsupportted Encl(%d_%d), failing enclosure object.\n",
+                                      pEnclInfo->location.bus, 
+                                      pEnclInfo->location.enclosure);
+
+        /* Fail the enclosure object *
+         * There is no need to set the led_reason here. 
+         * The function fbe_api_enclosure_set_enclosure_failed can not turn on the enclosure fault led anyway 
+         * because it calls eses_enclosure_process_fail_enclosure_request which calls fbe_eses_enclosure_setLedStatus not 
+         * fbe_eses_enclosure_setLedControl.
+         * When the enclosure object changed to failed lifecycle state, ESP will detect the change and light up 
+         * the enclosure fault led. But it is possible that ESP can not read back the correct encl fault led status 
+         * becaues when the enclosure object is in FAIL lifecycle state, it does not read the encl fault led status 
+         * and notify the ESP. - Ping He.
+         */ 
+      
+        failCmd.flt_symptom = FBE_ENCL_FLTSYMPT_UNSUPPORTED_ENCLOSURE;
+        fbe_api_enclosure_set_enclosure_failed(pEnclInfo->object_id, &failCmd);
+
+        /* Fail all the PDOs for the drives in this enclosure. */
+        fbe_encl_mgmt_fail_drives_in_encl(pEnclMgmt, pEnclInfo);
+
         return status;
     }
     else
@@ -6944,6 +6997,14 @@ fbe_status_t fbe_encl_mgmt_update_encl_fault_led(fbe_encl_mgmt_t *pEnclMgmt,
                 }
                 break;
 
+            case FBE_ENCL_FAULT_LED_NOT_SUPPORTED_FLT:
+                if((pEnclInfo->enclState == FBE_ESP_ENCL_STATE_FAILED) &&
+                   (pEnclInfo->enclFaultSymptom == FBE_ESP_ENCL_FAULT_SYM_UNSUPPORTED))
+                {
+                    enclFaultLedOn = FBE_TRUE;
+                }
+                break;
+
             case FBE_ENCL_FAULT_LED_LCC_CABLING_FLT:
                 if((pEnclInfo->enclState == FBE_ESP_ENCL_STATE_FAILED) &&
                    ((pEnclInfo->enclFaultSymptom == FBE_ESP_ENCL_FAULT_SYM_CROSS_CABLED)
@@ -9693,5 +9754,64 @@ static fbe_bool_t fbe_encl_mgmt_validEnclPsTypes(fbe_encl_mgmt_t *pEnclMgmt, fbe
     return validEnclPsTypes;
 
 }   // end of fbe_encl_mgmt_validEnclPsTypes
+
+
+/*!**************************************************************
+ * @fn fbe_encl_mgmt_validEnclPsTypes(fbe_encl_mgmt_t *pEnclMgmt
+ *                                    fbe_encl_info_t *pEnclInfo)
+ ****************************************************************
+ * @brief
+ *  Fail the PDO for all the drives in the enclosure.
+ *
+ * @param pEnclMgmt - pointer to encl_mgmt object
+ * @param pEnclInfo - pointer to a specific enclosure's info
+ *
+ * @return fbe_stauts_t
+ * @author
+ *   19-Nov-2015: PHE - Created.
+ ****************************************************************/
+static fbe_status_t fbe_encl_mgmt_fail_drives_in_encl(fbe_encl_mgmt_t *pEnclMgmt, fbe_encl_info_t *pEnclInfo)
+{
+    fbe_u32_t            drive_slot = 0;
+    fbe_object_id_t      drive_object_id = FBE_OBJECT_ID_INVALID;
+    fbe_status_t         status = FBE_STATUS_OK;
+                
+    for(drive_slot=0;drive_slot<pEnclInfo->driveSlotCount;drive_slot++)
+    {
+        fbe_api_get_physical_drive_object_id_by_location(pEnclInfo->location.bus,
+                                                         pEnclInfo->location.enclosure,
+                                                         drive_slot, 
+                                                         &drive_object_id);
+
+        if(drive_object_id != FBE_OBJECT_ID_INVALID)
+        {
+            fbe_base_object_trace((fbe_base_object_t *)pEnclMgmt, 
+                                      FBE_TRACE_LEVEL_INFO,
+                                      FBE_TRACE_MESSAGE_ID_INFO,
+                                      "%s, failing PDO for drive %d_%d_%d.\n",
+                                      __FUNCTION__, 
+                                      pEnclInfo->location.bus, 
+                                      pEnclInfo->location.enclosure,
+                                      drive_slot);
+
+            status = fbe_api_physical_drive_fail_drive(drive_object_id, FBE_BASE_PHYSICAL_DRIVE_DEATH_REASON_ENCLOSURE_OBJECT_FAILED);
+
+            if (status != FBE_STATUS_OK)
+            {
+                fbe_base_object_trace((fbe_base_object_t *)pEnclMgmt, 
+                                      FBE_TRACE_LEVEL_WARNING,
+                                      FBE_TRACE_MESSAGE_ID_FUNCTION_FAILED,
+                                      "%s, failed to fail PDO for drive %d_%d_%d. status 0x%x\n",
+                                      __FUNCTION__, 
+                                      pEnclInfo->location.bus, 
+                                      pEnclInfo->location.enclosure,
+                                      drive_slot,
+                                      status);
+            }
+        }
+    }
+
+    return FBE_STATUS_OK;
+}
 
 /* End of file fbe_encl_mgmt_monitor.c */

@@ -13,7 +13,7 @@
 #include "k10defs.h"
 #include "ktrace.h"
 #include "UserDefs.h"
-#include "../mgmt/interface/K10CommonExport.h"
+#include "K10CommonExport.h"
 #include "../layered/MLU/interface/mluTypes.h"
 #include "FslTypes.h"
 #include "FslAdminPerfData.h"

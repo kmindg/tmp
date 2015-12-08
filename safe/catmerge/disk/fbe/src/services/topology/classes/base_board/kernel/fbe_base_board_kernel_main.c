@@ -330,6 +330,7 @@ fbe_status_t fbe_base_board_get_serial_num_from_pci(fbe_base_board_t * base_boar
 #define SSD_LIFE_REMAIN_CMD_STRING "smartctl -a /dev/ssd|egrep 'SSD_Life_Remain' | awk '{print $10}'"
 #define SSD_LIFE_USED_CMD_STRING "smartctl -a /dev/ssd|egrep 'Pct_Drive_Life_Used' | awk '{print $10}'"
 #define SSD_REMAINING_SPARE_BLOCKS_CMD_STRING "smartctl -a /dev/ssd|egrep 'Remaining_Spare_Blks' | awk '{print $10}'"
+#define SSD_TEMPERATURE_CMD_STRING "smartctl -a /dev/ssd|egrep 'Temperature' | awk '{print $10}'"
 
 #define SSD_SERIAL_NUMBER_CMD_STRING "smartctl -a /dev/ssd|egrep 'Serial Number' | awk '{print $3}'"
 #define SSD_PART_NUMBER_CMD_STRING "smartctl -a /dev/ssd|egrep 'Device Model' | awk 'BEGIN {FS = \":\"} {print $2}'"
@@ -554,5 +555,77 @@ fbe_status_t fbe_base_board_get_ssd_firmware_revision(fbe_base_board_t *base_boa
                     "%s, string returned %s.\n",
                     __FUNCTION__, output_buffer);
 #endif
+    return FBE_STATUS_OK;
+}
+
+
+fbe_status_t fbe_base_board_get_ssd_temperature(fbe_base_board_t *base_board, fbe_u32_t *pSsdTemperature)
+{
+    fbe_char_t output_buffer[255] = {0};
+    fbe_u32_t return_status = 0;
+
+#ifndef ALAMOSA_WINDOWS_ENV
+    csx_p_native_process_drive_from_helper(SSD_TEMPERATURE_CMD_STRING,
+                                           CSX_NULL,
+                                           output_buffer,
+                                           255,
+                                           CSX_NULL,
+                                           &return_status);
+
+    *pSsdTemperature = atoi(output_buffer);
+
+    fbe_base_object_trace((fbe_base_object_t *)base_board,
+                    FBE_TRACE_LEVEL_INFO,
+                    FBE_TRACE_MESSAGE_ID_INFO,
+                    "%s, string returned %s.\n",
+                    __FUNCTION__, output_buffer);
+
+#else
+    *pSsdTemperature = 30;          // return normal Temp
+#endif
+
+    return FBE_STATUS_OK;
+}
+
+
+fbe_status_t fbe_base_board_logSsdTemperatureToPmp(fbe_base_board_t *base_board, 
+                                                   fbe_base_board_ssdTempLogType ssdTempLogType,
+                                                   fbe_u32_t ssdTemperature)
+{
+    fbe_char_t cmd_buffer[255] = {0};
+    fbe_char_t output_buffer[255] = {0};
+    fbe_u32_t return_status = 0;
+
+#ifndef ALAMOSA_WINDOWS_ENV
+    switch (ssdTempLogType)
+    {
+    case FBE_BASE_BOARD_SSD_TEMP_LOG_SHUTDOWN:
+        sprintf(cmd_buffer, "lxpmp.exe --log \"SSD Temperature %d Celsius - Shutdown\"", 
+                ssdTemperature);
+        break;
+    case FBE_BASE_BOARD_SSD_TEMP_LOG_OT_FAILURE:
+        sprintf(cmd_buffer, "lxpmp.exe --log \"SSD Temperature %d Celsius - OverTempFailure\"", 
+                ssdTemperature);
+        break;
+    case FBE_BASE_BOARD_SSD_TEMP_LOG_OT_WARNING:
+        sprintf(cmd_buffer, "lxpmp.exe --log \"SSD Temperature %d Celsius - OverTempWarning\"", 
+                ssdTemperature);
+        break;
+    default:
+        fbe_base_object_trace((fbe_base_object_t *)base_board,
+                        FBE_TRACE_LEVEL_ERROR,
+                        FBE_TRACE_MESSAGE_ID_FUNCTION_FAILED,
+                        "%s, unsupported ssdTempLogType %d\n",
+                        __FUNCTION__, ssdTempLogType);
+        return FBE_STATUS_FAILED;
+    }
+    csx_p_native_process_drive_from_helper(cmd_buffer,
+                                           CSX_NULL,
+                                           output_buffer,
+                                           255,
+                                           CSX_NULL,
+                                           &return_status);
+#endif
+
     return FBE_STATUS_OK;
 }

@@ -51,6 +51,14 @@ typedef struct fbe_base_board_fup_permission_info_s
     fbe_device_physical_location_t location;
 } fbe_base_board_fup_permission_info_t;
 
+typedef enum
+{
+    FBE_BASE_BOARD_SSD_TEMP_LOG_NONE = 0,
+    FBE_BASE_BOARD_SSD_TEMP_LOG_OT_WARNING,
+    FBE_BASE_BOARD_SSD_TEMP_LOG_OT_FAILURE,
+    FBE_BASE_BOARD_SSD_TEMP_LOG_SHUTDOWN,
+} fbe_base_board_ssdTempLogType;
+
 typedef struct fbe_base_board_s{
     fbe_base_discovering_t base_discovering;
     /* fbe_edge_index_t first_io_port_index; I am not shure that we need it*/
@@ -90,6 +98,7 @@ typedef struct fbe_base_board_s{
     fbe_base_board_fup_permission_info_t  enclosureFupPermission;
 
     fbe_u32_t                       ssdPollCounter;
+    fbe_base_board_ssdTempLogType   logSsdTemperature;
     
     FBE_LIFECYCLE_DEF_INST_DATA;
     FBE_LIFECYCLE_DEF_INST_COND(FBE_LIFECYCLE_COND_MAX(FBE_BASE_BOARD_LIFECYCLE_COND_LAST));    
@@ -153,6 +162,10 @@ fbe_status_t fbe_base_board_get_ssd_serial_number(fbe_base_board_t *base_board, 
 fbe_status_t fbe_base_board_get_ssd_part_number(fbe_base_board_t *base_board, fbe_char_t *pSsdPartNumber);
 fbe_status_t fbe_base_board_get_ssd_assembly_name(fbe_base_board_t *base_board, fbe_char_t *pSsdAssemblyName);
 fbe_status_t fbe_base_board_get_ssd_firmware_revision(fbe_base_board_t *base_board, fbe_char_t *pSsdFirmwareRevision);
+fbe_status_t fbe_base_board_get_ssd_temperature(fbe_base_board_t *base_board, fbe_u32_t *pSsdTemperature);
+fbe_status_t fbe_base_board_logSsdTemperatureToPmp(fbe_base_board_t *base_board, 
+                                                   fbe_base_board_ssdTempLogType ssdTempLogType,
+                                                   fbe_u32_t ssdTemperature);
 
 fbe_status_t fbe_base_board_add_command_element(fbe_base_board_t *base_board, fbe_packet_t *packet);
 fbe_status_t fbe_base_board_check_command_queue(fbe_base_board_t *base_board);

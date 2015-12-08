@@ -50,23 +50,6 @@
 //
 ////----
 
-////+++++
-//
-//  BEGIN Definitions for assigning the severity of a reported fault condtion.
-//      These are OR'ed with the rest of the error code.
-//
-#define K10_COND_INFO       (0x0000)
-#define K10_COND_WARNING    (0x4000)
-#define K10_COND_ERROR      (0x8000)
-#define K10_COND_CRITICAL   (K10_COND_WARNING | K10_COND_ERROR)
-
-//
-// Mask for &-ing with an error code to determin the severity
-//
-#define K10_COND_MASK       K10_COND_CRITICAL
-//
-/////-----
-
 ////++
 //
 //  BEGIN Definitions of macros used to build error from a common base for both NT

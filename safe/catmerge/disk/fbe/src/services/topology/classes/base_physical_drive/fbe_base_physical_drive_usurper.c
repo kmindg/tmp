@@ -4230,7 +4230,7 @@ static fbe_status_t base_physical_drive_set_dieh_media_threshold(fbe_base_physic
 
         fbe_payload_control_set_status(control_operation, FBE_PAYLOAD_CONTROL_STATUS_FAILURE);
         fbe_transport_set_status(packet, FBE_STATUS_OK, 0);
-        fbe_transport_run_queue_push_packet(packet, FBE_TRANSPORT_RQ_METHOD_SAME_CORE);
+        fbe_transport_complete_packet(packet);
         return FBE_STATUS_GENERIC_FAILURE;
     }
 
@@ -4243,7 +4243,7 @@ static fbe_status_t base_physical_drive_set_dieh_media_threshold(fbe_base_physic
 
         fbe_payload_control_set_status(control_operation, FBE_PAYLOAD_CONTROL_STATUS_FAILURE);
         fbe_transport_set_status(packet, FBE_STATUS_GENERIC_FAILURE, 0);
-        fbe_transport_run_queue_push_packet(packet, FBE_TRANSPORT_RQ_METHOD_SAME_CORE);
+        fbe_transport_complete_packet(packet);
         return FBE_STATUS_GENERIC_FAILURE;
     }
 
@@ -4321,14 +4321,14 @@ static fbe_status_t base_physical_drive_set_dieh_media_threshold(fbe_base_physic
                                     "%s, Invalid cmd: %d\n", __FUNCTION__, set_dieh_media_threshold_info->cmd);
             fbe_payload_control_set_status(control_operation, FBE_PAYLOAD_CONTROL_STATUS_FAILURE);
             fbe_transport_set_status(packet, FBE_STATUS_GENERIC_FAILURE, 0);
-            fbe_transport_run_queue_push_packet(packet, FBE_TRANSPORT_RQ_METHOD_SAME_CORE);
+            fbe_transport_complete_packet(packet);
             return FBE_STATUS_GENERIC_FAILURE;
     }
 
     fbe_payload_control_set_status(control_operation, FBE_PAYLOAD_CONTROL_STATUS_OK);
     fbe_transport_set_status(packet, FBE_STATUS_OK, 0);
     /* Push to run Q to break context to avoid stack overflow when RAID sends to multiple positions.*/
-    fbe_transport_run_queue_push_packet(packet, FBE_TRANSPORT_RQ_METHOD_SAME_CORE);
+    fbe_transport_complete_packet(packet);
 
     return FBE_STATUS_OK;
 
@@ -4376,7 +4376,7 @@ static fbe_status_t base_physical_drive_get_dieh_media_threshold(fbe_base_physic
 
         fbe_payload_control_set_status(control_operation, FBE_PAYLOAD_CONTROL_STATUS_FAILURE);
         fbe_transport_set_status(packet, FBE_STATUS_OK, 0);    
-        fbe_transport_run_queue_push_packet(packet, FBE_TRANSPORT_RQ_METHOD_SAME_CORE);        
+        fbe_transport_complete_packet(packet);        
         return FBE_STATUS_GENERIC_FAILURE;
     }
 
@@ -4389,7 +4389,7 @@ static fbe_status_t base_physical_drive_get_dieh_media_threshold(fbe_base_physic
 
         fbe_payload_control_set_status(control_operation, FBE_PAYLOAD_CONTROL_STATUS_FAILURE);
         fbe_transport_set_status(packet, FBE_STATUS_GENERIC_FAILURE, 0);
-        fbe_transport_run_queue_push_packet(packet, FBE_TRANSPORT_RQ_METHOD_SAME_CORE);        
+        fbe_transport_complete_packet(packet);        
         return FBE_STATUS_GENERIC_FAILURE;
     }
 
@@ -4452,7 +4452,7 @@ static fbe_status_t base_physical_drive_get_dieh_media_threshold(fbe_base_physic
     fbe_payload_control_set_status(control_operation, FBE_PAYLOAD_CONTROL_STATUS_OK);
     fbe_transport_set_status(packet, FBE_STATUS_OK, 0);
     /* Push to run Q to break context to avoid stack overflow when RAID sends to multiple positions.*/
-    fbe_transport_run_queue_push_packet(packet, FBE_TRANSPORT_RQ_METHOD_SAME_CORE);
+    fbe_transport_complete_packet(packet);
     return FBE_STATUS_OK;
 }
 

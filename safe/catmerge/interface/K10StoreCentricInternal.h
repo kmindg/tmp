@@ -26,6 +26,7 @@
 #include "k10defs.h"
 #include "csx_ext.h"
 #endif
+#include "K10CommonExport.h"
 
 #ifndef _K10StorageCentric_Export_h_
 #include "K10StoreCentricExport.h"

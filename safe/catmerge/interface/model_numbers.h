@@ -649,7 +649,7 @@
  * Info:     Second generation single/dual, different hypervisors 
  */
 #define TUNGSTEN_MODEL_NUM                 200
-#define TUNGSTEN_MODEL_NUM_ASCII           "vVNX"
+#define TUNGSTEN_MODEL_NUM_ASCII           "UnityVSA"
 #define TUNGSTEN_PLATFORM_NAME_ASCII       "Tungsten"
 
 /* Enterprise
@@ -690,27 +690,27 @@
 /* Oberon
  * Info:      Moons Platform - 2 I/O Modules
  */
-#define OBERON_1_MODEL_NUM                 3501
-#define OBERON_1_MODEL_NUM_ASCII           "VNXe3501"
+#define OBERON_1_MODEL_NUM                 300
+#define OBERON_1_MODEL_NUM_ASCII           "Unity 300"
 #define OBERON_1_PLATFORM_NAME_ASCII       "Oberon_1"
 
-#define OBERON_2_MODEL_NUM                 3502
-#define OBERON_2_MODEL_NUM_ASCII           "VNXe3502"
+#define OBERON_2_MODEL_NUM                 400
+#define OBERON_2_MODEL_NUM_ASCII           "Unity 400"
 #define OBERON_2_PLATFORM_NAME_ASCII       "Oberon_2"
 
-#define OBERON_3_MODEL_NUM                 3503
-#define OBERON_3_MODEL_NUM_ASCII           "VNXe3503"
+#define OBERON_3_MODEL_NUM                 500
+#define OBERON_3_MODEL_NUM_ASCII           "Unity 500"
 #define OBERON_3_PLATFORM_NAME_ASCII       "Oberon_3"
 
-#define OBERON_4_MODEL_NUM                 3504
-#define OBERON_4_MODEL_NUM_ASCII           "VNXe3504"
+#define OBERON_4_MODEL_NUM                 600
+#define OBERON_4_MODEL_NUM_ASCII           "Unity 600"
 #define OBERON_4_PLATFORM_NAME_ASCII       "Oberon_4"
 
 /* Oberon S1 simulator
  * Info:      Moons Platform - 2 I/O Modules
  */
-#define OBERON_S1_MODEL_NUM                 3501
-#define OBERON_S1_MODEL_NUM_ASCII           "VNXe3501"
+#define OBERON_S1_MODEL_NUM                 300
+#define OBERON_S1_MODEL_NUM_ASCII           "Unity 300"
 #define OBERON_S1_PLATFORM_NAME_ASCII       "Oberon_S1"
 
 

@@ -247,6 +247,7 @@
 #define IPMI_CMD_P_GET_FAN_RPM                  0x35
 #define IPMI_CMD_P_INITIATE_BIST                0x44
 #define IPMI_CMD_P_GET_BIST_RESULT              0x46
+#define IPMI_CMD_P_RESET_NONVOLATILE_DATA       0x52
 #define IPMI_CMD_P_SET_UART_MUX                 0x60
 #define IPMI_CMD_P_GET_UART_MUX                 0x61
 #define IPMI_CMD_P_SET_BMC_LAN_INTERFACE        0x79

@@ -2552,14 +2552,19 @@ static void ugly_duckling_perform_corrupt_paged_injection(fbe_object_id_t pvd_ob
     fbe_api_base_config_metadata_paged_change_bits_t paged_change_bits;
     fbe_provision_drive_paged_metadata_t paged_bits;
     fbe_u32_t repeat_count;
+    fbe_api_provision_drive_info_t provision_drive_info;
 
     fbe_zero_memory(&paged_bits, sizeof(fbe_provision_drive_paged_metadata_t));
     paged_bits.consumed_user_data_bit = 1;
     paged_bits.need_zero_bit = 1;
     paged_bits.user_zero_bit = 1;
 
-    paged_change_bits.metadata_offset = 0x40;
-    paged_change_bits.metadata_record_data_size = 2;
+    /* Since we are going to read directly from the drive, we need to get the default offset of the PVD */
+    status = fbe_api_provision_drive_get_info(pvd_object_id, 
+                                              &provision_drive_info);
+
+    paged_change_bits.metadata_offset = (provision_drive_info.default_offset/provision_drive_info.chunk_size) * sizeof(fbe_provision_drive_paged_metadata_t);
+    paged_change_bits.metadata_record_data_size = sizeof(fbe_provision_drive_paged_metadata_t);
 
     /* Just corrupt one chunk of paged.
      */

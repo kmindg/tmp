@@ -262,9 +262,9 @@ fbe_environment_limit_init_limits(fbe_environment_limits_t *env_limits)
                 env_limits->platform_port_limits.max_sas_be            = CoreConfigRuntime_Global.PortLimits.PlatformMaxSasBeCount;
                 env_limits->platform_port_limits.max_sas_fe            = CoreConfigRuntime_Global.PortLimits.PlatformMaxSasFeCount;
                 env_limits->platform_port_limits.max_fc_fe             = CoreConfigRuntime_Global.PortLimits.PlatformMaxFcFeCount;
-                env_limits->platform_port_limits.max_iscsi_1g_fe       = CoreConfigRuntime_Global.PortLimits.PlatformMaxiSCSI1GFeCount;
-                env_limits->platform_port_limits.max_iscsi_10g_fe      = CoreConfigRuntime_Global.PortLimits.PlatformMaxiSCSI10GFeCount;
-                env_limits->platform_port_limits.max_fcoe_fe           = CoreConfigRuntime_Global.PortLimits.PlatformMaxFcoeFeCount;
+                env_limits->platform_port_limits.max_iscsi_1g_fe    = CoreConfigRuntime_Global.PortLimits.PlatformMaxiSCSI1GFeCount;
+                env_limits->platform_port_limits.max_iscsi_10g_fe   = CoreConfigRuntime_Global.PortLimits.PlatformMaxiSCSI10GFeCount;
+                env_limits->platform_port_limits.max_fcoe_fe        = CoreConfigRuntime_Global.PortLimits.PlatformMaxFcoeFeCount;
                 env_limits->platform_port_limits.max_combined_iscsi_fe = CoreConfigRuntime_Global.PortLimits.PlatformMaxCombinediSCSIFeCount;
 
 
@@ -297,18 +297,49 @@ fbe_environment_limit_init_limits(fbe_environment_limits_t *env_limits)
                 env_limits->platform_hardware_limits    = triton_1_hw_limit;
                 env_limits->platform_port_limits        = triton_1_port_limit;
                 break;
+
+
             /* VVNX Virtual; TODO: Revisit; Same as KH sim */
             case SPID_MERIDIAN_ESX_HW_TYPE:
             case SPID_TUNGSTEN_HW_TYPE:
+                //Fill in Environment Limits from Global Config Runtime
+                env_limits->platform_max_encl_count_per_bus            = CoreConfigRuntime_Global.HwAttributes.PlatformMaxEnclPerBus;
+                env_limits->platform_max_lun_per_rg                    = CoreConfigRuntime_Global.HwAttributes.PlatformMaxLunsPerRG; 
+                env_limits->platform_hardware_limits.max_slics         = CoreConfigRuntime_Global.HwAttributes.PlatformMaxSlics;
+                env_limits->platform_hardware_limits.max_mezzanines    = CoreConfigRuntime_Global.HwAttributes.PlatformMaxMezzanines;
+                env_limits->platform_port_limits.max_sas_be            = CoreConfigRuntime_Global.PortLimits.PlatformMaxSasBeCount;
+                env_limits->platform_port_limits.max_sas_fe            = CoreConfigRuntime_Global.PortLimits.PlatformMaxSasFeCount;
+                env_limits->platform_port_limits.max_fc_fe             = CoreConfigRuntime_Global.PortLimits.PlatformMaxFcFeCount;
+                env_limits->platform_port_limits.max_iscsi_1g_fe    = CoreConfigRuntime_Global.PortLimits.PlatformMaxiSCSI1GFeCount;
+                env_limits->platform_port_limits.max_iscsi_10g_fe   = CoreConfigRuntime_Global.PortLimits.PlatformMaxiSCSI10GFeCount;
+                env_limits->platform_port_limits.max_fcoe_fe        = CoreConfigRuntime_Global.PortLimits.PlatformMaxFcoeFeCount;
+                env_limits->platform_port_limits.max_combined_iscsi_fe = CoreConfigRuntime_Global.PortLimits.PlatformMaxCombinediSCSIFeCount;
+
+                env_limits->platform_hardware_limits.supported_slic_types = (FBE_SLIC_TYPE_FC_8G |
+									     FBE_SLIC_TYPE_FC_8G_4S |
+									     FBE_SLIC_TYPE_FC_8G_1S3M |
+            								     FBE_SLIC_TYPE_ISCSI_10G |
+                                                                             FBE_SLIC_TYPE_FCOE |
+									     FBE_SLIC_TYPE_4PORT_ISCSI_1G |
+									     FBE_SLIC_TYPE_6G_SAS_1 |
+            								     FBE_SLIC_TYPE_ISCSI_COPPER |
+									     FBE_SLIC_TYPE_ISCSI_10G_V2 |
+									     FBE_SLIC_TYPE_6G_SAS_3 |
+									     FBE_SLIC_TYPE_4PORT_ISCSI_10G |
+                                                                             FBE_SLIC_TYPE_NA);
+
+                break;
+
+
             default: // making sim the default
                 env_limits->platform_hardware_limits    = nova_s1_hw_limit;
                 env_limits->platform_port_limits        = nova_s1_port_limit;
                 break;
             }
         }
+
         env_limits->platform_max_be_count = 
                     env_limits->platform_port_limits.max_sas_be;
-
 
         return FBE_STATUS_OK;
     }

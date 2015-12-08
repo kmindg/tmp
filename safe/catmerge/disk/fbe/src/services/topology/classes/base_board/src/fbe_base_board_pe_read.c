@@ -159,7 +159,8 @@ fbe_base_board_translate_io_port_status(edal_pe_io_port_sub_info_t * pPeIoPortSu
 
 static fbe_status_t 
 fbe_base_board_translate_mezzanine_status(edal_pe_io_comp_sub_info_t * pMezzanineSubInfo,                                      
-                                          SPECL_IO_STATUS  * pSpeclMezzanineStatus);
+                                          SPECL_IO_STATUS  * pSpeclMezzanineStatus,
+                                          fbe_bool_t is_local);
 
 static fbe_status_t 
 fbe_base_board_translate_power_supply_status(fbe_base_board_t * pBaseBoard,
@@ -188,8 +189,9 @@ fbe_base_board_translate_slave_port_status(edal_pe_slave_port_sub_info_t * peSla
                                            SPECL_SLAVE_PORT_STATUS  * pSpeclSlavePortStatus);
 
 static fbe_status_t 
-fbe_base_board_translate_suitcase_status(edal_pe_suitcase_sub_info_t * pSuitcaseSubInfo,                                      
-                                             SPECL_SUITCASE_STATUS  * pSpeclSuitcaseStatus);
+fbe_base_board_translate_suitcase_status(fbe_base_board_t * base_board,
+                                         edal_pe_suitcase_sub_info_t * pSuitcaseSubInfo,                                      
+                                         SPECL_SUITCASE_STATUS  * pSpeclSuitcaseStatus);
 
 static fbe_status_t 
 fbe_base_board_translate_bmc_status(edal_pe_bmc_sub_info_t * pBmcSubInfo,
@@ -2726,7 +2728,8 @@ fbe_base_board_read_mezzanine_status(fbe_base_board_t * pBaseBoard)
             return status;  
         }           
 
-        fbe_base_board_translate_mezzanine_status(pPeMezzanineSubInfo, pSpeclIoStatus);  
+        fbe_base_board_translate_mezzanine_status(pPeMezzanineSubInfo, pSpeclIoStatus, pExtMezzanineInfo->isLocalFru);  
+       
     
         /* Update EDAL with new Mezzanine info. */
         edalStatus = fbe_edal_setBuffer(edalBlockHandle, 
@@ -2969,7 +2972,8 @@ fbe_base_board_translate_temperature_status(edal_pe_temperature_sub_info_t *pPeT
  **************************************************************************/
 static fbe_status_t 
 fbe_base_board_translate_mezzanine_status(edal_pe_io_comp_sub_info_t * pPeIoCompSubInfo,                                      
-                                          SPECL_IO_STATUS  * pSpeclMezzanineStatus)
+                                          SPECL_IO_STATUS  * pSpeclMezzanineStatus,
+                                          fbe_bool_t is_local)
 {
     fbe_board_mgmt_io_comp_info_t * pExtPeIoCompInfo = NULL;
     fbe_u32_t ioController = 0;
@@ -2987,7 +2991,12 @@ fbe_base_board_translate_mezzanine_status(edal_pe_io_comp_sub_info_t * pPeIoComp
     /* Mezzanine does not have faultLEDStatus. */
     pExtPeIoCompInfo->faultLEDStatus = LED_BLINK_INVALID;
 
-    if(pSpeclMezzanineStatus->transactionStatus == EMCPAL_STATUS_SUCCESS)
+    /*
+     * If we've got good status or if this is our first discovery of the local mezzanine fill in the 
+     * information
+     */
+    if( (pSpeclMezzanineStatus->transactionStatus == EMCPAL_STATUS_SUCCESS) ||
+        ( (is_local) && (pExtPeIoCompInfo->ioPortCount == 0)) )
     {
         pExtPeIoCompInfo->transactionStatus = pSpeclMezzanineStatus->transactionStatus;
 
@@ -5445,7 +5454,7 @@ fbe_base_board_read_suitcase_status(fbe_base_board_t * base_board)
             return status;  
         }           
 
-        fbe_base_board_translate_suitcase_status(pPeSuitcaseSubInfo, pSpeclSuitcaseStatus);
+        fbe_base_board_translate_suitcase_status(base_board, pPeSuitcaseSubInfo, pSpeclSuitcaseStatus);
     
         /* Update EDAL with new suitcase info. */
         edalStatus = fbe_edal_setBuffer(edalBlockHandle, 
@@ -5490,15 +5499,24 @@ fbe_base_board_read_suitcase_status(fbe_base_board_t * base_board)
  *
  **************************************************************************/
 static fbe_status_t 
-fbe_base_board_translate_suitcase_status(edal_pe_suitcase_sub_info_t * pSuitcaseSubInfo,                                      
-                                             SPECL_SUITCASE_STATUS  * pSpeclSuitcaseStatus)
+fbe_base_board_translate_suitcase_status(fbe_base_board_t * base_board,
+                                         edal_pe_suitcase_sub_info_t * pSuitcaseSubInfo,                                      
+                                         SPECL_SUITCASE_STATUS  * pSpeclSuitcaseStatus)
 {
     fbe_board_mgmt_suitcase_info_t * pExtSuitcaseInfo = NULL;
+    fbe_mgmt_status_t              previousShutdownWarning;
+    fbe_mgmt_status_t              previousAmbientOvertempFault;
+    fbe_mgmt_status_t              previousAmbientOvertempWarning;
 
     pExtSuitcaseInfo = &pSuitcaseSubInfo->externalSuitcaseInfo;
 
     if(pSpeclSuitcaseStatus->transactionStatus == EMCPAL_STATUS_SUCCESS)
     {
+        // save previous OverTemp & Shutdown statuses
+        previousShutdownWarning = pExtSuitcaseInfo->shutdownWarning;
+        previousAmbientOvertempFault = pExtSuitcaseInfo->ambientOvertempFault;
+        previousAmbientOvertempWarning = pExtSuitcaseInfo->ambientOvertempWarning;
+
         pExtSuitcaseInfo->transactionStatus = pSpeclSuitcaseStatus->transactionStatus;
         pExtSuitcaseInfo->Tap12VMissing = (pSpeclSuitcaseStatus->Tap12VMissing == TRUE) ?
                                                FBE_MGMT_STATUS_TRUE : FBE_MGMT_STATUS_FALSE;
@@ -5512,6 +5530,24 @@ fbe_base_board_translate_suitcase_status(edal_pe_suitcase_sub_info_t * pSuitcase
                                                FBE_MGMT_STATUS_TRUE : FBE_MGMT_STATUS_FALSE;
         /*tempSensor is fbe_u8_t */
         pExtSuitcaseInfo->tempSensor = pSpeclSuitcaseStatus->tempSensor;    
+
+        // check if any OverTemp or Shutdown statuses changed
+        if ((previousShutdownWarning == FBE_MGMT_STATUS_FALSE) &&
+             (pExtSuitcaseInfo->shutdownWarning == FBE_MGMT_STATUS_TRUE))
+        {
+            base_board->logSsdTemperature = FBE_BASE_BOARD_SSD_TEMP_LOG_SHUTDOWN;
+        }
+        else if ((previousAmbientOvertempFault == FBE_MGMT_STATUS_FALSE) &&
+             (pExtSuitcaseInfo->ambientOvertempFault == FBE_MGMT_STATUS_TRUE))
+        {
+            base_board->logSsdTemperature = FBE_BASE_BOARD_SSD_TEMP_LOG_OT_FAILURE;
+        }
+        else if ((previousAmbientOvertempWarning == FBE_MGMT_STATUS_FALSE) &&
+            (pExtSuitcaseInfo->ambientOvertempWarning == FBE_MGMT_STATUS_TRUE))
+        {
+            base_board->logSsdTemperature = FBE_BASE_BOARD_SSD_TEMP_LOG_OT_WARNING;
+        }
+
     }
     else if(pExtSuitcaseInfo->envInterfaceStatus != FBE_ENV_INTERFACE_STATUS_GOOD)
     {
@@ -5972,6 +6008,7 @@ fbe_base_board_read_ssd_status(fbe_base_board_t * base_board)
     fbe_status_t status;
     fbe_bool_t self_test_passed;
     fbe_u32_t life_used=0, spare_blocks=0;
+    fbe_u32_t   temperature = 0;
     fbe_edal_block_handle_t edalBlockHandle = NULL;
     fbe_edal_status_t edal_status;
     fbe_board_mgmt_ssd_info_t SSDInfo = {0};
@@ -5988,6 +6025,8 @@ fbe_base_board_read_ssd_status(fbe_base_board_t * base_board)
     status = fbe_base_board_get_ssd_life_used(base_board, &life_used);
 
     status = fbe_base_board_get_ssd_spare_blocks(base_board, &spare_blocks);
+
+    status = fbe_base_board_get_ssd_temperature(base_board, &temperature);
 
     edal_status = fbe_base_board_get_edal_block_handle(base_board, &edalBlockHandle);
 
@@ -6033,6 +6072,7 @@ fbe_base_board_read_ssd_status(fbe_base_board_t * base_board)
     pSSDInfo->isLocalFru = FBE_TRUE;
     pSSDInfo->ssdLifeUsed = life_used;
     pSSDInfo->ssdSelfTestPassed = self_test_passed;
+    pSSDInfo->ssdTemperature = temperature;
 
     fbe_base_board_get_ssd_serial_number(base_board, &pSSDInfo->ssdSerialNumber[0]);
 
@@ -6058,8 +6098,38 @@ fbe_base_board_read_ssd_status(fbe_base_board_t * base_board)
                           pSSDInfo->remainingSpareBlkCount, 
                           pSSDInfo->ssdLifeUsed,
                           pSSDInfo->ssdSelfTestPassed);
+    fbe_base_object_trace((fbe_base_object_t *)base_board,  
+                           FBE_TRACE_LEVEL_DEBUG_HIGH,
+                           FBE_TRACE_MESSAGE_ID_INFO,
+                           "%s Sent to EDAL SSD:0 ssdTemp:%d\n",
+                           __FUNCTION__, 
+                          pSSDInfo->ssdTemperature); 
 
-    if(!EDAL_STAT_OK(edal_status))
+    // check if we should log the SSD Temperature to PMP log
+    if (base_board->logSsdTemperature != FBE_BASE_BOARD_SSD_TEMP_LOG_NONE)
+    {
+        fbe_base_object_trace((fbe_base_object_t *)base_board,  
+                               FBE_TRACE_LEVEL_INFO,
+                               FBE_TRACE_MESSAGE_ID_INFO,
+                               "%s, need to log ssdTemp (%d) to PMP Log, logSsdTemp %d\n",
+                               __FUNCTION__, 
+                              pSSDInfo->ssdTemperature,
+                              base_board->logSsdTemperature); 
+        status = fbe_base_board_logSsdTemperatureToPmp(base_board, 
+                                                       base_board->logSsdTemperature, 
+                                                       pSSDInfo->ssdTemperature);
+        if (status != FBE_STATUS_OK)
+        {
+            fbe_base_object_trace((fbe_base_object_t *)base_board,  
+                                   FBE_TRACE_LEVEL_ERROR,
+                                   FBE_TRACE_MESSAGE_ID_FUNCTION_FAILED,
+                                   "%s, log ssdTemp (%d) to PMP Log failed, status %d\n",
+                                   __FUNCTION__, pSSDInfo->ssdTemperature, status);
+        }
+        base_board->logSsdTemperature = FBE_BASE_BOARD_SSD_TEMP_LOG_NONE;
+    }
+
+    if (!EDAL_STAT_OK(edal_status)) 
     {
         fbe_base_object_trace((fbe_base_object_t *) base_board,
                               FBE_TRACE_LEVEL_WARNING,

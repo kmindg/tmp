@@ -271,11 +271,11 @@ static fbe_test_raid_group_disk_set_t dooby_doo_dest_array[FBE_TEST_RG_CONFIG_AR
  * @note  Currently we limit the number of different raid group
  *        configurations of each type due to memory constraints.
  *********************************************************************/
-#ifdef ALAMOSA_WINDOWS_ENV
+#ifndef __SAFE__
 fbe_test_rg_configuration_array_t dooby_doo_raid_groups_extended[FBE_TEST_RG_CONFIG_ARRAY_MAX_TYPE] = 
 #else
-fbe_test_rg_configuration_array_t dooby_doo_raid_groups_extended[] = 
-#endif /* ALAMOSA_WINDOWS_ENV - ODDCASE - shrink table/executable size */
+fbe_test_rg_configuration_array_t dooby_doo_raid_groups_extended[] =
+#endif /* __SAFE__ SAFEMESS - shrink table/executable size */ 
 {
 
     /* RAID-1 and RAID-10 configuraitons
@@ -315,11 +315,11 @@ fbe_test_rg_configuration_array_t dooby_doo_raid_groups_extended[] =
  * @note  Currently we limit the number of different raid group
  *        configurations of each type due to memory constraints.
  *********************************************************************/
-#ifdef ALAMOSA_WINDOWS_ENV
+#ifndef __SAFE__
 fbe_test_rg_configuration_array_t dooby_doo_raid_groups_qual[FBE_TEST_RG_CONFIG_ARRAY_MAX_TYPE] = 
 #else
 fbe_test_rg_configuration_array_t dooby_doo_raid_groups_qual[] = 
-#endif /* ALAMOSA_WINDOWS_ENV - ODDCASE - shrink table/executable size */
+#endif /* __SAFE__ SAFEMESS - shrink table/executable size */ 
 {
     /* All raid group configurations for qual
      */
@@ -2441,7 +2441,7 @@ static fbe_status_t dooby_doo_test_paco_r(fbe_test_rg_configuration_t *rg_config
                                                       FBE_RAID_GROUP_SUBSTATE_EMEH_RESTORE_START,
                                                       0, 0,
                                                       SCHEDULER_CHECK_STATES, 
-                                                      SCHEDULER_DEBUG_ACTION_PAUSE,
+                                                      SCHEDULER_DEBUG_ACTION_LOG,
                                                       FBE_TEST_HOOK_ACTION_ADD_CURRENT);
     MUT_ASSERT_INT_EQUAL(FBE_STATUS_OK, status);
     mut_printf(MUT_LOG_TEST_STATUS, "== %s Set EMEH restore defaults done hook ==", __FUNCTION__);
@@ -2498,7 +2498,7 @@ static fbe_status_t dooby_doo_test_paco_r(fbe_test_rg_configuration_t *rg_config
                                                       FBE_RAID_GROUP_SUBSTATE_EMEH_RESTORE_START,
                                                       0, 0,
                                                       SCHEDULER_CHECK_STATES, 
-                                                      SCHEDULER_DEBUG_ACTION_PAUSE,
+                                                      SCHEDULER_DEBUG_ACTION_LOG,
                                                       FBE_TEST_HOOK_ACTION_WAIT_CURRENT);
     MUT_ASSERT_INT_EQUAL(FBE_STATUS_OK, status);
     mut_printf(MUT_LOG_TEST_STATUS, "== %s Wait for EMEH restore defaults start hook - complete ==", __FUNCTION__);
@@ -2508,7 +2508,7 @@ static fbe_status_t dooby_doo_test_paco_r(fbe_test_rg_configuration_t *rg_config
                                                       FBE_RAID_GROUP_SUBSTATE_EMEH_RESTORE_START,
                                                       0, 0,
                                                       SCHEDULER_CHECK_STATES, 
-                                                      SCHEDULER_DEBUG_ACTION_PAUSE,
+                                                      SCHEDULER_DEBUG_ACTION_LOG,
                                                       FBE_TEST_HOOK_ACTION_DELETE_CURRENT);
     MUT_ASSERT_INT_EQUAL(FBE_STATUS_OK, status);
 

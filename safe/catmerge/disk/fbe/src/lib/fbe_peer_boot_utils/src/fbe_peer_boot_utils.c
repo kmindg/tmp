@@ -254,7 +254,8 @@ static fbe_peer_boot_cpu_reg_entry_t fbe_pbl_cpuRegEntries[] =
     { 0x02000002  , 0    , FBE_PEER_SUCCESS, {{PBL_FRU_INVALID,0}}}, //"Application Running"            
     { 0x02000003  , 0    , FBE_PEER_SW_LOADING, {{PBL_FRU_INVALID,0}}}, //"OS Running"                  
     { 0x02000004  , 0    , FBE_PEER_SUCCESS, {{PBL_FRU_INVALID,0}}}, //"OS Blade Being Serviced"        
-    { 0x02000005  , 0    , FBE_PEER_FAILURE, {{PBL_FRU_INVALID,0}}}  //"Illegal Memory Configuration"   
+    { 0x02000005  , 0    , FBE_PEER_FAILURE, {{PBL_FRU_INVALID,0}}},  //"Illegal Memory Configuration"   
+    { 0xFFFFFFFF  , 0    , FBE_PEER_UNKNOWN, {{PBL_FRU_INVALID,0}}}  //"BMC Reset Value"   
 };
 
 /*!**************************************************************
@@ -684,6 +685,32 @@ fbe_pbl_BootPeerSuccessful(fbe_peer_boot_states_t      bootState)
 * end of fbe_pbl_BootPeerSuccessful()
 ************************************************/
 /*!**************************************************************
+ * fbe_pbl_BootPeerUnknown()
+ ****************************************************************
+ * @brief
+ *  Determine if Peer Boot is Unknown
+ *
+ * @param bootState - boot state code
+ * @return Boot Unknown
+ * 
+ * @author
+ *  19-Nov-2012 Randall Porteus - Created
+ *
+ ****************************************************************/
+fbe_bool_t
+fbe_pbl_BootPeerUnknown(fbe_peer_boot_states_t      bootState)
+{
+    if (bootState == FBE_PEER_UNKNOWN)
+    {
+        return TRUE;
+    }
+    else
+        return FALSE;
+}
+/************************************************
+* end of fbe_pbl_BootPeerUnknown()
+************************************************/
+/*!**************************************************************
  * fbe_pbl_decodeBootState()
  ****************************************************************
  * @brief
@@ -725,7 +752,7 @@ fbe_pbl_decodeBootState(fbe_peer_boot_states_t      bootState)
             rtnStr = "Dumping";
         break;
         case FBE_PEER_UNKNOWN:
-            rtnStr = "Unknow boot state";
+            rtnStr = "Unknown boot state";
         break;
         case FBE_PEER_SW_LOADING:
             rtnStr = "Software loading";

@@ -320,6 +320,7 @@ fbe_base_board_init(fbe_base_board_t * base_board)
     base_board->enclosureFupPermission.permissionOccupied = FALSE;
 
     base_board->ssdPollCounter = 0;
+    base_board->logSsdTemperature = FBE_BASE_BOARD_SSD_TEMP_LOG_NONE;
  
 #if !defined(UMODE_ENV) && !defined(SIMMODE_ENV)
     /*

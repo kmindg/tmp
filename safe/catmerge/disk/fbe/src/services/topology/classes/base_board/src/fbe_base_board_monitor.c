@@ -682,7 +682,8 @@ base_board_pe_status_unknown_cond_function(fbe_base_object_t * base_object, fbe_
     }
 
     /* The SSD status doesn't need to be checked as often as SPECL data, check this every 5 minutes */
-    if(base_board->ssdPollCounter == 0)
+    if((base_board->ssdPollCounter == 0) ||
+        (base_board->logSsdTemperature != FBE_BASE_BOARD_SSD_TEMP_LOG_NONE))
     {
         //query the ssd drive(s) status(es)
         status = fbe_base_board_read_ssd_status(base_board);

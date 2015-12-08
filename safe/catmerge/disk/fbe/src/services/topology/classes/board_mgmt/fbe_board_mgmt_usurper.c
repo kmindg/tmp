@@ -209,7 +209,8 @@ fbe_board_mgmt_get_board_info(fbe_board_mgmt_t *board_mgmt, fbe_packet_t * packe
     board_info->sp_id = board_mgmt->base_environment.spid;
     board_info->peerInserted = board_mgmt->peerInserted; // Peer SP inserted or not
     board_info->peerPresent = board_mgmt->peerInserted && 
-        fbe_pbl_BootPeerSuccessful(board_mgmt->peerBootInfo.peerBootState) && 
+        (fbe_pbl_BootPeerSuccessful(board_mgmt->peerBootInfo.peerBootState) ||
+         fbe_pbl_BootPeerUnknown(board_mgmt->peerBootInfo.peerBootState) ) && 
         fbe_cmi_is_peer_alive();                                 // Peer SP inserted or not
     board_info->lowBattery = board_mgmt->lowBattery;
     board_info->engineIdFault = board_mgmt->engineIdFault;
@@ -1360,6 +1361,7 @@ fbe_board_mgmt_getSSDStatus(fbe_board_mgmt_t *board_mgmt, fbe_packet_t * packet)
     pGetSsdInfo->ssdInfo.ssdSubState = board_mgmt->ssdInfo[ssdIndex].ssdSubState;
     pGetSsdInfo->ssdInfo.remainingSpareBlkCount = board_mgmt->ssdInfo[ssdIndex].remainingSpareBlkCount;
     pGetSsdInfo->ssdInfo.ssdLifeUsed = board_mgmt->ssdInfo[ssdIndex].ssdLifeUsed;
+    pGetSsdInfo->ssdInfo.ssdTemperature = board_mgmt->ssdInfo[ssdIndex].ssdTemperature;
     pGetSsdInfo->ssdInfo.ssdSelfTestPassed = board_mgmt->ssdInfo[ssdIndex].ssdSelfTestPassed;
     fbe_copy_memory(&pGetSsdInfo->ssdInfo.ssdSerialNumber[0], &board_mgmt->ssdInfo[ssdIndex].ssdSerialNumber[0], FBE_SSD_SERIAL_NUMBER_SIZE);
     fbe_copy_memory(&pGetSsdInfo->ssdInfo.ssdPartNumber[0], &board_mgmt->ssdInfo[ssdIndex].ssdPartNumber[0], FBE_SSD_PART_NUMBER_SIZE);

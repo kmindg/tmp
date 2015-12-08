@@ -260,6 +260,11 @@
 #define IOCTL_CACHE_VAULT_IMAGE \
     EMCPAL_IOCTL_CTL_CODE(FILE_DEVICE_DISK, 0x90B, EMCPAL_IOCTL_METHOD_BUFFERED, EMCPAL_IOCTL_FILE_ANY_ACCESS)
 
+//Sent by MR and DVL(upper deck) to MLU to acknowledge it has received an SCN
+#define IOCTL_FLARE_ACKNOWLEDGE_STATE_CHANGE_NOTIFICATION \
+    EMCPAL_IOCTL_CTL_CODE(FILE_DEVICE_DISK, 0x90C, EMCPAL_IOCTL_METHOD_BUFFERED, EMCPAL_IOCTL_FILE_ANY_ACCESS)
+
+
 // Returns the name of the FLARE IOCTL for a IRP_MJ_DEVICE_CONTROL.
 // If not recognized, returns empty string (not NULL pointer).
 static __inline char * FlareIoctlCodeToString(ULONG IoControlCode)
@@ -337,7 +342,7 @@ static __inline char * FlareIoctlCodeToString(ULONG IoControlCode)
     case IOCTL_CACHE_VAULT_IMAGE: name = "IOCTL_CACHE_VAULT_IMAGE"; break;
     case IOCTL_CACHE_VOLUME_GROUPS_STATISTICS: name = "IOCTL_CACHE_VOLUME_GROUPS_STATISTICS"; break;
     case IOCTL_CACHE_DISPARATE_WRITE: name = "IOCTL_CACHE_DISPARATE_WRITE"; break;
-
+    case IOCTL_FLARE_ACKNOWLEDGE_STATE_CHANGE_NOTIFICATION: name = "IOCTL_FLARE_ACKNOWLEDGE_STATE_CHANGE_NOTIFICATION"; break;
         // Return empty string, not NULL pointer, to indicate "not found".
     default: name = ""; break;
     }; /* end switch () */
@@ -1056,6 +1061,7 @@ enum CacheVaultImageStatus {
 struct IoctlCacheVaultImageOutput {
     enum CacheVaultImageStatus status;
 };
+
 
 #endif /* !defined (FLARE_EXPORT_IOCTLS_H) */
 
