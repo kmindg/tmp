@@ -20,7 +20,7 @@ reset to 0 if a re-image is required */
  * This should be incremented after changing any peer to peer messages.
  */
 #define CA_CACHE_REVISION_NUMBER (3)
-#define DRAM_CACHE_REVISION_NUMBER (4)
+#define DRAM_CACHE_REVISION_NUMBER (6)
 
 
 /*----------------------------------------------------------------------

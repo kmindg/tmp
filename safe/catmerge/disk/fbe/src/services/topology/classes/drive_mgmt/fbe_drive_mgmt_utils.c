@@ -465,6 +465,64 @@ fbe_drive_mgmt_death_reason_desc(fbe_u32_t death_reason)
 
 
 /**************************************************************************
+ *      fbe_drive_mgmt_get_logical_offline_reason()
+ **************************************************************************
+ *
+ *  @brief
+ *    This function return a reason code for the logically offline state.
+ *
+ *  @param
+ *    logical_state - logical offline state.
+ * 
+ *  @return
+ *     reason - death reason value enum.
+ *
+ *  @author
+ *     12/10/2015 - Created.  Wayne Garrett
+ *
+ **************************************************************************/
+fbe_u32_t fbe_drive_mgmt_get_logical_offline_reason(fbe_drive_mgmt_t *drive_mgmt, fbe_block_transport_logical_state_t logical_state)
+{
+    fbe_u32_t reason = DMO_DRIVE_OFFLINE_REASON_UNKNOWN_FAILURE;    
+
+    if(logical_state == FBE_BLOCK_TRANSPORT_LOGICAL_STATE_FAILED_EOL)
+    {
+        reason = DMO_DRIVE_OFFLINE_REASON_PERSISTED_EOL;                     
+    }
+    else if(logical_state == FBE_BLOCK_TRANSPORT_LOGICAL_STATE_FAILED_DRIVE_FAULT)
+    {
+        reason = DMO_DRIVE_OFFLINE_REASON_PERSISTED_DF;                   
+    }  
+    else if(logical_state == FBE_BLOCK_TRANSPORT_LOGICAL_STATE_FAILED_NON_EQ)
+    {
+        reason = DMO_DRIVE_OFFLINE_REASON_NON_EQ;
+    }
+    else if (logical_state == FBE_BLOCK_TRANSPORT_LOGICAL_STATE_FAILED_INVALID_IDENTITY)
+    {
+        reason = DMO_DRIVE_OFFLINE_REASON_INVALID_ID;
+    } 
+    else if (logical_state == FBE_BLOCK_TRANSPORT_LOGICAL_STATE_FAILED_SSD_LE)
+    {
+        reason = DMO_DRIVE_OFFLINE_REASON_SSD_LE;
+    }                 
+    else if (logical_state == FBE_BLOCK_TRANSPORT_LOGICAL_STATE_FAILED_SSD_RI)
+    {
+        reason = DMO_DRIVE_OFFLINE_REASON_SSD_RI;
+    }                 
+    else if (logical_state == FBE_BLOCK_TRANSPORT_LOGICAL_STATE_FAILED_HDD_520)
+    {
+        reason = DMO_DRIVE_OFFLINE_REASON_HDD_520;
+    }                 
+    else if (logical_state == FBE_BLOCK_TRANSPORT_LOGICAL_STATE_FAILED_OTHER) 
+    {
+        reason = DMO_DRIVE_OFFLINE_REASON_UNKNOWN_FAILURE;
+    }
+
+    return reason;
+}
+
+
+/**************************************************************************
  *      fbe_drive_mgmt_drive_failed_action()
  **************************************************************************
  *

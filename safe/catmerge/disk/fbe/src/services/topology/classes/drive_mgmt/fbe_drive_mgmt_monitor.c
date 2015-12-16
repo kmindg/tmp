@@ -1443,42 +1443,9 @@ fbe_drive_mgmt_process_drive_status(fbe_drive_mgmt_t * pDriveMgmt,
                logical_state == FBE_BLOCK_TRANSPORT_LOGICAL_STATE_FAILED_HDD_520 ||
                logical_state == FBE_BLOCK_TRANSPORT_LOGICAL_STATE_FAILED_OTHER)
             {                
-                fbe_u32_t reason = DMO_DRIVE_OFFLINE_REASON_UNKNOWN_FAILURE;
+                fbe_u32_t reason = fbe_drive_mgmt_get_logical_offline_reason(pDriveMgmt, logical_state);
                 dmo_drive_death_action_t action = DMO_DRIVE_DEATH_ACTION_CONTACT_SERVICE_PROVIDER;
                                     
-                if(logical_state == FBE_BLOCK_TRANSPORT_LOGICAL_STATE_FAILED_EOL)
-                {
-                    reason = DMO_DRIVE_OFFLINE_REASON_PERSISTED_EOL;                     
-                }
-                else if(logical_state == FBE_BLOCK_TRANSPORT_LOGICAL_STATE_FAILED_DRIVE_FAULT)
-                {
-                    reason = DMO_DRIVE_OFFLINE_REASON_PERSISTED_DF;                   
-                }  
-                else if(logical_state == FBE_BLOCK_TRANSPORT_LOGICAL_STATE_FAILED_NON_EQ)
-                {
-                    reason = DMO_DRIVE_OFFLINE_REASON_NON_EQ;
-                }
-                else if (logical_state == FBE_BLOCK_TRANSPORT_LOGICAL_STATE_FAILED_INVALID_IDENTITY)
-                {
-                    reason = DMO_DRIVE_OFFLINE_REASON_INVALID_ID;
-                } 
-                else if (logical_state == FBE_BLOCK_TRANSPORT_LOGICAL_STATE_FAILED_SSD_LE)
-                {
-                    reason = DMO_DRIVE_OFFLINE_REASON_SSD_LE;
-                }                 
-                else if (logical_state == FBE_BLOCK_TRANSPORT_LOGICAL_STATE_FAILED_SSD_RI)
-                {
-                    reason = DMO_DRIVE_OFFLINE_REASON_SSD_RI;
-                }                 
-                else if (logical_state == FBE_BLOCK_TRANSPORT_LOGICAL_STATE_FAILED_HDD_520)
-                {
-                    reason = DMO_DRIVE_OFFLINE_REASON_HDD_520;
-                }                 
-                else if (logical_state == FBE_BLOCK_TRANSPORT_LOGICAL_STATE_FAILED_OTHER) 
-                {
-                    reason = DMO_DRIVE_OFFLINE_REASON_UNKNOWN_FAILURE;
-                }
-                
                 pDriveInfo->death_reason = reason;
                 
                 fbe_base_object_trace((fbe_base_object_t *)pDriveMgmt,
@@ -2441,6 +2408,7 @@ fbe_drive_mgmt_handle_new_drive(fbe_drive_mgmt_t *drive_mgmt, fbe_object_id_t ob
     char * fullCurrentStateStr = NULL;
     fbe_u32_t reason = DMO_DRIVE_OFFLINE_REASON_UNKNOWN_FAILURE;
     dmo_drive_death_action_t action = DMO_DRIVE_DEATH_ACTION_CONTACT_SERVICE_PROVIDER;
+    fbe_block_transport_logical_state_t drive_logical_state = FBE_BLOCK_TRANSPORT_LOGICAL_STATE_UNINITALIZED;
     
     
     status = fbe_api_get_object_port_number (object_id, &port_number);
@@ -2457,7 +2425,6 @@ fbe_drive_mgmt_handle_new_drive(fbe_drive_mgmt_t *drive_mgmt, fbe_object_id_t ob
         return status;
     }
 
-    //TODO: WHY allocating?  Just use stack.
     physical_drive_info = fbe_base_env_memory_ex_allocate((fbe_base_environment_t *)drive_mgmt, sizeof(fbe_physical_drive_information_t));
     if(physical_drive_info == NULL) {
         fbe_base_object_trace((fbe_base_object_t *)drive_mgmt, 
@@ -2473,6 +2440,15 @@ fbe_drive_mgmt_handle_new_drive(fbe_drive_mgmt_t *drive_mgmt, fbe_object_id_t ob
         fbe_base_env_memory_ex_release((fbe_base_environment_t *)drive_mgmt, physical_drive_info);
         return status;
     }
+   
+    status = fbe_api_physical_drive_get_logical_drive_state(object_id, &drive_logical_state);
+    if(status != FBE_STATUS_OK){
+        fbe_base_object_trace((fbe_base_object_t *)drive_mgmt, FBE_TRACE_LEVEL_WARNING, FBE_TRACE_MESSAGE_ID_FUNCTION_FAILED,
+                              "DMO: %s Error getting logical state for %d_%d_%d pdo(0x%x), status 0x%x.\n",                              
+                              __FUNCTION__, port_number, enclosure_number, drive_number, object_id, status);
+        fbe_base_env_memory_ex_release((fbe_base_environment_t *)drive_mgmt, physical_drive_info);
+        return status;
+    }  
 
     status = fbe_api_get_object_lifecycle_state(object_id, &current_state, FBE_PACKAGE_ID_PHYSICAL);
     
@@ -2562,8 +2538,9 @@ fbe_drive_mgmt_handle_new_drive(fbe_drive_mgmt_t *drive_mgmt, fbe_object_id_t ob
     drive_info->product_id[FBE_SCSI_INQUIRY_PRODUCT_ID_SIZE] = '\0';
     drive_info->spin_up_count = physical_drive_info->spin_up_count;
     drive_info->spin_up_time_in_minutes = physical_drive_info->spin_up_time_in_minutes;
-    drive_info->stand_by_time_in_minutes = physical_drive_info->stand_by_time_in_minutes;    
-    
+    drive_info->stand_by_time_in_minutes = physical_drive_info->stand_by_time_in_minutes;   
+    drive_info->logical_state = drive_logical_state; 
+        
     dmo_drive_array_unlock(drive_mgmt,__FUNCTION__);
 
     status = fbe_base_env_create_device_string(FBE_DEVICE_TYPE_DRIVE,        // generate the device string (used for tracing & events)
@@ -2599,20 +2576,19 @@ fbe_drive_mgmt_handle_new_drive(fbe_drive_mgmt_t *drive_mgmt, fbe_object_id_t ob
     }
     else
     {
-        status = fbe_api_physical_drive_get_logical_drive_state(object_id, &drive_info->logical_state);
-        if(status != FBE_STATUS_OK)
-        {
-            fbe_base_object_trace((fbe_base_object_t *)drive_mgmt, FBE_TRACE_LEVEL_WARNING, FBE_TRACE_MESSAGE_ID_FUNCTION_FAILED,
-                                  "DMO: %s Error getting logical state for %d_%d_%d pdo(0x%x), status 0x%x.\n",                              
-                                  __FUNCTION__, port_number, enclosure_number, drive_number, object_id, status);
-        }
+        fbe_event_log_write(ESP_INFO_DRIVE_ONLINE, NULL, 0, "%s %s %s %s",
+                            &deviceStr[0], drive_info->sn, drive_info->tla, drive_info->rev );
 
-        if (drive_info->logical_state == FBE_BLOCK_TRANSPORT_LOGICAL_STATE_UNINITALIZED ||
-            drive_info->logical_state == FBE_BLOCK_TRANSPORT_LOGICAL_STATE_ONLINE)
+  
+        if (drive_logical_state != FBE_BLOCK_TRANSPORT_LOGICAL_STATE_UNINITALIZED &&
+            drive_logical_state != FBE_BLOCK_TRANSPORT_LOGICAL_STATE_ONLINE)
         {
-
-            fbe_event_log_write(ESP_INFO_DRIVE_ONLINE, NULL, 0, "%s %s %s %s",
-                                &deviceStr[0], drive_info->sn, drive_info->tla, drive_info->rev );
+            reason = fbe_drive_mgmt_get_logical_offline_reason(drive_mgmt, drive_logical_state);
+            action = fbe_drive_mgmt_drive_failed_action(drive_mgmt, reason);
+    
+            fbe_drive_mgmt_log_drive_offline_event(drive_mgmt, action,
+                                                   physical_drive_info, reason,
+                                                   &location);
         }
     }
 

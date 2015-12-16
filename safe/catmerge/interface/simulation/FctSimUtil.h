@@ -726,6 +726,16 @@ protected:
         PerformDriverAction(&Action);
     }
 
+    void DisablePriorityPromotes()
+    {
+        PerformDriverActionAllSPs(FCT_ACTION_DISABLE_PRIORITY_PROMOTES);
+    }
+
+    void EnablePriorityPromotes()
+    {
+        PerformDriverActionAllSPs(FCT_ACTION_ENABLE_PRIORITY_PROMOTES);
+    }
+
     void PerformDriverAction(FctAction * pAction,
                              EMCPAL_STATUS * pStatus = NULL)
     {

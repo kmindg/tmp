@@ -811,10 +811,11 @@ typedef enum _AIDVD_PRIORITY
     AIDVD_PRIORITY_EFDC = 6,
     
     AIDVD_PRIORITY_SPLITTER = 7,
+
+    AIDVD_PRIORITY_QOS = 8,
     
-    AIDVD_PRIORITY_SNAPBACK = 8,
+    AIDVD_PRIORITY_SNAPBACK = 9,
 	
-    AIDVD_PRIORITY_QOS = 9,
 
     // The HIGHEST value should be the maximum of the others.
     AIDVD_PRIORITY_HIGHEST = AIDVD_PRIORITY_QOS

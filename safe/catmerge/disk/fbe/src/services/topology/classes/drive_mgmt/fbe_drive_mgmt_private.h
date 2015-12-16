@@ -696,6 +696,7 @@ fbe_status_t        fbe_drive_mgmt_send_cmi_message(const fbe_drive_mgmt_t * dri
 void                fbe_drive_mgmt_process_cmi_message(fbe_drive_mgmt_t * drive_mgmt, fbe_drive_mgmt_cmi_msg_t * base_msg);
 fbe_status_t        fbe_drive_mgmt_process_cmi_peer_not_present(fbe_drive_mgmt_t * drive_mgmt, fbe_drive_mgmt_cmi_msg_t * base_msg);
 char*               fbe_drive_mgmt_death_reason_desc(fbe_u32_t death_reason);
+fbe_u32_t           fbe_drive_mgmt_get_logical_offline_reason(fbe_drive_mgmt_t *drive_mgmt, fbe_block_transport_logical_state_t logical_state);
 dmo_drive_death_action_t  fbe_drive_mgmt_drive_failed_action(const fbe_drive_mgmt_t *drive_mgmt, fbe_u32_t death_reason);
 void fbe_drive_mgmt_log_drive_offline_event(const fbe_drive_mgmt_t *drive_mgmt, 
                                             dmo_drive_death_action_t action,

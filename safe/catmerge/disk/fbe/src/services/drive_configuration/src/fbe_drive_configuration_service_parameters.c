@@ -743,7 +743,8 @@ static fbe_status_t fbe_dcs_set_pdo_service_time(fbe_object_id_t pdo_obj, fbe_ti
      */
     status = fbe_transport_get_status_code(packet_p);
 
-    if (FBE_STATUS_OK != status)
+    if (FBE_STATUS_OK != status &&
+        FBE_STATUS_NO_OBJECT != status)
     {
         drive_configuration_trace(FBE_TRACE_LEVEL_ERROR, FBE_TRACE_MESSAGE_ID_FUNCTION_FAILED,
                               "%s: Failed. status:%d\n",  __FUNCTION__, status);

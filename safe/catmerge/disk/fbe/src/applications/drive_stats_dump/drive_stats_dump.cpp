@@ -434,8 +434,8 @@ const tla_table_entry_t g_tla_table_rdx[] =
    have been tested. 
 */
 #define POWER_ON_HOURS_STR          "POWER_ON_HOURS"
-#define NAND_BYTES_READ_STR         "NAND_BYTES_READ"
-#define NAND_BYTES_WRITTEN_STR      "NAND_BYTES_WRITTEN"
+#define TOTAL_BYTES_READ_STR        "TOTAL_BYTES_READ"
+#define TOTAL_BYTES_WRITTEN_STR     "TOTAL_BYTES_WRITTEN"
 #define MAX_DRIVE_TEMP_STR          "MAX_DRIVE_TEMP"
 #define TOTAL_READ_COMMANDS_STR     "TOTAL_READ_COMMANDS"
 #define TOTAL_WRITE_COMMANDS_STR    "TOTAL_WRITE_COMMANDS"
@@ -574,13 +574,13 @@ int main(int argc, char **argv)
     session_head_t session;
     fru_head_t fru;
     data_head_t data;    
-    char infile[256];
+    char infile[256] = {0};
     drive_info_t drive_info;
 
 	DCS1_header_type = 0;
 
     /* default input file */    
-    strncpy (infile, DEFAULT_INPUT_FILE_NAME, sizeof(infile));
+    strncpy (infile, DEFAULT_INPUT_FILE_NAME, sizeof(infile)-1);
 
     printmask = PRT_ALL;  /* Print everything */
 
@@ -591,7 +591,7 @@ int main(int argc, char **argv)
       else if (!strcmp(argv[i], "-v"))	{ do_version(); return 0; }
       else if (!strcmp(argv[i], "-m"))	{ if (i+1 < argc) { printmask = atoi(argv[++i]); } }
       else if (!strcmp(argv[i], "-r"))  { printmask = PRT_ALL_RAW; }
-      else				{ strncpy(infile, argv[i], sizeof(infile)); }
+      else				{ strncpy(infile, argv[i], sizeof(infile)-1); }
     }
 
     if ((fp = fopen(infile, "rb")) == NULL)
@@ -1677,10 +1677,10 @@ char *print_log_page_37_for_hitachi(unsigned char *data_buffer_p, unsigned char 
     printf("%s%-30s: 0x%012llx (%15lld)\n", indent, POWER_ON_HOURS_STR, value, value);
 
     value = cvt_value_to_ll(&data_buffer_p[12], DONTSWAP, 8);
-    printf("%s%-30s: 0x%012llx (%15lld)\n", indent, NAND_BYTES_READ_STR, value, value);
+    printf("%s%-30s: 0x%012llx (%15lld)\n", indent, TOTAL_BYTES_READ_STR, value, value);  /* host bytes */
 
     value = cvt_value_to_ll(&data_buffer_p[20], DONTSWAP, 8);
-    printf("%s%-30s: 0x%012llx (%15lld)\n", indent, NAND_BYTES_WRITTEN_STR, value, value);
+    printf("%s%-30s: 0x%012llx (%15lld)\n", indent, TOTAL_BYTES_WRITTEN_STR, value, value); /* host bytes */
 
     value = (unsigned long long)data_buffer_p[28];
     printf("%s%-30s: 0x%012llx (%15lld)\n", indent, MAX_DRIVE_TEMP_STR, value, value);
@@ -1692,10 +1692,10 @@ char *print_log_page_37_for_hitachi(unsigned char *data_buffer_p, unsigned char 
     printf("%s%-30s: 0x%012llx (%15lld)\n", indent, TOTAL_WRITE_COMMANDS_STR, value, value);
 
     value = cvt_value_to_ll(&data_buffer_p[52], DONTSWAP, 8);
-    printf("%s%-30s: 0x%012llx (%15lld)\n", indent, TOTAL_HOST_WRITE_COUNT_STR, value, value);
+    printf("%s%-30s: 0x%012llx (%15lld)\n", indent, TOTAL_HOST_WRITE_COUNT_STR, value, value);  /* in 32MB */
 
     value = cvt_value_to_ll(&data_buffer_p[60], DONTSWAP, 8);
-    printf("%s%-30s: 0x%012llx (%15lld)\n", indent, TOTAL_NAND_WRITE_COUNT_STR, value, value);
+    printf("%s%-30s: 0x%012llx (%15lld)\n", indent, TOTAL_NAND_WRITE_COUNT_STR, value, value);  /* in 32MB */
 
     return output_buffer;
 }

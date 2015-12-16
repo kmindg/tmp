@@ -62,7 +62,7 @@ static fbe_status_t fbe_lun_class_calculate_cache_zero_bit_map_size_to_remove(fb
 /* Disable performance stats*/
 static fbe_status_t fbe_lun_prefstats_set_disabled(fbe_packet_t * packet);
 static fbe_status_t fbe_lun_prefstats_disable_peformance_stats(fbe_object_id_t in_lun_object_id, fbe_packet_t *packet);
-
+extern fbe_status_t fbe_database_get_export_lun_by_lun_number(fbe_u32_t lun_number, fbe_private_space_layout_lun_info_t * lun_info);
 
 /*!***************************************************************
  *      fbe_lun_class_control_entry()
@@ -221,6 +221,7 @@ void fbe_lun_class_prepare_for_power_shutdown_alloc_completion(fbe_memory_reques
     fbe_memory_header_t *               next_memory_header      = NULL;
     fbe_queue_head_t                    tmp_queue;
     fbe_queue_element_t *               queue_element           = NULL;
+    fbe_cmi_sp_id_t                     cmi_sp_id = FBE_CMI_SP_ID_INVALID;
 
     fbe_topology_class_trace(FBE_CLASS_ID_LUN,
                              FBE_TRACE_LEVEL_INFO,
@@ -244,17 +245,53 @@ void fbe_lun_class_prepare_for_power_shutdown_alloc_completion(fbe_memory_reques
         return;
     }
 
+#ifdef C4_INTEGRATED
+    status = fbe_cmi_get_sp_id(&cmi_sp_id);
+    if (status != FBE_STATUS_OK)
+    {
+        fbe_topology_class_trace(FBE_CLASS_ID_LUN,
+                             FBE_TRACE_LEVEL_ERROR,
+                             FBE_TRACE_MESSAGE_ID_INFO,
+                             "%s: failed to get SP ID\n", __FUNCTION__);
+    }
+#endif
+
     current_memory_header = fbe_memory_get_first_memory_header(memory_request_p);
 
     fbe_queue_init(&tmp_queue);
 
     /* Create a subpacket for each system LUN */
-    for(lun_index = 0; lun_index < FBE_PRIVATE_SPACE_LAYOUT_MAX_PRIVATE_LUNS; lun_index++)
+    for(lun_index = 0; lun_index < FBE_PRIVATE_SPACE_LAYOUT_MAX_PRIVATE_LUNS + 1; lun_index++)
     {
-        status = fbe_private_space_layout_get_lun_by_index(lun_index, &lun_info);
-        if(status != FBE_STATUS_OK) {
-            break;
+        if (lun_index < FBE_PRIVATE_SPACE_LAYOUT_MAX_PRIVATE_LUNS)
+        {
+            status = fbe_private_space_layout_get_lun_by_index(lun_index, &lun_info);
+            if(status != FBE_STATUS_OK) {
+                break;
+            }
         }
+        else  /* Create a subpacket for c4 mirror LUN */
+        {
+#ifdef C4_INTEGRATED
+            if (FBE_CMI_SP_ID_A == cmi_sp_id)
+            {
+                lun_info.lun_number = FBE_PRIVATE_SPACE_LAYOUT_LUN_ID_PRIMARY_BOOT_VOLUME_SPA;
+            } 
+            else if (FBE_CMI_SP_ID_B == cmi_sp_id)
+            {
+                lun_info.lun_number = FBE_PRIVATE_SPACE_LAYOUT_LUN_ID_PRIMARY_BOOT_VOLUME_SPB;
+            }
+            else
+            {
+                break;
+            }
+            status = fbe_database_get_export_lun_by_lun_number(lun_info.lun_number, &lun_info);
+            if(status != FBE_STATUS_OK) {
+                break;
+            }
+#endif
+        }
+
         if(lun_info.lun_number == FBE_PRIVATE_SPACE_LAYOUT_LUN_ID_INVALID)
         {
             break;
@@ -339,7 +376,7 @@ fbe_lun_class_prepare_for_power_shutdown(fbe_packet_t * packet_p)
 
     fbe_memory_build_chunk_request(memory_request_p,
                                    FBE_MEMORY_CHUNK_SIZE_FOR_PACKET,
-                                   FBE_PRIVATE_SPACE_LAYOUT_MAX_PRIVATE_LUNS,
+                                   FBE_PRIVATE_SPACE_LAYOUT_MAX_PRIVATE_LUNS + 1,
                                    fbe_transport_get_resource_priority(packet_p),
                                    fbe_transport_get_io_stamp(packet_p),
                                    fbe_lun_class_prepare_for_power_shutdown_alloc_completion,

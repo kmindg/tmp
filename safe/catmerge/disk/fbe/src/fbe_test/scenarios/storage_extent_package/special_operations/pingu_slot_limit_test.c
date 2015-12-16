@@ -191,7 +191,9 @@ void pingu_slot_limit_dualsp_test(void)
 
 
     /* 3 - test removing multiple drives then inserting new enclosure */
-    pingu_remove_drives_and_insert_new_enclosure();
+    /* This test was removed since ESP Encl Mgmt now fails enclosure if limit is exceeded.   Physical Slot limit
+       is now enforced by them. */
+    //pingu_remove_drives_and_insert_new_enclosure();
 
 
     mut_printf(MUT_LOG_TEST_STATUS, "=== %s END ===", __FUNCTION__); 

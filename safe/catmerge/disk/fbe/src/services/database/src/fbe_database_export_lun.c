@@ -30,25 +30,11 @@
 #include "fbe_database_metadata_interface.h"
 #include "fbe_database_system_db_interface.h"
 #include "fbe_database_homewrecker_db_interface.h"
-#include "fbe_private_space_layout.h"
 #include "fbe/fbe_event_log_api.h"
 #include "fbe/fbe_event_log_utils.h"
 #include "fbe_database_registry.h"
 #include "fbe_cmi.h"
 
-typedef enum fbe_private_space_layout_export_lun_rg_id_e {
-    FBE_PRIVATE_SPACE_LAYOUT_RG_ID_UTILITY_BOOT_VOLUME_SPA = 1100,
-    FBE_PRIVATE_SPACE_LAYOUT_RG_ID_UTILITY_BOOT_VOLUME_SPB = 1101,
-    FBE_PRIVATE_SPACE_LAYOUT_RG_ID_PRIMARY_BOOT_VOLUME_SPA = 1102,
-    FBE_PRIVATE_SPACE_LAYOUT_RG_ID_PRIMARY_BOOT_VOLUME_SPB = 1103,
-} fbe_private_space_layout_export_lun_rg_id_t;
-
-typedef enum fbe_private_space_layout_export_lun_lun_id_e {
-    FBE_PRIVATE_SPACE_LAYOUT_LUN_ID_UTILITY_BOOT_VOLUME_SPA = 8300,
-    FBE_PRIVATE_SPACE_LAYOUT_LUN_ID_UTILITY_BOOT_VOLUME_SPB = 8301,
-    FBE_PRIVATE_SPACE_LAYOUT_LUN_ID_PRIMARY_BOOT_VOLUME_SPA = 8302,
-    FBE_PRIVATE_SPACE_LAYOUT_LUN_ID_PRIMARY_BOOT_VOLUME_SPB = 8303,
-} fbe_private_space_layout_export_lun_lun_id_t;
 
 typedef struct export_lun_zero_progress_s {
     fbe_semaphore_t                   sem;

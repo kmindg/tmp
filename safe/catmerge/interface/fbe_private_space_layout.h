@@ -101,6 +101,20 @@ typedef enum fbe_private_space_layout_export_lun_object_id_e {
     FBE_RPIVATE_SPACE_LAYOUT_OBJECT_ID_BOOT_VOLUME_LAST            = 0x87,
 } fbe_private_space_layout_export_lun_object_id_t;
 
+typedef enum fbe_private_space_layout_export_lun_rg_id_e {
+    FBE_PRIVATE_SPACE_LAYOUT_RG_ID_UTILITY_BOOT_VOLUME_SPA = 1100,
+    FBE_PRIVATE_SPACE_LAYOUT_RG_ID_UTILITY_BOOT_VOLUME_SPB = 1101,
+    FBE_PRIVATE_SPACE_LAYOUT_RG_ID_PRIMARY_BOOT_VOLUME_SPA = 1102,
+    FBE_PRIVATE_SPACE_LAYOUT_RG_ID_PRIMARY_BOOT_VOLUME_SPB = 1103,
+} fbe_private_space_layout_export_lun_rg_id_t;
+
+typedef enum fbe_private_space_layout_export_lun_lun_id_e {
+    FBE_PRIVATE_SPACE_LAYOUT_LUN_ID_UTILITY_BOOT_VOLUME_SPA = 8300,
+    FBE_PRIVATE_SPACE_LAYOUT_LUN_ID_UTILITY_BOOT_VOLUME_SPB = 8301,
+    FBE_PRIVATE_SPACE_LAYOUT_LUN_ID_PRIMARY_BOOT_VOLUME_SPA = 8302,
+    FBE_PRIVATE_SPACE_LAYOUT_LUN_ID_PRIMARY_BOOT_VOLUME_SPB = 8303,
+} fbe_private_space_layout_export_lun_lun_id_t;
+
 /*! @struct fbe_private_space_layout_raid_group_info_t
  *  @brief Layout information specific to RAID groups
  */

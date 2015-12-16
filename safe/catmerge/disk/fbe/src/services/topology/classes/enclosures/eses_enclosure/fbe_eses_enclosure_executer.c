@@ -7279,7 +7279,7 @@ fbe_eses_enclosure_discovery_transport_drive_power_cycle(fbe_eses_enclosure_t *e
         if(power_cycle_pending)
         {
             fbe_base_object_customizable_trace((fbe_base_object_t*)eses_enclosure,
-                                        FBE_TRACE_LEVEL_ERROR,
+                                        FBE_TRACE_LEVEL_WARNING,
                                         fbe_base_enclosure_get_logheader((fbe_base_enclosure_t*)eses_enclosure),
                                         "%s, power cycle for drive slot %d is in progress, do not send the cmd again.\n",
                                         __FUNCTION__,  slot_index);
