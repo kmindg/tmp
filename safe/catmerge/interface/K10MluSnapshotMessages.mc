@@ -5659,6 +5659,26 @@ Language     = English
 The restore operation cannot be performed because destination of the restore operation is being used by an active sync replication session.
 .
 
+;// --------------------------------------------------
+;// Introduced In: PSI 10
+;//
+;// Usage: For Event Log and Returned to UNISPHERE
+;//
+;// Severity: Error
+;//
+;// Symptom of Problem: An attempt to create more than the maximum number of protocol file system snapshots.
+;//
+;// Generated value should be: 0xE16D80E8
+;//
+MessageId    = 0x80E8
+Severity     = Error
+Facility     = MLUSnapshot
+SymbolicName = MLU_SNAPSHOT_MAX_PROTOCOL_SNAPS_EXCEEDED
+Language     = English
+The maximum number of protocol file system snapshots have already been created on this array.
+Internal Information Only. Could not create protocol snapshot for snap source %3 because maximum number (%2) protocol file system snapshots already exist.
+.
+
 ;
 ;
 ;
