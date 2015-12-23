@@ -1496,13 +1496,28 @@ protected:
     void EnableExpansionDebug(ULONG errEnabler = 0x1)
     {
         EMCPAL_STATUS Status;
-        FctEnableExpansionDebugReq Req;
+        FctEnableExpansionShrinkDebugReq Req;
 
-        memset(&Req, '\0', sizeof (FctEnableExpansionDebugReq));
+        memset(&Req, '\0', sizeof (FctEnableExpansionShrinkDebugReq));
         Req.DebugEnabler = errEnabler;
         mRequest->ReinitializeRequest(EMCPAL_STATUS_SUCCESS);
-        mRequest->SetupTopIoctl(BasicIoRequest::CODE_IOCTL, 0, 0, IOCTL_FCT_ENABLE_EXPANSION_DEBUG, 
-            &Req, sizeof(FctEnableExpansionDebugReq),  NULL, 0);
+        mRequest->SetupTopIoctl(BasicIoRequest::CODE_IOCTL, 0, 0, IOCTL_FCT_ENABLE_EXPANSION_SHRINK_DEBUG, 
+            &Req, sizeof(FctEnableExpansionShrinkDebugReq),  NULL, 0);
+
+        Status = mDevice.SyncCallDriver(mRequest);
+        FF_ASSERT (EMCPAL_STATUS_SUCCESS == Status)
+    }
+ 
+    void EnableShrinkDebug(ULONG errEnabler)
+    {
+        EMCPAL_STATUS Status;
+        FctEnableExpansionShrinkDebugReq Req;
+
+        memset(&Req, '\0', sizeof (FctEnableExpansionShrinkDebugReq));
+        Req.DebugEnabler = errEnabler;
+        mRequest->ReinitializeRequest(EMCPAL_STATUS_SUCCESS);
+        mRequest->SetupTopIoctl(BasicIoRequest::CODE_IOCTL, 0, 0, IOCTL_FCT_ENABLE_EXPANSION_SHRINK_DEBUG,
+            &Req, sizeof(FctEnableExpansionShrinkDebugReq),  NULL, 0);
 
         Status = mDevice.SyncCallDriver(mRequest);
         FF_ASSERT (EMCPAL_STATUS_SUCCESS == Status)

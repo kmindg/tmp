@@ -400,7 +400,7 @@ kozma_prutkov_paged_metadata_operation_test(void)
 
 	mut_printf(MUT_LOG_LOW, "Step 2 \n");
     paged_get_bits.metadata_offset = 0;
-    paged_get_bits.metadata_record_data_size = 4;
+    paged_get_bits.metadata_record_data_size = 8;
     paged_get_bits.get_bits_flags = 0;
     * (fbe_u32_t *)paged_get_bits.metadata_record_data = 0;
     status = fbe_api_base_config_metadata_paged_get_bits(object_id, &paged_get_bits);
@@ -408,7 +408,7 @@ kozma_prutkov_paged_metadata_operation_test(void)
     MUT_ASSERT_INT_EQUAL(* (fbe_u32_t *)paged_get_bits.metadata_record_data, 0);
 
 	mut_printf(MUT_LOG_LOW, "Step 3 \n");
-    * (fbe_u32_t *)paged_change_bits.metadata_record_data = 0xF0E0F0E0;
+    * (fbe_u64_t *)paged_change_bits.metadata_record_data = 0xF0E0F0E0F0E0F0E0;
     status = fbe_api_base_config_metadata_paged_set_bits(object_id, &paged_change_bits);
     MUT_ASSERT_INT_EQUAL(status, FBE_STATUS_OK);
 
@@ -416,10 +416,10 @@ kozma_prutkov_paged_metadata_operation_test(void)
     * (fbe_u32_t *)paged_get_bits.metadata_record_data = 0;
     status = fbe_api_base_config_metadata_paged_get_bits(object_id, &paged_get_bits);
     MUT_ASSERT_INT_EQUAL(status, FBE_STATUS_OK);
-    MUT_ASSERT_INT_EQUAL(* (fbe_u32_t *)paged_get_bits.metadata_record_data, 0xF0E0F0E0);
+    MUT_ASSERT_UINT64_EQUAL(* (fbe_u64_t *)paged_get_bits.metadata_record_data, 0xF0E0F0E0F0E0F0E0);
 
 	mut_printf(MUT_LOG_LOW, "Step 5 \n");
-    * (fbe_u32_t *)paged_change_bits.metadata_record_data = 0x0B000B00;
+    * (fbe_u64_t *)paged_change_bits.metadata_record_data = 0x0B000B000B000B00;
     status = fbe_api_base_config_metadata_paged_set_bits(object_id, &paged_change_bits);
     MUT_ASSERT_INT_EQUAL(status, FBE_STATUS_OK);
 
@@ -427,10 +427,10 @@ kozma_prutkov_paged_metadata_operation_test(void)
     * (fbe_u32_t *)paged_get_bits.metadata_record_data = 0;
     status = fbe_api_base_config_metadata_paged_get_bits(object_id, &paged_get_bits);
     MUT_ASSERT_INT_EQUAL(status, FBE_STATUS_OK);
-    MUT_ASSERT_INT_EQUAL(* (fbe_u32_t *)paged_get_bits.metadata_record_data, 0xFBE0FBE0);
+    MUT_ASSERT_UINT64_EQUAL(* (fbe_u64_t *)paged_get_bits.metadata_record_data, 0xFBE0FBE0FBE0FBE0);
 
 	mut_printf(MUT_LOG_LOW, "Step 7 \n");
-    * (fbe_u32_t *)paged_change_bits.metadata_record_data = 0xF0E0F0E0;
+    * (fbe_u64_t *)paged_change_bits.metadata_record_data = 0xF0E0F0E0F0E0F0E0;
     status = fbe_api_base_config_metadata_paged_clear_bits(object_id, &paged_change_bits);
     MUT_ASSERT_INT_EQUAL(status, FBE_STATUS_OK);
 
@@ -438,30 +438,30 @@ kozma_prutkov_paged_metadata_operation_test(void)
     * (fbe_u32_t *)paged_get_bits.metadata_record_data = 0;
     status = fbe_api_base_config_metadata_paged_get_bits(object_id, &paged_get_bits);
     MUT_ASSERT_INT_EQUAL(status, FBE_STATUS_OK);
-    MUT_ASSERT_INT_EQUAL(* (fbe_u32_t *)paged_get_bits.metadata_record_data, 0x0B000B00);
+    MUT_ASSERT_UINT64_EQUAL(* (fbe_u32_t *)paged_get_bits.metadata_record_data, 0x0B000B000B000B00);
 
 
     /* Offset test */
     paged_change_bits.metadata_offset = 512 + 64;
-    paged_change_bits.metadata_record_data_size = 4;
+    paged_change_bits.metadata_record_data_size = 8;
     paged_change_bits.metadata_repeat_count = 1;
     paged_change_bits.metadata_repeat_offset = 0;
 
 	mut_printf(MUT_LOG_LOW, "Step 9 \n");
-    * (fbe_u32_t *)paged_change_bits.metadata_record_data = 0xFFFFFFFF;
+    * (fbe_u64_t *)paged_change_bits.metadata_record_data = 0xFFFFFFFFFFFFFFFF;
     status = fbe_api_base_config_metadata_paged_clear_bits(object_id, &paged_change_bits);
     MUT_ASSERT_INT_EQUAL(status, FBE_STATUS_OK);
 
 	mut_printf(MUT_LOG_LOW, "Step 10 \n");
     paged_get_bits.metadata_offset = 512 + 64;
-    paged_get_bits.metadata_record_data_size = 4;
+    paged_get_bits.metadata_record_data_size = 8;
     * (fbe_u32_t *)paged_get_bits.metadata_record_data = 0;
     status = fbe_api_base_config_metadata_paged_get_bits(object_id, &paged_get_bits);
     MUT_ASSERT_INT_EQUAL(status, FBE_STATUS_OK);
     MUT_ASSERT_INT_EQUAL(* (fbe_u32_t *)paged_get_bits.metadata_record_data, 0);
 
 	mut_printf(MUT_LOG_LOW, "Step 11 \n");
-    * (fbe_u32_t *)paged_change_bits.metadata_record_data = 0xF0E0F0E0;
+    * (fbe_u64_t *)paged_change_bits.metadata_record_data = 0xF0E0F0E0F0E0F0E0;
     status = fbe_api_base_config_metadata_paged_set_bits(object_id, &paged_change_bits);
     MUT_ASSERT_INT_EQUAL(status, FBE_STATUS_OK);
 
@@ -469,10 +469,10 @@ kozma_prutkov_paged_metadata_operation_test(void)
     * (fbe_u32_t *)paged_get_bits.metadata_record_data = 0;
     status = fbe_api_base_config_metadata_paged_get_bits(object_id, &paged_get_bits);
     MUT_ASSERT_INT_EQUAL(status, FBE_STATUS_OK);
-    MUT_ASSERT_INT_EQUAL(* (fbe_u32_t *)paged_get_bits.metadata_record_data, 0xF0E0F0E0);
+    MUT_ASSERT_UINT64_EQUAL(* (fbe_u64_t *)paged_get_bits.metadata_record_data, 0xF0E0F0E0F0E0F0E0);
 
 	mut_printf(MUT_LOG_LOW, "Step 13 \n");
-    * (fbe_u32_t *)paged_change_bits.metadata_record_data = 0x0B000B00;
+    * (fbe_u64_t *)paged_change_bits.metadata_record_data = 0x0B000B000B000B00;
     status = fbe_api_base_config_metadata_paged_set_bits(object_id, &paged_change_bits);
     MUT_ASSERT_INT_EQUAL(status, FBE_STATUS_OK);
 
@@ -480,10 +480,10 @@ kozma_prutkov_paged_metadata_operation_test(void)
     * (fbe_u32_t *)paged_get_bits.metadata_record_data = 0;
     status = fbe_api_base_config_metadata_paged_get_bits(object_id, &paged_get_bits);
     MUT_ASSERT_INT_EQUAL(status, FBE_STATUS_OK);
-    MUT_ASSERT_INT_EQUAL(* (fbe_u32_t *)paged_get_bits.metadata_record_data, 0xFBE0FBE0);
+    MUT_ASSERT_UINT64_EQUAL(* (fbe_u64_t *)paged_get_bits.metadata_record_data, 0xFBE0FBE0FBE0FBE0);
 
 	mut_printf(MUT_LOG_LOW, "Step 15 \n");
-    * (fbe_u32_t *)paged_change_bits.metadata_record_data = 0xF0E0F0E0;
+    * (fbe_u64_t *)paged_change_bits.metadata_record_data = 0xF0E0F0E0F0E0F0E0;
     status = fbe_api_base_config_metadata_paged_clear_bits(object_id, &paged_change_bits);
     MUT_ASSERT_INT_EQUAL(status, FBE_STATUS_OK);
 
@@ -491,7 +491,7 @@ kozma_prutkov_paged_metadata_operation_test(void)
     * (fbe_u32_t *)paged_get_bits.metadata_record_data = 0;
     status = fbe_api_base_config_metadata_paged_get_bits(object_id, &paged_get_bits);
     MUT_ASSERT_INT_EQUAL(status, FBE_STATUS_OK);
-    MUT_ASSERT_INT_EQUAL(* (fbe_u32_t *)paged_get_bits.metadata_record_data, 0x0B000B00);
+    MUT_ASSERT_UINT64_EQUAL(* (fbe_u64_t *)paged_get_bits.metadata_record_data, 0x0B000B000B000B00);
 
 
     /* Large size get test */
@@ -1114,7 +1114,8 @@ static void kozma_prutkov_zero_on_demand_test(void)
 	fbe_u8_t * buffer;
 	fbe_status_t status;
 	fbe_api_base_config_metadata_paged_get_bits_t paged_get_bits;
-    fbe_u32_t paged_bitmap_data;
+    fbe_u64_t paged_bitmap_data;
+    fbe_u64_t paged_bitmap_data_2;
 	fbe_lba_t curr_checkpoint;
 
 
@@ -1175,8 +1176,8 @@ static void kozma_prutkov_zero_on_demand_test(void)
     block_operation_info.verify_error_counts = verify_err_counts;
 
 	//FBE_PROVISION_DRIVE_CHUNK_SIZE                =    0x800,   /* in blocks (2048 blocks)    */
-    paged_get_bits.metadata_offset = (lba / 0x800) * 2; /* 2 bytes for each chunk *///0x1fe; /* 510 + 4 = 514 */
-    paged_get_bits.metadata_record_data_size = 4;
+    paged_get_bits.metadata_offset = (lba / 0x800) * sizeof(fbe_provision_drive_paged_metadata_t); /* 8 bytes for each chunk *///0x1fe; /* 510 + 4 = 514 */
+    paged_get_bits.metadata_record_data_size = sizeof(fbe_provision_drive_paged_metadata_t) * 2;
     * (fbe_u32_t *)paged_get_bits.metadata_record_data = 0;
     paged_get_bits.get_bits_flags = 0;
    status = fbe_api_base_config_metadata_paged_get_bits(object_id, &paged_get_bits);
@@ -1187,15 +1188,16 @@ static void kozma_prutkov_zero_on_demand_test(void)
      * VB - 1, NZ -0, UZ -0,  CD - 0 (2 byte - 0x0001)
      * so both values are valid one
      */
-    paged_bitmap_data = *(fbe_u32_t *)paged_get_bits.metadata_record_data;
+    memcpy(&paged_bitmap_data, &paged_get_bits.metadata_record_data[0], sizeof(fbe_u64_t));
+    memcpy(&paged_bitmap_data_2, &paged_get_bits.metadata_record_data[8], sizeof(fbe_u64_t));
 
-    mut_printf(MUT_LOG_LOW, "Zero On Demand Test paged bit before write 0x%x, lba 0x%llx, curr chk 0x%llx\n", paged_bitmap_data, lba, curr_checkpoint);
+    mut_printf(MUT_LOG_LOW, "Zero On Demand Test paged bit before write 0x%llx, lba 0x%llx, curr chk 0x%llx\n", paged_bitmap_data, lba, curr_checkpoint);
+    mut_printf(MUT_LOG_LOW, "Zero On Demand Test paged bit 2 before write 0x%llx, lba 0x%llx, curr chk 0x%llx\n", paged_bitmap_data_2, lba, curr_checkpoint);
 
-
-    if(!((paged_bitmap_data  == 0x00030003) ||
-           (paged_bitmap_data == 0x00010001) ||
-           (paged_bitmap_data == 0x00010003) ||
-           (paged_bitmap_data == 0x00030001)))
+    if(!((paged_bitmap_data  == 0x3) ||
+           (paged_bitmap_data == 0x1) ||
+           (paged_bitmap_data_2 == 0x3) ||
+           (paged_bitmap_data_2 == 0x1)))
     {
 
         mut_printf(MUT_LOG_TEST_STATUS, "kozma_prutkov ZOD test fail- Received paged bits 0x%x are not 0x00030003 or 0x00010001 ****\n", 
@@ -1205,18 +1207,20 @@ static void kozma_prutkov_zero_on_demand_test(void)
 
     fbe_api_block_transport_send_block_operation(object_id, FBE_PACKAGE_ID_SEP_0, &block_operation_info, sg_list);
 
-    paged_get_bits.metadata_offset = (lba / 0x800) * 2; /* 2 bytes for each chunk */ //0x1fe; /* 510 + 4 = 514 */
-    paged_get_bits.metadata_record_data_size = 4;
+    paged_get_bits.metadata_offset = (lba / 0x800) * sizeof(fbe_provision_drive_paged_metadata_t); /* 2 bytes for each chunk */ //0x1fe; /* 510 + 4 = 514 */
+    paged_get_bits.metadata_record_data_size = sizeof(fbe_provision_drive_paged_metadata_t) * 2;
     * (fbe_u32_t *)paged_get_bits.metadata_record_data = 0;
     status = fbe_api_base_config_metadata_paged_get_bits(object_id, &paged_get_bits);
     MUT_ASSERT_INT_EQUAL(status, FBE_STATUS_OK);
 
     /* paged bitmap will be VB - 1, NZ -0, UZ -0,  CD - 1 (2 byte - 0x0009)
      */
-    paged_bitmap_data = * (fbe_u32_t *)paged_get_bits.metadata_record_data;
-    mut_printf(MUT_LOG_LOW, "Zero On Demand Test paged bit after write 0x%x\n", paged_bitmap_data);
-    MUT_ASSERT_INT_EQUAL(paged_bitmap_data, 0x00090009);
-
+    memcpy(&paged_bitmap_data, &paged_get_bits.metadata_record_data[0], sizeof(fbe_u64_t));
+    memcpy(&paged_bitmap_data_2, &paged_get_bits.metadata_record_data[8], sizeof(fbe_u64_t));
+    mut_printf(MUT_LOG_LOW, "Zero On Demand Test paged bit after write 0x%llx\n", paged_bitmap_data);
+    MUT_ASSERT_UINT64_EQUAL(paged_bitmap_data, 0x9);
+    mut_printf(MUT_LOG_LOW, "Zero On Demand Test paged bit after write 0x%llx\n", paged_bitmap_data_2);
+    MUT_ASSERT_UINT64_EQUAL(paged_bitmap_data_2, 0x9);
     fbe_api_block_transport_send_block_operation(object_id, FBE_PACKAGE_ID_SEP_0, &block_operation_info, sg_list);
 
     fbe_api_free_memory(buffer);

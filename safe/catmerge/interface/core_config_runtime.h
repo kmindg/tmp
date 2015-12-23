@@ -115,7 +115,9 @@ typedef struct _CORE_CONFIG_RUNTIME
     UINT_32 MaxPoolLUsforMR;
     UINT_32 MaxPlatformFastCacheSizeGB;
     UINT_32 MaxBoundVVolsForBlock;
-    UINT_32 MaxProtocolEndpointsPerSP;
+    UINT_32 MaxProtocolEndpointsPerSP;   
+    UINT_32 MinVVolALU;
+    UINT_32 MaxVVolALU;
     //FBE HW Attributes
     struct _CORE_CONFIG_HWATTRIBUTES HwAttributes;
     //Port Limits
@@ -147,6 +149,8 @@ extern  UINT_32 CCR_API ccr_getAuthMaxAuthenticationRecs(void);
 extern  UINT_32 CCR_API ccr_getMaxConnectLogRecordsPerSP(void);
 extern  UINT_32 CCR_API ccr_getMaxConnectLogFilterEntries(void);
 extern  UINT_32 CCR_API ccr_getMaxHostLunNumber(void);
+extern  UINT_32 CCR_API ccr_getMinVVolALU(void);
+extern  UINT_32 CCR_API ccr_getMaxVVolALU(void);
 extern  UINT_32 CCR_API ccr_getMaxVLUsPerSP(void);
 extern  UINT_32 CCR_API ccr_getMaxLunsPerUserDefinedSG(void);
 extern  UINT_32 CCR_API ccr_getPlatformMaxWcSize(void);
@@ -250,6 +254,8 @@ extern  UINT_32 CCR_API ccr_getPlatformMaxCombinediSCSIFeCount(void);
 //
 #define MAX_HOST_LUN_NUMBER                   (ccr_getMaxHostLunNumber())
 
+#define MIN_VVOL_ALU                          (ccr_getMinVVolALU())
+#define MAX_VVOL_ALU                          (ccr_getMaxVVolALU())
 
 // This is the most memory we think we might use for write cache on this platform
 // This value will change bitmap size, some table sizes, overhead block allocation, etc 

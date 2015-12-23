@@ -291,96 +291,135 @@ void batman_base_config_paged_metadata_operation_test(void)
 
     fbe_api_base_config_metadata_paged_change_bits_t paged_change_bits;
     fbe_api_base_config_metadata_paged_get_bits_t paged_get_bits;
+    fbe_u32_t i;
 
     paged_change_bits.metadata_offset = 0;
-    paged_change_bits.metadata_record_data_size = 4;
+    paged_change_bits.metadata_record_data_size = 16;
     paged_change_bits.metadata_repeat_count = 1;
     paged_change_bits.metadata_repeat_offset = 0;
 
-    * (fbe_u32_t *)paged_change_bits.metadata_record_data = 0xFFFFFFFF;
+    memset(&paged_change_bits.metadata_record_data[0], 0xFF, 16);
     status = fbe_api_base_config_metadata_paged_clear_bits(batman_pvd_id, &paged_change_bits);
     MUT_ASSERT_INT_EQUAL(status, FBE_STATUS_OK);
 
     paged_get_bits.metadata_offset = 0;
-    paged_get_bits.metadata_record_data_size = 4;
+    paged_get_bits.metadata_record_data_size = 16;
     * (fbe_u32_t *)paged_get_bits.metadata_record_data = 0;
     paged_get_bits.get_bits_flags = 0;
     status = fbe_api_base_config_metadata_paged_get_bits(batman_pvd_id, &paged_get_bits);
     MUT_ASSERT_INT_EQUAL(status, FBE_STATUS_OK);
     MUT_ASSERT_INT_EQUAL(* (fbe_u32_t *)paged_get_bits.metadata_record_data, 0);
 
-    * (fbe_u32_t *)paged_change_bits.metadata_record_data = 0xF0E0F0E0;
+    for (i = 0; i < 16; i+=2) {
+        paged_change_bits.metadata_record_data[i] = 0xE0; 
+        paged_change_bits.metadata_record_data[i+1] = 0xF0; 
+    }
     status = fbe_api_base_config_metadata_paged_set_bits(batman_pvd_id, &paged_change_bits);
     MUT_ASSERT_INT_EQUAL(status, FBE_STATUS_OK);
 
     * (fbe_u32_t *)paged_get_bits.metadata_record_data = 0;
     status = fbe_api_base_config_metadata_paged_get_bits(batman_pvd_id, &paged_get_bits);
     MUT_ASSERT_INT_EQUAL(status, FBE_STATUS_OK);
-    MUT_ASSERT_INT_EQUAL(* (fbe_u32_t *)paged_get_bits.metadata_record_data, 0xF0E0F0E0);
 
-    * (fbe_u32_t *)paged_change_bits.metadata_record_data = 0x0B000B00;
+    for (i = 0; i < 16; i+=2) {
+        MUT_ASSERT_INT_EQUAL(paged_get_bits.metadata_record_data[i], 0xE0); 
+        MUT_ASSERT_INT_EQUAL(paged_get_bits.metadata_record_data[i+1], 0xF0); 
+    }
+
+    for (i = 0; i < 16; i+=2) {
+        paged_change_bits.metadata_record_data[i] = 0x00; 
+        paged_change_bits.metadata_record_data[i+1] = 0x0B; 
+    }
     status = fbe_api_base_config_metadata_paged_set_bits(batman_pvd_id, &paged_change_bits);
     MUT_ASSERT_INT_EQUAL(status, FBE_STATUS_OK);
 
     * (fbe_u32_t *)paged_get_bits.metadata_record_data = 0;
     status = fbe_api_base_config_metadata_paged_get_bits(batman_pvd_id, &paged_get_bits);
     MUT_ASSERT_INT_EQUAL(status, FBE_STATUS_OK);
-    MUT_ASSERT_INT_EQUAL(* (fbe_u32_t *)paged_get_bits.metadata_record_data, 0xFBE0FBE0);
-
-    * (fbe_u32_t *)paged_change_bits.metadata_record_data = 0xF0E0F0E0;
+    for (i = 0; i < 16; i+=2) {
+        MUT_ASSERT_INT_EQUAL(paged_get_bits.metadata_record_data[i], 0xE0); 
+        MUT_ASSERT_INT_EQUAL(paged_get_bits.metadata_record_data[i+1], 0xFB); 
+    }
+    
+    for (i = 0; i < 16; i+=2) {
+        paged_change_bits.metadata_record_data[i] = 0xE0; 
+        paged_change_bits.metadata_record_data[i+1] = 0xF0; 
+    }
     status = fbe_api_base_config_metadata_paged_clear_bits(batman_pvd_id, &paged_change_bits);
     MUT_ASSERT_INT_EQUAL(status, FBE_STATUS_OK);
 
     * (fbe_u32_t *)paged_get_bits.metadata_record_data = 0;
     status = fbe_api_base_config_metadata_paged_get_bits(batman_pvd_id, &paged_get_bits);
     MUT_ASSERT_INT_EQUAL(status, FBE_STATUS_OK);
-    MUT_ASSERT_INT_EQUAL(* (fbe_u32_t *)paged_get_bits.metadata_record_data, 0x0B000B00);
 
-
+    for (i = 0; i < 16; i+=2) {
+        MUT_ASSERT_INT_EQUAL(paged_get_bits.metadata_record_data[i], 0x00); 
+        MUT_ASSERT_INT_EQUAL(paged_get_bits.metadata_record_data[i+1], 0x0B); 
+    }
+    
     /* Offset test */
     paged_change_bits.metadata_offset = 512 + 64;
-    paged_change_bits.metadata_record_data_size = 4;
+    paged_change_bits.metadata_record_data_size = 16;
     paged_change_bits.metadata_repeat_count = 1;
     paged_change_bits.metadata_repeat_offset = 0;
 
-    * (fbe_u32_t *)paged_change_bits.metadata_record_data = 0xFFFFFFFF;
+    memset(&paged_change_bits.metadata_record_data[0], 0xFF, 16);
     status = fbe_api_base_config_metadata_paged_clear_bits(batman_pvd_id, &paged_change_bits);
     MUT_ASSERT_INT_EQUAL(status, FBE_STATUS_OK);
 
     paged_get_bits.metadata_offset = 512 + 64;
-    paged_get_bits.metadata_record_data_size = 4;
+    paged_get_bits.metadata_record_data_size = 16;
     * (fbe_u32_t *)paged_get_bits.metadata_record_data = 0;
     status = fbe_api_base_config_metadata_paged_get_bits(batman_pvd_id, &paged_get_bits);
     MUT_ASSERT_INT_EQUAL(status, FBE_STATUS_OK);
     MUT_ASSERT_INT_EQUAL(* (fbe_u32_t *)paged_get_bits.metadata_record_data, 0);
 
-    * (fbe_u32_t *)paged_change_bits.metadata_record_data = 0xF0E0F0E0;
+    for (i = 0; i < 16; i+=2) {
+        paged_change_bits.metadata_record_data[i] = 0xE0; 
+        paged_change_bits.metadata_record_data[i+1] = 0xF0; 
+    }
     status = fbe_api_base_config_metadata_paged_set_bits(batman_pvd_id, &paged_change_bits);
     MUT_ASSERT_INT_EQUAL(status, FBE_STATUS_OK);
 
     * (fbe_u32_t *)paged_get_bits.metadata_record_data = 0;
     status = fbe_api_base_config_metadata_paged_get_bits(batman_pvd_id, &paged_get_bits);
     MUT_ASSERT_INT_EQUAL(status, FBE_STATUS_OK);
-    MUT_ASSERT_INT_EQUAL(* (fbe_u32_t *)paged_get_bits.metadata_record_data, 0xF0E0F0E0);
 
-    * (fbe_u32_t *)paged_change_bits.metadata_record_data = 0x0B000B00;
+    for (i = 0; i < 16; i+=2) {
+        MUT_ASSERT_INT_EQUAL(paged_get_bits.metadata_record_data[i], 0xE0); 
+        MUT_ASSERT_INT_EQUAL(paged_get_bits.metadata_record_data[i+1], 0xF0); 
+    }
+
+    for (i = 0; i < 16; i+=2) {
+        paged_change_bits.metadata_record_data[i] = 0x00; 
+        paged_change_bits.metadata_record_data[i+1] = 0x0B; 
+    }
     status = fbe_api_base_config_metadata_paged_set_bits(batman_pvd_id, &paged_change_bits);
     MUT_ASSERT_INT_EQUAL(status, FBE_STATUS_OK);
 
     * (fbe_u32_t *)paged_get_bits.metadata_record_data = 0;
     status = fbe_api_base_config_metadata_paged_get_bits(batman_pvd_id, &paged_get_bits);
     MUT_ASSERT_INT_EQUAL(status, FBE_STATUS_OK);
-    MUT_ASSERT_INT_EQUAL(* (fbe_u32_t *)paged_get_bits.metadata_record_data, 0xFBE0FBE0);
-
-    * (fbe_u32_t *)paged_change_bits.metadata_record_data = 0xF0E0F0E0;
+    for (i = 0; i < 16; i+=2) {
+        MUT_ASSERT_INT_EQUAL(paged_get_bits.metadata_record_data[i], 0xE0); 
+        MUT_ASSERT_INT_EQUAL(paged_get_bits.metadata_record_data[i+1], 0xFB); 
+    }
+    
+    for (i = 0; i < 16; i+=2) {
+        paged_change_bits.metadata_record_data[i] = 0xE0; 
+        paged_change_bits.metadata_record_data[i+1] = 0xF0; 
+    }
     status = fbe_api_base_config_metadata_paged_clear_bits(batman_pvd_id, &paged_change_bits);
     MUT_ASSERT_INT_EQUAL(status, FBE_STATUS_OK);
 
     * (fbe_u32_t *)paged_get_bits.metadata_record_data = 0;
     status = fbe_api_base_config_metadata_paged_get_bits(batman_pvd_id, &paged_get_bits);
     MUT_ASSERT_INT_EQUAL(status, FBE_STATUS_OK);
-    MUT_ASSERT_INT_EQUAL(* (fbe_u32_t *)paged_get_bits.metadata_record_data, 0x0B000B00);
 
+    for (i = 0; i < 16; i+=2) {
+        MUT_ASSERT_INT_EQUAL(paged_get_bits.metadata_record_data[i], 0x00); 
+        MUT_ASSERT_INT_EQUAL(paged_get_bits.metadata_record_data[i+1], 0x0B); 
+    }
 
     return;
 }

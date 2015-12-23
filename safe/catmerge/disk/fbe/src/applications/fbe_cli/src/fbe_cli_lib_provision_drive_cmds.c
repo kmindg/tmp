@@ -1272,13 +1272,13 @@ void fbe_cli_display_pvd_paged_metadata(fbe_object_id_t pvd_object_id,
         {
             current_paged_p = &paged_p[index];
 
-            fbe_cli_printf("  %8x |   %3d |     %3d   |     %3d   |    %3d   | 0x%x\n", 
+            fbe_cli_printf("  %8x |   %3d |     %3d   |     %3d   |    %3d   | 0x%llx\n", 
                            index, 
                            current_paged_p->valid_bit,
                            current_paged_p->need_zero_bit,
                            current_paged_p->user_zero_bit,
                            current_paged_p->consumed_user_data_bit,
-                           current_paged_p->unused_bit);
+                           (unsigned long long)current_paged_p->unused_bit);
         }
         chunks_remaining -= current_chunks;
         chunk_offset += current_chunks;

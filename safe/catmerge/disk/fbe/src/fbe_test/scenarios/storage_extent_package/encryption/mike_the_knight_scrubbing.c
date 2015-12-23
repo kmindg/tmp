@@ -864,8 +864,8 @@ void mike_the_knight_test_rg_config_scrubbing_consumed(fbe_test_rg_configuration
             status = fbe_api_base_config_metadata_paged_get_bits(pvd_object_ids[rg_index], &paged_get_bits);
             pvd_metadata = (fbe_provision_drive_paged_metadata_t *)&paged_get_bits.metadata_record_data[0];
             MUT_ASSERT_INT_EQUAL(status, FBE_STATUS_OK);
-            MUT_ASSERT_INT_EQUAL(pvd_metadata[0].need_zero_bit, 0);
-            MUT_ASSERT_INT_EQUAL(pvd_metadata[0].consumed_user_data_bit, 1);
+            MUT_ASSERT_UINT64_EQUAL(pvd_metadata[0].need_zero_bit, 0);
+            MUT_ASSERT_UINT64_EQUAL(pvd_metadata[0].consumed_user_data_bit, 1);
 
         }
         /* Goto next raid group
@@ -1315,8 +1315,8 @@ void mike_the_knight_test_rg_config_reboot_sp_dualsp(fbe_test_rg_configuration_t
             status = fbe_api_base_config_metadata_paged_get_bits(pvd_object_ids[rg_index], &paged_get_bits);
             pvd_metadata = (fbe_provision_drive_paged_metadata_t *)&paged_get_bits.metadata_record_data[0];
             MUT_ASSERT_INT_EQUAL(status, FBE_STATUS_OK);
-            MUT_ASSERT_INT_EQUAL(pvd_metadata[0].need_zero_bit, 0);
-            MUT_ASSERT_INT_EQUAL(pvd_metadata[0].consumed_user_data_bit, 1);
+            MUT_ASSERT_UINT64_EQUAL(pvd_metadata[0].need_zero_bit, 0);
+            MUT_ASSERT_UINT64_EQUAL(pvd_metadata[0].consumed_user_data_bit, 1);
         }
         /* Goto next raid group
          */

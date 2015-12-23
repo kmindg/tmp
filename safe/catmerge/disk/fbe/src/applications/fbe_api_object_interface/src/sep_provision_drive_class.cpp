@@ -2322,11 +2322,11 @@ fbe_status_t sepProvisionDrive::get_paged_metadata(
         //get the data
         sprintf(temp,"\n"
             " <index>                    %d\n"
-            " <valid bit>                %3d\n"
-            " <need zero bit>            %3d\n"
-            " <user zero bit>            %3d\n"
-            " <consumed user data bit>   %3d\n"
-            " <unused bit>               0x%x\n",
+            " <valid bit>                %lld\n"
+            " <need zero bit>            %lld\n"
+            " <user zero bit>            %lld\n"
+            " <consumed user data bit>   %lld\n"
+            " <unused bit>               0x%llx\n",
             index, 
             current_paged_p->valid_bit,
             current_paged_p->need_zero_bit,

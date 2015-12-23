@@ -130,7 +130,7 @@ typedef struct fbe_api_provisional_drive_paged_bits_s{
     fbe_u16_t need_zero_bit:1;  /*!< associate chunk need to be zero */
     fbe_u16_t user_zero_bit:1;  /*!< user has requested zeroing for associate chunk */
     fbe_u16_t consumed_user_data_bit:1; /*!< associate chunk has valid user data */
-    fbe_u16_t unused_bit:12;     /*!< unused bit */
+    fbe_u64_t unused_bit:60;     /*!< unused bit */
 }fbe_api_provisional_drive_paged_bits_t;
 #pragma pack()
 

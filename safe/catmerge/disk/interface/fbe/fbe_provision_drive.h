@@ -673,29 +673,6 @@ typedef struct fbe_provision_drive_control_get_verify_invalidate_checkpoint_s {
 /* FBE_PROVISION_DRIVE_CONTROL_CODE_GET_PHYSICAL_DRIVE_LOCATION */
 typedef struct fbe_base_config_physical_drive_location_s fbe_provision_drive_get_physical_drive_location_t;
 
-/*
- *  FBE_PROVISION_DRIVE_CONTROL_CODE_SET_METADATA_PAGED_BITS
- *  FBE_PROVISION_DRIVE_CONTROL_CODE_GET_METADATA_PAGED_BITS 
- *  FBE_PROVISION_DRIVE_CONTROL_CODE_CLEAR_METADATA_PAGED_BITS
- *  FBE_PROVISION_DRIVE_CONTROL_CODE_METADATA_PAGED_WRITE
- */ 
-#pragma pack(1)
-typedef struct fbe_provision_drive_control_paged_bits_s{
-    fbe_u16_t valid_bit:1;
-    fbe_u16_t need_zero_bit:1;
-    fbe_u16_t user_zero_bit:1;
-    fbe_u16_t consumed_user_data_bit:1;
-    fbe_u16_t unused_bit:12;    
-}fbe_provision_drive_control_paged_bits_t;
-#pragma pack()
-
-typedef struct fbe_provision_drive_control_paged_metadata_s{
-    fbe_u64_t       metadata_offset;
-    fbe_u32_t       metadata_record_data_size;
-    fbe_u64_t       metadata_repeat_count;
-    fbe_u64_t       metadata_repeat_offset;
-    fbe_provision_drive_control_paged_bits_t  metadata_bits;
-}fbe_provision_drive_control_paged_metadata_t;
 
 /*FBE_PROVISION_DRIVE_CONTROL_CODE_SET_BACKGROUND_PRIORITIES*/
 /*FBE_PROVISION_DRIVE_CONTROL_CODE_GET_BACKGROUND_PRIORITIES*/
@@ -1208,12 +1185,12 @@ typedef struct fbe_provision_drive_nonpaged_metadata_s
 */
 typedef struct fbe_provision_drive_paged_metadata_s
 {
-    fbe_u16_t valid_bit:1; /* If TRUE, this paged metadata is valid. 
+    fbe_u64_t valid_bit:1; /* If TRUE, this paged metadata is valid. 
                               If FALSE, this paged metadata encountered uncorrectable read error and was zeroed by MDS */
-    fbe_u16_t need_zero_bit:1; /* If TRUE, this area has to be zeroed out, if FALSE, this area was already zeroed by PVD */
-    fbe_u16_t user_zero_bit:1; /* if TRUE, if the user requested to zero this area, needs to be cleaned after zeroing*/
-    fbe_u16_t consumed_user_data_bit:1; /* associate chunk has valid user data if set TRUE */
-    fbe_u16_t unused_bit:12;   /* unused bits */
+    fbe_u64_t need_zero_bit:1; /* If TRUE, this area has to be zeroed out, if FALSE, this area was already zeroed by PVD */
+    fbe_u64_t user_zero_bit:1; /* if TRUE, if the user requested to zero this area, needs to be cleaned after zeroing*/
+    fbe_u64_t consumed_user_data_bit:1; /* associate chunk has valid user data if set TRUE */
+    fbe_u64_t unused_bit:60;   /* unused bits */
 }fbe_provision_drive_paged_metadata_t;
 
 #define FBE_PROVISION_DRIVE_PAGED_DATA_SIZE_FOR_EXT_POOL 64
@@ -1225,6 +1202,20 @@ typedef struct fbe_provision_drive_paged_metadata_for_pool_s
 }fbe_provision_drive_paged_metadata_for_pool_t;
 
 #pragma pack()
+
+/*
+ *  FBE_PROVISION_DRIVE_CONTROL_CODE_SET_METADATA_PAGED_BITS
+ *  FBE_PROVISION_DRIVE_CONTROL_CODE_GET_METADATA_PAGED_BITS 
+ *  FBE_PROVISION_DRIVE_CONTROL_CODE_CLEAR_METADATA_PAGED_BITS
+ *  FBE_PROVISION_DRIVE_CONTROL_CODE_METADATA_PAGED_WRITE
+ */ 
+typedef struct fbe_provision_drive_control_paged_metadata_s{
+    fbe_u64_t       metadata_offset;
+    fbe_u32_t       metadata_record_data_size;
+    fbe_u64_t       metadata_repeat_count;
+    fbe_u64_t       metadata_repeat_offset;
+    fbe_provision_drive_paged_metadata_t  metadata_bits;
+}fbe_provision_drive_control_paged_metadata_t;
 
 #endif /* FBE_PROVISION_DRIVE_H */
 

@@ -513,12 +513,12 @@ typedef enum _CMI_CONDUIT_ID
     Cmi_Tdx_Request_Conduit   = 187,  // TDX peer requests
     Cmi_Tdx_Response_Conduit  = 188,  // TDX peer responses
 
-    Cmi_Qos_Configuration_Conduit = 189,
+    Cmi_Qos_Driver_Request_Conduit = 189,
 
     Cmi_LXF_Request_Conduit   = 190,
     Cmi_LXF_Response_Conduit  = 191,
     
-    Cmi_Qos_Driver_Conduit = 192,
+    Cmi_Qos_Driver_Response_Conduit = 192,
 
     // 
     // Redirector conduit, where all messages handled during callback (Top)   

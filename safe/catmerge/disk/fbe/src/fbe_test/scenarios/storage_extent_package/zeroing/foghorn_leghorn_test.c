@@ -587,17 +587,25 @@ void foghorn_leghorn_rg_create_test(fbe_test_rg_configuration_t*    in_rg_config
     /* Read metadata */        
     mut_printf(MUT_LOG_LOW, "=== verify PVD obj id 0x%x paged metadata, chunck 0x%x, 0x%llxx\n", 
                object_id, (0x10000/FOGHORN_LEGHORN_CHUNK_SIZE), (pba/FOGHORN_LEGHORN_CHUNK_SIZE));
-    paged_get_bits.metadata_offset = 0;
-    paged_get_bits.metadata_record_data_size = (fbe_u32_t )((pba/FOGHORN_LEGHORN_CHUNK_SIZE)+1) * sizeof(fbe_provision_drive_paged_metadata_t);
+    paged_get_bits.metadata_offset = (fbe_u32_t )(0x10000/FOGHORN_LEGHORN_CHUNK_SIZE) * sizeof(fbe_provision_drive_paged_metadata_t);;
+    paged_get_bits.metadata_record_data_size = sizeof(fbe_provision_drive_paged_metadata_t);
     * (fbe_u32_t *)paged_get_bits.metadata_record_data = 0;
     paged_get_bits.get_bits_flags = 0;
     status = fbe_api_base_config_metadata_paged_get_bits(object_id, &paged_get_bits);
     MUT_ASSERT_INT_EQUAL(status, FBE_STATUS_OK);
     pvd_metadata = (fbe_provision_drive_paged_metadata_t *)&paged_get_bits.metadata_record_data[0];
-    MUT_ASSERT_INT_EQUAL(pvd_metadata[(0x10000/FOGHORN_LEGHORN_CHUNK_SIZE)].need_zero_bit, 0);
-    MUT_ASSERT_INT_EQUAL(pvd_metadata[(0x10000/FOGHORN_LEGHORN_CHUNK_SIZE)].consumed_user_data_bit, 0);
-    MUT_ASSERT_INT_EQUAL(pvd_metadata[(pba/FOGHORN_LEGHORN_CHUNK_SIZE)].need_zero_bit, 0);
-    MUT_ASSERT_INT_EQUAL(pvd_metadata[(pba/FOGHORN_LEGHORN_CHUNK_SIZE)].consumed_user_data_bit, 1);
+    MUT_ASSERT_UINT64_EQUAL(pvd_metadata[0].need_zero_bit, 0);
+    MUT_ASSERT_UINT64_EQUAL(pvd_metadata[0].consumed_user_data_bit, 0);
+
+    paged_get_bits.metadata_offset = (fbe_u32_t )(pba/FOGHORN_LEGHORN_CHUNK_SIZE) * sizeof(fbe_provision_drive_paged_metadata_t);
+    paged_get_bits.metadata_record_data_size = sizeof(fbe_provision_drive_paged_metadata_t);
+    * (fbe_u32_t *)paged_get_bits.metadata_record_data = 0;
+    paged_get_bits.get_bits_flags = 0;
+    status = fbe_api_base_config_metadata_paged_get_bits(object_id, &paged_get_bits);
+    MUT_ASSERT_INT_EQUAL(status, FBE_STATUS_OK);
+    pvd_metadata = (fbe_provision_drive_paged_metadata_t *)&paged_get_bits.metadata_record_data[0];
+    MUT_ASSERT_UINT64_EQUAL(pvd_metadata[0].need_zero_bit, 0);
+    MUT_ASSERT_UINT64_EQUAL(pvd_metadata[0].consumed_user_data_bit, 1);
 
 	/* start disk zeroing */
     status = fbe_api_job_service_scrub_old_user_data();
@@ -607,17 +615,25 @@ void foghorn_leghorn_rg_create_test(fbe_test_rg_configuration_t*    in_rg_config
     MUT_ASSERT_INT_EQUAL(FBE_STATUS_OK, status);
 
     /* Read metadata again*/        
-    paged_get_bits.metadata_offset = 0;
-    paged_get_bits.metadata_record_data_size = (fbe_u32_t )((pba/FOGHORN_LEGHORN_CHUNK_SIZE)+1) * sizeof(fbe_provision_drive_paged_metadata_t);
+    paged_get_bits.metadata_offset = (fbe_u32_t )(0x10000/FOGHORN_LEGHORN_CHUNK_SIZE) * sizeof(fbe_provision_drive_paged_metadata_t);
+    paged_get_bits.metadata_record_data_size = sizeof(fbe_provision_drive_paged_metadata_t);
     * (fbe_u32_t *)paged_get_bits.metadata_record_data = 0;
     paged_get_bits.get_bits_flags = 0;
     status = fbe_api_base_config_metadata_paged_get_bits(object_id, &paged_get_bits);
     MUT_ASSERT_INT_EQUAL(status, FBE_STATUS_OK);
     pvd_metadata = (fbe_provision_drive_paged_metadata_t *)&paged_get_bits.metadata_record_data[0];
-    MUT_ASSERT_INT_EQUAL(pvd_metadata[(0x10000/FOGHORN_LEGHORN_CHUNK_SIZE)].need_zero_bit, 0);
-    MUT_ASSERT_INT_EQUAL(pvd_metadata[(0x10000/FOGHORN_LEGHORN_CHUNK_SIZE)].consumed_user_data_bit, 0);
-    MUT_ASSERT_INT_EQUAL(pvd_metadata[(pba/FOGHORN_LEGHORN_CHUNK_SIZE)].need_zero_bit, 1);
-    MUT_ASSERT_INT_EQUAL(pvd_metadata[(pba/FOGHORN_LEGHORN_CHUNK_SIZE)].consumed_user_data_bit, 0);
+    MUT_ASSERT_UINT64_EQUAL(pvd_metadata[0].need_zero_bit, 0);
+    MUT_ASSERT_UINT64_EQUAL(pvd_metadata[0].consumed_user_data_bit, 0);
+
+    paged_get_bits.metadata_offset = (fbe_u32_t )(pba/FOGHORN_LEGHORN_CHUNK_SIZE) * sizeof(fbe_provision_drive_paged_metadata_t);
+    paged_get_bits.metadata_record_data_size = sizeof(fbe_provision_drive_paged_metadata_t);
+    * (fbe_u32_t *)paged_get_bits.metadata_record_data = 0;
+    paged_get_bits.get_bits_flags = 0;
+    status = fbe_api_base_config_metadata_paged_get_bits(object_id, &paged_get_bits);
+    MUT_ASSERT_INT_EQUAL(status, FBE_STATUS_OK);
+    pvd_metadata = (fbe_provision_drive_paged_metadata_t *)&paged_get_bits.metadata_record_data[0];
+    MUT_ASSERT_UINT64_EQUAL(pvd_metadata[0].need_zero_bit, 1);
+    MUT_ASSERT_UINT64_EQUAL(pvd_metadata[0].consumed_user_data_bit, 0);
 
     fbe_api_provision_drive_get_info(object_id, &pvd_info);
     MUT_ASSERT_INT_EQUAL(pvd_info.scrubbing_in_progress, FBE_TRUE);

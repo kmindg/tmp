@@ -637,16 +637,16 @@ fbe_payload_metadata_build_paged_get_bits(fbe_payload_metadata_operation_t * met
 	if(metadata_offset % paged_data_size) {
 		fbe_base_transport_trace(FBE_TRACE_LEVEL_CRITICAL_ERROR,
 					 FBE_TRACE_MESSAGE_ID_FUNCTION_FAILED,
-					 "%s: offset 0x%llx is no multiple of data size 0x%x",
+					 "%s: offset 0x%llx is no multiple of paged data size 0x%x",
 					 __FUNCTION__,
 					 (unsigned long long)metadata_offset,
-					 metadata_record_data_size);
+					 paged_data_size);
 	}
 
 	if(metadata_record_data_size % paged_data_size) {
 		fbe_base_transport_trace(FBE_TRACE_LEVEL_CRITICAL_ERROR,
 					 FBE_TRACE_MESSAGE_ID_FUNCTION_FAILED,
-					 "%s: offset 0x%llx is no multiple of data size 0x%x",
+					 "%s: offset 0x%llx is no multiple of record size 0x%x",
 					 __FUNCTION__,
 					 (unsigned long long)metadata_offset,
 					 metadata_record_data_size);
