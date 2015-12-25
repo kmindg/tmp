@@ -4251,5 +4251,22 @@ static fbe_bool_t fbe_database_verify_and_handle_unsupported_drive(fbe_object_id
         }
     }
 
+    if(drive_info_p->get_drive_info.speed_capability < FBE_DRIVE_SPEED_12GB)
+    {
+        if (drive_info_p->get_drive_info.speed_capability == FBE_DRIVE_SPEED_6GB && 
+            fbe_database_is_drive_type_6g_link_supported(&fbe_database_service))
+        {
+            // allow exception for 6G if it's enabled.   Let it come online.
+        }
+        else
+        {
+            database_trace(FBE_TRACE_LEVEL_WARNING, FBE_TRACE_MESSAGE_ID_INFO,
+                            "database_process_physical_drives: Link Rate enum:%d not supported for 0x%x Skip!\n",
+                            drive_info_p->get_drive_info.speed_capability, pdo_object_id);
+            fbe_database_notify_pdo_logically_offline(pdo_object_id, FBE_BLOCK_TRANSPORT_LOGICAL_STATE_FAILED_LESS_12G_LINK);
+            return FBE_TRUE;
+        }
+    }
+
     return FBE_FALSE;
 }

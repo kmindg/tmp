@@ -353,6 +353,7 @@ typedef enum fbe_block_transport_logical_state_e{
     FBE_BLOCK_TRANSPORT_LOGICAL_STATE_FAILED_SSD_LE,  /*!< Low Endurance not supported >*/
     FBE_BLOCK_TRANSPORT_LOGICAL_STATE_FAILED_SSD_RI,  /*!< Read Intensive not supported >*/
     FBE_BLOCK_TRANSPORT_LOGICAL_STATE_FAILED_HDD_520, /*!< Read Intensive not supported >*/
+    FBE_BLOCK_TRANSPORT_LOGICAL_STATE_FAILED_LESS_12G_LINK,   /*!< max supported link rate < 12G */
     FBE_BLOCK_TRANSPORT_LOGICAL_STATE_FAILED_OTHER,  /*!< general case for issues not covered above >*/
 }fbe_block_transport_logical_state_t;
 

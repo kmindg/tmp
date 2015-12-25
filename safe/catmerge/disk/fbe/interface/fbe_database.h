@@ -2087,7 +2087,8 @@ typedef enum fbe_database_drive_types_supported_e
     /* note: this is a bitmap */
     FBE_DATABASE_DRIVE_TYPE_SUPPORTED_LE        = 0x0001,
     FBE_DATABASE_DRIVE_TYPE_SUPPORTED_RI        = 0x0002,
-    FBE_DATABASE_DRIVE_TYPE_SUPPORTED_520_HDD   = 0x0004,    /* currently not implemented.  Reserved this bit for Unity*/
+    FBE_DATABASE_DRIVE_TYPE_SUPPORTED_520_HDD   = 0x0004,    
+    FBE_DATABASE_DRIVE_TYPE_SUPPORTED_6G_LINK   = 0x0008,  /* Support Max 6G link speed devices */
 }fbe_database_additional_drive_types_supported_t;
 
 typedef struct fbe_database_control_set_supported_drive_type_s {

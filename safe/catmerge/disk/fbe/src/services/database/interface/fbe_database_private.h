@@ -378,6 +378,11 @@ static __forceinline fbe_bool_t fbe_database_is_drive_type_520_hdd_supported(fbe
     return (database_p->supported_drive_types & FBE_DATABASE_DRIVE_TYPE_SUPPORTED_520_HDD) ? FBE_TRUE : FBE_FALSE;
 }
 
+static __forceinline fbe_bool_t fbe_database_is_drive_type_6g_link_supported(fbe_database_service_t *database_p)
+{
+    return (database_p->supported_drive_types & FBE_DATABASE_DRIVE_TYPE_SUPPORTED_6G_LINK) ? FBE_TRUE : FBE_FALSE;
+}
+
 static __forceinline fbe_bool_t fbe_database_is_debug_flag_set(fbe_database_service_t *database_p,
                                                                fbe_database_debug_flags_t debug_flags)
 {

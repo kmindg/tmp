@@ -279,6 +279,7 @@ typedef enum dmo_event_log_drive_offline_reason_e{
     DMO_DRIVE_OFFLINE_REASON_SSD_LE,   /* Low endurance SSD not supported */
     DMO_DRIVE_OFFLINE_REASON_SSD_RI,   /* Read intensive SSD not supported */
     DMO_DRIVE_OFFLINE_REASON_HDD_520,  /* 520 block size HDD not supported */
+    DMO_DRIVE_OFFLINE_REASON_LESS_12G_LINK, /* Max support link rate < 12G */
     /* always add new death reasons to at end.  scripts and field support may depend on existing values */
     DMO_DRIVE_OFFLINE_REASON_LAST
 }dmo_event_log_drive_offline_reason_t;

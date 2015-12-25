@@ -1399,6 +1399,9 @@ char * FBE_API_CALL fbe_api_esp_drive_mgmt_map_death_reason_to_str(fbe_u32_t dea
     case DMO_DRIVE_OFFLINE_REASON_HDD_520:
         death_reason_desc = "DMO_DRIVE_OFFLINE_REASON_HDD_520";
         break;
+    case DMO_DRIVE_OFFLINE_REASON_LESS_12G_LINK:
+        death_reason_desc = "DMO_DRIVE_OFFLINE_REASON_LESS_12G_LINK";
+        break;
     case DMO_DRIVE_OFFLINE_REASON_UNKNOWN_FAILURE:
         death_reason_desc = "DMO_DRIVE_OFFLINE_REASON_UNKNOWN_FAILURE";
         break;

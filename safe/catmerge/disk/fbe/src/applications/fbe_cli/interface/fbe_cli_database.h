@@ -41,7 +41,12 @@ usage:  database -getState                              - Get database state.\n\
         database -get_system_db_header -verbose         - Get the system db header information.\n\
         database -getStats                              - Get database stats.\n\
         database -get_additional_supported_drive_types  - Get supported drive types.\n\
-        database -set_additional_supported_drive_type {-enable|-disable} {le|ri|520hdd}  - Enable/Disable a supported drive type.\n\
+        database -set_additional_supported_drive_type {-enable|-disable} {<type>}  - Enable/Disable a supported drive type.\n\
+                     <type>  supported drive types\n\
+                         le:        Low Endurance\n\
+                         ri:        Read Intensive\n\
+                         520hdd:    520 bps for HDD\n\
+                         6g:        6G Max Link Speed\n\
 "
 
 #define FBE_CLI_DATABASE_HOOK_USAGE  "\

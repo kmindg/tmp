@@ -6163,6 +6163,11 @@ void fbe_database_reactivate_pdos_of_drive_type(fbe_database_additional_drive_ty
         {
             do_reactivate = FBE_TRUE;
         }
+        else if ((drive_type == FBE_DATABASE_DRIVE_TYPE_SUPPORTED_6G_LINK)   &&
+                 pdo_drive_info.get_drive_info.speed_capability == FBE_DRIVE_SPEED_6GB)
+        {
+            do_reactivate = FBE_TRUE;
+        }
 
         if (do_reactivate)
         {

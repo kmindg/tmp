@@ -382,6 +382,10 @@ static fbe_status_t fbe_cli_disk_display_info(fbe_u32_t object_id, fbe_u32_t con
             fbe_cli_printf("   Logical state:            0x%X (%s)\n", drive_information.logical_state, "HDD 520");
             break;
 
+        case FBE_BLOCK_TRANSPORT_LOGICAL_STATE_FAILED_LESS_12G_LINK:
+            fbe_cli_printf("   Logical state:            0x%X (%s)\n", drive_information.logical_state, "Less 12G Link Rate");
+            break;
+
         case FBE_BLOCK_TRANSPORT_LOGICAL_STATE_FAILED_OTHER:
             fbe_cli_printf("   Logical state:            0x%X (%s)\n", drive_information.logical_state, "Other");
             break;            
@@ -699,6 +703,10 @@ static fbe_status_t fbe_cli_disk_phys_display_info(fbe_u32_t object_id, fbe_u32_
 
         case FBE_BLOCK_TRANSPORT_LOGICAL_STATE_FAILED_HDD_520:
             fbe_cli_printf("   Logical state:            FBE_BLOCK_TRANSPORT_LOGICAL_STATE_FAILED_HDD_520\n");
+            break;
+
+        case FBE_BLOCK_TRANSPORT_LOGICAL_STATE_FAILED_LESS_12G_LINK:
+            fbe_cli_printf("   Logical state:            FBE_BLOCK_TRANSPORT_LOGICAL_STATE_FAILED_LESS_12G_LINK\n");
             break;
 
         case FBE_BLOCK_TRANSPORT_LOGICAL_STATE_FAILED_OTHER:

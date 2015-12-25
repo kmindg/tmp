@@ -283,9 +283,6 @@ extern fbe_status_t fbe_test_dest_utils_init_error_injection_record(fbe_dest_err
     FORWARD DECLARATIONS:
 */
 void pinga_validate_4k_in_system_slots(void);
-static void pinga_insert_drive(pinga_validate_info_t *info,
-                               fbe_u32_t bus, fbe_u32_t encl, fbe_u32_t slot, fbe_lba_t capacity,
-                               fbe_api_terminator_device_handle_t *drive_handle_p);
 static void ping_insert_new_drive(fbe_u32_t port_number, fbe_u32_t enclosure_number,
                              fbe_u32_t slot_number);
 static void pinga_validate_drive_speed_capacity(void);
@@ -327,13 +324,13 @@ void pinga_drive_validation_test(void)
 
     mut_printf(MUT_LOG_TEST_STATUS, "=== %s START ===", __FUNCTION__); 
 
+    pinga_validate_drive_speed_capacity();
     pinga_validate_product_ids();
     pinga_test_port_lockup();
     pinga_validate_all_drive_types();
     pinga_validate_unamp_support();
     pinga_validate_unamp_cmd();
-    pinga_validate_4k_in_system_slots();
-    pinga_validate_drive_speed_capacity();
+    pinga_validate_4k_in_system_slots();    
     pinga_validate_database_on_slow_drive();
 #ifdef FBE_HANDLE_UNKNOWN_TLA_SUFFIX
     pinga_validate_drive_tla();
@@ -480,36 +477,6 @@ void pinga_validate_4k_in_system_slots(void)
     mut_printf(MUT_LOG_TEST_STATUS, "=== %s END ===\n", __FUNCTION__);
 }
 
-/*!****************************************************************************
- *  pinga_insert_drive
- ******************************************************************************
- *
- * @brief
- *  Insert a drive.
- *
- *
- * @return  None
- *
- * @author
- * 06/10/2014 - Created. Jamin Kang
- *****************************************************************************/
-static void pinga_insert_drive(pinga_validate_info_t *info,
-                               fbe_u32_t bus, fbe_u32_t encl, fbe_u32_t slot, fbe_lba_t capacity,
-                               fbe_api_terminator_device_handle_t *drive_handle_p)
-{
-    fbe_status_t status;
-    fbe_terminator_sas_drive_info_t sas_drive;
-    fbe_api_terminator_device_handle_t encl_handle;
-    fbe_sas_address_t new_address = fbe_test_pp_util_get_unique_sas_address();
-
-    status = fbe_api_terminator_get_enclosure_handle(bus, encl, &encl_handle);
-    MUT_ASSERT_INT_EQUAL(status, FBE_STATUS_OK);
-    fbe_test_get_sas_drive_info_extend(&sas_drive, bus, encl, slot, info->block_size, capacity, new_address, info->drive_type);
-    mut_printf(MUT_LOG_LOW, "=== %s %d_%d_%d serial: %s inserted. ===",
-               __FUNCTION__, bus, encl, slot, sas_drive.drive_serial_number);
-    status  = fbe_api_terminator_insert_sas_drive(encl_handle, slot, &sas_drive, drive_handle_p);
-    MUT_ASSERT_INT_EQUAL(status, FBE_STATUS_OK);
-}
 
 /*!****************************************************************************
  *  pinga_validate_drive_speed_capacity
@@ -530,37 +497,82 @@ static void pinga_validate_drive_speed_capacity(void)
     fbe_u32_t slot = 5;
     fbe_u32_t i;
     fbe_status_t status;
+    fbe_database_additional_drive_types_supported_t types;
+    fbe_bool_t is_6G_supported = FBE_FALSE;
+
+    mut_printf(MUT_LOG_TEST_STATUS, "=== %s START ===", __FUNCTION__);
+
+    status = fbe_api_database_get_additional_supported_drive_types(&types);
+    MUT_ASSERT_INT_EQUAL(status, FBE_STATUS_OK);
+    is_6G_supported = (types & FBE_DATABASE_DRIVE_TYPE_SUPPORTED_6G_LINK)? FBE_TRUE: FBE_FALSE;
+
+    /* validate default setting of 6G disabled. */
+    mut_printf(MUT_LOG_TEST_STATUS, "Verify 6G max link rate is not supported");
+    MUT_ASSERT_INT_EQUAL_MSG(is_6G_supported, FBE_FALSE, "6G is not disabled by default");
 
     for (i = 0; i < sizeof(validate_drives) / sizeof(validate_drives[0]); i += 1, slot += 1) {
         pinga_validate_info_t *drive = &validate_drives[i];
-        fbe_u32_t object_handle = 0;
+        fbe_u32_t pdo = 0;
         fbe_physical_drive_information_t get_drive_information;
         fbe_api_terminator_device_handle_t  drive_handle;
+        fbe_terminator_sas_drive_type_default_info_t new_page_info = {0};
+        fbe_u32_t max_link_rate_byte_offset = FBE_SCSI_MODE_SENSE_HEADER_LENGTH +
+                                              FBE_SCSI_MODE_SENSE_PHY_DESCRIPTOR_OFFSET +
+                                              FBE_SCSI_MODE_SENSE_HARDWARE_MAXIMUM_LINK_RATE_OFFSET;
+ 
+        fbe_api_terminator_sas_drive_get_default_page_info(drive->drive_type, &new_page_info);
 
-        pinga_insert_drive(drive, 0, 0, slot, TERMINATOR_MINIMUM_NON_SYSTEM_DRIVE_CAPACITY, &drive_handle);
-        status = fbe_test_pp_util_verify_pdo_state(0, 0, slot, FBE_LIFECYCLE_STATE_READY, 10000 /*timeout*/);
+        if (drive->speed_capability == FBE_DRIVE_SPEED_6GB)
+        {
+            new_page_info.mode_page_0x19[max_link_rate_byte_offset] = 0xAA;
+        }
+        else if (drive->speed_capability == FBE_DRIVE_SPEED_12GB)
+        {
+            new_page_info.mode_page_0x19[max_link_rate_byte_offset] = 0xBB;
+        }
+
+        biff_insert_new_drive(drive->drive_type, &new_page_info, 0, 0, slot);
+
+        status = fbe_test_pp_util_verify_pdo_state(0, 0, slot, FBE_LIFECYCLE_STATE_READY, 10000 /* ms */);
         MUT_ASSERT_INT_EQUAL(status, FBE_STATUS_OK);
 
-        status = fbe_api_get_physical_drive_object_id_by_location(0, 0, slot, &object_handle);
+        status = fbe_api_get_physical_drive_object_id_by_location(0, 0, slot, &pdo);
         MUT_ASSERT_TRUE(status == FBE_STATUS_OK);
-        MUT_ASSERT_TRUE(object_handle != FBE_OBJECT_ID_INVALID);
-        status = fbe_api_physical_drive_get_drive_information(object_handle, &get_drive_information, FBE_PACKET_FLAG_NO_ATTRIB);
+        MUT_ASSERT_TRUE(pdo != FBE_OBJECT_ID_INVALID);
+        status = fbe_api_physical_drive_get_drive_information(pdo, &get_drive_information, FBE_PACKET_FLAG_NO_ATTRIB);
         MUT_ASSERT_TRUE(status == FBE_STATUS_OK);
 
         mut_printf(MUT_LOG_TEST_STATUS, "%u_%u_%u: speed cap: %u, block_size: %u",
                    0, 0, slot, get_drive_information.speed_capability,
                    get_drive_information.block_size);
-        MUT_ASSERT_TRUE(get_drive_information.speed_capability == drive->speed_capability);
+        MUT_ASSERT_INT_EQUAL_MSG(get_drive_information.speed_capability, drive->speed_capability, "speed capability not expected");
 
-        fbe_api_sleep(1000);
-        status = fbe_test_sep_drive_verify_pvd_state(0, 0, slot, FBE_LIFECYCLE_STATE_READY, 60000);
-        MUT_ASSERT_INT_EQUAL(status, FBE_STATUS_OK);
+        
+
+
+        if ((drive->speed_capability == FBE_DRIVE_SPEED_6GB && is_6G_supported) ||
+             drive->speed_capability == FBE_DRIVE_SPEED_12GB)
+        {       
+            mut_printf(MUT_LOG_TEST_STATUS, "Verify link rate is supported"); 
+            status = fbe_test_sep_drive_verify_pvd_state(0, 0, slot, FBE_LIFECYCLE_STATE_READY, 60000);
+            MUT_ASSERT_INT_EQUAL(status, FBE_STATUS_OK);
+        }
+        else
+        {
+            fbe_block_transport_logical_state_t  logical_state;
+            mut_printf(MUT_LOG_TEST_STATUS, "Verify link rate is NOT supported");
+            status = fbe_api_physical_drive_get_logical_drive_state(pdo, &logical_state);
+            MUT_ASSERT_INT_EQUAL(status, FBE_STATUS_OK);
+            MUT_ASSERT_INT_EQUAL_MSG(logical_state, FBE_BLOCK_TRANSPORT_LOGICAL_STATE_FAILED_LESS_12G_LINK, "expected offline due to LESS_12G_LINK");
+        }
 
         status = fbe_test_pp_util_pull_drive(0, 0, slot, &drive_handle);
         MUT_ASSERT_INT_EQUAL(status, FBE_STATUS_OK);
-        status = fbe_api_wait_till_object_is_destroyed(object_handle, FBE_PACKAGE_ID_PHYSICAL);
+        status = fbe_api_wait_till_object_is_destroyed(pdo, FBE_PACKAGE_ID_PHYSICAL);
         MUT_ASSERT_INT_EQUAL(status, FBE_STATUS_OK);
     }
+
+    mut_printf(MUT_LOG_TEST_STATUS, "=== %s END ===\n", __FUNCTION__);
 }
 
 static void ping_insert_new_drive(fbe_u32_t port_number, fbe_u32_t enclosure_number,
@@ -1161,6 +1173,7 @@ static void pinga_verify_drive_type(pinga_validate_drive_type_t *drive, fbe_obje
             return;
         }
     }
+
            
     MUT_ASSERT_TRUE(logical_state == FBE_BLOCK_TRANSPORT_LOGICAL_STATE_ONLINE || 
                     logical_state == FBE_BLOCK_TRANSPORT_LOGICAL_STATE_UNINITALIZED);

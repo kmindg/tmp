@@ -1441,6 +1441,7 @@ fbe_drive_mgmt_process_drive_status(fbe_drive_mgmt_t * pDriveMgmt,
                logical_state == FBE_BLOCK_TRANSPORT_LOGICAL_STATE_FAILED_SSD_LE ||
                logical_state == FBE_BLOCK_TRANSPORT_LOGICAL_STATE_FAILED_SSD_RI ||
                logical_state == FBE_BLOCK_TRANSPORT_LOGICAL_STATE_FAILED_HDD_520 ||
+               logical_state == FBE_BLOCK_TRANSPORT_LOGICAL_STATE_FAILED_LESS_12G_LINK ||
                logical_state == FBE_BLOCK_TRANSPORT_LOGICAL_STATE_FAILED_OTHER)
             {                
                 fbe_u32_t reason = fbe_drive_mgmt_get_logical_offline_reason(pDriveMgmt, logical_state);
@@ -3164,6 +3165,7 @@ fbe_drive_mgmt_updateEnclFaultLed(fbe_drive_mgmt_t *drive_mgmt,
                          (driveInfoPtr->logical_state == FBE_BLOCK_TRANSPORT_LOGICAL_STATE_FAILED_SSD_LE) ||
                          (driveInfoPtr->logical_state == FBE_BLOCK_TRANSPORT_LOGICAL_STATE_FAILED_SSD_RI) ||
                          (driveInfoPtr->logical_state == FBE_BLOCK_TRANSPORT_LOGICAL_STATE_FAILED_HDD_520) ||
+                         (driveInfoPtr->logical_state == FBE_BLOCK_TRANSPORT_LOGICAL_STATE_FAILED_LESS_12G_LINK) ||
                          (driveInfoPtr->logical_state == FBE_BLOCK_TRANSPORT_LOGICAL_STATE_FAILED_OTHER)
                        )
                      )

@@ -714,6 +714,9 @@ void fbe_cli_database(fbe_s32_t argc, fbe_s8_t ** argv)
         else if (strncmp(argv[2], "520hdd", 7) == 0) {
             set_drive_type.type = FBE_DATABASE_DRIVE_TYPE_SUPPORTED_520_HDD;
         }
+        else if (strncmp(argv[2], "6g", 3) == 0) {
+            set_drive_type.type = FBE_DATABASE_DRIVE_TYPE_SUPPORTED_6G_LINK;
+        }
         else {
             fbe_cli_error("Wrong command: Invalid drive type\n %s", FBE_CLI_DATABASE_USAGE);
             return;
@@ -2752,6 +2755,7 @@ static void fbe_cli_print_database_supported_drive_types(void)
         fbe_cli_printf("   SSD LE: %s\n", (types&FBE_DATABASE_DRIVE_TYPE_SUPPORTED_LE) ? "yes" : "no");
         fbe_cli_printf("   SSD RI: %s\n", (types&FBE_DATABASE_DRIVE_TYPE_SUPPORTED_RI) ? "yes" : "no");
         fbe_cli_printf("   HDD 520: %s\n", (types&FBE_DATABASE_DRIVE_TYPE_SUPPORTED_520_HDD) ? "yes" : "no");
+        fbe_cli_printf("   6G Max Link Speed: %s\n", (types&FBE_DATABASE_DRIVE_TYPE_SUPPORTED_6G_LINK) ? "yes" : "no");
     }
     return;
 }

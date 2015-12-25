@@ -381,7 +381,7 @@ fbe_sas_physical_drive_set_dev_info(fbe_sas_physical_drive_t * sas_physical_driv
     if (info_ptr->drive_price_class == FBE_DRIVE_PRICE_CLASS_UNKNOWN) {
         /* A supported product id sub string is not found. */
         fbe_base_physical_drive_customizable_trace((fbe_base_physical_drive_t*)sas_physical_drive, 
-                                FBE_TRACE_LEVEL_ERROR,
+                                FBE_TRACE_LEVEL_WARNING,
                                 "%s Unsupported Drive: %s\n",
 
                                 __FUNCTION__, info_ptr->product_id);

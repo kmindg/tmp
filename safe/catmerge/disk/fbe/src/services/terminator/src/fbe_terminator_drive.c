@@ -49,6 +49,7 @@ extern terminator_sas_drive_vpd_inquiry_page_0xf3_t default_drive_vpd_inquiry_f3
 extern terminator_sas_drive_vpd_inquiry_page_0xb2_t default_drive_vpd_inquiry_b2_table;
 extern terminator_sas_drive_inq_data_t              default_drive_inquiry_table;
 extern fbe_u8_t                                     default_mode_page_10[TERMINATOR_SCSI_MODE_PAGE_10_BYTE_SIZE];
+extern fbe_u8_t                                     default_mode_page_0x19_table[TERMINATOR_SCSI_MODE_PAGE_0x19_SIZE];
 extern fbe_u8_t                                     default_log_page_31[TERMINATOR_SCSI_LOG_PAGE_31_BYTE_SIZE];
 
 /* local functions */
@@ -819,6 +820,7 @@ terminator_sas_drive_info_t * allocate_sas_drive_info()
     fbe_zero_memory(new_info->inquiry, sizeof(new_info->inquiry));
     fbe_zero_memory(new_info->vpd_inquiry_f3, sizeof(new_info->vpd_inquiry_f3));    
     fbe_zero_memory(new_info->mode_page, sizeof(new_info->mode_page));
+    fbe_zero_memory(new_info->mode_page_19, sizeof(new_info->mode_page_19));
     fbe_zero_memory(new_info->log_page_31, sizeof(new_info->log_page_31));
 
     return new_info;
@@ -865,6 +867,7 @@ terminator_sas_drive_info_t * sas_drive_info_new(fbe_terminator_sas_drive_info_t
     fbe_zero_memory(new_info->inquiry, sizeof(new_info->inquiry));
     fbe_zero_memory(new_info->vpd_inquiry_f3, sizeof(new_info->vpd_inquiry_f3));    
     fbe_zero_memory(new_info->mode_page, sizeof(new_info->mode_page));
+    fbe_zero_memory(new_info->mode_page_19, sizeof(new_info->mode_page_19));
     fbe_zero_memory(new_info->log_page_31, sizeof(new_info->log_page_31));
 
     return new_info;
@@ -882,6 +885,7 @@ void sas_drive_set_drive_type(terminator_drive_t * self, fbe_sas_drive_type_t ty
     terminator_sas_drive_vpd_inquiry_page_0xf3_t *vpd_inq_f3 = NULL;
     terminator_sas_drive_vpd_inquiry_page_0xb2_t *vpd_inq_b2 = NULL;
     terminator_sas_drive_vpd_inquiry_page_0xc0_t *vpd_inq_c0 = NULL;
+    terminator_sas_drive_mode_page_0x19_data_t   *mode_page_0x19_data = NULL;
 
     fbe_status_t status;
 
@@ -920,11 +924,20 @@ void sas_drive_set_drive_type(terminator_drive_t * self, fbe_sas_drive_type_t ty
     {
         terminator_trace(FBE_TRACE_LEVEL_ERROR, FBE_TRACE_MESSAGE_ID_FUNCTION_FAILED,"%s: vpd inquiry c0 for drive_type[%d] not found\n", __FUNCTION__, type);
         return;
+    }    
+
+    status = sas_drive_get_default_mode_page_0x19_data(info->drive_type, &mode_page_0x19_data);  
+    if (status != FBE_STATUS_OK)
+    {
+        terminator_trace(FBE_TRACE_LEVEL_ERROR, FBE_TRACE_MESSAGE_ID_FUNCTION_FAILED,"%s: mode page 0x19 for drive_type[%d] not found\n", __FUNCTION__, type);
+        return;
     }
+
 
     fbe_copy_memory(info->inquiry, inq_data->drive_inquiry, sizeof(info->inquiry));
     fbe_copy_memory(info->vpd_inquiry_f3, vpd_inq_f3->data, sizeof(info->vpd_inquiry_f3));    
     fbe_copy_memory(info->mode_page, default_mode_page_10, sizeof(info->mode_page));  
+    fbe_copy_memory(info->mode_page_19, mode_page_0x19_data->drive_mode_page, sizeof(info->mode_page_19));  
     fbe_copy_memory(info->vpd_inquiry_b2, vpd_inq_b2->data, sizeof(info->vpd_inquiry_b2));  
     fbe_copy_memory(info->vpd_inquiry_c0, vpd_inq_c0->data, sizeof(info->vpd_inquiry_c0));  
     fbe_copy_memory(info->log_page_31, default_log_page_31, sizeof(info->log_page_31)); 
@@ -1236,6 +1249,23 @@ fbe_u8_t * sas_drive_get_mode_page(terminator_drive_t * self, fbe_u32_t * size)
     *size = sizeof(info->mode_page);
     return info->mode_page;
 }
+
+fbe_u8_t * sas_drive_get_mode_page_19(terminator_drive_t * self, fbe_u32_t * size)
+{
+    terminator_sas_drive_info_t * info = NULL;
+    if(self == NULL)
+    {
+        return NULL;
+    }
+    info = base_component_get_attributes(&self->base);
+    if (info == NULL)
+    {
+        return NULL;
+    }
+    *size = sizeof(info->mode_page_19);
+    return info->mode_page_19;
+}
+
 
 /*!***************************************************************************
  *          sas_drive_get_log_page_31 ()

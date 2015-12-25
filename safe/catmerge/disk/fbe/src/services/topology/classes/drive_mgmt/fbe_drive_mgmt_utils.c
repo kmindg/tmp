@@ -78,6 +78,7 @@ dmo_drive_death_action_tuple_t dmo_drive_death_action_map[] =
     {DMO_DRIVE_OFFLINE_REASON_SSD_LE,                                       DMO_DRIVE_DEATH_ACTION_REPLACE_DRIVE},
     {DMO_DRIVE_OFFLINE_REASON_SSD_RI,                                       DMO_DRIVE_DEATH_ACTION_REPLACE_DRIVE},
     {DMO_DRIVE_OFFLINE_REASON_HDD_520,                                      DMO_DRIVE_DEATH_ACTION_REPLACE_DRIVE},
+    {DMO_DRIVE_OFFLINE_REASON_LESS_12G_LINK,                                DMO_DRIVE_DEATH_ACTION_REPLACE_DRIVE},
     {FBE_BASE_PHYSICAL_DRIVE_DEATH_REASON_SED_DRIVE_NOT_SUPPORTED,	    DMO_DRIVE_DEATH_ACTION_CONTACT_SERVICE_PROVIDER}, 
 
     /*add new stuff here*/
@@ -436,6 +437,10 @@ fbe_drive_mgmt_death_reason_desc(fbe_u32_t death_reason)
     {
         death_reason_desc = "HDD 520";
     } 
+    else if (death_reason == DMO_DRIVE_OFFLINE_REASON_LESS_12G_LINK)
+    {
+        death_reason_desc = "Less 12G";
+    }  
     else if (death_reason == DMO_DRIVE_OFFLINE_REASON_UNKNOWN_FAILURE) 
     {
         death_reason_desc = "LO";
@@ -513,6 +518,10 @@ fbe_u32_t fbe_drive_mgmt_get_logical_offline_reason(fbe_drive_mgmt_t *drive_mgmt
     {
         reason = DMO_DRIVE_OFFLINE_REASON_HDD_520;
     }                 
+    else if (logical_state == FBE_BLOCK_TRANSPORT_LOGICAL_STATE_FAILED_LESS_12G_LINK)
+    {
+        reason = DMO_DRIVE_OFFLINE_REASON_LESS_12G_LINK;
+    }
     else if (logical_state == FBE_BLOCK_TRANSPORT_LOGICAL_STATE_FAILED_OTHER) 
     {
         reason = DMO_DRIVE_OFFLINE_REASON_UNKNOWN_FAILURE;

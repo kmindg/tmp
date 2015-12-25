@@ -41,6 +41,7 @@ typedef struct terminator_sas_drive_info_s{
     fbe_u8_t vpd_inquiry_b2[TERMINATOR_SCSI_VPD_INQUIRY_PAGE_0xB2_SIZE];
     fbe_u8_t vpd_inquiry_c0[TERMINATOR_SCSI_VPD_INQUIRY_PAGE_0xC0_SIZE];    
     fbe_u8_t mode_page[TERMINATOR_SCSI_MODE_PAGE_10_BYTE_SIZE];  /* only for mode sense/select 10*/
+    fbe_u8_t mode_page_19[TERMINATOR_SCSI_MODE_PAGE_0x19_SIZE];  /* only for mode sense/select 10*/
     fbe_u8_t log_page_31[TERMINATOR_SCSI_LOG_PAGE_31_BYTE_SIZE];  /* only for mode sense/select 10*/
 }terminator_sas_drive_info_t;
 
@@ -197,6 +198,7 @@ fbe_u8_t * sas_drive_get_inquiry(terminator_drive_t * self);
 fbe_u8_t * sas_drive_get_vpd_inquiry_f3(terminator_drive_t * self, fbe_u32_t * size);
 fbe_u8_t * sas_drive_get_vpd_inquiry_b2(terminator_drive_t * self, fbe_u32_t * size);
 fbe_u8_t * sas_drive_get_mode_page(terminator_drive_t * self, fbe_u32_t * size);
+fbe_u8_t * sas_drive_get_mode_page_19(terminator_drive_t * self, fbe_u32_t * size);
 fbe_u8_t * sas_drive_get_vpd_inquiry_c0(terminator_drive_t * self, fbe_u32_t * size);
 fbe_u8_t * sas_drive_get_log_page_31(terminator_drive_t * self, fbe_u32_t * size);
 fbe_status_t sas_drive_set_log_page_31(terminator_drive_t * self, fbe_u8_t * log_page_31, fbe_u32_t page_size);
@@ -214,6 +216,7 @@ fbe_status_t sas_drive_get_default_vpd_inq_f3_data(fbe_sas_drive_type_t drive_ty
 fbe_status_t sas_drive_get_default_vpd_inq_b2_data(fbe_sas_drive_type_t drive_type, terminator_sas_drive_vpd_inquiry_page_0xb2_t **inq_data);
 fbe_status_t sas_drive_get_default_vpd_inq_c0_data(fbe_sas_drive_type_t drive_type, terminator_sas_drive_vpd_inquiry_page_0xc0_t **inq_data);
 fbe_status_t sas_drive_get_default_inq_data (fbe_sas_drive_type_t drive_type, terminator_sas_drive_inq_data_t **inq_data);
+fbe_status_t sas_drive_get_default_mode_page_0x19_data (fbe_sas_drive_type_t drive_type, terminator_sas_drive_mode_page_0x19_data_t **mode_page_0x19_data);
 fbe_status_t sas_drive_set_default_field (fbe_sas_drive_type_t drive_type, fbe_terminator_drive_default_field_t field, const fbe_u8_t *data, fbe_u32_t size);
 
 void drive_clear_reset_count(terminator_drive_t * self);
